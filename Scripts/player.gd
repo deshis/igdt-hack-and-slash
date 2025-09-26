@@ -1,12 +1,14 @@
-class_name Player extends Character
+class_name Player extends CharacterBody2D
 
 var input: Vector2
 
-@export var walk_speed := 400.0
-@export var accel := 15.0
+@export var movement_speed := 500.0
+@export var acceleration := 15.0
 
-@export var max_health := 100.0
+@export var max_HP := 100.0
+@export var HP := 100.0
 
+signal update_hp_bar
 
 var can_dash:= true
 var dashing = false
@@ -14,14 +16,9 @@ var dashing = false
 @onready var dash_length_timer: Timer = $DashLengthTimer
 var dash_cooldown:= 3.0
 var dash_length:= 0.15
-var dash_speed:= 3000
+var dash_speed:= 2500
 
-
-func _ready() -> void:
-	movement_speed = walk_speed
-	acceleration = accel
-	HP = max_health
-	max_HP = max_health
+var current_speed:= movement_speed
 
 
 func _physics_process(delta) -> void:
@@ -33,9 +30,9 @@ func _physics_process(delta) -> void:
 		dashing = true
 		dash_length_timer.start(dash_length)
 		dash_cooldown_timer.start(dash_cooldown)
-		movement_speed = dash_speed
+		current_speed = dash_speed
 	else:
-		velocity = lerp(velocity, input * movement_speed, acceleration * delta)
+		velocity = lerp(velocity, input * current_speed, acceleration * delta)
 	
 	move_and_slide()
 
@@ -52,5 +49,16 @@ func _on_dash_cooldown_timer_timeout() -> void:
 
 
 func _on_dash_length_timer_timeout() -> void:
-	movement_speed = walk_speed
+	current_speed = movement_speed
 	dashing = false
+
+
+func take_damage(dmg:float) -> void:
+	HP -= dmg
+	update_hp_bar.emit()
+	if HP <= 0.0:
+		die()
+
+
+func die() -> void:
+	queue_free()
