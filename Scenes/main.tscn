@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=7 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_bo1nx"]
@@ -7,9 +7,16 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dm0k"]
 size = Vector2(100, 100)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gbba"]
+bg_color = Color(0.27450982, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjvhh"]
+bg_color = Color(0.78431374, 0, 0, 1)
+
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
+HP = 75.0
 
 [node name="evil placeholder guy" type="CharacterBody2D" parent="."]
 position = Vector2(600, 300)
@@ -47,6 +54,8 @@ theme_override_constants/margin_bottom = 10
 [node name="ProgressBar" type="ProgressBar" parent="HUD/HPBar/MarginContainer" node_paths=PackedStringArray("player")]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_8gbba")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jjvhh")
 value = 3.05
 show_percentage = false
 script = ExtResource("3_8gbba")
