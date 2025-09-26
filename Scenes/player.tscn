@@ -18,3 +18,12 @@ scale = Vector2(0.78124994, 0.7812501)
 texture = ExtResource("2_6t5aa")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+
+[node name="DashLengthTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
+[connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
