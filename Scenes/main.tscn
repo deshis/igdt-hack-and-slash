@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=13 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://b8rtnvnstvdg4" path="res://Scripts/healthbar.gd" id="3_8gbba"]
 [ext_resource type="Script" uid="uid://b3p4e86xoqqh3" path="res://Scripts/cooldowns.gd" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://bpirytgf71ffg" path="res://Scripts/pause_menu.gd" id="5_kry3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
+size = Vector2(158.00003, 182.00003)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dm0k"]
 size = Vector2(100, 100)
@@ -27,7 +30,22 @@ bg_color = Color(0, 0, 0, 0.50980395)
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
-HP = 75.0
+
+[node name="light_attack" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(0, -88.02471)
+rotation = -3.1415927
+scale = Vector2(1.7929773, 1.3753855)
+
+[node name="hitbox" type="Area2D" parent="Player/light_attack"]
+position = Vector2(0, -64.00002)
+rotation = 3.1415927
+scale = Vector2(0.5577315, 0.72706884)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/light_attack/hitbox"]
+position = Vector2(-9.094947e-13, -80.99997)
+scale = Vector2(0.9999997, 0.9999997)
+shape = SubResource("RectangleShape2D_kry3j")
 
 [node name="evil placeholder guy" type="CharacterBody2D" parent="."]
 position = Vector2(600, 300)
