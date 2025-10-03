@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bpirytgf71ffg" path="res://Scripts/pause_menu.gd" id="5_kry3j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
-size = Vector2(158.00003, 182.00003)
+size = Vector2(190.00005, 161.99997)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dm0k"]
 size = Vector2(100, 100)
@@ -31,20 +31,36 @@ bg_color = Color(0, 0, 0, 0.50980395)
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
 
-[node name="light_attack" type="Sprite2D" parent="Player"]
+[node name="LightAttackObject" type="Sprite2D" parent="Player"]
 visible = false
 position = Vector2(0, -88.02471)
 rotation = -3.1415927
 scale = Vector2(1.7929773, 1.3753855)
 
-[node name="hitbox" type="Area2D" parent="Player/light_attack"]
+[node name="hitbox" type="Area2D" parent="Player/LightAttackObject"]
 position = Vector2(0, -64.00002)
 rotation = 3.1415927
 scale = Vector2(0.5577315, 0.72706884)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/light_attack/hitbox"]
-position = Vector2(-9.094947e-13, -80.99997)
-scale = Vector2(0.9999997, 0.9999997)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/LightAttackObject/hitbox"]
+position = Vector2(-1.8189894e-12, -80.99993)
+scale = Vector2(0.9999995, 0.9999995)
+shape = SubResource("RectangleShape2D_kry3j")
+
+[node name="HeavyAttackObject" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(0, -88.02471)
+rotation = -3.1415927
+scale = Vector2(1.7929773, 1.3753855)
+
+[node name="Hitbox" type="Area2D" parent="Player/HeavyAttackObject"]
+position = Vector2(0, -64.00002)
+rotation = 3.1415927
+scale = Vector2(0.5577315, 0.72706884)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/HeavyAttackObject/Hitbox"]
+position = Vector2(-9.845354e-06, -80.99997)
+scale = Vector2(0.9999989, 0.9999989)
 shape = SubResource("RectangleShape2D_kry3j")
 
 [node name="evil placeholder guy" type="CharacterBody2D" parent="."]

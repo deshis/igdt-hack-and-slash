@@ -27,13 +27,13 @@ one_shot = true
 [node name="DashLengthTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="LightAttackCooldownTimer" type="Timer" parent="."]
+[node name="AttackCooldownTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="LightAttackLengthTimer" type="Timer" parent="."]
+[node name="AttackLengthTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
-[connection signal="timeout" from="LightAttackCooldownTimer" to="." method="_on_light_attack_cooldown_timer_timeout"]
-[connection signal="timeout" from="LightAttackLengthTimer" to="." method="_on_light_attack_length_timer_timeout"]
+[connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
+[connection signal="timeout" from="AttackLengthTimer" to="." method="_on_attack_length_timer_timeout"]
