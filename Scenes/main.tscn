@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=14 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://b8rtnvnstvdg4" path="res://Scripts/healthbar.gd" id="3_8gbba"]
 [ext_resource type="Script" uid="uid://b3p4e86xoqqh3" path="res://Scripts/cooldowns.gd" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://bpirytgf71ffg" path="res://Scripts/pause_menu.gd" id="5_kry3j"]
+[ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/button.gd" id="6_21xkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(190.00005, 161.99997)
@@ -249,15 +250,21 @@ fit_content = true
 [node name="ContinueButton" type="Button" parent="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Continue"
+script = ExtResource("6_21xkr")
 
 [node name="SettingsButton" type="Button" parent="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
+script = ExtResource("6_21xkr")
 
 [node name="QuitButton" type="Button" parent="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit Game"
+script = ExtResource("6_21xkr")
 
+[connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="HUD/PauseMenu" method="_on_continue_button_pressed"]
+[connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="HUD/PauseMenu" method="_on_settings_button_pressed"]
+[connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu" method="_on_quit_button_pressed"]

@@ -1,11 +1,14 @@
 extends Control
 
+@onready var continue_button: Button = $Panel/MarginContainer/VBoxContainer/ContinueButton
+
 func _ready() -> void:
 	visible = false
 
 func toggle_pause()->void:
 	visible = !visible
 	get_tree().paused = !get_tree().paused
+	continue_button.grab_focus()
 	
 	
 func _unhandled_input(event):
