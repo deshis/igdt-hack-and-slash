@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=17 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_bo1nx"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://c081ighahaot6" path="res://Scripts/pause_menu.gd" id="5_kry3j"]
 [ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/button.gd" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/volume_slider.gd" id="7_6bp64"]
+[ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/anti_aliasing_selection.gd" id="8_344ge"]
+[ext_resource type="Script" uid="uid://du5a5xxaahdg7" path="res://Scripts/v_sync_selection.gd" id="9_ynf5e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(190.00005, 161.99997)
@@ -303,14 +305,6 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Settings" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer"]
-layout_mode = 2
-bbcode_enabled = true
-text = "[center]Audio settings
-
-"
-fit_content = true
-
 [node name="Master Volume" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
@@ -359,7 +353,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back to menu"
 
-[node name="Window" type="MarginContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer"]
+[node name="Graphics" type="MarginContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -368,20 +362,52 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Window"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Window Settings" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Window/VBoxContainer"]
+[node name="Anti-aliasing" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[center]Window settings
-
-"
+text = "[center]Anti-aliasing"
 fit_content = true
 
-[node name="BackToMenuButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Window/VBoxContainer"]
+[node name="AntiAliasingSelection" type="OptionButton" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+selected = 0
+item_count = 5
+popup/item_0/text = "Off"
+popup/item_0/id = 0
+popup/item_1/text = "TAA"
+popup/item_1/id = 1
+popup/item_2/text = "MSAA 2x"
+popup/item_2/id = 2
+popup/item_3/text = "MSAA 4x"
+popup/item_3/id = 3
+popup/item_4/text = "MSAA 8x"
+popup/item_4/id = 4
+script = ExtResource("8_344ge")
+
+[node name="Window Settings3" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]V-sync"
+fit_content = true
+
+[node name="VSyncSelection" type="OptionButton" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+selected = 0
+item_count = 2
+popup/item_0/text = "Off"
+popup/item_0/id = 0
+popup/item_1/text = "On"
+popup/item_1/id = 1
+script = ExtResource("9_ynf5e")
+
+[node name="BackToMenuButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -422,5 +448,7 @@ text = "Back to menu"
 [connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]
-[connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Window/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]
+[connection signal="item_selected" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/AntiAliasingSelection" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/AntiAliasingSelection" method="_on_item_selected"]
+[connection signal="item_selected" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/VSyncSelection" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/VSyncSelection" method="_on_item_selected"]
+[connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]
