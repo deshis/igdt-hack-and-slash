@@ -1,0 +1,9 @@
+extends Node
+
+enum Type {
+	BACKPACK,
+	HEALTH,
+	ATTACK_DAMAGE,
+	ATTACK_SPEED,
+	MOVE_SPEED
+}

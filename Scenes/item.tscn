@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://cheduqgq01lw6"]
+
+[ext_resource type="Script" uid="uid://cqp1l0dofg8ft" path="res://Scripts/item.gd" id="1_76mu4"]
+[ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="1_ys0gr"]
+
+[node name="Item" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 706.0
+offset_top = 136.0
+offset_right = 788.0
+offset_bottom = 218.0
+script = ExtResource("1_76mu4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_ys0gr")
+expand_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -20.0
+offset_right = 81.0
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sandevistan"
+horizontal_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

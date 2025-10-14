@@ -47,15 +47,19 @@ func _physics_process(delta) -> void:
 	if Input.is_action_pressed("movement_ability") and can_move and can_dash and input.length() > 0:
 		dash()
 	elif can_move:
-		velocity = lerp(velocity, input * current_speed, acceleration * delta)
+		apply_movement(delta, input)
 	
 	if Input.is_action_pressed("light_attack") and can_attack:
 		light_attack()
 	
 	if Input.is_action_just_pressed("heavy_attack") and can_attack:
-		heavy_attack()
+		heavy_attack(delta)
 	
 	move_and_slide()
+
+
+func apply_movement(delta: float, dir: Vector2) -> void:
+	velocity = lerp(velocity, dir * current_speed, acceleration * delta)
 
 
 func update_input() -> void:
@@ -82,7 +86,7 @@ func light_attack() -> void:
 	attacking = true
 
 
-func heavy_attack() -> void:
+func heavy_attack(delta: float) -> void:
 	can_attack = false
 	can_move = false
 	can_look_around = false
@@ -93,8 +97,9 @@ func heavy_attack() -> void:
 	attack_used.emit(heavy_attack_cooldown)
 	attacking = true
 	
-	# TODO: small dash in the dir of the attack
+	# TODO: could make it smoother
 	velocity = Vector2(0,0)
+	apply_movement(delta, Vector2.UP.rotated(rotation))
 
 
 func dash():
