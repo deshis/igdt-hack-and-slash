@@ -1,17 +1,6 @@
 extends Control
 
-@export var item_name: String = "Unkown Item"
-
-@export var Effect: Sprite2D
-@export var Health: int
-@export var Attack: int
-@export var Attack_speed: int
-@export var Movement_speed: int
-
-
-@export var type: ItemType.Type = ItemType.Type.NOTPICKEDUP
-
-@export var text : String = "n/a"
+@export var text: String
 
 @onready var tooltip:RichTextLabel = $RichTextLabel
 
@@ -20,6 +9,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	tooltip.add_text(text)
 
+@export var type : ItemType.Type
 func get_type() -> int:
 	return type
 

@@ -1,6 +1,7 @@
 extends Node
 
 enum Type {
+	NOTPICKEDUP,
 	BACKPACK,
 	HEALTH,
 	ATTACK_DAMAGE,

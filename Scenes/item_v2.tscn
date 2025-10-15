@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://djhqmu4srdahs"]
+
+[ext_resource type="Script" uid="uid://cd5arjtv3j1kj" path="res://Scripts/item_v_2.gd" id="1_8k04u"]
+[ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_8k04u"]
+[ext_resource type="Script" uid="uid://cvumtdehuq7dq" path="res://Scripts/ui_item.gd" id="2_81840"]
+
+[node name="item" type="Node"]
+script = ExtResource("1_8k04u")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1.7199994, 1.7199998)
+script = ExtResource("2_81840")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_8k04u")
+expand_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -20.0
+offset_right = 81.0
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
