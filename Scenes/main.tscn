@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=20 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_bo1nx"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dvl0eacpjrrqh" path="res://Scripts/inventory_slot.gd" id="9_hptm8"]
 [ext_resource type="Script" uid="uid://du5a5xxaahdg7" path="res://Scripts/v_sync_selection.gd" id="9_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="10_d1ilt"]
+[ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/control_remap_button.gd" id="12_6iyac"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(190.00005, 161.99997)
@@ -497,9 +498,10 @@ offset_right = 250.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 2
 
 [node name="Audio" type="MarginContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -621,7 +623,6 @@ size_flags_vertical = 8
 text = "Back to menu"
 
 [node name="Controls" type="MarginContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -634,13 +635,95 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Controls" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+[node name="moveup" type="HBoxContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
 layout_mode = 2
-bbcode_enabled = true
-text = "[center]Controls
+alignment = 1
 
-"
-fit_content = true
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveup"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Move Up"
+
+[node name="ControlRemapButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveup"]
+layout_mode = 2
+script = ExtResource("12_6iyac")
+action = "move_up"
+
+[node name="movedown" type="HBoxContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/movedown"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Move Down"
+
+[node name="ControlRemapButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/movedown"]
+layout_mode = 2
+script = ExtResource("12_6iyac")
+action = "move_down"
+
+[node name="moveleft" type="HBoxContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveleft"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Move Left"
+
+[node name="ControlRemapButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveleft"]
+layout_mode = 2
+script = ExtResource("12_6iyac")
+action = "move_left"
+
+[node name="moveright" type="HBoxContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveright"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Move Right"
+
+[node name="ControlRemapButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveright"]
+layout_mode = 2
+script = ExtResource("12_6iyac")
+action = "move_right"
+
+[node name="dash" type="HBoxContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/dash"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Movement Ability"
+
+[node name="ControlRemapButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/dash"]
+layout_mode = 2
+script = ExtResource("12_6iyac")
+action = "movement_ability"
+
+[node name="inventory" type="HBoxContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Open Inventory"
+
+[node name="ControlRemapButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/inventory"]
+layout_mode = 2
+script = ExtResource("12_6iyac")
+action = "inventory"
 
 [node name="BackToMenuButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
 layout_mode = 2
