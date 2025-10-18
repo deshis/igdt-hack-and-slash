@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=21 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_bo1nx"]
@@ -9,9 +9,10 @@
 [ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/volume_slider.gd" id="7_6bp64"]
 [ext_resource type="Script" uid="uid://5ote4itncqht" path="res://Scripts/inventory_manager.gd" id="8_344ge"]
 [ext_resource type="Script" uid="uid://dvl0eacpjrrqh" path="res://Scripts/inventory_slot.gd" id="9_hptm8"]
-[ext_resource type="Script" uid="uid://du5a5xxaahdg7" path="res://Scripts/v_sync_selection.gd" id="9_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="10_d1ilt"]
+[ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/vsync_toggle.gd" id="11_fdnlq"]
 [ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/control_remap_button.gd" id="12_6iyac"]
+[ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/full_screen_toggle.gd" id="12_fdnlq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(190.00005, 161.99997)
@@ -498,10 +499,9 @@ offset_right = 250.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 2
+current_tab = 0
 
 [node name="Audio" type="MarginContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -599,22 +599,19 @@ popup/item_4/text = "MSAA 8x"
 popup/item_4/id = 4
 script = ExtResource("8_344ge")
 
-[node name="Window Settings3" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
-layout_mode = 2
-bbcode_enabled = true
-text = "[center]V-sync"
-fit_content = true
-
-[node name="VSyncSelection" type="OptionButton" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+[node name="Vsynctoggle" type="CheckButton" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-selected = 0
-item_count = 2
-popup/item_0/text = "Off"
-popup/item_0/id = 0
-popup/item_1/text = "On"
-popup/item_1/id = 1
-script = ExtResource("9_ynf5e")
+size_flags_vertical = 4
+text = "V-Sync"
+script = ExtResource("11_fdnlq")
+
+[node name="Fullscreentoggle" type="CheckButton" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Full Screen"
+script = ExtResource("12_fdnlq")
 
 [node name="BackToMenuButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
 layout_mode = 2
@@ -623,6 +620,7 @@ size_flags_vertical = 8
 text = "Back to menu"
 
 [node name="Controls" type="MarginContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -769,6 +767,7 @@ text = "Back to menu"
 [connection signal="pressed" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]
 [connection signal="item_selected" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/AntiAliasingSelection" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/AntiAliasingSelection" method="_on_item_selected"]
-[connection signal="item_selected" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/VSyncSelection" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/VSyncSelection" method="_on_item_selected"]
+[connection signal="toggled" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" method="_on_toggled"]
+[connection signal="toggled" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Fullscreentoggle" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Fullscreentoggle" method="_on_toggled"]
 [connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]
