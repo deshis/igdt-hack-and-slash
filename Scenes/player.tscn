@@ -18,8 +18,9 @@ scale = Vector2(0.78124994, 0.7812501)
 texture = ExtResource("2_6t5aa")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
 position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+position_smoothing_speed = 8.0
 
 [node name="DashCooldownTimer" type="Timer" parent="."]
 one_shot = true
