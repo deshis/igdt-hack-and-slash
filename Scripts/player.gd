@@ -12,8 +12,8 @@ var can_look_around := true
 
 signal update_hp_bar
 signal dash_used
-signal attack_used
-
+signal primary_attack_used
+signal secondary_attack_used
 
 var can_attack := true
 var attacking := false
@@ -82,7 +82,7 @@ func light_attack() -> void:
 	light_attack_object.visible = true
 	attack_length_timer.start(light_attack_length)
 	attack_cooldown_timer.start(light_attack_cooldown)
-	attack_used.emit(light_attack_cooldown)
+	primary_attack_used.emit(light_attack_cooldown)
 	attacking = true
 
 
@@ -94,7 +94,7 @@ func heavy_attack(delta: float) -> void:
 	heavy_attack_object.visible = true
 	attack_length_timer.start(heavy_attack_length)
 	attack_cooldown_timer.start(heavy_attack_cooldown)
-	attack_used.emit(heavy_attack_cooldown)
+	secondary_attack_used.emit(heavy_attack_cooldown)
 	attacking = true
 	
 	# TODO: could make it smoother

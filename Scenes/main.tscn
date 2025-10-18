@@ -142,6 +142,46 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 10
 
+[node name="PrimaryAttack" type="TextureRect" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_8gbba")
+expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer/PrimaryAttack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/fill = SubResource("StyleBoxFlat_21xkr")
+fill_mode = 2
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer/PrimaryAttack"]
+one_shot = true
+
+[node name="SecondaryAttack" type="TextureRect" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_8gbba")
+expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer/SecondaryAttack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/fill = SubResource("StyleBoxFlat_21xkr")
+fill_mode = 2
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer/SecondaryAttack"]
+one_shot = true
+
 [node name="DashCooldown" type="TextureRect" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer"]
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_8gbba")
@@ -160,46 +200,6 @@ fill_mode = 2
 show_percentage = false
 
 [node name="Timer" type="Timer" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer/DashCooldown"]
-one_shot = true
-
-[node name="PlaceholderSkill1" type="TextureRect" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer"]
-layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_8gbba")
-expand_mode = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer/PlaceholderSkill1"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_kry3j")
-theme_override_styles/fill = SubResource("StyleBoxFlat_21xkr")
-fill_mode = 2
-show_percentage = false
-
-[node name="Timer" type="Timer" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer/PlaceholderSkill1"]
-one_shot = true
-
-[node name="PlaceholderSkill2" type="TextureRect" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer"]
-layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_8gbba")
-expand_mode = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer/PlaceholderSkill2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_kry3j")
-theme_override_styles/fill = SubResource("StyleBoxFlat_21xkr")
-fill_mode = 2
-show_percentage = false
-
-[node name="Timer" type="Timer" parent="HUD/SkillCooldowns/MarginContainer/HBoxContainer/PlaceholderSkill2"]
 one_shot = true
 
 [node name="Inventory" type="Control" parent="HUD"]
