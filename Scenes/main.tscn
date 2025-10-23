@@ -83,38 +83,6 @@ navigation_polygon = SubResource("NavigationPolygon_jkdf5")
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
 
-[node name="LightAttackObject" type="Sprite2D" parent="Player"]
-visible = false
-position = Vector2(0, -88.02471)
-rotation = -3.1415927
-scale = Vector2(1.7929773, 1.3753855)
-
-[node name="hitbox" type="Area2D" parent="Player/LightAttackObject"]
-position = Vector2(0, -64.00002)
-rotation = 3.1415927
-scale = Vector2(0.5577315, 0.72706884)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/LightAttackObject/hitbox"]
-position = Vector2(-1.8189894e-12, -80.99993)
-scale = Vector2(0.9999995, 0.9999995)
-shape = SubResource("RectangleShape2D_kry3j")
-
-[node name="HeavyAttackObject" type="Sprite2D" parent="Player"]
-visible = false
-position = Vector2(0, -88.02471)
-rotation = -3.1415927
-scale = Vector2(1.7929773, 1.3753855)
-
-[node name="Hitbox" type="Area2D" parent="Player/HeavyAttackObject"]
-position = Vector2(0, -64.00002)
-rotation = 3.1415927
-scale = Vector2(0.5577315, 0.72706884)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/HeavyAttackObject/Hitbox"]
-position = Vector2(-9.845354e-06, -80.99997)
-scale = Vector2(0.9999989, 0.9999989)
-shape = SubResource("RectangleShape2D_kry3j")
-
 [node name="enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_fdnlq")]
 position = Vector2(600, 300)
 player = NodePath("../Player")
