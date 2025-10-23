@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/vsync_toggle.gd" id="11_fdnlq"]
 [ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/control_remap_button.gd" id="12_6iyac"]
 [ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/full_screen_toggle.gd" id="12_fdnlq"]
+[ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/anti_aliasing_selection.gd" id="12_wsu2k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wsu2k"]
 texture = ExtResource("1_jkdf5")
@@ -47,9 +48,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-1168, -1024, -1176, 10
 source_geometry_mode = 1
 source_geometry_group_name = &"navigation"
 agent_radius = 40.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
-size = Vector2(190.00005, 161.99997)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gbba"]
 bg_color = Color(0.27450982, 0, 0, 1)
@@ -601,7 +599,7 @@ popup/item_3/text = "MSAA 4x"
 popup/item_3/id = 3
 popup/item_4/text = "MSAA 8x"
 popup/item_4/id = 4
-script = ExtResource("8_344ge")
+script = ExtResource("12_wsu2k")
 
 [node name="Vsynctoggle" type="CheckButton" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
 layout_mode = 2

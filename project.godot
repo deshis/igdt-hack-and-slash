@@ -18,6 +18,7 @@ config/icon="res://Assets/icon.svg"
 [autoload]
 
 ItemType="*res://Scripts/globals/ItemType.gd"
+CfgHandler="*res://Scripts/globals/cfg_handler.gd"
 
 [display]
 

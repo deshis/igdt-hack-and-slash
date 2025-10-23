@@ -8,12 +8,18 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	
+	var keybinds = CfgHandler.load_keybinds()
+	
+	InputMap.action_erase_events(action)
+	InputMap.action_add_event(action, keybinds[action])
+	
 	set_process_unhandled_input(false)
 	update_key_text()
 
 
 func update_key_text():
-	text = InputMap.action_get_events(action)[0].as_text_physical_keycode()
+	text = InputMap.action_get_events(action)[0].as_text()
 
 
 func _toggled(toggled_on: bool) -> void:
@@ -33,4 +39,5 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, event)
+			CfgHandler.save_keybind(action, event)
 			button_pressed = false
