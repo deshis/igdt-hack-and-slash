@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 @export var speed := 250.0
-@export var health := 100.0
+@export var health := 4.0
 @export var acceleration := 20.0
 
-@export var player: Node2D
+@export var goal: Node2D
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 
 var rotation_speed := 8.0
@@ -26,7 +26,23 @@ func apply_movement(delta: float, dir: Vector2) -> void:
 	velocity = lerp(velocity, dir * speed, acceleration * delta)
 
 func find_path() -> void:
-	nav_agent.target_position = player.global_position
+	if goal == null:
+		return
+	
+	nav_agent.target_position = goal.global_position
 
 func _on_timer_timeout() -> void:
 	find_path()
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	print("took damage")
+	take_damage(2)
+
+func take_damage(dmg:float) -> void:
+	health -= dmg
+	if health <= 0.0:
+		die()
+
+func die() -> void:
+	queue_free()

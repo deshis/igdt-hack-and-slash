@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cheduqgq01lw6"]
 
-[ext_resource type="Script" uid="uid://cqp1l0dofg8ft" path="res://Scripts/item.gd" id="1_76mu4"]
+[ext_resource type="Script" uid="uid://cqp1l0dofg8ft" path="res://Scripts/player/item.gd" id="1_76mu4"]
 [ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="1_ys0gr"]
 
 [node name="Item" type="Control"]

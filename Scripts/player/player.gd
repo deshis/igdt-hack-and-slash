@@ -7,8 +7,8 @@ var can_look_around := true
 @export var movement_speed := 500.0
 @export var acceleration := 15.0
 
-@export var max_HP := 100.0
-@export var HP := 100.0
+@export var max_HP := 10.0
+@export var HP := 10.0
 
 signal update_hp_bar
 signal dash_used
@@ -38,6 +38,10 @@ var dash_speed:= 2500
 
 var current_speed:= movement_speed
 
+
+func awake():
+	light_attack_object.disabled = true
+	heavy_attack_object.disabled = true
 
 func _physics_process(delta) -> void:
 	update_input()
@@ -91,7 +95,7 @@ func heavy_attack(delta: float) -> void:
 	can_move = false
 	can_look_around = false
 	
-	heavy_attack_object.visible = true
+	heavy_attack_object.visible = false
 	attack_length_timer.start(heavy_attack_length)
 	attack_cooldown_timer.start(heavy_attack_cooldown)
 	secondary_attack_used.emit(heavy_attack_cooldown)
@@ -132,13 +136,14 @@ func _on_dash_length_timer_timeout() -> void:
 	current_speed = movement_speed
 	dashing = false
 
-
 func take_damage(dmg:float) -> void:
 	HP -= dmg
 	update_hp_bar.emit(HP)
 	if HP <= 0.0:
 		die()
 
-
 func die() -> void:
 	queue_free()
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	take_damage(2)
