@@ -298,7 +298,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("9_hptm8")
 
-[node name="Health" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+[node name="Survivability" type="Panel" parent="HUD/Inventory/AugmentSlots"]
 layout_mode = 0
 offset_left = 363.0
 offset_top = 120.0
@@ -308,27 +308,7 @@ mouse_filter = 1
 script = ExtResource("9_hptm8")
 type = 1
 
-[node name="AttackDamage" type="Panel" parent="HUD/Inventory/AugmentSlots"]
-layout_mode = 0
-offset_left = 354.0
-offset_top = 480.0
-offset_right = 436.0
-offset_bottom = 562.0
-mouse_filter = 1
-script = ExtResource("9_hptm8")
-type = 2
-
-[node name="AttackSpeed" type="Panel" parent="HUD/Inventory/AugmentSlots"]
-layout_mode = 0
-offset_left = 70.0
-offset_top = 472.0
-offset_right = 152.0
-offset_bottom = 554.0
-mouse_filter = 1
-script = ExtResource("9_hptm8")
-type = 3
-
-[node name="MoveSpeed" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+[node name="Movement" type="Panel" parent="HUD/Inventory/AugmentSlots"]
 layout_mode = 0
 offset_left = 79.0
 offset_top = 128.0
@@ -338,61 +318,35 @@ mouse_filter = 1
 script = ExtResource("9_hptm8")
 type = 4
 
-[node name="MoveSpeed" type="RichTextLabel" parent="HUD/Inventory"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 706.0
-offset_top = 98.0
-offset_right = -474.0
-offset_bottom = -591.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Move Speed"
-horizontal_alignment = 1
+[node name="Utility" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 472.0
+offset_right = 152.0
+offset_bottom = 554.0
+mouse_filter = 1
+script = ExtResource("9_hptm8")
+type = 3
 
-[node name="AttackSpeed" type="RichTextLabel" parent="HUD/Inventory"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 686.0
-offset_top = 442.0
-offset_right = -472.0
-offset_bottom = -247.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Attack Speed"
-horizontal_alignment = 1
+[node name="Damage" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+layout_mode = 0
+offset_left = 354.0
+offset_top = 480.0
+offset_right = 436.0
+offset_bottom = 562.0
+mouse_filter = 1
+script = ExtResource("9_hptm8")
+type = 4
 
-[node name="AttackDamage" type="RichTextLabel" parent="HUD/Inventory"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 956.0
-offset_top = 450.0
-offset_right = -174.0
-offset_bottom = -244.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Attack Damage"
-horizontal_alignment = 1
-
-[node name="Health" type="RichTextLabel" parent="HUD/Inventory"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 999.0
-offset_top = 90.0
-offset_right = -199.0
-offset_bottom = -601.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Health"
-horizontal_alignment = 1
+[node name="BrainChip" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 72.0
+offset_right = 306.0
+offset_bottom = 154.0
+mouse_filter = 1
+script = ExtResource("9_hptm8")
+type = 5
 
 [node name="BackPack" type="RichTextLabel" parent="HUD/Inventory"]
 layout_mode = 1
@@ -406,6 +360,76 @@ offset_bottom = -421.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Backpack"
+horizontal_alignment = 1
+
+[node name="Survivability" type="RichTextLabel" parent="HUD/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 968.0
+offset_top = 90.0
+offset_right = -168.0
+offset_bottom = -601.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "survivability(bio)"
+horizontal_alignment = 1
+
+[node name="Movement" type="RichTextLabel" parent="HUD/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 706.0
+offset_top = 98.0
+offset_right = -474.0
+offset_bottom = -591.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Movement"
+horizontal_alignment = 1
+
+[node name="Utility" type="RichTextLabel" parent="HUD/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 686.0
+offset_top = 442.0
+offset_right = -472.0
+offset_bottom = -247.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "utility"
+horizontal_alignment = 1
+
+[node name="Damage" type="RichTextLabel" parent="HUD/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 956.0
+offset_top = 450.0
+offset_right = -174.0
+offset_bottom = -244.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Damage"
+horizontal_alignment = 1
+
+[node name="Active" type="RichTextLabel" parent="HUD/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 818.0
+offset_top = 48.0
+offset_right = -288.0
+offset_bottom = -644.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "active(brain chip)"
 horizontal_alignment = 1
 
 [node name="PauseMenu" type="Control" parent="HUD"]
@@ -749,18 +773,21 @@ text = "Back to menu"
 [connection signal="gui_input" from="HUD/Inventory/AugmentSlots/Backpack/Slot6" to="HUD/Inventory/AugmentSlots/Backpack/Slot6" method="_on_gui_input"]
 [connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/Backpack/Slot6" to="HUD/Inventory/AugmentSlots/Backpack/Slot6" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/Backpack/Slot6" to="HUD/Inventory/AugmentSlots/Backpack/Slot6" method="_on_mouse_exited"]
-[connection signal="gui_input" from="HUD/Inventory/AugmentSlots/Health" to="HUD/Inventory/AugmentSlots/Health" method="_on_gui_input"]
-[connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/Health" to="HUD/Inventory/AugmentSlots/Health" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/Health" to="HUD/Inventory/AugmentSlots/Health" method="_on_mouse_exited"]
-[connection signal="gui_input" from="HUD/Inventory/AugmentSlots/AttackDamage" to="HUD/Inventory/AugmentSlots/AttackDamage" method="_on_gui_input"]
-[connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/AttackDamage" to="HUD/Inventory/AugmentSlots/AttackDamage" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/AttackDamage" to="HUD/Inventory/AugmentSlots/AttackDamage" method="_on_mouse_exited"]
-[connection signal="gui_input" from="HUD/Inventory/AugmentSlots/AttackSpeed" to="HUD/Inventory/AugmentSlots/AttackSpeed" method="_on_gui_input"]
-[connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/AttackSpeed" to="HUD/Inventory/AugmentSlots/AttackSpeed" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/AttackSpeed" to="HUD/Inventory/AugmentSlots/AttackSpeed" method="_on_mouse_exited"]
-[connection signal="gui_input" from="HUD/Inventory/AugmentSlots/MoveSpeed" to="HUD/Inventory/AugmentSlots/MoveSpeed" method="_on_gui_input"]
-[connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/MoveSpeed" to="HUD/Inventory/AugmentSlots/MoveSpeed" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/MoveSpeed" to="HUD/Inventory/AugmentSlots/MoveSpeed" method="_on_mouse_exited"]
+[connection signal="gui_input" from="HUD/Inventory/AugmentSlots/Survivability" to="HUD/Inventory/AugmentSlots/Survivability" method="_on_gui_input"]
+[connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/Survivability" to="HUD/Inventory/AugmentSlots/Survivability" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/Survivability" to="HUD/Inventory/AugmentSlots/Survivability" method="_on_mouse_exited"]
+[connection signal="gui_input" from="HUD/Inventory/AugmentSlots/Movement" to="HUD/Inventory/AugmentSlots/Movement" method="_on_gui_input"]
+[connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/Movement" to="HUD/Inventory/AugmentSlots/Movement" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/Movement" to="HUD/Inventory/AugmentSlots/Movement" method="_on_mouse_exited"]
+[connection signal="gui_input" from="HUD/Inventory/AugmentSlots/Utility" to="HUD/Inventory/AugmentSlots/Utility" method="_on_gui_input"]
+[connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/Utility" to="HUD/Inventory/AugmentSlots/Utility" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/Utility" to="HUD/Inventory/AugmentSlots/Utility" method="_on_mouse_exited"]
+[connection signal="gui_input" from="HUD/Inventory/AugmentSlots/Damage" to="HUD/Inventory/AugmentSlots/Damage" method="_on_gui_input"]
+[connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/Damage" to="HUD/Inventory/AugmentSlots/Damage" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/Damage" to="HUD/Inventory/AugmentSlots/Damage" method="_on_mouse_exited"]
+[connection signal="gui_input" from="HUD/Inventory/AugmentSlots/BrainChip" to="HUD/Inventory/AugmentSlots/BrainChip" method="_on_gui_input"]
+[connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/BrainChip" to="HUD/Inventory/AugmentSlots/BrainChip" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/BrainChip" to="HUD/Inventory/AugmentSlots/BrainChip" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="HUD/PauseMenu" method="_on_continue_button_pressed"]
 [connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" method="_on_mouse_entered"]
