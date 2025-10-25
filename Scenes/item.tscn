@@ -6,10 +6,8 @@
 [node name="Item" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 706.0
-offset_top = 136.0
-offset_right = 788.0
-offset_bottom = 218.0
+offset_right = 82.0
+offset_bottom = 82.0
 script = ExtResource("1_76mu4")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

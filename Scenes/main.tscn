@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=28 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dh71f7mo6cfmh" path="res://Assets/basic_tiles.png" id="1_jkdf5"]
@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/hud/control_remap_button.gd" id="12_6iyac"]
 [ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/hud/full_screen_toggle.gd" id="12_fdnlq"]
 [ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/hud/anti_aliasing_selection.gd" id="12_wsu2k"]
+[ext_resource type="Script" uid="uid://dglo22okhueyv" path="res://Scripts/hud/item_pickup.gd" id="16_h1bgf"]
+[ext_resource type="PackedScene" uid="uid://dl58s8gkullwa" path="res://Scenes/pickupable_item.tscn" id="16_k12tt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wsu2k"]
 texture = ExtResource("1_jkdf5")
@@ -252,8 +254,6 @@ script = ExtResource("9_hptm8")
 [node name="Item" parent="HUD/Inventory/AugmentSlots/Backpack/Slot1" instance=ExtResource("10_d1ilt")]
 custom_minimum_size = Vector2(84, 84)
 layout_mode = 1
-offset_left = 0.0
-offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 item_name = "Test Item"
@@ -431,6 +431,74 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "active(brain chip)"
 horizontal_alignment = 1
+
+[node name="ItemSelection" type="Control" parent="HUD/Inventory" node_paths=PackedStringArray("player")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -611.0
+offset_top = -304.0
+offset_right = -23.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_h1bgf")
+player = NodePath("../../../Player")
+
+[node name="Panel" type="Panel" parent="HUD/Inventory/ItemSelection"]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 18.0
+offset_right = 558.0
+offset_bottom = 197.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Inventory/ItemSelection"]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 18.0
+offset_right = 558.0
+offset_bottom = 197.0
+theme_override_constants/separation = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Inventory/ItemSelection/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center] Pick one item:"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Inventory/ItemSelection/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = -60
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectionSlot1" type="Panel" parent="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("9_hptm8")
+
+[node name="SelectionSlot2" type="Panel" parent="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("9_hptm8")
+
+[node name="SelectionSlot3" type="Panel" parent="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("9_hptm8")
 
 [node name="PauseMenu" type="Control" parent="HUD"]
 process_mode = 3
@@ -755,6 +823,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back to menu"
 
+[node name="PickupableItem" parent="." instance=ExtResource("16_k12tt")]
+position = Vector2(-161, 236)
+
 [connection signal="gui_input" from="HUD/Inventory/AugmentSlots/Backpack/Slot1" to="HUD/Inventory/AugmentSlots/Backpack/Slot1" method="_on_gui_input"]
 [connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/Backpack/Slot1" to="HUD/Inventory/AugmentSlots/Backpack/Slot1" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/Backpack/Slot1" to="HUD/Inventory/AugmentSlots/Backpack/Slot1" method="_on_mouse_exited"]
@@ -788,6 +859,18 @@ text = "Back to menu"
 [connection signal="gui_input" from="HUD/Inventory/AugmentSlots/BrainChip" to="HUD/Inventory/AugmentSlots/BrainChip" method="_on_gui_input"]
 [connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/BrainChip" to="HUD/Inventory/AugmentSlots/BrainChip" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/BrainChip" to="HUD/Inventory/AugmentSlots/BrainChip" method="_on_mouse_exited"]
+[connection signal="gui_input" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" method="_on_gui_input"]
+[connection signal="item_was_taken" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="HUD/Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
+[connection signal="mouse_entered" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" method="_on_mouse_exited"]
+[connection signal="gui_input" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" method="_on_gui_input"]
+[connection signal="item_was_taken" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="HUD/Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
+[connection signal="mouse_entered" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" method="_on_mouse_exited"]
+[connection signal="gui_input" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" method="_on_gui_input"]
+[connection signal="item_was_taken" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="HUD/Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
+[connection signal="mouse_entered" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="HUD/PauseMenu" method="_on_continue_button_pressed"]
 [connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" method="_on_mouse_entered"]

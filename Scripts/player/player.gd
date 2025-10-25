@@ -14,11 +14,12 @@ signal update_hp_bar
 signal dash_used
 signal primary_attack_used
 signal secondary_attack_used
+signal item_picked_up(area)
 
 var can_attack := true
 var attacking := false
-@onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
-@onready var attack_length_timer: Timer = $AttackLengthTimer
+@onready var attack_cooldown_timer: Timer = $Timers/AttackCooldownTimer
+@onready var attack_length_timer: Timer = $Timers/AttackLengthTimer
 
 @onready var light_attack_object = $LightAttackObject
 var light_attack_cooldown:= 0.2
@@ -30,8 +31,8 @@ var heavy_attack_length:= 0.3
 
 var can_dash:= true
 var dashing = false
-@onready var dash_cooldown_timer: Timer = $DashCooldownTimer
-@onready var dash_length_timer: Timer = $DashLengthTimer
+@onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
+@onready var dash_length_timer: Timer = $Timers/DashLengthTimer
 var dash_cooldown:= 3.0
 var dash_length:= 0.15
 var dash_speed:= 2500
@@ -145,5 +146,9 @@ func take_damage(dmg:float) -> void:
 func die() -> void:
 	queue_free()
 
-func _on_hurtbox_area_entered(area: Area2D) -> void:
+func _on_hurtbox_area_entered(_area: Area2D) -> void:
 	take_damage(2)
+
+
+func _on_item_pickup_detector_area_entered(area: Area2D) -> void:
+	item_picked_up.emit(area)

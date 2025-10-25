@@ -1,6 +1,8 @@
 extends Control
 @export var type: ItemType.Type = ItemType.Type.BACKPACK
 
+signal item_was_taken
+
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_PASS
 
@@ -29,6 +31,8 @@ func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
 func _drop_data(_pos: Vector2, data: Variant) -> void:
 	var dragged: Control = data.get("item", null)
 	var origin_slot: Control = data.get("origin_slot", null)
+	
+	origin_slot.item_was_taken.emit() #for closing the item pick up selection
 	
 	if typeof(data) != TYPE_DICTIONARY:
 		return
