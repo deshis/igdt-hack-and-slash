@@ -17,14 +17,18 @@ func open_item_selection(area:Area2D):
 	item_on_ground = area
 	inventory.visible = true
 	visible = true
-	selection_slot_1.add_child(generate_item())
-	selection_slot_2.add_child(generate_item())
-	selection_slot_3.add_child(generate_item())
+	
+	clear_slot(selection_slot_1)
+	selection_slot_1.add_child(area.get_item(0).duplicate())
+	clear_slot(selection_slot_2)
+	selection_slot_2.add_child(area.get_item(1).duplicate())
+	clear_slot(selection_slot_3)
+	selection_slot_3.add_child(area.get_item(2).duplicate())
 
 
-func generate_item():
-	#todo change placeholder item to actual item once they are implemented
-	return preload("res://Scenes/item.tscn").instantiate()
+func clear_slot(slot:Panel)->void:
+	for child in slot.get_children():
+		child.queue_free()
 
 
 func _input(event: InputEvent) -> void:

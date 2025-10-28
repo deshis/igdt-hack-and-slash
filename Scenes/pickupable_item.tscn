@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dl58s8gkullwa"]
+[gd_scene load_steps=4 format=3 uid="uid://dl58s8gkullwa"]
+
+[ext_resource type="Script" uid="uid://d0ne14c7y6fvb" path="res://Scripts/player/pickupable_item.gd" id="1_sd5tl"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_aeuma"]
 size = Vector2(4, 4)
@@ -9,6 +11,7 @@ size = Vector2(40, 40)
 [node name="PickupableItem" type="Area2D"]
 collision_layer = 65536
 collision_mask = 0
+script = ExtResource("1_sd5tl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(10, 10)
