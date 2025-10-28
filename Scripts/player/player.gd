@@ -1,16 +1,23 @@
 class_name Player extends CharacterBody2D
 
 var input: Vector2
-
-var can_move := true
 var can_look_around := true
+var can_move := true
+
 @export var movement_speed := 500.0
 @export var acceleration := 15.0
+var current_speed:= movement_speed
 
-@export var max_HP := 10.0
-@export var HP := 10.0
+@export var max_health := 10.0
+@export var health := 10.0
 
-signal update_hp_bar
+@onready var invulnerability_length_timer: Timer = $Timers/InvulnerabilityLengthTimer
+var damageable := true
+
+@export var attack_light_damage := 2.0
+@export var attack_heavy_damage := 4.0
+
+signal update_health_bar
 signal dash_used
 signal primary_attack_used
 signal secondary_attack_used
@@ -21,11 +28,13 @@ var attacking := false
 @onready var attack_cooldown_timer: Timer = $Timers/AttackCooldownTimer
 @onready var attack_length_timer: Timer = $Timers/AttackLengthTimer
 
-@onready var light_attack_object = $LightAttackObject
+@onready var light_attack = $AttackLight
+@onready var light_attack_hitbox = $AttackLight/CollisionShape2D
 var light_attack_cooldown:= 0.2
 var light_attack_length:= 0.1
 
-@onready var heavy_attack_object = $HeavyAttackObject
+@onready var heavy_attack = $AttackHeavy
+@onready var heavy_attack_hitbox = $AttackHeavy/CollisionShape2D
 var heavy_attack_cooldown:= 0.4
 var heavy_attack_length:= 0.3
 
@@ -37,12 +46,11 @@ var dash_cooldown:= 3.0
 var dash_length:= 0.15
 var dash_speed:= 2500
 
-var current_speed:= movement_speed
-
-
-func awake():
-	light_attack_object.disabled = true
-	heavy_attack_object.disabled = true
+func _ready() -> void:
+	light_attack_hitbox.disabled = true
+	light_attack.visible = false
+	heavy_attack_hitbox.disabled = true
+	heavy_attack.visible = false
 
 func _physics_process(delta) -> void:
 	update_input()
@@ -50,15 +58,15 @@ func _physics_process(delta) -> void:
 		update_facing_dir()
 	
 	if Input.is_action_pressed("movement_ability") and can_move and can_dash and input.length() > 0:
-		dash()
+		perform_dash()
 	elif can_move:
 		apply_movement(delta, input)
 	
 	if Input.is_action_pressed("light_attack") and can_attack:
-		light_attack()
+		perform_light_attack()
 	
 	if Input.is_action_just_pressed("heavy_attack") and can_attack:
-		heavy_attack(delta)
+		perform_heavy_attack(delta)
 	
 	move_and_slide()
 
@@ -82,32 +90,38 @@ func update_facing_dir() -> void:
 	rotation = dir.angle()+ Vector2.DOWN.angle()
 
 
-func light_attack() -> void:
+func perform_light_attack() -> void:
+	# enable hitbox and visuals
+	light_attack.visible = true
+	light_attack_hitbox.disabled = false
+	
+	attacking = true
 	can_attack = false
-	light_attack_object.visible = true
+	
 	attack_length_timer.start(light_attack_length)
 	attack_cooldown_timer.start(light_attack_cooldown)
 	primary_attack_used.emit(light_attack_cooldown)
+
+
+func perform_heavy_attack(delta: float) -> void:
+	# enable hitbox and visuals
+	heavy_attack.visible = true
+	heavy_attack_hitbox.disabled = false
+	
 	attacking = true
-
-
-func heavy_attack(delta: float) -> void:
 	can_attack = false
 	can_move = false
 	can_look_around = false
 	
-	heavy_attack_object.visible = false
 	attack_length_timer.start(heavy_attack_length)
 	attack_cooldown_timer.start(heavy_attack_cooldown)
 	secondary_attack_used.emit(heavy_attack_cooldown)
-	attacking = true
 	
 	# TODO: could make it smoother
 	velocity = Vector2(0,0)
 	apply_movement(delta, Vector2.UP.rotated(rotation))
 
-
-func dash():
+func perform_dash():
 	can_dash = false
 	dashing = true
 	dash_length_timer.start(dash_length)
@@ -115,40 +129,55 @@ func dash():
 	current_speed = dash_speed
 	dash_used.emit(dash_cooldown)
 
+func deal_damage(area: Area2D, amount: float) -> void:
+	var enemy = area.get_parent() as EnemyController
+	enemy.take_damage(amount)
+	print("dealt ", amount, " damage to ", enemy.enemy.name)
+
+func take_damage(damage:float) -> void:
+	if invulnerability_length_timer.time_left == 0:
+		damageable = false
+		
+		health -= damage
+		update_health_bar.emit(health)
+		if health <= 0.0:
+			die()
+
+func die() -> void:
+	queue_free()
+
 
 func _on_attack_length_timer_timeout() -> void:
 	# TODO: need to make this smarter later, but for now it just disables both attacks
-	light_attack_object.visible = false
-	heavy_attack_object.visible = false
+	light_attack_hitbox.disabled = true
+	light_attack.visible = false
+	heavy_attack_hitbox.disabled = true
+	heavy_attack.visible = false
+	
 	attacking = false
-
 
 func _on_attack_cooldown_timer_timeout() -> void:
 	can_attack = true
 	can_move = true
 	can_look_around = true
 
-
 func _on_dash_cooldown_timer_timeout() -> void:
 	can_dash=true
-
 
 func _on_dash_length_timer_timeout() -> void:
 	current_speed = movement_speed
 	dashing = false
 
-func take_damage(dmg:float) -> void:
-	HP -= dmg
-	update_hp_bar.emit(HP)
-	if HP <= 0.0:
-		die()
+func _on_attack_light_area_entered(area: Area2D) -> void:
+	deal_damage(area, attack_light_damage)
 
-func die() -> void:
-	queue_free()
-
-func _on_hurtbox_area_entered(_area: Area2D) -> void:
-	take_damage(2)
-
+func _on_attack_heavy_area_entered(area: Area2D) -> void:
+	deal_damage(area, attack_heavy_damage)
 
 func _on_item_pickup_detector_area_entered(area: Area2D) -> void:
+	print("picked up an item")
 	item_picked_up.emit(area)
+
+
+func _on_invulnerability_length_timer_timeout() -> void:
+	damageable = true

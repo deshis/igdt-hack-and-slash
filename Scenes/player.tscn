@@ -32,7 +32,7 @@ fill_from = Vector2(1, 1)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 256
-collision_mask = 4097
+collision_mask = 69633
 script = ExtResource("1_cvnsp")
 
 [node name="PlayerCollider" type="CollisionShape2D" parent="."]
@@ -40,17 +40,50 @@ shape = SubResource("RectangleShape2D_7dm0k")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 512
-collision_mask = 16384
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_6t5aa")
 
 [node name="ItemPickupDetector" type="Area2D" parent="."]
-collision_layer = 512
+collision_layer = 0
 collision_mask = 65536
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupDetector"]
 shape = SubResource("RectangleShape2D_6t5aa")
+
+[node name="AttackLight" type="Area2D" parent="."]
+position = Vector2(7.695364e-06, -7.6293945e-06)
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 1024
+collision_mask = 8192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackLight"]
+position = Vector2(-1.8189894e-12, -80.99993)
+scale = Vector2(0.9999995, 0.9999995)
+shape = SubResource("RectangleShape2D_cvnsp")
+
+[node name="Sprite2D" type="Sprite2D" parent="AttackLight/CollisionShape2D"]
+position = Vector2(0.9999907, 1.9999237)
+scale = Vector2(3.0312529, 2.5156271)
+texture = SubResource("GradientTexture2D_6t5aa")
+
+[node name="AttackHeavy" type="Area2D" parent="."]
+position = Vector2(7.695364e-06, -7.6293945e-06)
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 1024
+collision_mask = 8192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHeavy"]
+position = Vector2(-9.845354e-06, -80.99997)
+scale = Vector2(0.9999989, 0.9999989)
+shape = SubResource("RectangleShape2D_cvnsp")
+
+[node name="Sprite2D" type="Sprite2D" parent="AttackHeavy/CollisionShape2D"]
+position = Vector2(-2.0000024, -3.0517578e-05)
+rotation = 3.1415925
+scale = Vector2(2.998544, 2.5141664)
+texture = SubResource("GradientTexture2D_fkybt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-7.6293945e-06, -3.8146973e-06)
@@ -120,9 +153,15 @@ one_shot = true
 [node name="AttackLengthTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[node name="InvulnerabilityLengthTimer" type="Timer" parent="Timers"]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="area_entered" from="ItemPickupDetector" to="." method="_on_item_pickup_detector_area_entered"]
+[connection signal="area_entered" from="AttackLight" to="." method="_on_attack_light_area_entered"]
+[connection signal="area_entered" from="AttackHeavy" to="." method="_on_attack_heavy_area_entered"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
 [connection signal="timeout" from="Timers/DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
 [connection signal="timeout" from="Timers/AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
 [connection signal="timeout" from="Timers/AttackLengthTimer" to="." method="_on_attack_length_timer_timeout"]
+[connection signal="timeout" from="Timers/InvulnerabilityLengthTimer" to="." method="_on_invulnerability_length_timer_timeout"]

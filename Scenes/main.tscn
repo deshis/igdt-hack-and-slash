@@ -1,8 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=27 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dh71f7mo6cfmh" path="res://Assets/basic_tiles.png" id="1_jkdf5"]
-[ext_resource type="PackedScene" uid="uid://cxfkpodvrl77o" path="res://Scenes/enemy.tscn" id="2_fdnlq"]
 [ext_resource type="Script" uid="uid://b8rtnvnstvdg4" path="res://Scripts/player/ui/healthbar.gd" id="3_8gbba"]
 [ext_resource type="Script" uid="uid://b3p4e86xoqqh3" path="res://Scripts/player/ui/cooldowns.gd" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://c081ighahaot6" path="res://Scripts/hud/pause_menu.gd" id="5_kry3j"]
@@ -16,7 +15,7 @@
 [ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/hud/full_screen_toggle.gd" id="12_fdnlq"]
 [ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/hud/anti_aliasing_selection.gd" id="12_wsu2k"]
 [ext_resource type="Script" uid="uid://dglo22okhueyv" path="res://Scripts/hud/item_pickup.gd" id="16_h1bgf"]
-[ext_resource type="PackedScene" uid="uid://dl58s8gkullwa" path="res://Scenes/pickupable_item.tscn" id="16_k12tt"]
+[ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy_spawner.tscn" id="16_k12tt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wsu2k"]
 texture = ExtResource("1_jkdf5")
@@ -82,10 +81,11 @@ scale = Vector2(0.5, 0.5)
 navigation_polygon = SubResource("NavigationPolygon_jkdf5")
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
+health = 10000000.0
 
-[node name="enemy" parent="." node_paths=PackedStringArray("goal") instance=ExtResource("2_fdnlq")]
-position = Vector2(600, 300)
-goal = NodePath("../Player")
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "navigation_region") instance=ExtResource("16_k12tt")]
+player = NodePath("../Player")
+navigation_region = NodePath("../TileMapLayer/NavigationRegion2D")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -822,9 +822,6 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back to menu"
-
-[node name="PickupableItem" parent="." instance=ExtResource("16_k12tt")]
-position = Vector2(-161, 236)
 
 [connection signal="gui_input" from="HUD/Inventory/AugmentSlots/Backpack/Slot1" to="HUD/Inventory/AugmentSlots/Backpack/Slot1" method="_on_gui_input"]
 [connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/Backpack/Slot1" to="HUD/Inventory/AugmentSlots/Backpack/Slot1" method="_on_mouse_entered"]

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyPrefab" load_steps=6 format=3 uid="uid://ctly0bibi2t2d"]
+
+[ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemy/prefabs/EnemyPrefab.gd" id="1_076bs"]
+[ext_resource type="PackedScene" uid="uid://bfykyy2y7odt7" path="res://Scenes/enemy_slasher.tscn" id="1_tgfgn"]
+[ext_resource type="Resource" uid="uid://bowqpxf2yi5ip" path="res://Scripts/enemy/stats/slasher.tres" id="2_x4qm1"]
+[ext_resource type="Script" uid="uid://c3xt5r4pnu2pd" path="res://Scripts/enemy/targets/TargetPlayer.gd" id="4_x4qm1"]
+
+[sub_resource type="Resource" id="Resource_kg253"]
+script = ExtResource("4_x4qm1")
+metadata/_custom_type_script = "uid://c3xt5r4pnu2pd"
+
+[resource]
+script = ExtResource("1_076bs")
+stats = ExtResource("2_x4qm1")
+scene = ExtResource("1_tgfgn")
+target_provider = SubResource("Resource_kg253")
+metadata/_custom_type_script = "uid://cqw5n3pgcmai6"
