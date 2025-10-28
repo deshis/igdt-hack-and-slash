@@ -68,6 +68,9 @@ func perform_attack() -> void:
 
 func take_damage(damage:float) -> void:
 	enemy.health -= damage
+	
+	SoundManager.play_sfx("hit", global_position)
+	
 	if enemy.health <= 0.0:
 		die()
 

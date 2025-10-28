@@ -98,6 +98,8 @@ func perform_light_attack() -> void:
 	attacking = true
 	can_attack = false
 	
+	SoundManager.play_sfx("light_attack", global_position)
+	
 	attack_length_timer.start(light_attack_length)
 	attack_cooldown_timer.start(light_attack_cooldown)
 	primary_attack_used.emit(light_attack_cooldown)
@@ -124,6 +126,9 @@ func perform_heavy_attack(delta: float) -> void:
 func perform_dash():
 	can_dash = false
 	dashing = true
+	
+	SoundManager.play_sfx("dash", global_position)
+	
 	dash_length_timer.start(dash_length)
 	dash_cooldown_timer.start(dash_cooldown)
 	current_speed = dash_speed
