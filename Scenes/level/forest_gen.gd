@@ -1,9 +1,12 @@
 @tool
 extends Node2D
 
+
 @onready var sky :TileMapLayer =$sky
 @onready var play :TileMapLayer =$"play-level"
 @onready var ground:TileMapLayer =$ground
+@onready var navReg:NavigationRegion2D=$"navRegion"
+
 
 const tree =[11,1,0,2] # Trunk, center, corner, side
 const gnd =[3,4] # ground, rocks
@@ -37,10 +40,11 @@ func _generate():
 	await texture.changed
 	var noiseImage = texture.get_image()
 	
+	var mapsize:Vector2=Vector2(100, 100)
 	
-	for i in texture.height:
-		for j in texture.width:
-			var value:int = noiseImage.get_pixel(i,j).r * height  #make [-1, 1] [-height, height]
+	for i in mapsize.x:
+		for j in mapsize.y:
+			var value:int = noiseImage.get_pixel(i,j).r * height
 			var location=Vector2i(i,j)
 			
 			if value==1:
@@ -50,9 +54,34 @@ func _generate():
 				
 			if value==3:
 				create_tree(location)
+		
+		
+	var used_rect = ground.get_used_rect()
+	#Outer corners	
+	var corner_a:Vector2 = ground.map_to_local(Vector2i(0,0))
+	
+	var corner_c:Vector2 = ground.map_to_local(used_rect.size)
+	
+	# Far corners
+	var corner_b:Vector2 = Vector2(corner_c.x, corner_a.y)
+	var corner_d:Vector2 = Vector2(corner_a.x, corner_c.y)
+	print(corner_a)
+	print(corner_b)
+	print(corner_c)
+	print(corner_d)
+	var bounding_outline = PackedVector2Array([corner_a, corner_b, corner_c, corner_d])
+
+	var nav_poly = NavigationPolygon.new()
+	nav_poly.add_outline(bounding_outline)
+	nav_poly.source_geometry_group_name="navigation"
+	nav_poly.source_geometry_mode=2
+
+	navReg.navigation_polygon = nav_poly
+	
+
 
 	
-	
+
 	
 func create_tree( location:Vector2i):
 	var x=location.x
@@ -67,7 +96,7 @@ func create_tree( location:Vector2i):
 	sky.set_cell(Vector2i(x-1,y),1 ,Vector2i(tree[1],0))	
 	
 	##Large tree, need rotation for corners :weary:
-	#leavage 
+	#leavage 
 	#sky.set_cell(Vector2i(x-1,y-1),1 ,Vector2i(tree[2],0))
 	#sky.set_cell(Vector2i(x-1,y+1),1 ,Vector2i(tree[2],0))
 	#sky.set_cell(Vector2i(x+1,y-1),1 ,Vector2i(tree[2],0))
