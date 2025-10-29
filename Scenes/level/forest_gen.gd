@@ -59,7 +59,7 @@ func _generate():
 		
 
 	
-	_gen_navpoly()
+	#_gen_navpoly()
 	
 func _gen_navpoly():
 	## Probably should change how the pathfinding map is mande
