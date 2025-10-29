@@ -121,6 +121,8 @@ func perform_heavy_attack() -> void:
 	can_look_around = false
 	performing_heavy_attack = true
 	
+	SoundManager.play_sfx("heavy_attack", global_position)
+	
 	attack_length_timer.start(heavy_attack_length)
 	attack_cooldown_timer.start(heavy_attack_cooldown)
 	secondary_attack_used.emit(heavy_attack_cooldown)
