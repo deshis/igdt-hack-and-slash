@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://cxtxiww6xaif2"]
+
+[ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="1_7k0o3"]
+[ext_resource type="Resource" uid="uid://wxts8avlae4o" path="res://Scripts/items/item_stats/Item1Stats.tres" id="1_48kea"]
+[ext_resource type="Texture2D" uid="uid://6xl0dtx6xo13" path="res://Assets/item_icons/movementspeedicon2.png" id="2_48kea"]
+
+[resource]
+script = ExtResource("1_7k0o3")
+item_name = "Overclocked Exoskeleton"
+item_description = "x2 Movement speed"
+type = 1
+grade = 2
+icon = ExtResource("2_48kea")
+effects = Array[Resource]([ExtResource("1_48kea")])
+metadata/_custom_type_script = "uid://dulvf1v1d8so8"

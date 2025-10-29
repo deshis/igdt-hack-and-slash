@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=5 format=3 uid="uid://btqoki0dx13kb"]
+
+[ext_resource type="Resource" uid="uid://ofhe1cslfph2" path="res://Scripts/items/item_stats/Item3Stat1.tres" id="1_cebxw"]
+[ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="1_nf640"]
+[ext_resource type="Texture2D" uid="uid://tphq4cglwlqu" path="res://Assets/item_icons/trainingswordicon.png" id="2_cebxw"]
+[ext_resource type="Resource" uid="uid://c81ois8fmwd5o" path="res://Scripts/items/item_stats/Item3Stat2.tres" id="2_pptsh"]
+
+[resource]
+script = ExtResource("1_nf640")
+item_name = "Training Sword"
+item_description = "-50% DMG"
+type = 3
+icon = ExtResource("2_cebxw")
+effects = Array[Resource]([ExtResource("1_cebxw"), ExtResource("2_pptsh")])
+metadata/_custom_type_script = "uid://dulvf1v1d8so8"
