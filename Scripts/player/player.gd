@@ -35,6 +35,9 @@ var light_attack_length:= 0.1
 
 @onready var heavy_attack = $AttackHeavy
 @onready var heavy_attack_hitbox = $AttackHeavy/CollisionShape2D
+var performing_heavy_attack := false
+var heavy_attack_dash_decay := 0.6
+var heavy_attack_dash_speed := movement_speed * 6.0
 var heavy_attack_cooldown:= 0.4
 var heavy_attack_length:= 0.3
 
@@ -57,8 +60,11 @@ func _physics_process(delta) -> void:
 	if can_look_around:
 		update_facing_dir()
 	
-	if Input.is_action_pressed("movement_ability") and can_move and can_dash and input.length() > 0:
+	if Input.is_action_pressed("movement_ability") and input.length() > 0 and can_dash:
 		perform_dash()
+	elif performing_heavy_attack:
+		current_speed *= heavy_attack_dash_decay
+		apply_movement(delta, Vector2.UP.rotated((rotation)))
 	elif can_move:
 		apply_movement(delta, input)
 	
@@ -66,7 +72,7 @@ func _physics_process(delta) -> void:
 		perform_light_attack()
 	
 	if Input.is_action_just_pressed("heavy_attack") and can_attack:
-		perform_heavy_attack(delta)
+		perform_heavy_attack()
 	
 	move_and_slide()
 
@@ -105,23 +111,21 @@ func perform_light_attack() -> void:
 	primary_attack_used.emit(light_attack_cooldown)
 
 
-func perform_heavy_attack(delta: float) -> void:
+func perform_heavy_attack() -> void:
 	# enable hitbox and visuals
 	heavy_attack.visible = true
 	heavy_attack_hitbox.disabled = false
 	
 	attacking = true
 	can_attack = false
-	can_move = false
 	can_look_around = false
+	performing_heavy_attack = true
 	
 	attack_length_timer.start(heavy_attack_length)
 	attack_cooldown_timer.start(heavy_attack_cooldown)
 	secondary_attack_used.emit(heavy_attack_cooldown)
 	
-	# TODO: could make it smoother
-	velocity = Vector2(0,0)
-	apply_movement(delta, Vector2.UP.rotated(rotation))
+	current_speed = heavy_attack_dash_speed
 
 func perform_dash():
 	can_dash = false
@@ -140,13 +144,16 @@ func deal_damage(area: Area2D, amount: float) -> void:
 	print("dealt ", amount, " damage to ", enemy.enemy.name)
 
 func take_damage(damage:float) -> void:
-	if invulnerability_length_timer.time_left == 0:
-		damageable = false
-		
-		health -= damage
-		update_health_bar.emit(health)
-		if health <= 0.0:
-			die()
+	if invulnerability_length_timer.time_left > 0:
+		return
+	
+	invulnerability_length_timer.start()
+	
+	health -= damage
+	update_health_bar.emit(health)
+	
+	if health <= 0.0:
+		die()
 
 func die() -> void:
 	queue_free()
@@ -160,6 +167,8 @@ func _on_attack_length_timer_timeout() -> void:
 	heavy_attack.visible = false
 	
 	attacking = false
+	performing_heavy_attack = false
+	current_speed = movement_speed
 
 func _on_attack_cooldown_timer_timeout() -> void:
 	can_attack = true

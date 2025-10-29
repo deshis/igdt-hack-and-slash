@@ -154,7 +154,6 @@ one_shot = true
 one_shot = true
 
 [node name="InvulnerabilityLengthTimer" type="Timer" parent="Timers"]
-wait_time = 0.3
 one_shot = true
 
 [connection signal="area_entered" from="ItemPickupDetector" to="." method="_on_item_pickup_detector_area_entered"]
