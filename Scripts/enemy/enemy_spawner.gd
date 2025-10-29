@@ -19,6 +19,7 @@ func spawn_enemy(prefab: EnemyPrefab) -> void:
 	
 	var spawn_pos = get_spawn_pos(enemy)
 	enemy.global_position = spawn_pos
+	print(enemy.position)
 
 func spawn_wave_of_enemies() -> void:
 	var credits_to_use = randi_range(0, credits)

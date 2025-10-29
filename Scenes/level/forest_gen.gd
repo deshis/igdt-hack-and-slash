@@ -5,7 +5,8 @@ extends Node2D
 @onready var sky :TileMapLayer =$sky
 @onready var play :TileMapLayer =$"play-level"
 @onready var ground:TileMapLayer =$ground
-@onready var navReg:NavigationRegion2D=$"navRegion"
+
+@export var navReg:NavigationRegion2D
 
 
 const tree =[11,1,0,2] # Trunk, center, corner, side
@@ -56,6 +57,12 @@ func _generate():
 				create_tree(location)
 		
 		
+
+	
+	_gen_navpoly()
+	
+func _gen_navpoly():
+	## Probably should change how the pathfinding map is mande
 	var used_rect = ground.get_used_rect()
 	#Outer corners	
 	var corner_a:Vector2 = ground.map_to_local(Vector2i(0,0))
@@ -63,8 +70,8 @@ func _generate():
 	var corner_c:Vector2 = ground.map_to_local(used_rect.size)
 	
 	# Far corners
-	var corner_b:Vector2 = Vector2(corner_c.x, corner_a.y)
-	var corner_d:Vector2 = Vector2(corner_a.x, corner_c.y)
+	var corner_b:Vector2 = Vector2(corner_c.x, corner_a.y) #inverse
+	var corner_d:Vector2 = Vector2(corner_a.x, corner_c.y) #inverse
 	print(corner_a)
 	print(corner_b)
 	print(corner_c)
