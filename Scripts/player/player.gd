@@ -49,6 +49,8 @@ var dash_cooldown:= 3.0
 var dash_length:= 0.15
 var dash_speed:= 2500
 
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 func _ready() -> void:
 	light_attack_hitbox.disabled = true
 	light_attack.visible = false
@@ -86,7 +88,12 @@ func update_input() -> void:
 		input.x = Input.get_axis("move_left", "move_right")
 		input.y = Input.get_axis("move_up", "move_down")
 	input = input.normalized()
-
+	
+	if input.x == 0 and input.y == 0:
+		anim_sprite.play("idle")
+	else:
+		anim_sprite.play("f-walk")
+		
 
 func update_facing_dir() -> void:
 	var screen_center: Vector2 = get_viewport_rect().size / 2
