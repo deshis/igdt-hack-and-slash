@@ -38,4 +38,4 @@ func _input(event: InputEvent) -> void:
 
 func _on_selection_slot_item_was_taken() -> void:
 	visible = false
-	item_on_ground.queue_free()
+	item_on_ground.queue_free()		
