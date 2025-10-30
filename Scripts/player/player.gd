@@ -191,7 +191,6 @@ func _on_attack_heavy_area_entered(area: Area2D) -> void:
 	deal_damage(area, attack_heavy_damage)
 
 func _on_item_pickup_detector_area_entered(area: Area2D) -> void:
-	print("picked up an item")
 	item_picked_up.emit(area)
 
 

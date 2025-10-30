@@ -12,6 +12,15 @@ enum AntiAliasing {
 	MSAA8X,
 }
 
+var Resolutions: Dictionary = {
+	"3840x2160": Vector2i(3840, 2160),
+	"2560x1440": Vector2i(2560, 1440),
+	"1920x1080": Vector2i(1920, 1080),
+	"1600x900": Vector2i(1600, 900),
+	"1366x768": Vector2i(1366, 768),
+	"1280x720": Vector2i(1280, 720),
+}
+
 func _ready() -> void:
 	if FileAccess.file_exists(CFG_PATH):
 		cfg.load(CFG_PATH)
@@ -24,6 +33,7 @@ func _ready() -> void:
 		cfg.set_value("keybinds", "inventory", "Tab")
 		
 		cfg.set_value("video", "antialiasing", AntiAliasing.TAA)
+		cfg.set_value("video", "resolution", "1920x1080")
 		cfg.set_value("video", "vsync", true)
 		cfg.set_value("video", "fullscreen", false)
 		

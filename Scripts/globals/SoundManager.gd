@@ -8,6 +8,7 @@ var bgm_players: Dictionary = {}
 func _ready() -> void:
 	# BGM part
 	music_player = AudioStreamPlayer.new()
+	music_player.bus = "Music"
 	add_child(music_player)
 	
 	bgm_players = {
@@ -41,6 +42,8 @@ func play_sfx(name: String, position: Vector2 = Vector2.ZERO) -> void:
 	var player := AudioStreamPlayer2D.new()
 	player.stream = sfx_players[name]
 	player.position = position
+	
+	player.bus = "SFX"
 	
 	# Pitch variation, currently applies to all SFX
 	var min_pitch := 0.5
