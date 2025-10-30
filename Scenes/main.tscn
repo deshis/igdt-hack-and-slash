@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=32 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dh71f7mo6cfmh" path="res://Assets/basic_tiles.png" id="1_jkdf5"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/hud/full_screen_toggle.gd" id="12_fdnlq"]
 [ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/hud/anti_aliasing_selection.gd" id="12_wsu2k"]
 [ext_resource type="Script" uid="uid://dglo22okhueyv" path="res://Scripts/hud/item_pickup.gd" id="16_h1bgf"]
+[ext_resource type="Script" uid="uid://dq6p024uli4gt" path="res://Scripts/hud/resolution_selection.gd" id="16_hibaj"]
 [ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy_spawner.tscn" id="16_k12tt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wsu2k"]
@@ -778,8 +779,27 @@ metadata/_tab_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 15
 alignment = 1
+
+[node name="Resolution" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Resolution"
+fit_content = true
+
+[node name="ResolutionSelection" type="OptionButton" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("16_hibaj")
+
+[node name="Fullscreentoggle" type="CheckButton" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer" node_paths=PackedStringArray("res_selection")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Full Screen"
+script = ExtResource("12_fdnlq")
+res_selection = NodePath("../ResolutionSelection")
 
 [node name="Anti-aliasing" type="RichTextLabel" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
 layout_mode = 2
@@ -810,13 +830,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "V-Sync"
 script = ExtResource("11_fdnlq")
-
-[node name="Fullscreentoggle" type="CheckButton" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Full Screen"
-script = ExtResource("12_fdnlq")
 
 [node name="BackToMenuButton" type="Button" parent="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
 layout_mode = 2
@@ -986,8 +999,9 @@ text = "Back to menu"
 [connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]
+[connection signal="item_selected" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/ResolutionSelection" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/ResolutionSelection" method="_on_item_selected"]
+[connection signal="toggled" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Fullscreentoggle" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Fullscreentoggle" method="_on_toggled"]
 [connection signal="item_selected" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/AntiAliasingSelection" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/AntiAliasingSelection" method="_on_item_selected"]
 [connection signal="toggled" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" method="_on_toggled"]
-[connection signal="toggled" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Fullscreentoggle" to="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Fullscreentoggle" method="_on_toggled"]
 [connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/BackToMenuButton" to="HUD/PauseMenu" method="_on_back_to_menu_button_pressed"]

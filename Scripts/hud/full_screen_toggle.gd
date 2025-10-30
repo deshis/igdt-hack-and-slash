@@ -1,5 +1,7 @@
 extends CheckButton
 
+@export var res_selection:OptionButton
+
 func _ready() -> void:
 	var video_settings = CfgHandler.load_video_settings()
 	button_pressed = video_settings.fullscreen
@@ -15,3 +17,5 @@ func _on_toggled(toggled_on: bool) -> void:
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		CfgHandler.save_video_setting("fullscreen", false)
+	
+	res_selection.handle_full_screen_toggle(toggled_on)
