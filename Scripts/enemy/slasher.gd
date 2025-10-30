@@ -1,7 +1,6 @@
 extends EnemyController	
 class_name Slasher
 
-@onready var bullet:StaticBody2D = load "res://Scenes/enemy/test_boss/bullet.tscn"
 
 @export var face_player_length_timer: Timer
 var face_player = false

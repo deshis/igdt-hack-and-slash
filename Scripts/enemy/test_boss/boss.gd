@@ -1,6 +1,8 @@
 extends EnemyController	
 class_name Boss
-var speed=10
+var proj = preload("res://Scenes/enemy/test_boss/bullet.tscn")
+
+
 @export var face_player_length_timer: Timer
 var face_player = false
 
@@ -21,13 +23,24 @@ func _physics_process(delta: float) -> void:
 		face_towards_player(delta)
 
 
-func perform_attack() -> void:
+func perform_attack() -> void:		
+	shoot()
 	attack_area.visible = true
 	attack_area_hitbox.disabled = false
 	is_dashing = true
 	current_speed = dash_speed
-	
 	attack_length_timer.start()
+
+
+func shoot():
+	var ins:RigidBody2D = proj.instantiate()
+	add_child(ins)
+	ins.global_position = global_position
+	var direction = (player.global_position - ins.global_position).normalized()
+	var force_strength = 500.0
+	ins.apply_impulse(Vector2.ZERO, direction * force_strength)
+
+
 
 func face_towards_player(delta: float) -> void:
 	var dir = (player.global_position - global_transform.origin).normalized()
