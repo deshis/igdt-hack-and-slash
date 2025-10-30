@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bjkuwvtvadv2j"]
+[gd_scene load_steps=31 format=3 uid="uid://bjkuwvtvadv2j"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dh71f7mo6cfmh" path="res://Assets/basic_tiles.png" id="1_jkdf5"]
@@ -8,8 +8,11 @@
 [ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/hud/volume_slider.gd" id="7_6bp64"]
 [ext_resource type="Script" uid="uid://5ote4itncqht" path="res://Scripts/player/ui/inventory_manager.gd" id="8_344ge"]
-[ext_resource type="Script" uid="uid://dvl0eacpjrrqh" path="res://Scripts/player/ui/inventory_slot.gd" id="9_hptm8"]
+[ext_resource type="Script" uid="uid://dvl0eacpjrrqh" path="res://Scripts/player/ui/backpack_slot.gd" id="9_hptm8"]
+[ext_resource type="Script" uid="uid://umh7na1ppcth" path="res://Scripts/player/ui/equipment_slot.gd" id="10_b3802"]
 [ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="10_d1ilt"]
+[ext_resource type="Resource" uid="uid://cqk2hd68kypyk" path="res://Scripts/items/item2.tres" id="10_fevyy"]
+[ext_resource type="Resource" uid="uid://btqoki0dx13kb" path="res://Scripts/items/item3.tres" id="10_hibaj"]
 [ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/hud/vsync_toggle.gd" id="11_fdnlq"]
 [ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/hud/control_remap_button.gd" id="12_6iyac"]
 [ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/hud/full_screen_toggle.gd" id="12_fdnlq"]
@@ -64,6 +67,11 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21xkr"]
 bg_color = Color(0, 0, 0, 0.50980395)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k12tt"]
+bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.92156863)
+expand_margin_left = 25.0
+expand_margin_right = 25.0
 
 [node name="Main" type="Node2D"]
 
@@ -243,109 +251,213 @@ theme_override_constants/h_separation = 4
 theme_override_constants/v_separation = 4
 columns = 3
 
-[node name="Slot1" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack"]
+[node name="Slot1" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack" node_paths=PackedStringArray("player")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("9_hptm8")
+player = NodePath("../../../../../Player")
 
 [node name="Item" parent="HUD/Inventory/AugmentSlots/Backpack/Slot1" instance=ExtResource("10_d1ilt")]
 custom_minimum_size = Vector2(84, 84)
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
-item_name = "Test Item"
-type = 4
 
-[node name="Slot2" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack"]
+[node name="MarginContainer2" type="MarginContainer" parent="HUD/Inventory/AugmentSlots/Backpack/Slot1/Item"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Inventory/AugmentSlots/Backpack/Slot1/Item/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="HUD/Inventory/AugmentSlots/Backpack/Slot1/Item"]
+visible = false
+z_index = 8
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Inventory/AugmentSlots/Backpack/Slot1/Item/PanelContainer2"]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Slot2" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack" node_paths=PackedStringArray("player")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("9_hptm8")
+player = NodePath("../../../../../Player")
 
-[node name="Slot3" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack"]
+[node name="Item" parent="HUD/Inventory/AugmentSlots/Backpack/Slot2" instance=ExtResource("10_d1ilt")]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 0
+offset_right = 0.0
+offset_bottom = 0.0
+item = ExtResource("10_fevyy")
+
+[node name="MarginContainer2" type="MarginContainer" parent="HUD/Inventory/AugmentSlots/Backpack/Slot2/Item"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Inventory/AugmentSlots/Backpack/Slot2/Item/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="HUD/Inventory/AugmentSlots/Backpack/Slot2/Item"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Inventory/AugmentSlots/Backpack/Slot2/Item/PanelContainer2"]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Slot3" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack" node_paths=PackedStringArray("player")]
 custom_minimum_size = Vector2(84, 84)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("9_hptm8")
+player = NodePath("../../../../../Player")
 
-[node name="Slot4" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack"]
+[node name="Item" parent="HUD/Inventory/AugmentSlots/Backpack/Slot3" instance=ExtResource("10_d1ilt")]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 0
+offset_right = 0.0
+offset_bottom = 0.0
+item = ExtResource("10_hibaj")
+
+[node name="MarginContainer2" type="MarginContainer" parent="HUD/Inventory/AugmentSlots/Backpack/Slot3/Item"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Inventory/AugmentSlots/Backpack/Slot3/Item/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="HUD/Inventory/AugmentSlots/Backpack/Slot3/Item"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Inventory/AugmentSlots/Backpack/Slot3/Item/PanelContainer2"]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Slot4" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack" node_paths=PackedStringArray("player")]
 custom_minimum_size = Vector2(84, 84)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("9_hptm8")
+player = NodePath("../../../../../Player")
 
-[node name="Slot5" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack"]
+[node name="Slot5" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack" node_paths=PackedStringArray("player")]
 custom_minimum_size = Vector2(84, 84)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("9_hptm8")
+player = NodePath("../../../../../Player")
 
-[node name="Slot6" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack"]
+[node name="Slot6" type="Panel" parent="HUD/Inventory/AugmentSlots/Backpack" node_paths=PackedStringArray("player")]
 custom_minimum_size = Vector2(84, 84)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("9_hptm8")
+player = NodePath("../../../../../Player")
 
-[node name="Survivability" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+[node name="Survivability" type="Panel" parent="HUD/Inventory/AugmentSlots" node_paths=PackedStringArray("player")]
 layout_mode = 0
 offset_left = 363.0
 offset_top = 120.0
 offset_right = 445.0
 offset_bottom = 202.0
 mouse_filter = 1
-script = ExtResource("9_hptm8")
-type = 1
+script = ExtResource("10_b3802")
+player = NodePath("../../../../Player")
 
-[node name="Movement" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+[node name="Movement" type="Panel" parent="HUD/Inventory/AugmentSlots" node_paths=PackedStringArray("player")]
 layout_mode = 0
 offset_left = 79.0
 offset_top = 128.0
 offset_right = 161.0
 offset_bottom = 210.0
 mouse_filter = 1
-script = ExtResource("9_hptm8")
-type = 4
+script = ExtResource("10_b3802")
+type = 1
+player = NodePath("../../../../Player")
 
-[node name="Utility" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+[node name="Utility" type="Panel" parent="HUD/Inventory/AugmentSlots" node_paths=PackedStringArray("player")]
 layout_mode = 0
 offset_left = 70.0
 offset_top = 472.0
 offset_right = 152.0
 offset_bottom = 554.0
 mouse_filter = 1
-script = ExtResource("9_hptm8")
-type = 3
+script = ExtResource("10_b3802")
+type = 2
+player = NodePath("../../../../Player")
 
-[node name="Damage" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+[node name="Damage" type="Panel" parent="HUD/Inventory/AugmentSlots" node_paths=PackedStringArray("player")]
 layout_mode = 0
 offset_left = 354.0
 offset_top = 480.0
 offset_right = 436.0
 offset_bottom = 562.0
 mouse_filter = 1
-script = ExtResource("9_hptm8")
-type = 4
+script = ExtResource("10_b3802")
+type = 3
+player = NodePath("../../../../Player")
 
-[node name="BrainChip" type="Panel" parent="HUD/Inventory/AugmentSlots"]
+[node name="BrainChip" type="Panel" parent="HUD/Inventory/AugmentSlots" node_paths=PackedStringArray("player")]
 layout_mode = 0
 offset_left = 224.0
 offset_top = 72.0
 offset_right = 306.0
 offset_bottom = 154.0
 mouse_filter = 1
-script = ExtResource("9_hptm8")
-type = 5
+script = ExtResource("10_b3802")
+type = 4
+player = NodePath("../../../../Player")
 
 [node name="BackPack" type="RichTextLabel" parent="HUD/Inventory"]
 layout_mode = 1
@@ -856,15 +968,12 @@ text = "Back to menu"
 [connection signal="mouse_entered" from="HUD/Inventory/AugmentSlots/BrainChip" to="HUD/Inventory/AugmentSlots/BrainChip" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Inventory/AugmentSlots/BrainChip" to="HUD/Inventory/AugmentSlots/BrainChip" method="_on_mouse_exited"]
 [connection signal="gui_input" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" method="_on_gui_input"]
-[connection signal="item_was_taken" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="HUD/Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
 [connection signal="mouse_entered" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" method="_on_mouse_exited"]
 [connection signal="gui_input" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" method="_on_gui_input"]
-[connection signal="item_was_taken" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="HUD/Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
 [connection signal="mouse_entered" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" method="_on_mouse_exited"]
 [connection signal="gui_input" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" method="_on_gui_input"]
-[connection signal="item_was_taken" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="HUD/Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
 [connection signal="mouse_entered" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="HUD/Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="HUD/PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" method="_on_mouse_entered"]

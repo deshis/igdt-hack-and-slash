@@ -1,7 +1,5 @@
 extends Control
-@export var type: ItemType.Type = ItemType.Type.BACKPACK
-
-signal item_was_taken
+@export var player: Player
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_PASS
@@ -13,29 +11,28 @@ func set_item(item: Control) -> void:
 	clear_item()
 	add_child(item)
 	item.visible = true
+	
+	if item.item.equipped:
+		for effect in item.item.effects:
+			#print("Removing effects")
+			effect.remove_effect(player)
+		item.item.equipped = false
 
 func clear_item() -> void:
 	if get_child_count() > 0:
 		get_child(0).queue_free()
 
 func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
-	if typeof(data) != TYPE_DICTIONARY:
-		return false
 	
 	var item = data.get("item", null)
 	if not item:
 		return false
-	
-	return item.get_type() == type or type == ItemType.Type.BACKPACK
+		
+	return true
 
 func _drop_data(_pos: Vector2, data: Variant) -> void:
 	var dragged: Control = data.get("item", null)
 	var origin_slot: Control = data.get("origin_slot", null)
-	
-	origin_slot.item_was_taken.emit() #for closing the item pick up selection
-	
-	if typeof(data) != TYPE_DICTIONARY:
-		return
 	
 	var existing := get_item()
 	if existing:

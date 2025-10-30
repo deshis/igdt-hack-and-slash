@@ -1,10 +1,15 @@
 extends Node
 
 enum Type {
-	BACKPACK,
 	SURVIVABILITY,
 	MOVEMENT,
 	UTILITY,
 	DAMAGE,
 	ACTIVE_ITEM
+}
+
+enum Grade {
+	CONSUMER,
+	MILITARY,
+	PROTOTYPE
 }
