@@ -9,6 +9,13 @@ var face_player = false
 @export var dash_speed = 1000
 var is_dashing = false
 
+@export var nav:NavigationRegion2D
+
+
+func _ready() -> void:
+	self.player=$"../../Player"
+	self.nav_agent.set_navigation_map(nav.get_rid())
+
 func _physics_process(delta: float) -> void:
 	if not player or not target_provider:
 		return
