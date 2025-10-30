@@ -3,7 +3,7 @@ class_name EnemyController
 
 @export var pickupable_item: PackedScene
 
-var enemy: EnemyStats
+@export var enemy: EnemyStats
 var target_provider: TargetProvider
 
 @export var nav_agent: NavigationAgent2D

@@ -10,21 +10,11 @@ extends NavigationRegion2D
 
 @export_tool_button("generate") var gen = gen_nav
 
-func _ready() -> void:
-	if can_process():
-		timer.start()	
-
-func _exit_tree() -> void:
-	timer.stop()
 
 func _on_timer_timeout():
-	if player:
-		gen_nav()
-		timer.start()
+	gen_nav()
 		
 
-func initialize():
-	gen_nav()
 
 func gen_nav( size:Vector2 =self.reg_size):
 	self.navigation_polygon.clear()
@@ -53,7 +43,7 @@ func gen_nav( size:Vector2 =self.reg_size):
 	nav_poly.add_outline(bounding_outline)
 	nav_poly.source_geometry_group_name="navigation"
 	nav_poly.source_geometry_mode=2
-
+	
 	self.navigation_polygon = nav_poly
 	self.bake_navigation_polygon()
 	#spawner.navigation_region= nav_poly

@@ -7,7 +7,7 @@ extends Node2D
 @onready var ground:TileMapLayer =$ground
 
 @export var navReg:NavigationRegion2D
-
+@export var mapsize:Vector2= Vector2i(255, 255)
 
 const tree =[11,1,0,2] # Trunk, center, corner, side
 const gnd =[3,4] # ground, rocks
@@ -41,8 +41,6 @@ func _generate():
 	await texture.changed
 	var noiseImage = texture.get_image()
 	
-	var mapsize:Vector2=Vector2(100, 100)
-	
 	for i in mapsize.x:
 		for j in mapsize.y:
 			var value:int = noiseImage.get_pixel(i,j).r * height
@@ -57,7 +55,7 @@ func _generate():
 				create_tree(location)
 		
 		
-
+	
 	
 	#_gen_navpoly()
 	

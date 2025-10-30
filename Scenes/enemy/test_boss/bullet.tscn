@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://crv101q3aa3y3"]
+
+[ext_resource type="Script" uid="uid://vaq35qo3tdk3" path="res://Scenes/enemy/test_boss/projectile.gd" id="1_1qejr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1qejr"]
+
+[sub_resource type="Gradient" id="Gradient_vk5nl"]
+offsets = PackedFloat32Array(0, 0.52641165, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3vt3n"]
+gradient = SubResource("Gradient_vk5nl")
+
+[node name="StaticBody2D" type="StaticBody2D"]
+script = ExtResource("1_1qejr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1qejr")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+texture = SubResource("GradientTexture2D_3vt3n")
+
+[node name="lifetime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
