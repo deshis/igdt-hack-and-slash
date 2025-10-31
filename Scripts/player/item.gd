@@ -10,6 +10,7 @@ extends Control
 
 var name_color = "#b5b5b5"
 var grade_name = "?"
+var type_name = "?"
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -18,6 +19,8 @@ func _ready() -> void:
 		panel_container1.visible = false
 		texture_rect.texture = item.icon
 		_set_grade()
+		_get_type_name()
+		_create_description()
 		
 #Not functional!
 func _position_description() -> void:
@@ -60,6 +63,11 @@ func _input(event: InputEvent) -> void:
 		var texture = $MarginContainer/TextureRect
 		texture.modulate = Color(1,1,1,1)
 		
+	if event.is_action_pressed("click"):
+		pass
+		description.visible = false
+		panel_container1.visible = false
+
 		
 #Godot has switch statements with match
 func _set_grade() -> void:
@@ -74,27 +82,49 @@ func _set_grade() -> void:
 			name_color = "#ff3838"
 			grade_name = "Prototype"
 			
+func _get_type_name() -> void:
+	match item.type: 
+		ItemType.Type.SURVIVABILITY:
+			type_name = "Survivability"
+		ItemType.Type.MOVEMENT:
+			type_name = "Movement"
+		ItemType.Type.UTILITY:
+			type_name = "Utility"
+		ItemType.Type.DAMAGE:
+			type_name = "Damage"
+		ItemType.Type.ACTIVE_ITEM:
+			type_name = "Active Item"
+			
+func _create_description() -> void:
+	
+	name = item.item_name
+	var formatted_desc = ""
+	
+	#Item name
+	var formatted_name = ""
+	formatted_name += "[center][color=" + name_color + "][b]" + item.item_name + "[/b][/color][/center]\n"
+	formatted_desc += formatted_name
 
+	#Item stats / description
+	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_description + "[/color][/center]\n\n"
+	
+	#Item grade
+	formatted_desc += "[center][color=" + name_color + "]" + grade_name + "[/color][/center]\n"
+	
+	#Item type
+	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + type_name + "[/color][/center]\n"
+	
+	description.set_text(formatted_desc)
+			
 func _on_mouse_entered() -> void:
 	if item == null:
 		return
-	
-	name = item.item_name
-
-	var formatted_name = ""
-	formatted_name += "[center][color=" + name_color + "][b]" + item.item_name + "[/b][/color][/center]\n"
-	
-	var formatted_desc = ""
-	formatted_desc += formatted_name
-
-	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_description + "[/color][/center]\n\n"
-	formatted_desc += "[center][color=" + name_color + "]" + grade_name + "[/color][/center]\n"
-	
-	description.set_text(formatted_desc)
-	
+		
+	#Busted, fix later
 	_position_description()
-	panel_container1.visible = true
+	
 	description.visible = true
+	panel_container1.visible = true
 
 func _on_mouse_exited() -> void:
 	if item == null:
