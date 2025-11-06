@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://bb8yqfa7be2g4"]
+[gd_scene load_steps=11 format=4 uid="uid://bb8yqfa7be2g4"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_wlp7t"]
 [ext_resource type="Script" uid="uid://dopu0i2ovey53" path="res://Scenes/level/forest_gen.gd" id="2_3tp1p"]
 [ext_resource type="Texture2D" uid="uid://cb3158cqwbawb" path="res://Assets/area_tiles/basic_forest_tiles.png" id="2_f48ge"]
 [ext_resource type="Script" uid="uid://dwcvxx4x4o01o" path="res://Scenes/level/nav_follow.gd" id="3_wyvj0"]
-[ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy_spawner.tscn" id="4_3tp1p"]
+[ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="4_3tp1p"]
+[ext_resource type="PackedScene" uid="uid://cuuem545ega72" path="res://Scenes/hud.tscn" id="6_lvbhc"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_f48ge"]
 noise_type = 2
@@ -99,5 +100,8 @@ spawner = NodePath("../../EnemySpawner")
 [node name="Timer" type="Timer" parent="world/navRegion"]
 wait_time = 4.0
 one_shot = true
+
+[node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_lvbhc")]
+player = NodePath("../Player")
 
 [connection signal="timeout" from="world/navRegion/Timer" to="world/navRegion" method="_on_timer_timeout"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cwiavd3bgd63w"]
 
-[ext_resource type="PackedScene" uid="uid://bfykyy2y7odt7" path="res://Scenes/enemy_slasher.tscn" id="1_5r271"]
+[ext_resource type="PackedScene" uid="uid://bfykyy2y7odt7" path="res://Scenes/enemy/enemy_slasher.tscn" id="1_5r271"]
 [ext_resource type="Script" uid="uid://t76ghlhghorw" path="res://Scripts/enemy/stats/EnemyStats.gd" id="2_8flpb"]
 [ext_resource type="Script" uid="uid://b4if25763viv3" path="res://Scripts/enemy/test_boss/boss.gd" id="2_n3hpa"]
 
@@ -19,7 +19,7 @@ gradient = SubResource("Gradient_cvnsp")
 fill_from = Vector2(1, 1)
 
 [node name="boss" instance=ExtResource("1_5r271")]
-scale = Vector2(4, 4)
+scale = Vector2(1.8100461, 1.8100461)
 script = ExtResource("2_n3hpa")
 enemy = SubResource("Resource_7i6gw")
 

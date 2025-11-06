@@ -13,8 +13,9 @@ var is_dashing = false
 
 
 func _ready() -> void:
-	self.player=$"../../Player"
-	self.nav_agent.set_navigation_map(nav.get_rid())
+	# self.player=$"../../Player"
+	# self.nav_agent.set_navigation_map(nav.get_rid())
+	pass
 
 func _physics_process(delta: float) -> void:
 	if not player or not target_provider:
@@ -30,7 +31,7 @@ func _physics_process(delta: float) -> void:
 		face_towards_player(delta)
 
 
-func perform_attack() -> void:		
+func perform_attack() -> void:
 	shoot()
 	attack_area.visible = true
 	attack_area_hitbox.disabled = false

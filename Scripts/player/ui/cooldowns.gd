@@ -1,6 +1,6 @@
 extends Control
 
-@export var player: Player
+var player: Player
 
 @onready var dash_cooldown_progress_bar: ProgressBar = $MarginContainer/HBoxContainer/DashCooldown/ProgressBar
 @onready var dash_cooldown_timer: Timer = $MarginContainer/HBoxContainer/DashCooldown/Timer
@@ -12,16 +12,20 @@ extends Control
 @onready var secondary_attack_timer: Timer = $MarginContainer/HBoxContainer/SecondaryAttack/Timer
 
 
-func _ready() -> void:
+func _on_player_ready() -> void:
 	player.dash_used.connect(update_dash_cooldown)
 	player.primary_attack_used.connect(update_primary_cooldown)
 	player.secondary_attack_used.connect(update_secondary_cooldown)
-
 
 func _process(_delta: float) -> void:
 	dash_cooldown_progress_bar.value = dash_cooldown_timer.time_left
 	primary_attack_progress_bar.value = primary_attack_timer.time_left
 	secondary_attack_progress_bar.value = secondary_attack_timer.time_left
+
+
+func setup(p: Player) -> void:
+	player = p
+	_on_player_ready()
 
 
 func update_dash_cooldown(cooldown:float)->void:

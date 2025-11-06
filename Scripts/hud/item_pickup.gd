@@ -1,6 +1,6 @@
 extends Control
 
-@export var player: Player
+var player: Player
 @onready var inventory: Control = $".."
 
 @onready var selection_slot_1: Panel = $VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1
@@ -9,9 +9,12 @@ extends Control
 
 var item_on_ground:Area2D
 
-func _ready() -> void:
+func _on_player_ready() -> void:
 	player.item_picked_up.connect(open_item_selection)
 
+func setup(p: Player) -> void:
+	player = p
+	_on_player_ready()
 
 func open_item_selection(area:Area2D):
 	item_on_ground = area

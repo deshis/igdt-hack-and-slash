@@ -1,5 +1,6 @@
 extends Control
-@export var player: Player
+
+var player: Player
 
 signal item_was_taken
 

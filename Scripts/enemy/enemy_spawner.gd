@@ -2,12 +2,19 @@ extends Node2D
 
 @export var player: Node2D
 @export var enemy_list: Array[EnemyPrefab] = []
+@export var mini_boss_list: Array[EnemyPrefab] = []
+@export var boss_list: Array[EnemyPrefab] = []
+
 @export var navigation_region: NavigationRegion2D
 
-@export var cooldown_timer: Timer
-@export var wave_cooldown_min = 2
-@export var wave_cooldown_max = 6
-var credits := 0
+@export var wave_cooldown_timer: Timer
+@export var wave_cooldown_min := 2.0
+@export var wave_cooldown_max := 6.0
+
+@export var boss_cooldown_timer: Timer
+@export var boss_cooldown_time := 30.0
+
+var credits := 0.0
 
 func spawn_enemy(prefab: EnemyPrefab) -> void:
 	var enemy = prefab.scene.instantiate() as EnemyController
@@ -21,16 +28,17 @@ func spawn_enemy(prefab: EnemyPrefab) -> void:
 	enemy.global_position = spawn_pos
 	
 
-func spawn_wave_of_enemies() -> void:
-	var credits_to_use = randi_range(0, credits)
-	
-	while credits_to_use > 0:
-		var choice = randi_range(0, enemy_list.size() - 1)
-		var prefab = enemy_list[choice]
-		spawn_enemy(prefab)
+func spawn_wave_of_enemies(amount: int) -> void:
+	for i in range(amount):
+		if credits == 0:
+			return
 		
-		credits_to_use -= prefab.stats.cost
-		credits -= prefab.stats.cost
+		var enemy = get_random_enemy(enemy_list)
+		var cost = enemy.stats.cost
+		
+		if cost <= credits:
+			spawn_enemy(enemy)
+			credits -= enemy.stats.cost
 
 func get_spawn_pos(_enemy: EnemyController) -> Vector2:
 	var screen_size = get_viewport_rect().size
@@ -57,10 +65,25 @@ func get_spawn_pos(_enemy: EnemyController) -> Vector2:
 	var fixed_pos = NavigationServer2D.map_get_closest_point(nav_map, pos)
 	return fixed_pos
 
-func _on_cooldown_timer_timeout() -> void:
+func get_random_enemy(array: Array) -> EnemyPrefab:
+	var choice = randi_range(0, array.size() - 1)
+	var prefab = array[choice]
+	
+	return prefab
+
+func _on_wave_cooldown_timer_timeout() -> void:
 	if player:
-		credits += randi_range(1, 4)
-		spawn_wave_of_enemies()
+		credits += randi_range(2, 5)
+		var enemy_amount = randi_range(2, 6)
+		spawn_wave_of_enemies(enemy_amount)
 		
-		var cooldown = randi_range(wave_cooldown_min, wave_cooldown_max)
-		cooldown_timer.start(cooldown)
+		var cooldown = randf_range(wave_cooldown_min, wave_cooldown_max)
+		wave_cooldown_timer.start(cooldown)
+
+
+func _on_boss_cooldown_timer_timeout() -> void:
+	var boss = get_random_enemy(boss_list)
+	spawn_enemy(boss)
+	
+	var cost = boss.stats.cost
+	credits -= cost

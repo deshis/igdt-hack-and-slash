@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyPrefab" load_steps=6 format=3 uid="uid://baujclodehp88"]
+
+[ext_resource type="PackedScene" uid="uid://ymjw8v6n38do" path="res://Scenes/enemy/enemy_big_slasher.tscn" id="1_nhtwh"]
+[ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemy/prefabs/EnemyPrefab.gd" id="2_wudw0"]
+[ext_resource type="Resource" uid="uid://bfq0j6yy6dkh2" path="res://Scripts/enemy/stats/boss_slasher.tres" id="3_anm1y"]
+[ext_resource type="Script" uid="uid://c3xt5r4pnu2pd" path="res://Scripts/enemy/targets/TargetPlayer.gd" id="4_uiirs"]
+
+[sub_resource type="Resource" id="Resource_kg253"]
+script = ExtResource("4_uiirs")
+metadata/_custom_type_script = "uid://c3xt5r4pnu2pd"
+
+[resource]
+script = ExtResource("2_wudw0")
+stats = ExtResource("3_anm1y")
+scene = ExtResource("1_nhtwh")
+target_provider = SubResource("Resource_kg253")
+metadata/_custom_type_script = "uid://cqw5n3pgcmai6"

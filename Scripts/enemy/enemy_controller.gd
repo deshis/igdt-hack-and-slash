@@ -84,7 +84,6 @@ func die() -> void:
 
 
 func _on_attack_area_area_entered(_area: Area2D) -> void:
-	print(enemy.name, " dealt ", enemy.damage, " damage to player")
 	player.take_damage(enemy.damage)
 
 func _on_navigation_agent_2d_target_reached() -> void:

@@ -1,0 +1,941 @@
+[gd_scene load_steps=25 format=3 uid="uid://cuuem545ega72"]
+
+[ext_resource type="Script" uid="uid://cptm56sk2qede" path="res://Scripts/hud/hud_manager.gd" id="1_36s6t"]
+[ext_resource type="Script" uid="uid://b8rtnvnstvdg4" path="res://Scripts/player/ui/healthbar.gd" id="1_ba8gd"]
+[ext_resource type="Script" uid="uid://b3p4e86xoqqh3" path="res://Scripts/player/ui/cooldowns.gd" id="2_36s6t"]
+[ext_resource type="Script" uid="uid://5ote4itncqht" path="res://Scripts/player/ui/inventory_manager.gd" id="3_pbtju"]
+[ext_resource type="Script" uid="uid://dvl0eacpjrrqh" path="res://Scripts/player/ui/backpack_slot.gd" id="4_yidpd"]
+[ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="5_0iicw"]
+[ext_resource type="Resource" uid="uid://cqk2hd68kypyk" path="res://Scripts/items/item2.tres" id="6_ajim5"]
+[ext_resource type="Resource" uid="uid://btqoki0dx13kb" path="res://Scripts/items/item3.tres" id="7_vxf74"]
+[ext_resource type="Script" uid="uid://umh7na1ppcth" path="res://Scripts/player/ui/equipment_slot.gd" id="8_oersf"]
+[ext_resource type="Script" uid="uid://dglo22okhueyv" path="res://Scripts/hud/item_pickup.gd" id="9_484xk"]
+[ext_resource type="Script" uid="uid://c081ighahaot6" path="res://Scripts/hud/pause_menu.gd" id="10_lkt4f"]
+[ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="11_wfkbc"]
+[ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/hud/volume_slider.gd" id="12_s17ah"]
+[ext_resource type="Script" uid="uid://dq6p024uli4gt" path="res://Scripts/hud/resolution_selection.gd" id="13_jnyvx"]
+[ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/hud/full_screen_toggle.gd" id="14_qtyhc"]
+[ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/hud/anti_aliasing_selection.gd" id="15_q562m"]
+[ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/hud/vsync_toggle.gd" id="16_l8r83"]
+[ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/hud/control_remap_button.gd" id="17_v5hjn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gbba"]
+bg_color = Color(0.27450982, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjvhh"]
+bg_color = Color(0.78431374, 0, 0, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8gbba"]
+size = Vector2(50, 50)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kry3j"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21xkr"]
+bg_color = Color(0, 0, 0, 0.50980395)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k12tt"]
+bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.92156863)
+expand_margin_left = 25.0
+expand_margin_right = 25.0
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_36s6t")
+
+[node name="HPBar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ba8gd")
+
+[node name="MarginContainer" type="MarginContainer" parent="HPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 343.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ProgressBar" type="ProgressBar" parent="HPBar/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_8gbba")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jjvhh")
+value = 3.05
+show_percentage = false
+
+[node name="SkillCooldowns" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -89.0
+offset_right = 153.0
+grow_vertical = 0
+script = ExtResource("2_36s6t")
+
+[node name="MarginContainer" type="MarginContainer" parent="SkillCooldowns"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 343.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SkillCooldowns/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PrimaryAttack" type="TextureRect" parent="SkillCooldowns/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_8gbba")
+expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="SkillCooldowns/MarginContainer/HBoxContainer/PrimaryAttack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/fill = SubResource("StyleBoxFlat_21xkr")
+fill_mode = 2
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="SkillCooldowns/MarginContainer/HBoxContainer/PrimaryAttack"]
+one_shot = true
+
+[node name="SecondaryAttack" type="TextureRect" parent="SkillCooldowns/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_8gbba")
+expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="SkillCooldowns/MarginContainer/HBoxContainer/SecondaryAttack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/fill = SubResource("StyleBoxFlat_21xkr")
+fill_mode = 2
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="SkillCooldowns/MarginContainer/HBoxContainer/SecondaryAttack"]
+one_shot = true
+
+[node name="DashCooldown" type="TextureRect" parent="SkillCooldowns/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_8gbba")
+expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="SkillCooldowns/MarginContainer/HBoxContainer/DashCooldown"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/fill = SubResource("StyleBoxFlat_21xkr")
+fill_mode = 2
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="SkillCooldowns/MarginContainer/HBoxContainer/DashCooldown"]
+one_shot = true
+
+[node name="Inventory" type="Control" parent="." node_paths=PackedStringArray("backpack", "augment_slots", "item_selection")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_pbtju")
+backpack = NodePath("Backpack")
+augment_slots = NodePath("AugmentSlots")
+item_selection = NodePath("ItemSelection")
+
+[node name="Panel" type="Panel" parent="Inventory"]
+modulate = Color(1, 1, 1, 0.5019608)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backpack" type="GridContainer" parent="Inventory"]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 302.0
+offset_right = 473.0
+offset_bottom = 474.0
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="Slot1" type="Panel" parent="Inventory/Backpack" groups=["inventory_slot"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("4_yidpd")
+
+[node name="Item" parent="Inventory/Backpack/Slot1" instance=ExtResource("5_0iicw")]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot1/Item"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot1/Item/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot1/Item"]
+visible = false
+z_index = 8
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot1/Item/PanelContainer2"]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Slot2" type="Panel" parent="Inventory/Backpack" groups=["inventory_slot"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("4_yidpd")
+
+[node name="Item" parent="Inventory/Backpack/Slot2" instance=ExtResource("5_0iicw")]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 0
+offset_right = 0.0
+offset_bottom = 0.0
+item = ExtResource("6_ajim5")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot2/Item"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot2/Item/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot2/Item"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot2/Item/PanelContainer2"]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Slot3" type="Panel" parent="Inventory/Backpack" groups=["inventory_slot"]]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("4_yidpd")
+
+[node name="Item" parent="Inventory/Backpack/Slot3" instance=ExtResource("5_0iicw")]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 0
+offset_right = 0.0
+offset_bottom = 0.0
+item = ExtResource("7_vxf74")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot3/Item"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot3/Item/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot3/Item"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot3/Item/PanelContainer2"]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Slot4" type="Panel" parent="Inventory/Backpack" groups=["inventory_slot"]]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("4_yidpd")
+
+[node name="Slot5" type="Panel" parent="Inventory/Backpack" groups=["inventory_slot"]]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("4_yidpd")
+
+[node name="Slot6" type="Panel" parent="Inventory/Backpack" groups=["inventory_slot"]]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("4_yidpd")
+
+[node name="AugmentSlots" type="Control" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Survivability" type="Panel" parent="Inventory/AugmentSlots" groups=["inventory_slot"]]
+layout_mode = 0
+offset_left = 363.0
+offset_top = 120.0
+offset_right = 445.0
+offset_bottom = 202.0
+mouse_filter = 1
+script = ExtResource("8_oersf")
+
+[node name="Movement" type="Panel" parent="Inventory/AugmentSlots" groups=["inventory_slot"]]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 128.0
+offset_right = 161.0
+offset_bottom = 210.0
+mouse_filter = 1
+script = ExtResource("8_oersf")
+type = 1
+
+[node name="Utility" type="Panel" parent="Inventory/AugmentSlots" groups=["inventory_slot"]]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 472.0
+offset_right = 152.0
+offset_bottom = 554.0
+mouse_filter = 1
+script = ExtResource("8_oersf")
+type = 2
+
+[node name="Damage" type="Panel" parent="Inventory/AugmentSlots" groups=["inventory_slot"]]
+layout_mode = 0
+offset_left = 354.0
+offset_top = 480.0
+offset_right = 436.0
+offset_bottom = 562.0
+mouse_filter = 1
+script = ExtResource("8_oersf")
+type = 3
+
+[node name="BrainChip" type="Panel" parent="Inventory/AugmentSlots" groups=["inventory_slot"]]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 72.0
+offset_right = 306.0
+offset_bottom = 154.0
+mouse_filter = 1
+script = ExtResource("8_oersf")
+type = 4
+
+[node name="BackPack" type="RichTextLabel" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 291.0
+offset_top = 271.0
+offset_right = -891.0
+offset_bottom = -421.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Backpack"
+horizontal_alignment = 1
+
+[node name="Survivability" type="RichTextLabel" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 968.0
+offset_top = 90.0
+offset_right = -168.0
+offset_bottom = -601.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "survivability(bio)"
+horizontal_alignment = 1
+
+[node name="Movement" type="RichTextLabel" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 706.0
+offset_top = 98.0
+offset_right = -474.0
+offset_bottom = -591.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Movement"
+horizontal_alignment = 1
+
+[node name="Utility" type="RichTextLabel" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 686.0
+offset_top = 442.0
+offset_right = -472.0
+offset_bottom = -247.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "utility"
+horizontal_alignment = 1
+
+[node name="Damage" type="RichTextLabel" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 956.0
+offset_top = 450.0
+offset_right = -174.0
+offset_bottom = -244.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Damage"
+horizontal_alignment = 1
+
+[node name="Active" type="RichTextLabel" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 818.0
+offset_top = 48.0
+offset_right = -288.0
+offset_bottom = -644.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "active(brain chip)"
+horizontal_alignment = 1
+
+[node name="ItemSelection" type="Control" parent="Inventory"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -611.0
+offset_top = -304.0
+offset_right = -23.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_484xk")
+
+[node name="Panel" type="Panel" parent="Inventory/ItemSelection"]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 18.0
+offset_right = 558.0
+offset_bottom = 197.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Inventory/ItemSelection"]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 18.0
+offset_right = 558.0
+offset_bottom = 197.0
+theme_override_constants/separation = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/ItemSelection/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center] Pick one item:"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Inventory/ItemSelection/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = -60
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectionSlot1" type="Panel" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("4_yidpd")
+
+[node name="SelectionSlot2" type="Panel" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("4_yidpd")
+
+[node name="SelectionSlot3" type="Panel" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("4_yidpd")
+
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_lkt4f")
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -125.0
+offset_right = 100.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]GAME PAUSED
+
+"
+fit_content = true
+
+[node name="ContinueButton" type="Button" parent="PauseMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+script = ExtResource("11_wfkbc")
+
+[node name="SettingsButton" type="Button" parent="PauseMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+script = ExtResource("11_wfkbc")
+
+[node name="QuitButton" type="Button" parent="PauseMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit Game"
+script = ExtResource("11_wfkbc")
+
+[node name="SettingsMenu" type="Control" parent="PauseMenu"]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="PauseMenu/SettingsMenu"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Audio" type="MarginContainer" parent="PauseMenu/SettingsMenu/TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Audio"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Master Volume" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Master"
+fit_content = true
+
+[node name="MasterVolumeSlider" type="HSlider" parent="PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+scrollable = false
+script = ExtResource("12_s17ah")
+bus_name = "Master"
+
+[node name="SFX Volume" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]SFX"
+fit_content = true
+
+[node name="SFXVolumeSlider" type="HSlider" parent="PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+scrollable = false
+script = ExtResource("12_s17ah")
+bus_name = "SFX"
+
+[node name="Music Volume" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Music"
+fit_content = true
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+scrollable = false
+script = ExtResource("12_s17ah")
+bus_name = "Music"
+
+[node name="BackToMenuButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Back to menu"
+
+[node name="Graphics" type="MarginContainer" parent="PauseMenu/SettingsMenu/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Graphics"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Resolution" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Resolution"
+fit_content = true
+
+[node name="ResolutionSelection" type="OptionButton" parent="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("13_jnyvx")
+
+[node name="Fullscreentoggle" type="CheckButton" parent="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer" node_paths=PackedStringArray("res_selection")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Full Screen"
+script = ExtResource("14_qtyhc")
+res_selection = NodePath("../ResolutionSelection")
+
+[node name="Anti-aliasing" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Anti-aliasing"
+fit_content = true
+
+[node name="AntiAliasingSelection" type="OptionButton" parent="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+selected = 0
+item_count = 5
+popup/item_0/text = "Off"
+popup/item_0/id = 0
+popup/item_1/text = "TAA"
+popup/item_1/id = 1
+popup/item_2/text = "MSAA 2x"
+popup/item_2/id = 2
+popup/item_3/text = "MSAA 4x"
+popup/item_3/id = 3
+popup/item_4/text = "MSAA 8x"
+popup/item_4/id = 4
+script = ExtResource("15_q562m")
+
+[node name="Vsynctoggle" type="CheckButton" parent="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "V-Sync"
+script = ExtResource("16_l8r83")
+
+[node name="BackToMenuButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Back to menu"
+
+[node name="Controls" type="MarginContainer" parent="PauseMenu/SettingsMenu/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="moveup" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveup"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Move Up"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveup"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "move_up"
+
+[node name="movedown" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/movedown"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Move Down"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/movedown"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "move_down"
+
+[node name="moveleft" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveleft"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Move Left"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveleft"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "move_left"
+
+[node name="moveright" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveright"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Move Right"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveright"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "move_right"
+
+[node name="dash" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/dash"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Movement Ability"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/dash"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "movement_ability"
+
+[node name="inventory" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Open Inventory"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/inventory"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "inventory"
+
+[node name="BackToMenuButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Back to menu"
+
+[connection signal="gui_input" from="Inventory/Backpack/Slot1" to="Inventory/Backpack/Slot1" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/Backpack/Slot1" to="Inventory/Backpack/Slot1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Backpack/Slot1" to="Inventory/Backpack/Slot1" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/Backpack/Slot2" to="Inventory/Backpack/Slot2" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/Backpack/Slot2" to="Inventory/Backpack/Slot2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Backpack/Slot2" to="Inventory/Backpack/Slot2" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/Backpack/Slot3" to="Inventory/Backpack/Slot3" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/Backpack/Slot3" to="Inventory/Backpack/Slot3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Backpack/Slot3" to="Inventory/Backpack/Slot3" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/Backpack/Slot4" to="Inventory/Backpack/Slot4" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/Backpack/Slot4" to="Inventory/Backpack/Slot4" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Backpack/Slot4" to="Inventory/Backpack/Slot4" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/Backpack/Slot5" to="Inventory/Backpack/Slot5" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/Backpack/Slot5" to="Inventory/Backpack/Slot5" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Backpack/Slot5" to="Inventory/Backpack/Slot5" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/Backpack/Slot6" to="Inventory/Backpack/Slot6" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/Backpack/Slot6" to="Inventory/Backpack/Slot6" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Backpack/Slot6" to="Inventory/Backpack/Slot6" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/AugmentSlots/Survivability" to="Inventory/AugmentSlots/Survivability" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/AugmentSlots/Survivability" to="Inventory/AugmentSlots/Survivability" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/AugmentSlots/Survivability" to="Inventory/AugmentSlots/Survivability" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/AugmentSlots/Movement" to="Inventory/AugmentSlots/Movement" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/AugmentSlots/Movement" to="Inventory/AugmentSlots/Movement" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/AugmentSlots/Movement" to="Inventory/AugmentSlots/Movement" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/AugmentSlots/Utility" to="Inventory/AugmentSlots/Utility" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/AugmentSlots/Utility" to="Inventory/AugmentSlots/Utility" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/AugmentSlots/Utility" to="Inventory/AugmentSlots/Utility" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/AugmentSlots/Damage" to="Inventory/AugmentSlots/Damage" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/AugmentSlots/Damage" to="Inventory/AugmentSlots/Damage" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/AugmentSlots/Damage" to="Inventory/AugmentSlots/Damage" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/AugmentSlots/BrainChip" to="Inventory/AugmentSlots/BrainChip" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Inventory/AugmentSlots/BrainChip" to="Inventory/AugmentSlots/BrainChip" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/AugmentSlots/BrainChip" to="Inventory/AugmentSlots/BrainChip" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" method="_on_gui_input"]
+[connection signal="item_was_taken" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
+[connection signal="mouse_entered" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" method="_on_gui_input"]
+[connection signal="item_was_taken" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
+[connection signal="mouse_entered" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" method="_on_mouse_exited"]
+[connection signal="gui_input" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" method="_on_gui_input"]
+[connection signal="item_was_taken" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
+[connection signal="mouse_entered" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="PauseMenu" method="_on_continue_button_pressed"]
+[connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="PauseMenu" method="_on_settings_button_pressed"]
+[connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="PauseMenu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer/BackToMenuButton" to="PauseMenu" method="_on_back_to_menu_button_pressed"]
+[connection signal="item_selected" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/ResolutionSelection" to="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/ResolutionSelection" method="_on_item_selected"]
+[connection signal="toggled" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Fullscreentoggle" to="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Fullscreentoggle" method="_on_toggled"]
+[connection signal="item_selected" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/AntiAliasingSelection" to="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/AntiAliasingSelection" method="_on_item_selected"]
+[connection signal="toggled" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" to="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" method="_on_toggled"]
+[connection signal="pressed" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/BackToMenuButton" to="PauseMenu" method="_on_back_to_menu_button_pressed"]
+[connection signal="pressed" from="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/BackToMenuButton" to="PauseMenu" method="_on_back_to_menu_button_pressed"]

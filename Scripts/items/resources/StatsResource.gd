@@ -22,7 +22,7 @@ func apply_effect(player) -> void:
 			player.current_speed += value
 			player.movement_speed += value
 		Stat.LIGHTDAMAGE:
-			player.attack_light_damage += value
+				player.attack_light_damage += value
 		Stat.HEAVYDAMAGE:
 			player.attack_heavy_damage += value
 

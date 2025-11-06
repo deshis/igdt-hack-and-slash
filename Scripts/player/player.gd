@@ -150,7 +150,6 @@ func perform_dash():
 func deal_damage(area: Area2D, amount: float) -> void:
 	var enemy = area.get_parent() as EnemyController
 	enemy.take_damage(amount)
-	print("dealt ", amount, " damage to ", enemy.enemy.name)
 
 func take_damage(damage:float) -> void:
 	if invulnerability_length_timer.time_left > 0:
