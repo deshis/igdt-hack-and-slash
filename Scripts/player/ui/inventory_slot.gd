@@ -7,7 +7,7 @@ class_name InventorySlot
 var player: Player
 var inventory_manager: InventoryManager
 
-signal item_was_taken
+var is_pickup_slot := false
 
 func setup(p: Player, inv_manager: InventoryManager) -> void:
 	player = p
@@ -30,25 +30,39 @@ func clear_item() -> void:
 		if child is Item:
 			child.queue_free()
 
+func slot_right_clicked() -> void:
+	inventory_manager.move_item(self)
+
+func _gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("right_click"):
+		slot_right_clicked()
+
 func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
-	if typeof(data) != TYPE_DICTIONARY:
+	if not (data is InventorySlot) or is_pickup_slot:
 		return false
 	
-	var item = data.get("item", null)
-	if not item:
+	var origin_slot: InventorySlot = data
+	var item = origin_slot.get_item()
+	
+	print("origin_slot_type: ", origin_slot.type)
+	
+	if origin_slot.is_pickup_slot and get_item() != null:
 		return false
 	
 	# generic slot
 	if type == ItemType.Type.NONE:
-		return true
-	
+		if origin_slot.type == ItemType.Type.NONE or not get_item():
+			return true
+		elif get_item() and item.type == get_item().type:
+			return true
+		else:
+			return false
+
 	return item.get_type() == type
 
 func _drop_data(_pos: Vector2, data: Variant) -> void:
-	var item: Control = data.get("item", null)
-	var origin_slot: Control = data.get("origin_slot", null)
-	
-	if typeof(data) != TYPE_DICTIONARY:
+	if not (data is InventorySlot):
 		return
 	
-	inventory_manager.move_item(item, self, origin_slot)
+	var origin_slot: InventorySlot = data
+	inventory_manager.move_item(origin_slot, self)

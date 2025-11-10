@@ -1,8 +1,6 @@
 extends Control
 class_name Item
 
-signal item_right_clicked(slot: Control)
-
 @export var item : ItemResource
 
 @onready var type = item.type
@@ -22,10 +20,6 @@ func _ready() -> void:
 		_set_grade()
 		_get_type_name()
 		_create_description()
-
-func _gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
-		item_right_clicked.emit(self)
 
 #Not functional!
 func _position_description() -> void:
@@ -56,10 +50,11 @@ func _get_drag_data(_pos: Vector2) -> Variant:
 		description.visible = false
 		panel_container1.visible = false
 		
-	return {
-		"item": self,
-		"origin_slot": get_parent()
-	}
+	return get_parent()
+
+func _notification(what):
+	if what == NOTIFICATION_DRAG_END:
+		texture_rect.modulate = Color(1,1,1,1)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("click"):

@@ -17,6 +17,10 @@ func setup(p: Player, inv_manager: InventoryManager) -> void:
 	player = p
 	inventory_manager = inv_manager
 	
+	selection_slot_1.setup(p, inv_manager)
+	selection_slot_2.setup(p, inv_manager)
+	selection_slot_3.setup(p, inv_manager)
+	
 	_on_player_ready()
 
 func open_item_selection(area:Area2D):
@@ -35,10 +39,6 @@ func open_item_selection(area:Area2D):
 	selection_slot_1.add_child(item1)
 	selection_slot_2.add_child(item2)
 	selection_slot_3.add_child(item3)
-	
-	item1.item_right_clicked.connect(inventory_manager._on_item_right_clicked)
-	item2.item_right_clicked.connect(inventory_manager._on_item_right_clicked)
-	item3.item_right_clicked.connect(inventory_manager._on_item_right_clicked)
 
 
 func clear_slot(slot: Control)->void:
@@ -50,6 +50,6 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory"):
 		visible = false
 
-func _on_selection_slot_item_was_taken() -> void:
+func close_menu() -> void:
 	visible = false
 	item_on_ground.queue_free()

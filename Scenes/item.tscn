@@ -16,6 +16,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 82.0
 offset_bottom = 82.0
+mouse_filter = 1
 script = ExtResource("1_76mu4")
 item = ExtResource("2_u06aw")
 
@@ -34,6 +35,7 @@ theme_override_constants/margin_bottom = 4
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("1_ys0gr")
 expand_mode = 2
 

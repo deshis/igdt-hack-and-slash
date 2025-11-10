@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cuuem545ega72"]
+[gd_scene load_steps=27 format=3 uid="uid://cuuem545ega72"]
 
 [ext_resource type="Script" uid="uid://cptm56sk2qede" path="res://Scripts/hud/hud_manager.gd" id="1_36s6t"]
 [ext_resource type="Script" uid="uid://b8rtnvnstvdg4" path="res://Scripts/player/ui/healthbar.gd" id="1_ba8gd"]
@@ -7,11 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="5_0iicw"]
 [ext_resource type="Resource" uid="uid://cqk2hd68kypyk" path="res://Scripts/items/item2.tres" id="6_ajim5"]
 [ext_resource type="Resource" uid="uid://btqoki0dx13kb" path="res://Scripts/items/item3.tres" id="7_vxf74"]
+[ext_resource type="Script" uid="uid://cnrj2cq3cvdn7" path="res://Scripts/player/ui/trash_slot.gd" id="9_36s6t"]
 [ext_resource type="Script" uid="uid://dglo22okhueyv" path="res://Scripts/hud/item_pickup.gd" id="9_484xk"]
+[ext_resource type="Script" uid="uid://c8noump2yhng5" path="res://Scripts/player/ui/augment_slot.gd" id="9_pbtju"]
 [ext_resource type="PackedScene" uid="uid://cexexdh4re63h" path="res://Scenes/inventory_slot.tscn" id="10_36s6t"]
 [ext_resource type="Script" uid="uid://c081ighahaot6" path="res://Scripts/hud/pause_menu.gd" id="10_lkt4f"]
 [ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="11_wfkbc"]
 [ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/hud/volume_slider.gd" id="12_s17ah"]
+[ext_resource type="Script" uid="uid://cdh5pjfwavchk" path="res://Scripts/player/ui/pickup_slot.gd" id="12_yidpd"]
 [ext_resource type="Script" uid="uid://dq6p024uli4gt" path="res://Scripts/hud/resolution_selection.gd" id="13_jnyvx"]
 [ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/hud/full_screen_toggle.gd" id="14_qtyhc"]
 [ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/hud/anti_aliasing_selection.gd" id="15_q562m"]
@@ -327,6 +330,7 @@ offset_right = 239.0
 offset_bottom = 281.0
 grow_horizontal = 1
 grow_vertical = 1
+script = ExtResource("9_pbtju")
 slot_name = "Survivability"
 type = 1
 
@@ -341,6 +345,7 @@ offset_right = 478.0
 offset_bottom = 515.0
 grow_horizontal = 1
 grow_vertical = 1
+script = ExtResource("9_pbtju")
 slot_name = "Movement"
 type = 2
 
@@ -355,6 +360,7 @@ offset_right = 443.0
 offset_bottom = 282.0
 grow_horizontal = 1
 grow_vertical = 1
+script = ExtResource("9_pbtju")
 slot_name = "Utility"
 type = 3
 
@@ -369,6 +375,7 @@ offset_right = 193.0
 offset_bottom = 513.0
 grow_horizontal = 1
 grow_vertical = 1
+script = ExtResource("9_pbtju")
 slot_name = "Damage"
 type = 4
 
@@ -383,6 +390,7 @@ offset_right = 337.0
 offset_bottom = 95.0
 grow_horizontal = 1
 grow_vertical = 1
+script = ExtResource("9_pbtju")
 slot_name = "Brainchip"
 type = 5
 
@@ -397,6 +405,7 @@ offset_right = 188.0
 offset_bottom = 367.0
 grow_horizontal = 1
 grow_vertical = 1
+script = ExtResource("9_pbtju")
 slot_name = "Primary Attack"
 type = 6
 
@@ -411,6 +420,7 @@ offset_right = 671.0
 offset_bottom = 368.0
 grow_horizontal = 1
 grow_vertical = 1
+script = ExtResource("9_pbtju")
 slot_name = "Secondary Attack"
 type = 7
 
@@ -418,12 +428,16 @@ type = 7
 modulate = Color(1, 0, 0, 1)
 self_modulate = Color(1, 0, 0, 1)
 layout_mode = 1
+anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 480.0
 offset_top = 390.0
 offset_right = 564.0
 offset_bottom = 474.00006
+grow_horizontal = 1
+grow_vertical = 1
+script = ExtResource("9_36s6t")
 slot_name = "Trash"
 
 [node name="ItemSelection" type="Control" parent="Inventory"]
@@ -474,12 +488,15 @@ alignment = 1
 
 [node name="SelectionSlot1" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
 layout_mode = 2
+script = ExtResource("12_yidpd")
 
 [node name="SelectionSlot2" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
 layout_mode = 2
+script = ExtResource("12_yidpd")
 
 [node name="SelectionSlot3" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
 layout_mode = 2
+script = ExtResource("12_yidpd")
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
@@ -816,9 +833,6 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back to menu"
 
-[connection signal="item_was_taken" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1" to="Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
-[connection signal="item_was_taken" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2" to="Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
-[connection signal="item_was_taken" from="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3" to="Inventory/ItemSelection" method="_on_selection_slot_item_was_taken"]
 [connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="PauseMenu" method="_on_continue_button_pressed"]
 [connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" method="_on_mouse_entered"]
