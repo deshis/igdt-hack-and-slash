@@ -1,11 +1,14 @@
 extends Node
 
 enum Type {
+	NONE,
 	SURVIVABILITY,
 	MOVEMENT,
 	UTILITY,
 	DAMAGE,
-	ACTIVE_ITEM
+	ACTIVE_ITEM,
+	PRIMARY_ATTACK,
+	SECONDARY_ATTACK
 }
 
 enum Grade {

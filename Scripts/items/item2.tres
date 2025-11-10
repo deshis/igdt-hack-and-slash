@@ -8,6 +8,7 @@
 script = ExtResource("1_ka6yg")
 item_name = "Second Heart"
 item_description = "+20 HP"
+type = 1
 grade = 1
 icon = ExtResource("2_rhsoe")
 effects = Array[Resource]([ExtResource("1_8sdqs")])

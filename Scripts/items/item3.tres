@@ -9,7 +9,7 @@
 script = ExtResource("1_nf640")
 item_name = "Training Sword"
 item_description = "-50% DMG"
-type = 3
+type = 4
 icon = ExtResource("2_cebxw")
 effects = Array[Resource]([ExtResource("1_cebxw"), ExtResource("2_pptsh")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

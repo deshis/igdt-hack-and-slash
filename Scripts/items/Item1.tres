@@ -8,7 +8,7 @@
 script = ExtResource("1_7k0o3")
 item_name = "Overclocked Exoskeleton"
 item_description = "x2 Movement speed"
-type = 1
+type = 2
 grade = 2
 icon = ExtResource("2_48kea")
 effects = Array[Resource]([ExtResource("1_48kea")])

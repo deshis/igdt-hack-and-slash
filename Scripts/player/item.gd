@@ -1,4 +1,7 @@
 extends Control
+class_name Item
+
+signal item_right_clicked(slot: Control)
 
 @export var item : ItemResource
 
@@ -13,15 +16,17 @@ var grade_name = "?"
 var type_name = "?"
 
 func _ready() -> void:
-	mouse_filter = Control.MOUSE_FILTER_STOP
-	
 	if item != null and texture_rect != null:
 		panel_container1.visible = false
 		texture_rect.texture = item.icon
 		_set_grade()
 		_get_type_name()
 		_create_description()
-		
+
+func _gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("right_click"):
+		item_right_clicked.emit(self)
+
 #Not functional!
 func _position_description() -> void:
 	var item_pos = get_global_position()
@@ -29,12 +34,11 @@ func _position_description() -> void:
 	var offset_y = -15
 	var new_pos = item_pos + Vector2(offset_x, offset_y)
 	panel_container1.global_position = new_pos
-	
+
 func get_type() -> int:
 	return type
-	
+
 func _get_drag_data(_pos: Vector2) -> Variant:
-		
 	var preview := duplicate(true)
 	
 	preview.anchor_left = 0
@@ -68,7 +72,6 @@ func _input(event: InputEvent) -> void:
 		description.visible = false
 		panel_container1.visible = false
 
-		
 #Godot has switch statements with match
 func _set_grade() -> void:
 	match item.grade: 
@@ -81,7 +84,7 @@ func _set_grade() -> void:
 		ItemType.Grade.PROTOTYPE:
 			name_color = "#ff3838"
 			grade_name = "Prototype"
-			
+
 func _get_type_name() -> void:
 	match item.type: 
 		ItemType.Type.SURVIVABILITY:
@@ -94,7 +97,11 @@ func _get_type_name() -> void:
 			type_name = "Damage"
 		ItemType.Type.ACTIVE_ITEM:
 			type_name = "Active Item"
-			
+		ItemType.Type.PRIMARY_ATTACK:
+			type_name = "Primary Attack"
+		ItemType.Type.SECONDARY_ATTACK:
+			type_name = "Secondary Attack"
+
 func _create_description() -> void:
 	
 	name = item.item_name
@@ -115,7 +122,7 @@ func _create_description() -> void:
 	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + type_name + "[/color][/center]\n"
 	
 	description.set_text(formatted_desc)
-			
+
 func _on_mouse_entered() -> void:
 	if item == null:
 		return
@@ -129,6 +136,6 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	if item == null:
 		return
-
+	
 	description.visible = false
 	panel_container1.visible = false
