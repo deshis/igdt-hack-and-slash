@@ -27,7 +27,6 @@ func setup_inventory(p: Player) -> void:
 
 func move_item(origin_slot: InventorySlot, new_slot: InventorySlot = null) -> void:
 	var item = origin_slot.get_item()
-	var from_pickup = origin_slot.is_pickup_slot
 	
 	if not item:
 		return
@@ -47,7 +46,9 @@ func move_item(origin_slot: InventorySlot, new_slot: InventorySlot = null) -> vo
 		new_slot = get_backpack_slot()
 		check_and_swap_items(item, origin_slot, new_slot)
 	
-	if from_pickup:
+	# item was from a pickup slot
+	var pickup_slot := origin_slot as PickupSlot
+	if pickup_slot:
 		close_item_pickup_menu()
 
 func check_and_swap_items(item: Control, origin_slot: Control, new_slot: Control) -> void:

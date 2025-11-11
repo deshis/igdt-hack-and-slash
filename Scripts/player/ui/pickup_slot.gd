@@ -1,9 +1,5 @@
 extends InventorySlot
+class_name PickupSlot
 
-func setup(p: Player, inv_manager: InventoryManager) -> void:
-	player = p
-	inventory_manager = inv_manager
-	
-	is_pickup_slot = true
-	
-	get_child(0).text = slot_name
+func _can_drop_data(_pos: Vector2, _data: Variant) -> bool:
+	return false

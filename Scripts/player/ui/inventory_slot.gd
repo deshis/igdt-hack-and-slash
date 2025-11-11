@@ -7,8 +7,6 @@ class_name InventorySlot
 var player: Player
 var inventory_manager: InventoryManager
 
-var is_pickup_slot := false
-
 func setup(p: Player, inv_manager: InventoryManager) -> void:
 	player = p
 	inventory_manager = inv_manager
@@ -38,16 +36,11 @@ func _gui_input(event: InputEvent) -> void:
 		slot_right_clicked()
 
 func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
-	if not (data is InventorySlot) or is_pickup_slot:
+	if not (data is InventorySlot):
 		return false
 	
 	var origin_slot: InventorySlot = data
 	var item = origin_slot.get_item()
-	
-	print("origin_slot_type: ", origin_slot.type)
-	
-	if origin_slot.is_pickup_slot and get_item() != null:
-		return false
 	
 	# generic slot
 	if type == ItemType.Type.NONE:
