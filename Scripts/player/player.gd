@@ -14,8 +14,17 @@ var current_speed:= movement_speed
 @onready var invulnerability_length_timer: Timer = $Timers/InvulnerabilityLengthTimer
 var damageable := true
 
-@export var attack_light_damage := 2.0
-@export var attack_heavy_damage := 4.0
+## Base stats
+#might be useful in the future
+#var base_attack_light_damage := 1 # old 2
+#var base_attack_heavy_damage := 2 # old 4
+#
+#var base_light_attack_cooldown:= 0.3 # old 0.2
+#var base_heavy_attack_cooldown:= 0.5 # old 0.4
+#
+
+@export var attack_light_damage := 1
+@export var attack_heavy_damage := 2
 
 signal update_health_bar
 signal dash_used
@@ -30,16 +39,27 @@ var attacking := false
 
 @onready var light_attack = $AttackLight
 @onready var light_attack_hitbox = $AttackLight/CollisionShape2D
-var light_attack_cooldown:= 0.2
-var light_attack_length:= 0.1
+@onready var light_attack_sprite: Sprite2D = $AttackLight/CollisionShape2D/Sprite2D
+var light_attack_shape: RectangleShape2D
+var light_attack_visual_shape: Sprite2D
+
+var light_attack_cooldown:= 0.3
+#duration the hitbox lingers
+var light_attack_length:= light_attack_cooldown/2
 
 @onready var heavy_attack = $AttackHeavy
 @onready var heavy_attack_hitbox = $AttackHeavy/CollisionShape2D
+@onready var heavy_attack_sprite: Sprite2D = $AttackLight/CollisionShape2D/Sprite2D
+var heavy_attack_shape: RectangleShape2D
+var heavy_attack_visual_shape: Sprite2D
+
 var performing_heavy_attack := false
 var heavy_attack_dash_decay := 0.6
 var heavy_attack_dash_speed := movement_speed * 6.0
-var heavy_attack_cooldown:= 0.4
-var heavy_attack_length:= 0.3
+
+var heavy_attack_cooldown:= 0.5
+#duration the hitbox lingers
+var heavy_attack_length:= heavy_attack_cooldown/2
 
 var can_dash:= true
 var dashing = false
@@ -56,6 +76,9 @@ func _ready() -> void:
 	light_attack.visible = false
 	heavy_attack_hitbox.disabled = true
 	heavy_attack.visible = false
+	
+	light_attack_shape = light_attack_hitbox.shape
+	heavy_attack_shape = heavy_attack_hitbox.shape
 
 func _physics_process(delta) -> void:
 	update_input()
@@ -104,6 +127,7 @@ func update_facing_dir() -> void:
 
 
 func perform_light_attack() -> void:
+	
 	# enable hitbox and visuals
 	light_attack.visible = true
 	light_attack_hitbox.disabled = false
@@ -119,6 +143,7 @@ func perform_light_attack() -> void:
 
 
 func perform_heavy_attack() -> void:
+
 	# enable hitbox and visuals
 	heavy_attack.visible = true
 	heavy_attack_hitbox.disabled = false

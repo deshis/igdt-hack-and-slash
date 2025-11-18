@@ -6,4 +6,4 @@ class_name ItemResource
 @export var type: ItemType.Type
 @export var grade: ItemType.Grade
 @export var icon: Texture2D
-@export var effects: Array[Resource] = []
+@export var effects: Array[Stats] = []

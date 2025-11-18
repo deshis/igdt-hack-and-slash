@@ -1,15 +1,26 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=5 format=3 uid="uid://btqoki0dx13kb"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://btqoki0dx13kb"]
 
-[ext_resource type="Resource" uid="uid://ofhe1cslfph2" path="res://Scripts/items/item_stats/Item3Stat1.tres" id="1_cebxw"]
+[ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_cebxw"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="1_nf640"]
-[ext_resource type="Texture2D" uid="uid://tphq4cglwlqu" path="res://Assets/item_icons/trainingswordicon.png" id="2_cebxw"]
-[ext_resource type="Resource" uid="uid://c81ois8fmwd5o" path="res://Scripts/items/item_stats/Item3Stat2.tres" id="2_pptsh"]
+[ext_resource type="Texture2D" uid="uid://m2fneh2ey4q7" path="res://Assets/item_icons/daggericon.png" id="3_pptsh"]
+
+[sub_resource type="Resource" id="Resource_pptsh"]
+script = ExtResource("1_cebxw")
+stat_type = 6
+value = 0.5
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[sub_resource type="Resource" id="Resource_itrkx"]
+script = ExtResource("1_cebxw")
+stat_type = 4
+value = -0.1
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [resource]
 script = ExtResource("1_nf640")
-item_name = "Training Sword"
-item_description = "-50% DMG"
-type = 4
-icon = ExtResource("2_cebxw")
-effects = Array[Resource]([ExtResource("1_cebxw"), ExtResource("2_pptsh")])
+item_name = "Dagger"
+item_description = "Faster but thinner light attacks"
+type = 6
+icon = ExtResource("3_pptsh")
+effects = Array[ExtResource("1_cebxw")]([SubResource("Resource_pptsh"), SubResource("Resource_itrkx")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

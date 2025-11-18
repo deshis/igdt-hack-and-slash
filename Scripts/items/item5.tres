@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://dfg2rydc2s2mc"]
+
+[ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_x7x7j"]
+[ext_resource type="Texture2D" uid="uid://c0jlhbvb0hlcd" path="res://Assets/item_icons/katanaicon.png" id="2_a3pq7"]
+[ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="2_yrbwt"]
+
+[sub_resource type="Resource" id="Resource_x4600"]
+script = ExtResource("1_x7x7j")
+stat_type = 6
+value = 0.7
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[sub_resource type="Resource" id="Resource_2yu6x"]
+script = ExtResource("1_x7x7j")
+stat_type = 7
+value = 1.3
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[resource]
+script = ExtResource("2_yrbwt")
+item_name = "Katana"
+item_description = "Longer but thinner primary attacks"
+type = 6
+icon = ExtResource("2_a3pq7")
+effects = Array[ExtResource("1_x7x7j")]([SubResource("Resource_x4600"), SubResource("Resource_2yu6x")])
+metadata/_custom_type_script = "uid://dulvf1v1d8so8"

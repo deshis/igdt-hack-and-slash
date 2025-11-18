@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cuuem545ega72"]
+[gd_scene load_steps=29 format=3 uid="uid://cuuem545ega72"]
 
 [ext_resource type="Script" uid="uid://cptm56sk2qede" path="res://Scripts/hud/hud_manager.gd" id="1_36s6t"]
 [ext_resource type="Script" uid="uid://b8rtnvnstvdg4" path="res://Scripts/player/ui/healthbar.gd" id="1_ba8gd"]
@@ -7,10 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="5_0iicw"]
 [ext_resource type="Resource" uid="uid://cqk2hd68kypyk" path="res://Scripts/items/item2.tres" id="6_ajim5"]
 [ext_resource type="Resource" uid="uid://btqoki0dx13kb" path="res://Scripts/items/item3.tres" id="7_vxf74"]
+[ext_resource type="Resource" uid="uid://c3lirlkahxk7w" path="res://Scripts/items/item4.tres" id="9_0iicw"]
 [ext_resource type="Script" uid="uid://cnrj2cq3cvdn7" path="res://Scripts/player/ui/trash_slot.gd" id="9_36s6t"]
 [ext_resource type="Script" uid="uid://dglo22okhueyv" path="res://Scripts/hud/item_pickup.gd" id="9_484xk"]
 [ext_resource type="Script" uid="uid://c8noump2yhng5" path="res://Scripts/player/ui/augment_slot.gd" id="9_pbtju"]
 [ext_resource type="PackedScene" uid="uid://cexexdh4re63h" path="res://Scenes/inventory_slot.tscn" id="10_36s6t"]
+[ext_resource type="Resource" uid="uid://dfg2rydc2s2mc" path="res://Scripts/items/item5.tres" id="10_ajim5"]
 [ext_resource type="Script" uid="uid://c081ighahaot6" path="res://Scripts/hud/pause_menu.gd" id="10_lkt4f"]
 [ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="11_wfkbc"]
 [ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/hud/volume_slider.gd" id="12_s17ah"]
@@ -304,8 +306,76 @@ autowrap_mode = 2
 [node name="Slot4" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
 
+[node name="Item" parent="Inventory/Backpack/Slot4" instance=ExtResource("5_0iicw")]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 0
+offset_right = 84.0
+offset_bottom = 84.0
+item = ExtResource("9_0iicw")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot4/Item"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot4/Item/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot4/Item"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot4/Item/PanelContainer2"]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
 [node name="Slot5" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
+
+[node name="Item" parent="Inventory/Backpack/Slot5" instance=ExtResource("5_0iicw")]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 0
+offset_right = 84.0
+offset_bottom = 84.0
+item = ExtResource("10_ajim5")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot5/Item"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot5/Item/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot5/Item"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot5/Item/PanelContainer2"]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
 
 [node name="Slot6" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2

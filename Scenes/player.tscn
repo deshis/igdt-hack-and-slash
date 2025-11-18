@@ -134,7 +134,7 @@ shape = SubResource("RectangleShape2D_6t5aa")
 
 [node name="AttackLight" type="Area2D" parent="."]
 position = Vector2(7.695364e-06, -7.6293945e-06)
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.85, 1)
 collision_layer = 1024
 collision_mask = 8192
 
@@ -150,7 +150,7 @@ texture = SubResource("GradientTexture2D_6t5aa")
 
 [node name="AttackHeavy" type="Area2D" parent="."]
 position = Vector2(7.695364e-06, -7.6293945e-06)
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(1.15, 1.15)
 collision_layer = 1024
 collision_mask = 8192
 
