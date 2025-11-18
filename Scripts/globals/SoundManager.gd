@@ -13,6 +13,7 @@ func _ready() -> void:
 	
 	bgm_players = {
 		"common_bgm": load("res://Assets/audio/bgm.mp3")
+		
 	}
 	
 	# TODO
@@ -27,7 +28,8 @@ func _ready() -> void:
 		# TODO Create own SFX for heavy_Attack
 		"heavy_attack": load("res://Assets/audio/effect_light_attack.wav"), 
 		"dash": load("res://Assets/audio/effect_dash.wav"),
-		"hit": load("res://Assets/audio/effect_hit.wav")
+		"hit": load("res://Assets/audio/effect_hit.wav"),
+		"enemy_die": load("res://Assets/audio/effect_enemy_die.wav")
 	}
 	
 	

@@ -1,8 +1,10 @@
 extends Resource
-class_name Stats
+class_name Stats 
 
 @export var stat_type: Stat = Stat.HEALTH
 @export var value: float = 0.0
+
+signal update_health_bar
 
 enum Stat { 
 	HEALTH, 
@@ -24,6 +26,7 @@ func apply_effect(player) -> void:
 		Stat.HEALTH:
 			player.health += value
 			player.max_health += value
+			player.emit_signal("update_health_bar", player.health)
 		Stat.MOVEMENT_SPEED:
 			player.current_speed += value
 			player.movement_speed += value
@@ -59,6 +62,7 @@ func remove_effect(player) -> void:
 		Stat.HEALTH:
 			player.health -= value
 			player.max_health -= value
+			player.emit_signal("update_health_bar", player.health)
 		Stat.MOVEMENT_SPEED:
 			player.current_speed -= value
 			player.movement_speed -= value

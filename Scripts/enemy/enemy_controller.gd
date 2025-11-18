@@ -75,6 +75,7 @@ func take_damage(damage:float) -> void:
 		die()
 
 func die() -> void:
+	SoundManager.play_sfx("enemy_die", global_position)
 	# TODO: proper item drop system, just a quick mockup
 	if randi_range(1,5) == 1:
 		var item = pickupable_item.instantiate()
