@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [sub_resource type="Resource" id="Resource_itrkx"]
 script = ExtResource("1_cebxw")
 stat_type = 7
-value = -0.11
+value = -0.1
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_cebxw"]
@@ -25,7 +25,7 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [sub_resource type="Resource" id="Resource_uu11y"]
 script = ExtResource("1_cebxw")
 stat_type = 3
-value = 15.0
+value = 10.0
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_dyrnl"]
@@ -54,7 +54,7 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [resource]
 script = ExtResource("1_nf640")
 item_name = "The Statstick"
-item_stat_info = "Tiny light attacks +X Attack speed +10% Lifesteal +15% +10HP +1 Light DMG +10% MS  "
+item_stat_info = "Tiny light attacks +X Attack speed +10% Lifesteal +10% DMG reduction +1 Flat DMG reduction + 10HP +1 HP/5s +1 Light DMG +10% MS  "
 item_description = "A well preserved stick."
 type = 6
 grade = 2
