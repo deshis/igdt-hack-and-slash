@@ -6,14 +6,15 @@
 
 [sub_resource type="Resource" id="Resource_4gag3"]
 script = ExtResource("1_48kea")
-stat_type = 1
+stat_type = 4
 value = 500.0
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [resource]
 script = ExtResource("1_7k0o3")
 item_name = "Overclocked Exoskeleton"
-item_description = "x2 Movement speed"
+item_stat_info = "+100% movement speed"
+item_description = "Zoom"
 type = 2
 grade = 2
 icon = ExtResource("2_48kea")

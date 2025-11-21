@@ -6,20 +6,21 @@
 
 [sub_resource type="Resource" id="Resource_6jpnv"]
 script = ExtResource("1_1plfm")
-stat_type = 8
+stat_type = 11
 value = 1.25
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_vrl5g"]
 script = ExtResource("1_1plfm")
-stat_type = 5
+stat_type = 8
 value = 0.1
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [resource]
 script = ExtResource("3_k4422")
 item_name = "Maul"
-item_description = "Wider but slower secondary attacks"
+item_stat_info = "Wider heavy attacks -X Attack speed"
+item_description = "Bonk"
 type = 7
 icon = ExtResource("2_nfhpj")
 effects = Array[ExtResource("1_1plfm")]([SubResource("Resource_6jpnv"), SubResource("Resource_vrl5g")])

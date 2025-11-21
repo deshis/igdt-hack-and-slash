@@ -11,6 +11,11 @@ var current_speed:= movement_speed
 @export var max_health := 10.0
 @export var health := 10.0
 
+var percent_damage_reduction := 0
+var flat_damage_reduction := 0
+var life_steal := 0.0
+var life_stolen := 0.0
+
 @onready var invulnerability_length_timer: Timer = $Timers/InvulnerabilityLengthTimer
 var damageable := true
 
@@ -34,6 +39,7 @@ signal item_picked_up(area)
 
 var can_attack := true
 var attacking := false
+@onready var health_regen_timer: Timer = $Timers/HealthRegenTimer
 @onready var attack_cooldown_timer: Timer = $Timers/AttackCooldownTimer
 @onready var attack_length_timer: Timer = $Timers/AttackLengthTimer
 
@@ -71,6 +77,8 @@ var dash_speed:= 2500
 
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+var health_regen:= 0
+
 func _ready() -> void:
 	light_attack_hitbox.disabled = true
 	light_attack.visible = false
@@ -79,6 +87,9 @@ func _ready() -> void:
 	
 	light_attack_shape = light_attack_hitbox.shape
 	heavy_attack_shape = heavy_attack_hitbox.shape
+	
+# Function for regenerating health, defaults at zero, gets incremented from items
+
 
 func _physics_process(delta) -> void:
 	update_input()
@@ -174,6 +185,19 @@ func perform_dash():
 
 func deal_damage(area: Area2D, amount: float) -> void:
 	var enemy = area.get_parent() as EnemyController
+	
+	#Lifesteal
+	#NOTE: Might just want to make this flat
+	life_stolen = amount * (life_steal/100)
+	snappedf(life_stolen,3)
+	health += life_stolen
+	
+	if health > max_health:
+		health = max_health
+		
+	print(amount)
+	update_health_bar.emit(health)
+	
 	enemy.take_damage(amount)
 
 func take_damage(damage:float) -> void:
@@ -182,7 +206,13 @@ func take_damage(damage:float) -> void:
 	
 	invulnerability_length_timer.start()
 	
+	#Damage reduction
+	#NOTE: Applying flat damage reduction before percent damage reduction results in less mitigation
+	damage -= flat_damage_reduction
+	damage *= (100.0 - percent_damage_reduction)/100
+	snappedf(damage,3)
 	health -= damage
+	print(damage)
 	update_health_bar.emit(health)
 	
 	if health <= 0.0:
@@ -227,3 +257,14 @@ func _on_item_pickup_detector_area_entered(area: Area2D) -> void:
 
 func _on_invulnerability_length_timer_timeout() -> void:
 	damageable = true
+	
+	
+func _on_health_regen_timer_timeout() -> void:
+	if health >= max_health:
+		return
+		
+	health += health_regen
+	update_health_bar.emit(health)
+	
+	if health > max_health:
+		health = max_health

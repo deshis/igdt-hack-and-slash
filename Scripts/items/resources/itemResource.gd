@@ -2,6 +2,7 @@ extends Resource
 class_name ItemResource
 
 @export var item_name: String
+@export var item_stat_info: String
 @export var item_description: String
 @export var type: ItemType.Type
 @export var grade: ItemType.Grade

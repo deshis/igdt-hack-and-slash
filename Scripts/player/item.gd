@@ -107,14 +107,17 @@ func _create_description() -> void:
 	formatted_name += "[center][color=" + name_color + "][b]" + item.item_name + "[/b][/color][/center]\n"
 	formatted_desc += formatted_name
 
-	#Item stats / description
-	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_description + "[/color][/center]\n\n"
+	#Item stat info
+	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_stat_info + "[/color][/center]\n\n"
 	
 	#Item grade
 	formatted_desc += "[center][color=" + name_color + "]" + grade_name + "[/color][/center]\n"
 	
 	#Item type
-	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + type_name + "[/color][/center]\n"
+	formatted_desc += "[center][color=" + name_color + "]" + type_name + "[/color][/center]\n\n"
+	
+	#Item description
+	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_description + "[/color][/center]\n"
 	
 	description.set_text(formatted_desc)
 
