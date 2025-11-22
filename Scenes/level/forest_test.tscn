@@ -59,12 +59,6 @@ hud_manager = NodePath("../HUD")
 top_level = true
 z_index = 2
 position = Vector2(4105, 4062)
-movement_speed = null
-acceleration = null
-max_health = null
-health = null
-attack_light_damage = null
-attack_heavy_damage = null
 
 [node name="world" type="Node2D" parent="." node_paths=PackedStringArray("navReg")]
 scale = Vector2(3, 3)

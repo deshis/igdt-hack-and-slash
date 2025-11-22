@@ -2,20 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj3qp0kkktaa6"
-path="res://.godot/imported/f-walk0034.png-c0644d07a29a4b16a70260375ec4d935.ctex"
+uid="uid://caaqyxqi3wkkw"
+path.s3tc="res://.godot/imported/scifi-character_apollo-1x.png-1dbb558800000898cef08f52f3950394.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "b0337ea95eb9ff3df5ea32d2bc8fff42"
 }
 
 [deps]
 
-source_file="res://Assets/player/f-walk0034.png"
-dest_files=["res://.godot/imported/f-walk0034.png-c0644d07a29a4b16a70260375ec4d935.ctex"]
+source_file="res://Assets/player/scifi-character_apollo-1x.png"
+dest_files=["res://.godot/imported/scifi-character_apollo-1x.png-1dbb558800000898cef08f52f3950394.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -23,9 +27,9 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
+roughness/mode=0
 roughness/src_normal=""
 process/channel_remap/red=0
 process/channel_remap/green=1

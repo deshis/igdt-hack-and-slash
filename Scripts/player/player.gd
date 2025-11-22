@@ -75,7 +75,7 @@ var dash_cooldown:= 3.0
 var dash_length:= 0.15
 var dash_speed:= 2500
 
-@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var player_sprite = $PlayerSprite
 
 var health_regen:= 0
 
@@ -93,6 +93,7 @@ func _ready() -> void:
 
 func _physics_process(delta) -> void:
 	update_input()
+	update_sprite()
 	if can_look_around:
 		update_facing_dir()
 	
@@ -122,12 +123,10 @@ func update_input() -> void:
 		input.x = Input.get_axis("move_left", "move_right")
 		input.y = Input.get_axis("move_up", "move_down")
 	input = input.normalized()
-	
-	if input.x == 0 and input.y == 0:
-		anim_sprite.play("idle")
-	else:
-		anim_sprite.play("f-walk")
-		
+
+func update_sprite() -> void:
+	if not dashing:
+		player_sprite.update_sprite(input)
 
 func update_facing_dir() -> void:
 	var screen_center: Vector2 = get_viewport_rect().size / 2
