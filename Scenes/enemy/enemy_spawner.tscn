@@ -1,18 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1h6pqnhbr5no"]
+[gd_scene load_steps=8 format=3 uid="uid://c1h6pqnhbr5no"]
 
 [ext_resource type="Script" uid="uid://486d8jq4rlh0" path="res://Scripts/enemy/enemy_spawner.gd" id="1_4l55s"]
 [ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemy/prefabs/EnemyPrefab.gd" id="2_tdwud"]
 [ext_resource type="Resource" uid="uid://1dmu76yei0sm" path="res://Scripts/enemy/prefabs/microbot.tres" id="3_gga2x"]
 [ext_resource type="Resource" uid="uid://baujclodehp88" path="res://Scripts/enemy/prefabs/boss_slasher.tres" id="3_le3a8"]
 [ext_resource type="Resource" uid="uid://ctly0bibi2t2d" path="res://Scripts/enemy/prefabs/slasher.tres" id="4_2cu8b"]
+[ext_resource type="Script" uid="uid://2rg187ye080s" path="res://Scenes/enemy/difficulty_manager.gd" id="6_mjc5i"]
+[ext_resource type="PackedScene" uid="uid://dl58s8gkullwa" path="res://Scenes/pickupable_item.tscn" id="6_qiwfs"]
 
-[node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("wave_cooldown_timer", "boss_cooldown_timer")]
+[node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("difficulty_manager", "wave_cooldown_timer", "credits_cooldown_timer", "boss_cooldown_timer")]
 script = ExtResource("1_4l55s")
 enemy_list = Array[ExtResource("2_tdwud")]([ExtResource("3_gga2x"), ExtResource("4_2cu8b")])
 mini_boss_list = Array[ExtResource("2_tdwud")]([ExtResource("3_le3a8")])
 boss_list = Array[ExtResource("2_tdwud")]([ExtResource("3_le3a8")])
+difficulty_manager = NodePath("DifficultyManager")
 wave_cooldown_timer = NodePath("WaveCooldownTimer")
+credits_cooldown_timer = NodePath("CreditsCooldownTimer")
 boss_cooldown_timer = NodePath("BossCooldownTimer")
+pickupable_item = ExtResource("6_qiwfs")
+
+[node name="DifficultyManager" type="Node2D" parent="."]
+script = ExtResource("6_mjc5i")
 
 [node name="WaveCooldownTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -24,5 +32,16 @@ wait_time = 30.0
 one_shot = true
 autostart = true
 
+[node name="CreditsCooldownTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="CreditsCooldownTimer2" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
 [connection signal="timeout" from="WaveCooldownTimer" to="." method="_on_wave_cooldown_timer_timeout"]
 [connection signal="timeout" from="BossCooldownTimer" to="." method="_on_boss_cooldown_timer_timeout"]
+[connection signal="timeout" from="CreditsCooldownTimer" to="." method="_on_credits_cooldown_timer_timeout"]

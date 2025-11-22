@@ -1,7 +1,10 @@
 extends CharacterBody2D
 class_name EnemyController
 
-@export var pickupable_item: PackedScene
+signal enemy_died(EnemyStats)
+
+signal update_health_bar(float)
+var health_bar
 
 @export var enemy: EnemyStats
 var target_provider: TargetProvider
@@ -31,7 +34,6 @@ func _physics_process(delta: float) -> void:
 	
 	if is_navigating:
 		process_navigation(delta)
-
 
 func process_navigation(delta: float) -> void:
 	var new_target_pos = target_provider.get_target(self, player)
@@ -68,6 +70,7 @@ func perform_attack() -> void:
 
 func take_damage(damage:float) -> void:
 	enemy.health -= damage
+	update_health_bar.emit(enemy.health)
 	
 	SoundManager.play_sfx("hit", global_position)
 	
@@ -76,11 +79,11 @@ func take_damage(damage:float) -> void:
 
 func die() -> void:
 	SoundManager.play_sfx("enemy_die", global_position)
-	# TODO: proper item drop system, just a quick mockup
-	if randi_range(1,5) == 1:
-		var item = pickupable_item.instantiate()
-		get_parent().add_child(item)
-		item.global_position = global_position
+	
+	if health_bar:
+		health_bar.queue_free()
+	
+	enemy_died.emit(self)
 	queue_free()
 
 

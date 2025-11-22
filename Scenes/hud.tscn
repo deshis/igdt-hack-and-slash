@@ -1,8 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://cuuem545ega72"]
+[gd_scene load_steps=27 format=3 uid="uid://cuuem545ega72"]
 
 [ext_resource type="Script" uid="uid://cptm56sk2qede" path="res://Scripts/hud/hud_manager.gd" id="1_36s6t"]
-[ext_resource type="Script" uid="uid://b8rtnvnstvdg4" path="res://Scripts/player/ui/healthbar.gd" id="1_ba8gd"]
 [ext_resource type="Script" uid="uid://b3p4e86xoqqh3" path="res://Scripts/player/ui/cooldowns.gd" id="2_36s6t"]
+[ext_resource type="PackedScene" uid="uid://dw5jqew75whcf" path="res://Scenes/HPBar.tscn" id="2_ajim5"]
 [ext_resource type="Script" uid="uid://5ote4itncqht" path="res://Scripts/player/ui/inventory_manager.gd" id="3_pbtju"]
 [ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="5_0iicw"]
 [ext_resource type="Resource" uid="uid://cqk2hd68kypyk" path="res://Scripts/items/item2.tres" id="6_ajim5"]
@@ -23,12 +23,6 @@
 [ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/hud/vsync_toggle.gd" id="16_l8r83"]
 [ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/hud/control_remap_button.gd" id="17_v5hjn"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gbba"]
-bg_color = Color(0.27450982, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjvhh"]
-bg_color = Color(0.78431374, 0, 0, 1)
-
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8gbba"]
 size = Vector2(50, 50)
 
@@ -46,33 +40,20 @@ expand_margin_right = 25.0
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_36s6t")
 
-[node name="HPBar" type="Control" parent="."]
-layout_mode = 3
+[node name="HPBars" type="Node2D" parent="."]
+
+[node name="Player" parent="HPBars" instance=ExtResource("2_ajim5")]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("1_ba8gd")
-
-[node name="MarginContainer" type="MarginContainer" parent="HPBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 343.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="ProgressBar" type="ProgressBar" parent="HPBar/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_8gbba")
-theme_override_styles/fill = SubResource("StyleBoxFlat_jjvhh")
-value = 3.05
-show_percentage = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 415.6
+offset_bottom = 51.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="SkillCooldowns" type="Control" parent="."]
 layout_mode = 3
