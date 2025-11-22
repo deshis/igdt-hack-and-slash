@@ -19,7 +19,6 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [resource]
 script = ExtResource("2_yrbwt")
 item_name = "Katana"
-item_stat_info = "Longer but thinner light attacks"
 item_description = "The power of anime"
 type = 6
 icon = ExtResource("2_a3pq7")

@@ -18,7 +18,6 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [resource]
 script = ExtResource("1_ka6yg")
 item_name = "Second Heart"
-item_stat_info = "+20 HP + 2 HP/5s"
 item_description = "Heartless"
 type = 1
 grade = 1

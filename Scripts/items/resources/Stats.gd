@@ -6,6 +6,7 @@ class_name Stats
 
 signal update_health_bar
 
+#NOTE: Might want a separate damage stat for clarity?
 enum Stat { 
 	HEALTH, 
 	HEALTH_REGEN,

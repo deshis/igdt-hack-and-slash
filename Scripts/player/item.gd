@@ -12,6 +12,7 @@ class_name Item
 var name_color = "#b5b5b5"
 var grade_name = "?"
 var type_name = "?"
+var stats = "?"
 
 func _ready() -> void:
 	if item != null and texture_rect != null:
@@ -104,20 +105,24 @@ func _create_description() -> void:
 	
 	#Item name
 	var formatted_name = ""
-	formatted_name += "[center][color=" + name_color + "][b]" + item.item_name + "[/b][/color][/center]\n"
+	formatted_name += "[center][color=" + name_color + "][b]" + item.item_name + "[/b][/color][/center]\n\n"
 	formatted_desc += formatted_name
 
 	#Item stat info
-	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_stat_info + "[/color][/center]\n\n"
+	#formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_stat_info + "[/color][/center]\n\n"
+	
+	formatted_desc += item.get_formatted_stats()
 	
 	#Item grade
-	formatted_desc += "[center][color=" + name_color + "]" + grade_name + "[/color][/center]\n"
+	formatted_desc += "\n[center][color=" + name_color + "]" + grade_name + "[/color][/center]\n"
 	
 	#Item type
-	formatted_desc += "[center][color=" + name_color + "]" + type_name + "[/color][/center]\n\n"
+	formatted_desc += "[center][color=" + name_color + "]" + type_name + "[/color][/center]\n"
 	
 	#Item description
 	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_description + "[/color][/center]\n"
+	
+	
 	
 	description.set_text(formatted_desc)
 

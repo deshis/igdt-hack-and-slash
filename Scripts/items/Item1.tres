@@ -13,7 +13,6 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [resource]
 script = ExtResource("1_7k0o3")
 item_name = "Overclocked Exoskeleton"
-item_stat_info = "+100% movement speed"
 item_description = "Zoom"
 type = 2
 grade = 2

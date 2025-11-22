@@ -19,7 +19,6 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [resource]
 script = ExtResource("3_k4422")
 item_name = "Maul"
-item_stat_info = "Wider heavy attacks -X Attack speed"
 item_description = "Bonk"
 type = 7
 icon = ExtResource("2_nfhpj")
