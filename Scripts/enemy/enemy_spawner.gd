@@ -92,16 +92,28 @@ func setup_health_bar(enemy: CharacterBody2D) -> void:
 	enemy.health_bar = hud_manager.create_enemy_hp_bar(enemy)
 
 func _on_enemy_died(enemy: CharacterBody2D) -> void:
+	var item = null
+	
 	# TODO: make the enum system cleaner
 	# 0 = NORMAL, 1 = MINIBOSS, 2 = BOSS
 	if enemy.enemy.type == 2:
-		var item = pickupable_item.instantiate()
+		item = pickupable_item.instantiate()
 		add_child(item)
-		item.global_position = enemy.global_position
+		
+		# 1/3 chance for legendary, 2/3 for rare
+		if randi() % 2 == 0:
+			item.setup(2)
+		else:
+			item.setup(1)
 	
-	elif randi_range(1,5) == 1:
-		var item = pickupable_item.instantiate()
+	# any enemy: 1/5 chance for common loot
+	elif randi() % 4 == 0:
+		item = pickupable_item.instantiate()
 		add_child(item)
+		
+		item.setup(0)
+	
+	if item:
 		item.global_position = enemy.global_position
 
 func _on_wave_cooldown_timer_timeout() -> void:

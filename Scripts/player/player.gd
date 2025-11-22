@@ -79,6 +79,8 @@ var dash_speed:= 2500
 
 var health_regen:= 0
 
+var overlapping_pickups := []
+
 func _ready() -> void:
 	light_attack_hitbox.disabled = true
 	light_attack.visible = false
@@ -111,8 +113,24 @@ func _physics_process(delta) -> void:
 	if Input.is_action_just_pressed("heavy_attack") and can_attack:
 		perform_heavy_attack()
 	
+	if Input.is_action_pressed("interact"):
+		var item = get_closest_pickup()
+		if item:
+			item_picked_up.emit(item)
+	
 	move_and_slide()
 
+func get_closest_pickup() -> Area2D:
+	var closest = null
+	var min_dist = INF
+	
+	for item in overlapping_pickups:
+		var dist = global_position.distance_to(item.global_position)
+		if dist < min_dist:
+			min_dist = dist
+			closest = item
+	
+	return closest
 
 func apply_movement(delta: float, dir: Vector2) -> void:
 	velocity = lerp(velocity, dir * current_speed, acceleration * delta)
@@ -251,8 +269,10 @@ func _on_attack_heavy_area_entered(area: Area2D) -> void:
 	deal_damage(area, attack_heavy_damage)
 
 func _on_item_pickup_detector_area_entered(area: Area2D) -> void:
-	item_picked_up.emit(area)
+	overlapping_pickups.append(area)
 
+func _on_item_pickup_detector_area_exited(area: Area2D) -> void:
+	overlapping_pickups.erase(area)
 
 func _on_invulnerability_length_timer_timeout() -> void:
 	damageable = true
