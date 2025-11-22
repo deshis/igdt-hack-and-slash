@@ -55,9 +55,10 @@ navigation_polygon = SubResource("NavigationPolygon_jkdf5")
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "navigation_region") instance=ExtResource("16_k12tt")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "navigation_region", "hud_manager") instance=ExtResource("16_k12tt")]
 player = NodePath("../Player")
 navigation_region = NodePath("../TileMapLayer/NavigationRegion2D")
+hud_manager = NodePath("../HUD")
 
 [node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_jjvhh")]
 player = NodePath("../Player")

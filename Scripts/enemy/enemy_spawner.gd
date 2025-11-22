@@ -26,6 +26,8 @@ extends Node2D
 
 var credits := 0.0
 
+@export var hud_manager: HudManager
+
 func spawn_enemy(prefab: EnemyPrefab) -> void:
 	var enemy = prefab.scene.instantiate() as EnemyController
 	enemy.enemy = prefab.stats.duplicate(true)
@@ -87,7 +89,6 @@ func get_random_enemy(array: Array) -> EnemyPrefab:
 	return prefab
 
 func setup_health_bar(enemy: CharacterBody2D) -> void:
-	var hud_manager := get_tree().root.get_node("ForestTest/HUD")
 	enemy.health_bar = hud_manager.create_enemy_hp_bar(enemy)
 
 func _on_enemy_died(enemy: CharacterBody2D) -> void:

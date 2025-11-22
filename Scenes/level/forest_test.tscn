@@ -47,12 +47,13 @@ source_geometry_group_name = &"navigation"
 
 [node name="ForestTest" type="Node2D"]
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "navigation_region") instance=ExtResource("4_3tp1p")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "navigation_region", "hud_manager") instance=ExtResource("4_3tp1p")]
 visibility_layer = 2
 z_index = 2
 position = Vector2(3444, 0)
 player = NodePath("../Player")
 navigation_region = NodePath("../world/navRegion")
+hud_manager = NodePath("../HUD")
 
 [node name="Player" parent="." instance=ExtResource("1_wlp7t")]
 top_level = true
