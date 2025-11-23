@@ -7,9 +7,10 @@ class_name Item
 @onready var texture_rect = $MarginContainer/TextureRect
 @onready var panel_container1 = $PanelContainer
 
-var name_color = "#b5b5b5"
-var grade_name = "?"
+var type_color = "#b5b5b5"
+var grade_color = "#"
 var type_name = "?"
+var grade_name = "?"
 var stats = "?"
 
 func _ready() -> void:
@@ -77,8 +78,8 @@ func _input(event: InputEvent) -> void:
 
 #Godot has switch statements with match
 func _set_grade() -> void:
-	name_color = LootDatabase.grade_colors.get(item.grade)
-
+	grade_color = LootDatabase.grade_colors.get(item.grade)
+	
 	match item.grade: 
 		ItemType.Grade.CONSUMER:
 			grade_name = "Consumer"
@@ -88,6 +89,8 @@ func _set_grade() -> void:
 			grade_name = "Prototype"
 
 func _set_type_name() -> void:
+	type_color = LootDatabase.type_colors.get(item.type)
+	
 	match item.type: 
 		ItemType.Type.SURVIVABILITY:
 			type_name = "Survivability"
@@ -111,7 +114,7 @@ func _create_description() -> void:
 	
 	#Item name
 	var formatted_name = ""
-	formatted_name += "[center][color=" + hex(name_color) + "][b]" + item.item_name + "[/b][/color][/center]\n\n"
+	formatted_name += "[center][color=" + hex(grade_color) + "][b]" + item.item_name + "[/b][/color][/center]\n\n"
 	formatted_desc += formatted_name
 
 	#Item stat info
@@ -120,13 +123,14 @@ func _create_description() -> void:
 	formatted_desc += item.get_formatted_stats()
 	
 	#Item grade
-	formatted_desc += "\n[center][color=" + hex(name_color) + "]" + grade_name + "[/color][/center]\n"
+	formatted_desc += "\n[center][color=" + hex(grade_color) + "]" + grade_name + "[/color][/center]\n"
 	
 	#Item type
-	formatted_desc += "[center][color=" + hex(name_color) + "]" + type_name + "[/color][/center]\n"
+	formatted_desc += "[center][color=" + hex(type_color) + "]" + type_name + "[/color][/center]\n"
+	change_panel_color()
 	
 	#Item description
-	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_description + "[/color][/center]\n"
+	formatted_desc += "[center][color=" + "#777777" + "]" + item.item_description + "[/color][/center]\n"
 	
 	
 	
@@ -134,6 +138,18 @@ func _create_description() -> void:
 
 func hex(c: Color) -> String:
 	return "#" + c.to_html(false)
+
+func change_panel_color() -> void:
+	var stylebox = panel_container1.get("theme_override_styles/panel").duplicate()
+	
+	var c = type_color
+	var alpha = 0.9
+	var brightness = 0.2
+	c = Color(c.r * brightness, c.g * brightness, c.b * brightness, alpha)
+	stylebox.border_color = type_color
+	
+	stylebox.bg_color = c
+	panel_container1.add_theme_stylebox_override("panel", stylebox)
 
 func _on_mouse_entered() -> void:
 	if item == null:
