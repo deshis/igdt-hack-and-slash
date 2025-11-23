@@ -3,8 +3,6 @@ class_name Item
 
 @export var item : ItemResource
 
-@onready var type = item.type
-@onready var grade = item.grade
 @onready var description = $PanelContainer/RichTextLabel
 @onready var texture_rect = $MarginContainer/TextureRect
 @onready var panel_container1 = $PanelContainer
@@ -15,12 +13,21 @@ var type_name = "?"
 var stats = "?"
 
 func _ready() -> void:
-	if item != null and texture_rect != null:
-		panel_container1.visible = false
-		texture_rect.texture = item.icon
-		_set_grade()
-		_get_type_name()
-		_create_description()
+	update_item_display(item)
+
+func update_item_display(res: ItemResource) -> void:
+	if not item:
+		return
+	
+	item = res
+	
+	await self.ready
+	_set_grade()
+	_set_type_name()
+	_create_description()
+	
+	panel_container1.visible = false
+	texture_rect.texture = item.icon
 
 #Not functional!
 func _position_description() -> void:
@@ -31,7 +38,7 @@ func _position_description() -> void:
 	panel_container1.global_position = new_pos
 
 func get_type() -> int:
-	return type
+	return item.type
 
 func _get_drag_data(_pos: Vector2) -> Variant:
 	var preview := duplicate(true)
@@ -70,18 +77,17 @@ func _input(event: InputEvent) -> void:
 
 #Godot has switch statements with match
 func _set_grade() -> void:
+	name_color = LootDatabase.grade_colors.get(item.grade)
+
 	match item.grade: 
 		ItemType.Grade.CONSUMER:
-			name_color = "#b5b5b5"
 			grade_name = "Consumer"
 		ItemType.Grade.MILITARY:
-			name_color = "#fffa70"
 			grade_name = "Military"
 		ItemType.Grade.PROTOTYPE:
-			name_color = "#ff3838"
 			grade_name = "Prototype"
 
-func _get_type_name() -> void:
+func _set_type_name() -> void:
 	match item.type: 
 		ItemType.Type.SURVIVABILITY:
 			type_name = "Survivability"
@@ -105,7 +111,7 @@ func _create_description() -> void:
 	
 	#Item name
 	var formatted_name = ""
-	formatted_name += "[center][color=" + name_color + "][b]" + item.item_name + "[/b][/color][/center]\n\n"
+	formatted_name += "[center][color=" + hex(name_color) + "][b]" + item.item_name + "[/b][/color][/center]\n\n"
 	formatted_desc += formatted_name
 
 	#Item stat info
@@ -114,10 +120,10 @@ func _create_description() -> void:
 	formatted_desc += item.get_formatted_stats()
 	
 	#Item grade
-	formatted_desc += "\n[center][color=" + name_color + "]" + grade_name + "[/color][/center]\n"
+	formatted_desc += "\n[center][color=" + hex(name_color) + "]" + grade_name + "[/color][/center]\n"
 	
 	#Item type
-	formatted_desc += "[center][color=" + name_color + "]" + type_name + "[/color][/center]\n"
+	formatted_desc += "[center][color=" + hex(name_color) + "]" + type_name + "[/color][/center]\n"
 	
 	#Item description
 	formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_description + "[/color][/center]\n"
@@ -125,6 +131,9 @@ func _create_description() -> void:
 	
 	
 	description.set_text(formatted_desc)
+
+func hex(c: Color) -> String:
+	return "#" + c.to_html(false)
 
 func _on_mouse_entered() -> void:
 	if item == null:

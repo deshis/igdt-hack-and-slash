@@ -3,33 +3,21 @@ extends Node
 @export var sprite := Sprite2D
 @export var sprite_list: Array[CompressedTexture2D]
 
+@export var item_scene: PackedScene
+
 var items=[null,null,null]
 
-var colors = [
-	Color(0.788, 0.788, 0.788, 1.0),
-	Color(0.0, 0.745, 0.0, 1.0),
-	Color(1.0, 0.757, 0.0, 1.0)
-]
-
-func setup(rarity: int) -> void:
+func setup(rarity: ItemType.Grade) -> void:
 	sprite.texture = sprite_list[randi_range(0, sprite_list.size() - 1)]
+	sprite.modulate = LootDatabase.grade_colors.get(rarity)
 	
-	# TODO: choose loot pool based on rarity
-	match rarity:
-		0:
-			sprite.modulate = colors[0]
-		1:
-			sprite.modulate = colors[1]
-		2:
-			sprite.modulate = colors[2]
+	items = []
+	var item_list = LootDatabase.get_items_by_rarity(rarity, 3)
 	
-	items = generate_items()
-
-
-func generate_items()->Array:
-	#todo change this placeholder to actual items once they are implemented
-	return [preload("res://Scenes/item.tscn").instantiate(), preload("res://Scenes/item.tscn").instantiate(), preload("res://Scenes/item.tscn").instantiate()]
-
+	for res in item_list:
+		var node = item_scene.instantiate()
+		items.append(node)
+		node.update_item_display(res)
 
 func get_item(index:int)->Node:
 	return items[index]

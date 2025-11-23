@@ -5,6 +5,11 @@
 [resource]
 script = ExtResource("1_ha25t")
 name = "Micro_Bot_2000"
+loot_rarity_weights = {
+0: 100,
+1: 0,
+2: 0
+}
 speed = 400.0
 max_health = 2.0
 damage = 4.0

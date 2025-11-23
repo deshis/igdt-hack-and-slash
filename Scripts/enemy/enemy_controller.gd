@@ -1,8 +1,6 @@
 extends CharacterBody2D
 class_name EnemyController
 
-signal enemy_died(EnemyStats)
-
 signal update_health_bar(float)
 var health_bar
 
@@ -83,9 +81,15 @@ func die() -> void:
 	if health_bar:
 		health_bar.queue_free()
 	
-	enemy_died.emit(self)
+	drop_loot()
 	queue_free()
 
+func drop_loot() -> void:
+	if LootDatabase.drop_loot(enemy):
+		var loot = LootDatabase.pickupable_item.instantiate()
+		get_tree().root.add_child(loot)
+		loot.global_position = global_position
+		loot.setup(LootDatabase.get_loot_rarity(enemy))
 
 func _on_attack_area_area_entered(_area: Area2D) -> void:
 	player.take_damage(enemy.damage)

@@ -84,7 +84,7 @@ func delete_item(item: Control):
 
 func get_augment_slot(item) -> Control:
 	for slot in augment_slots.get_children():
-		if slot.type == item.type:
+		if slot.type == item.item.type:
 			return slot
 	return null
 

@@ -20,6 +20,8 @@ config/icon="res://Assets/icon.svg"
 ItemType="*res://Scripts/globals/ItemType.gd"
 CfgHandler="*res://Scripts/globals/cfg_handler.gd"
 SoundManager="*res://Scripts/globals/SoundManager.gd"
+LootDatabase="*res://Scripts/globals/LootDatabase.gd"
+EnemyType="*res://Scripts/globals/EnemyType.gd"
 
 [debug]
 
