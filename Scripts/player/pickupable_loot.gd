@@ -1,4 +1,4 @@
-extends Node
+extends PickupableObject
 
 @export var sprite := Sprite2D
 @export var sprite_list: Array[CompressedTexture2D]
@@ -7,7 +7,7 @@ extends Node
 
 var items=[null,null,null]
 
-func setup(rarity: ItemType.Grade) -> void:
+func set_loot(rarity: ItemType.Grade) -> void:
 	sprite.texture = sprite_list[randi_range(0, sprite_list.size() - 1)]
 	sprite.modulate = LootDatabase.grade_colors.get(rarity)
 	

@@ -57,6 +57,13 @@ collision_mask = 65536
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupDetector"]
 shape = SubResource("RectangleShape2D_6t5aa")
 
+[node name="HealthPickupDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 131072
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthPickupDetector"]
+shape = SubResource("RectangleShape2D_6t5aa")
+
 [node name="AttackLight" type="Area2D" parent="."]
 position = Vector2(7.695364e-06, -7.6293945e-06)
 scale = Vector2(0.85, 1)
@@ -173,6 +180,7 @@ script = ExtResource("4_fkybt")
 
 [connection signal="area_entered" from="ItemPickupDetector" to="." method="_on_item_pickup_detector_area_entered"]
 [connection signal="area_exited" from="ItemPickupDetector" to="." method="_on_item_pickup_detector_area_exited"]
+[connection signal="area_entered" from="HealthPickupDetector" to="." method="_on_health_pickup_detector_area_entered"]
 [connection signal="area_entered" from="AttackLight" to="." method="_on_attack_light_area_entered"]
 [connection signal="area_entered" from="AttackHeavy" to="." method="_on_attack_heavy_area_entered"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]

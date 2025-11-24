@@ -1,7 +1,6 @@
 extends EnemyController	
 class_name Slasher
 
-
 @export var face_player_length_timer: Timer
 var face_player = false
 
@@ -40,22 +39,11 @@ func _on_navigation_agent_2d_target_reached() -> void:
 	face_player = true
 	face_player_length_timer.start()
 
-
 func _on_face_player_length_timer_timeout() -> void:
 	face_player = false
 	wait_before_attack_timer.start()
 
-func _on_wait_before_attack_timer_timeout() -> void:
-	perform_attack()
-
 func _on_attack_length_timer_timeout() -> void:
-	attack_area.visible = false
-	attack_area_hitbox.disabled = true
-
+	super._on_attack_length_timer_timeout()
 	is_dashing = false
 	current_speed = enemy.speed
-	
-	wait_after_attack_timer.start()
-
-func _on_wait_after_attack_timer_timeout() -> void:
-	target_provider = TargetPlayer.new()

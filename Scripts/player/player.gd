@@ -217,6 +217,16 @@ func deal_damage(area: Area2D, amount: float) -> void:
 	
 	enemy.take_damage(amount)
 
+func heal(amount: float) -> void:
+	if health >= max_health:
+		return
+		
+	health += amount
+	update_health_bar.emit(health)
+	
+	if health > max_health:
+		health = max_health
+
 func take_damage(damage:float) -> void:
 	if invulnerability_length_timer.time_left > 0:
 		return
@@ -274,16 +284,12 @@ func _on_item_pickup_detector_area_entered(area: Area2D) -> void:
 func _on_item_pickup_detector_area_exited(area: Area2D) -> void:
 	overlapping_pickups.erase(area)
 
+func _on_health_pickup_detector_area_entered(area: Area2D) -> void:
+	heal(2.0)
+	area.queue_free()
+
 func _on_invulnerability_length_timer_timeout() -> void:
 	damageable = true
-	
-	
+
 func _on_health_regen_timer_timeout() -> void:
-	if health >= max_health:
-		return
-		
-	health += health_regen
-	update_health_bar.emit(health)
-	
-	if health > max_health:
-		health = max_health
+	heal(health_regen)

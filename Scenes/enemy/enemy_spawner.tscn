@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1h6pqnhbr5no"]
+[gd_scene load_steps=7 format=3 uid="uid://c1h6pqnhbr5no"]
 
 [ext_resource type="Script" uid="uid://486d8jq4rlh0" path="res://Scripts/enemy/enemy_spawner.gd" id="1_4l55s"]
 [ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemy/prefabs/EnemyPrefab.gd" id="2_tdwud"]
@@ -6,7 +6,6 @@
 [ext_resource type="Resource" uid="uid://baujclodehp88" path="res://Scripts/enemy/prefabs/boss_slasher.tres" id="3_le3a8"]
 [ext_resource type="Resource" uid="uid://ctly0bibi2t2d" path="res://Scripts/enemy/prefabs/slasher.tres" id="4_2cu8b"]
 [ext_resource type="Script" uid="uid://2rg187ye080s" path="res://Scenes/enemy/difficulty_manager.gd" id="6_mjc5i"]
-[ext_resource type="PackedScene" uid="uid://dl58s8gkullwa" path="res://Scenes/pickupable_item.tscn" id="6_qiwfs"]
 
 [node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("difficulty_manager", "wave_cooldown_timer", "credits_cooldown_timer", "boss_cooldown_timer")]
 script = ExtResource("1_4l55s")
@@ -17,7 +16,6 @@ difficulty_manager = NodePath("DifficultyManager")
 wave_cooldown_timer = NodePath("WaveCooldownTimer")
 credits_cooldown_timer = NodePath("CreditsCooldownTimer")
 boss_cooldown_timer = NodePath("BossCooldownTimer")
-pickupable_item = ExtResource("6_qiwfs")
 
 [node name="DifficultyManager" type="Node2D" parent="."]
 script = ExtResource("6_mjc5i")

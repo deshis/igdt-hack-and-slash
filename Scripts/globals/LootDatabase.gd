@@ -10,7 +10,6 @@ var military_items := [
 	preload("res://Scripts/items/military/Item2.tres"),
 	preload("res://Scripts/items/military/Item2.tres"),
 	preload("res://Scripts/items/military/Item2.tres")
-	
 ]
 
 var prototype_items := [
@@ -31,11 +30,12 @@ var type_colors := {
 
 var grade_colors := {
 	ItemType.Grade.CONSUMER: Color(0.788, 0.788, 0.788),
-	ItemType.Grade.MILITARY: Color(0.0, 0.745, 0.0),
+	ItemType.Grade.MILITARY: Color(0.4, 0.0, 0.75, 1.0),
 	ItemType.Grade.PROTOTYPE: Color(1.0, 0.757, 0.0)
 }
 
-var pickupable_item = preload("res://Scenes/pickupable_item.tscn")
+var pickupable_item = preload("res://Scenes/pickupable_loot.tscn")
+var pickupable_health = preload("res://Scenes/pickupable_health.tscn")
 
 func drop_loot(enemy: EnemyStats) -> bool:
 	if randf() > enemy.loot_drop_chance:

@@ -81,6 +81,7 @@ func die() -> void:
 	if health_bar:
 		health_bar.queue_free()
 	
+	drop_health_pickup()
 	drop_loot()
 	queue_free()
 
@@ -89,7 +90,20 @@ func drop_loot() -> void:
 		var loot = LootDatabase.pickupable_item.instantiate()
 		get_tree().root.add_child(loot)
 		loot.global_position = global_position
-		loot.setup(LootDatabase.get_loot_rarity(enemy))
+		loot.set_loot(LootDatabase.get_loot_rarity(enemy))
+		
+		var dir = player.global_position.direction_to(global_position)
+		loot.setup(player, dir)
+
+func drop_health_pickup() -> void:
+	# TODO: proper health drop chance
+	if randi() % 3 == 0:
+		var pickup = LootDatabase.pickupable_health.instantiate()
+		get_tree().root.add_child(pickup)
+		pickup.global_position = global_position
+		
+		var dir = player.global_position.direction_to(global_position)
+		pickup.setup(player, dir)
 
 func _on_attack_area_area_entered(_area: Area2D) -> void:
 	player.take_damage(enemy.damage)

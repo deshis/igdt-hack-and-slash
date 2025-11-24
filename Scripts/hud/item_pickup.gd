@@ -10,9 +10,6 @@ var inventory_manager: InventoryManager
 
 var item_on_ground:Area2D
 
-func _on_player_ready() -> void:
-	player.item_picked_up.connect(open_item_selection)
-
 func setup(p: Player, inv_manager: InventoryManager) -> void:
 	player = p
 	inventory_manager = inv_manager
@@ -21,7 +18,7 @@ func setup(p: Player, inv_manager: InventoryManager) -> void:
 	selection_slot_2.setup(p, inv_manager)
 	selection_slot_3.setup(p, inv_manager)
 	
-	_on_player_ready()
+	player.item_picked_up.connect(open_item_selection)
 
 func open_item_selection(area:Area2D):
 	item_on_ground = area

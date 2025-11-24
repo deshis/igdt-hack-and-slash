@@ -110,6 +110,7 @@ interact={
 2d_physics/layer_14="enemy_hurtbox"
 2d_physics/layer_15="enemy_attack"
 2d_physics/layer_17="ItemPickup"
+2d_physics/layer_18="health_pickup"
 
 [rendering]
 

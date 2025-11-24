@@ -11,7 +11,7 @@ loot_rarity_weights = {
 2: 0
 }
 speed = 400.0
-max_health = 2.0
+max_health = 1.5
 damage = 4.0
 cost = 1.0
 metadata/_custom_type_script = "uid://t76ghlhghorw"
