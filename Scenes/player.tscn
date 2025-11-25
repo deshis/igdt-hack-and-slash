@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cejn0x82p4vcn"]
+[gd_scene load_steps=17 format=3 uid="uid://cerovsgxmf0fk"]
 
 [ext_resource type="Script" uid="uid://sl7rs4hrme1x" path="res://Scripts/player/player.gd" id="1_cvnsp"]
-[ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_fkybt"]
 [ext_resource type="Script" uid="uid://sqkoujqnueav" path="res://Scripts/player/player_sprite_manager.gd" id="2_vgqql"]
 [ext_resource type="Script" uid="uid://1i3w67cy0385" path="res://Scripts/player/player_model.gd" id="4_fkybt"]
 [ext_resource type="PackedScene" uid="uid://cffxpw73nnlnu" path="res://Scenes/player_model.tscn" id="19_fs7ks"]
@@ -33,12 +32,23 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.7560538, 1, 1, 1, 0.46666667, 1
 gradient = SubResource("Gradient_vgqql")
 fill_from = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3wgy"]
-shader = ExtResource("2_fkybt")
-shader_parameter/strength = 0.0
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_fs7ks"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_vgqql"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Curve" id="Curve_fkybt"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_x3wgy"]
+curve = SubResource("Curve_fkybt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3smsa"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_x3wgy")
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 256
@@ -70,6 +80,7 @@ collision_mask = 131072
 shape = SubResource("RectangleShape2D_6t5aa")
 
 [node name="AttackLight" type="Area2D" parent="."]
+visible = false
 position = Vector2(7.695364e-06, -7.6293945e-06)
 scale = Vector2(0.85, 1)
 collision_layer = 1024
@@ -86,6 +97,7 @@ scale = Vector2(3.0312529, 2.5156271)
 texture = SubResource("GradientTexture2D_6t5aa")
 
 [node name="AttackHeavy" type="Area2D" parent="."]
+visible = false
 position = Vector2(7.695364e-06, -7.6293945e-06)
 scale = Vector2(1.15, 1.15)
 collision_layer = 1024
@@ -173,13 +185,22 @@ wait_time = 5.0
 autostart = true
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_x3wgy")
+rotation = -3.1415927
+scale = Vector2(1.25, 1.25)
 texture = SubResource("ViewportTexture_fs7ks")
 script = ExtResource("2_vgqql")
 
+[node name="AfterimageParticles" type="GPUParticles2D" parent="PlayerSprite"]
+emitting = false
+amount = 4
+texture = SubResource("ViewportTexture_vgqql")
+lifetime = 0.1
+fract_delta = false
+process_material = SubResource("ParticleProcessMaterial_3smsa")
+
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(128, 128)
+size = Vector2i(256, 256)
 
 [node name="model" parent="SubViewport" instance=ExtResource("19_fs7ks")]
 script = ExtResource("4_fkybt")
@@ -195,3 +216,4 @@ script = ExtResource("4_fkybt")
 [connection signal="timeout" from="Timers/AttackLengthTimer" to="." method="_on_attack_length_timer_timeout"]
 [connection signal="timeout" from="Timers/InvulnerabilityLengthTimer" to="." method="_on_invulnerability_length_timer_timeout"]
 [connection signal="timeout" from="Timers/HealthRegenTimer" to="." method="_on_health_regen_timer_timeout"]
+[connection signal="light_attack_finished" from="PlayerSprite" to="." method="_on_player_sprite_light_attack_finished"]

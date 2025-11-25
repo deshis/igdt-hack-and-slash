@@ -1,17 +1,11 @@
 extends Node3D
 
-@onready var rig = $rig
+@onready var cam = $CameraPoint
 @onready var anim = $AnimationPlayer
 
-var moving = false
-
-func rotate_model(direction):
+func rotate_cam(direction):
 	if direction.length() > 0:
-		rig.rotation.y = atan2(-direction.y, direction.x) + PI/2
-		if !moving:
-			anim.play("Run")
-			moving = true
-	
-	elif moving:
-		anim.play("Idle")
-		moving = false
+		cam.rotation.y = atan2(-direction.x, direction.y)
+
+func set_cam_rotation(rot):
+	cam.rotation.y = rot + PI

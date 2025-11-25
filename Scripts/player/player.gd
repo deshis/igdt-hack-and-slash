@@ -162,13 +162,18 @@ func perform_light_attack() -> void:
 	light_attack.visible = true
 	light_attack_hitbox.disabled = false
 	
+	velocity = Vector2.ZERO
+	
 	attacking = true
 	can_attack = false
+	can_move = false
+	can_look_around = false
 	
+	player_sprite.light_attack(rotation)
 	SoundManager.play_sfx("light_attack", global_position)
 	
-	attack_length_timer.start(light_attack_length)
-	attack_cooldown_timer.start(light_attack_cooldown)
+	#attack_length_timer.start(light_attack_length)
+	#attack_cooldown_timer.start(light_attack_cooldown)
 	primary_attack_used.emit(light_attack_cooldown)
 
 
@@ -195,6 +200,7 @@ func perform_dash():
 	can_dash = false
 	dashing = true
 	
+	player_sprite.start_dash()
 	SoundManager.play_sfx("dash", global_position)
 	
 	dash_length_timer.start(dash_length)
@@ -284,6 +290,7 @@ func _on_dash_cooldown_timer_timeout() -> void:
 func _on_dash_length_timer_timeout() -> void:
 	current_speed = movement_speed
 	dashing = false
+	player_sprite.stop_dash()
 
 func _on_attack_light_area_entered(area: Area2D) -> void:
 	deal_damage(area, attack_light_damage)
@@ -306,3 +313,16 @@ func _on_invulnerability_length_timer_timeout() -> void:
 
 func _on_health_regen_timer_timeout() -> void:
 	heal(health_regen)
+
+
+func _on_player_sprite_light_attack_finished() -> void:
+	light_attack_hitbox.disabled = true
+	light_attack.visible = false
+	
+	can_attack = true
+	can_move = true
+	can_look_around = true
+	
+	attacking = false
+	performing_heavy_attack = false
+	current_speed = movement_speed
