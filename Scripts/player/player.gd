@@ -157,7 +157,6 @@ func update_facing_dir() -> void:
 
 
 func perform_light_attack() -> void:
-	
 	# enable hitbox and visuals
 	light_attack.visible = true
 	light_attack_hitbox.disabled = false
@@ -178,7 +177,6 @@ func perform_light_attack() -> void:
 
 
 func perform_heavy_attack() -> void:
-
 	# enable hitbox and visuals
 	heavy_attack.visible = true
 	heavy_attack_hitbox.disabled = false
@@ -197,6 +195,7 @@ func perform_heavy_attack() -> void:
 	current_speed = heavy_attack_dash_speed
 
 func perform_dash():
+	can_attack = false
 	can_dash = false
 	dashing = true
 	
@@ -290,6 +289,7 @@ func _on_dash_cooldown_timer_timeout() -> void:
 func _on_dash_length_timer_timeout() -> void:
 	current_speed = movement_speed
 	dashing = false
+	can_attack = true
 	player_sprite.stop_dash()
 
 func _on_attack_light_area_entered(area: Area2D) -> void:
