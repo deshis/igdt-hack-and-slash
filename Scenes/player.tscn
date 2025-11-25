@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cejn0x82p4vcn"]
+[gd_scene load_steps=15 format=3 uid="uid://cejn0x82p4vcn"]
 
 [ext_resource type="Script" uid="uid://sl7rs4hrme1x" path="res://Scripts/player/player.gd" id="1_cvnsp"]
+[ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_fkybt"]
 [ext_resource type="Script" uid="uid://sqkoujqnueav" path="res://Scripts/player/player_sprite_manager.gd" id="2_vgqql"]
 [ext_resource type="Script" uid="uid://1i3w67cy0385" path="res://Scripts/player/player_model.gd" id="4_fkybt"]
 [ext_resource type="PackedScene" uid="uid://cffxpw73nnlnu" path="res://Scenes/player_model.tscn" id="19_fs7ks"]
@@ -31,6 +32,10 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.7560538, 1, 1, 1, 0.46666667, 1
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fkybt"]
 gradient = SubResource("Gradient_vgqql")
 fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3wgy"]
+shader = ExtResource("2_fkybt")
+shader_parameter/strength = 0.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_fs7ks"]
 viewport_path = NodePath("SubViewport")
@@ -168,6 +173,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_x3wgy")
 texture = SubResource("ViewportTexture_fs7ks")
 script = ExtResource("2_vgqql")
 

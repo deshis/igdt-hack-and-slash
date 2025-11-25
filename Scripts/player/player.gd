@@ -4,6 +4,8 @@ var input: Vector2
 var can_look_around := true
 var can_move := true
 
+@onready var sprite = $PlayerSprite
+
 @export var movement_speed := 500.0
 @export var acceleration := 15.0
 var current_speed:= movement_speed
@@ -242,11 +244,22 @@ func take_damage(damage:float) -> void:
 	print(damage)
 	update_health_bar.emit(health)
 	
+	hit_flash()
+	
 	if health <= 0.0:
 		die()
 
 func die() -> void:
 	queue_free()
+
+func hit_flash() -> void:
+	var mat = sprite.material
+	if not mat:
+		return
+	
+	mat.set("shader_param/strength", 1.0)
+	await get_tree().create_timer(0.1).timeout
+	mat.set("shader_param/strength", 0.0)
 
 
 func _on_attack_length_timer_timeout() -> void:

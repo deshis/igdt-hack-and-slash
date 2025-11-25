@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfykyy2y7odt7"]
+[gd_scene load_steps=8 format=3 uid="uid://bfykyy2y7odt7"]
 
 [ext_resource type="Script" uid="uid://6n8vopurwam1" path="res://Scripts/enemy/slasher.gd" id="1_j7slm"]
-[ext_resource type="PackedScene" uid="uid://dl58s8gkullwa" path="res://Scenes/pickupable_loot.tscn" id="2_4ui1s"]
+[ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_j7slm"]
 [ext_resource type="Texture2D" uid="uid://bub237aqhd52f" path="res://Assets/enemies/slasher.png" id="3_j7slm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
@@ -13,6 +13,10 @@ size = Vector2(124, 124)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvk3b"]
 size = Vector2(110, 219)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ui1s"]
+shader = ExtResource("2_j7slm")
+shader_parameter/strength = 0.0
+
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("face_player_length_timer", "nav_agent", "attack_area", "attack_area_hitbox", "wait_before_attack_timer", "attack_length_timer", "wait_after_attack_timer")]
 z_index = 2
 scale = Vector2(0.9999999, 0.9999999)
@@ -23,7 +27,6 @@ wall_min_slide_angle = 0.0
 safe_margin = 1.0
 script = ExtResource("1_j7slm")
 face_player_length_timer = NodePath("Timers/FacePlayerLengthTimer")
-pickupable_item = ExtResource("2_4ui1s")
 nav_agent = NodePath("NavigationAgent2D")
 attack_area = NodePath("AttackArea")
 attack_area_hitbox = NodePath("AttackArea/AttackAreaHitbox")
@@ -55,6 +58,7 @@ position = Vector2(0, 69.5)
 shape = SubResource("RectangleShape2D_nvk3b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_4ui1s")
 position = Vector2(-5.722046e-06, 7.6293945e-06)
 scale = Vector2(0.484375, 0.48437506)
 texture = ExtResource("3_j7slm")

@@ -6,6 +6,7 @@ var health_bar
 
 @export var enemy: EnemyStats
 var target_provider: TargetProvider
+@onready var sprite = $Sprite2D
 
 @export var nav_agent: NavigationAgent2D
 
@@ -25,6 +26,7 @@ var target_reached := false
 
 func _ready() -> void:
 	attack_area_hitbox.disabled = true
+	sprite.material = sprite.material.duplicate()
 
 func _physics_process(delta: float) -> void:
 	if not player or not target_provider:
@@ -69,6 +71,7 @@ func perform_attack() -> void:
 func take_damage(damage:float) -> void:
 	enemy.health -= damage
 	update_health_bar.emit(enemy.health)
+	hit_flash()
 	
 	SoundManager.play_sfx("hit", global_position)
 	
@@ -84,6 +87,15 @@ func die() -> void:
 	drop_health_pickup()
 	drop_loot()
 	queue_free()
+
+func hit_flash() -> void:
+	var mat = sprite.material
+	if not mat:
+		return
+	
+	mat.set("shader_param/strength", 1.0)
+	await get_tree().create_timer(0.1).timeout
+	mat.set("shader_param/strength", 0.0)
 
 func drop_loot() -> void:
 	if LootDatabase.drop_loot(enemy):
