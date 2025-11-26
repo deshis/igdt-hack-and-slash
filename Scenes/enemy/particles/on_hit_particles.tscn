@@ -11,13 +11,17 @@ offsets = PackedFloat32Array(0, 0.7808219, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.14767182, 0.14767182, 0.14767176, 1, 0, 0, 0, 0)
 
 [node name="OnHitParticles" type="CPUParticles2D"]
+z_index = 4
+emitting = false
 amount = 12
 texture = ExtResource("1_j63uf")
 lifetime = 0.8
+one_shot = true
 explosiveness = 1.0
 lifetime_randomness = 0.4
 emission_shape = 1
 emission_sphere_radius = 10.0
+particle_flag_align_y = true
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 500)
@@ -26,5 +30,5 @@ initial_velocity_max = 250.0
 scale_amount_min = 0.05
 scale_amount_max = 0.15
 scale_amount_curve = SubResource("Curve_goh8n")
-color = Color(3.5993903, 1.4557999, 0.00043793643, 1)
+color = Color(2.2674308, 0.9053692, 0, 1)
 color_ramp = SubResource("Gradient_jx8sk")

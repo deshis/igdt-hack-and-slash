@@ -18,7 +18,10 @@ var target_provider: TargetProvider
 @export var wait_after_attack_timer: Timer
 
 @onready var dot_timer: Timer = $Timers/DotDurationTimer
-@onready var hit_particles: CPUParticles2D = $Particles/OnHitParticles
+#@onready var hit_particles: CPUParticles2D = $Particles/OnHitParticles
+var hit_particles_scene = preload("res://Scenes/enemy/particles/on_hit_particles.tscn")
+var electric_dot_particles_scene = preload("res://Scenes/enemy/particles/electric_dot_particles.tscn")
+
 @onready var death_particles: CPUParticles2D = $Particles/OnDeathParticles
 @onready var death_particles2: CPUParticles2D = $Particles/OnDeathParticles/OnDeathParticles2
 
@@ -114,6 +117,13 @@ func _on_dot_tick() -> void:
 		
 		remaining_dot_duration -= current_tick_rate
 		
+		#NOTE: Different particles for different DoT?
+		var electric_dot_particles = electric_dot_particles_scene.instantiate()
+		get_parent().add_child(electric_dot_particles)
+		electric_dot_particles.global_position = global_position
+		
+		electric_dot_particles.restart()
+		
 		if remaining_dot_duration <= 0.0:
 			dot_timer.stop()
 			remaining_dot_duration = 0
@@ -132,8 +142,11 @@ func take_damage(damage:float) -> void:
 	hit_flash()
 	SoundManager.play_sfx("hit", global_position)
 	
-	if hit_particles:
-		hit_particles.restart()
+	var hit_particles = hit_particles_scene.instantiate()
+	get_parent().add_child(hit_particles)
+	hit_particles.global_position = global_position
+	
+	hit_particles.restart()
 	
 	if enemy.health <= 0.0:
 		die()
