@@ -7,8 +7,8 @@ _data = [Vector2(0, 0.8988764), 0.0, 0.0, 0, 0, Vector2(0.99999994, 0.49438208),
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_jx8sk"]
-offsets = PackedFloat32Array(0, 0.9361702, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.28723407, 0.28723407, 0.28723407, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.7808219, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.14767182, 0.14767182, 0.14767176, 1, 0, 0, 0, 0)
 
 [node name="OnHitParticles" type="CPUParticles2D"]
 amount = 12
@@ -26,5 +26,5 @@ initial_velocity_max = 250.0
 scale_amount_min = 0.05
 scale_amount_max = 0.15
 scale_amount_curve = SubResource("Curve_goh8n")
-color = Color(0.85, 0.49668333, 0.35700002, 1)
+color = Color(3.5993903, 1.4557999, 0.00043793643, 1)
 color_ramp = SubResource("Gradient_jx8sk")

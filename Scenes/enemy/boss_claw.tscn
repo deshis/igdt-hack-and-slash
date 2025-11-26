@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ymjw8v6n38do"]
+[gd_scene load_steps=11 format=3 uid="uid://ymjw8v6n38do"]
 
 [ext_resource type="Script" uid="uid://llel37mn1v5q" path="res://Scripts/enemy/claw.gd" id="1_s0dja"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_gw52e"]
 [ext_resource type="Texture2D" uid="uid://b5uktoex5456a" path="res://Assets/enemies/claw.png" id="3_abev2"]
 [ext_resource type="PackedScene" uid="uid://0weod6ft2wss" path="res://Scenes/enemy/on_hit_particles.tscn" id="4_gw52e"]
+[ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/enemy/on_death_particles.tscn" id="5_abev2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
 radius = 50.01
@@ -112,6 +113,10 @@ one_shot = true
 [node name="OnHitParticles" parent="Particles" instance=ExtResource("4_gw52e")]
 emitting = false
 one_shot = true
+
+[node name="OnDeathParticles" parent="Particles" instance=ExtResource("5_abev2")]
+scale_amount_min = 0.9
+scale_amount_max = 0.9
 
 [connection signal="area_entered" from="ClawAttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="area_entered" from="SpinAttackArea" to="." method="_on_attack_area_area_entered"]

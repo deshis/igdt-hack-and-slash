@@ -19,6 +19,8 @@ var target_provider: TargetProvider
 
 @onready var dot_timer: Timer = $Timers/DotDurationTimer
 @onready var hit_particles: CPUParticles2D = $Particles/OnHitParticles
+@onready var death_particles: CPUParticles2D = $Particles/OnDeathParticles
+@onready var death_particles2: CPUParticles2D = $Particles/OnDeathParticles/OnDeathParticles2
 
 var dot_tick_rate := 1.5
 var remaining_dot_duration := 0.0
@@ -140,13 +142,14 @@ func die() -> void:
 	SoundManager.play_sfx("enemy_die", global_position)
 	
 	#Death particles here
-	if hit_particles:
+	if death_particles:
 		#detaching the particles from the enemy so they don't get deleted as well
-		hit_particles.get_parent().remove_child(hit_particles)
-		get_tree().get_root().add_child(hit_particles)
-		hit_particles.global_position = global_position
-		hit_particles.restart()
-		
+		death_particles.get_parent().remove_child(death_particles)
+		get_tree().get_root().add_child(death_particles)
+		death_particles.global_position = global_position
+
+		death_particles.restart()
+		death_particles2.restart()
 		#TODO: CLEAN THE PARTICLE NODES AS WELL
 	
 	if health_bar:
