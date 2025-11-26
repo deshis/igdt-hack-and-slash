@@ -36,6 +36,9 @@ func open_item_selection(area:Area2D):
 	selection_slot_1.add_child(item1)
 	selection_slot_2.add_child(item2)
 	selection_slot_3.add_child(item3)
+	
+	visible = true
+	GameManager.open_menu()
 
 
 func clear_slot(slot: Control)->void:

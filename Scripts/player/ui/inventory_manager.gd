@@ -11,7 +11,8 @@ var equipped_items: Array[ItemResource]
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory"):
-		self.visible = !self.visible
+		visible = !visible
+		GameManager.set_menu(visible)
 
 func setup_inventory(p: Player) -> void:
 	player = p

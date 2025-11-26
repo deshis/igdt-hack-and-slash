@@ -7,6 +7,21 @@ extends PickupableObject
 
 var items=[null,null,null]
 
+func _ready() -> void:
+	var interact = InputMap.action_get_events("interact")
+	var button_name = OS.get_keycode_string(interact[0].physical_keycode)
+	$RichTextLabel.text = button_name + " interact"
+
+func _physics_process(_delta: float) -> void:
+	if not player:
+		return
+	
+	var dist = global_position.distance_to(player.global_position)
+	if dist < 150.0:
+		$RichTextLabel.visible = true
+	else:
+		$RichTextLabel.visible = false
+
 func set_loot(rarity: ItemType.Grade) -> void:
 	sprite.texture = sprite_list[randi_range(0, sprite_list.size() - 1)]
 	sprite.modulate = LootDatabase.grade_colors.get(rarity)

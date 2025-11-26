@@ -10,6 +10,7 @@ func _ready() -> void:
 	music_player = AudioStreamPlayer.new()
 	music_player.bus = "Music"
 	add_child(music_player)
+	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	bgm_players = {
 		"common_bgm": load("res://Assets/audio/bgm.mp3")

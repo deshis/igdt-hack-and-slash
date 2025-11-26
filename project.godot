@@ -22,6 +22,7 @@ CfgHandler="*res://Scripts/globals/cfg_handler.gd"
 SoundManager="*res://Scripts/globals/SoundManager.gd"
 LootDatabase="*res://Scripts/globals/LootDatabase.gd"
 EnemyType="*res://Scripts/globals/EnemyType.gd"
+GameManager="*res://Scripts/globals/GameManager.gd"
 
 [debug]
 

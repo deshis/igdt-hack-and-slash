@@ -25,3 +25,13 @@ texture = ExtResource("2_t6aaw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_sd5tl")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -56.0
+offset_top = -43.0
+offset_right = 56.0
+offset_bottom = -20.0
+text = "F interact"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 2

@@ -143,6 +143,7 @@ show_percentage = false
 one_shot = true
 
 [node name="Inventory" type="Control" parent="." node_paths=PackedStringArray("backpack", "augment_slots", "item_selection", "trash_slot")]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 15

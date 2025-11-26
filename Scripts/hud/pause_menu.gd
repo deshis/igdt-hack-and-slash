@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func toggle_pause()->void:
 	visible = !visible
-	get_tree().paused = !get_tree().paused
+	GameManager.set_menu(visible)
 	continue_button.grab_focus()
 
 
