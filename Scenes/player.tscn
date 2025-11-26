@@ -203,6 +203,7 @@ transparent_bg = true
 size = Vector2i(256, 256)
 
 [node name="model" parent="SubViewport" instance=ExtResource("19_fs7ks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.63359463, 0.12819028, 2.0918188)
 script = ExtResource("4_fkybt")
 
 [connection signal="area_entered" from="ItemPickupDetector" to="." method="_on_item_pickup_detector_area_entered"]

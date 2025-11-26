@@ -25,9 +25,11 @@ func update_sprite(direction):
 	if current_state == STATE.LIGHT_ATTACK: return
 	model.rotate_cam(direction)
 	if direction.length() > 0 and current_state != STATE.RUN:
+		model.anim.speed_scale = player_script.movement_speed / player_script.default_speed
 		model.anim.play("Run")
 		current_state = STATE.RUN
 	elif direction.length() == 0 and current_state != STATE.IDLE:
+		model.anim.speed_scale = 1
 		model.anim.play("Idle")
 		current_state = STATE.IDLE
 

@@ -8,7 +8,8 @@ var can_move := true
 
 @export var movement_speed := 500.0
 @export var acceleration := 15.0
-var current_speed:= movement_speed
+var current_speed := movement_speed
+var default_speed = movement_speed
 
 @export var max_health := 10.0
 @export var health := 10.0
