@@ -27,12 +27,13 @@ const STAT_NAMES = {
 	Stats.Stat.HEAVY_SIZE_X: "Attack width",
 	Stats.Stat.HEAVY_SIZE_Y: "Attack length",
 	
-	Stats.Stat.LIFESTEAL: "% Lifesteal"
+	Stats.Stat.LIFESTEAL: "% Lifesteal",
+	Stats.Stat.DOT_EFFECT: "TODO: DOT INFO"
 	}
 	
 var stat_name
 var base_movement_speed := 500
-var base_light_attack_cooldown := 0.3
+var base_light_attack_cooldown := 1.5
 var base_heavy_attack_cooldown := 0.5
 
 #NOTE: https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_format_string.html
@@ -96,11 +97,11 @@ func get_formatted_stats() -> String:
 		# NOTE: Bandaid
 		if dictionary_stat == "Light attackspeed" || dictionary_stat == "Heavy attackspeed":
 			if value >= 0:
-				sign1 = "-"
-				stat_color = negative_color
-			else:
 				sign1 = "+"
 				stat_color = positive_color
+			else:
+				sign1 = "-"
+				stat_color = negative_color
 		
 		var formatted_value := format_stat_value(effect.stat_type, effect.value)
 		

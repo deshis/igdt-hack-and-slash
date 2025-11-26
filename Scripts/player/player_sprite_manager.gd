@@ -3,12 +3,16 @@ extends Sprite2D
 @onready var model = $"../SubViewport/model"
 @onready var afterimage_particles = $AfterimageParticles
 
+#Storing the light attack speed scale in player.gd so I can access it with my item code
+@onready var player_script = get_parent()
+
 enum STATE {IDLE, RUN, LIGHT_ATTACK}
 
 var current_state = STATE.IDLE
 
 signal light_attack_finished
 signal heavy_attack_finished
+
 
 func _ready():
 	var a =  $"../SubViewport/model/AnimationPlayer"
@@ -41,7 +45,8 @@ func stop_dash():
 func light_attack(rot):
 	current_state = STATE.LIGHT_ATTACK
 	model.set_cam_rotation(rot)
-	model.anim.speed_scale = 1.5
+	#Separating the speed scale to modify it in isolation
+	model.anim.speed_scale = player_script.light_attack_speed_scale
 	model.anim.play("Dagger")
 
 func _on_anim_finished(anim_name):

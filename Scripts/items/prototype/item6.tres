@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=10 format=3 uid="uid://ck8g6fmyxihxq"]
+
+[ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_l2r6n"]
+[ext_resource type="Resource" uid="uid://hylp888g1m6u" path="res://Scripts/items/resources/ShockDoT.tres" id="2_qa0gr"]
+[ext_resource type="Texture2D" uid="uid://m324xrr0okos" path="res://Assets/item_icons/daggericon2.png" id="3_oeikm"]
+[ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="4_uy24y"]
+
+[sub_resource type="Resource" id="Resource_iqmce"]
+script = ExtResource("1_l2r6n")
+stat_type = 9
+value = 0.7
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[sub_resource type="Resource" id="Resource_f64o5"]
+script = ExtResource("1_l2r6n")
+stat_type = 10
+value = 1.15
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[sub_resource type="Resource" id="Resource_m1kvg"]
+script = ExtResource("1_l2r6n")
+stat_type = 5
+value = -0.5
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[sub_resource type="Resource" id="Resource_gc6pf"]
+script = ExtResource("1_l2r6n")
+stat_type = 14
+dot_resource = ExtResource("2_qa0gr")
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[sub_resource type="Resource" id="Resource_n4h0w"]
+script = ExtResource("1_l2r6n")
+stat_type = 7
+value = -0.3
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[resource]
+script = ExtResource("4_uy24y")
+item_name = "The Arc Flash"
+type = 6
+grade = 2
+icon = ExtResource("3_oeikm")
+effects = Array[ExtResource("1_l2r6n")]([SubResource("Resource_iqmce"), SubResource("Resource_f64o5"), SubResource("Resource_m1kvg"), SubResource("Resource_gc6pf"), SubResource("Resource_n4h0w")])
+metadata/_custom_type_script = "uid://dulvf1v1d8so8"

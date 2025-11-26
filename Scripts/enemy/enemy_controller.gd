@@ -17,6 +17,13 @@ var target_provider: TargetProvider
 @export var attack_length_timer: Timer
 @export var wait_after_attack_timer: Timer
 
+@onready var dot_timer: Timer = $Timers/DotDurationTimer
+
+var dot_tick_rate := 1.5
+var remaining_dot_duration := 0.0
+var current_tick_damage := 0.0
+var current_tick_rate := 0.0
+
 var player: Node2D
 var target: Node2D
 var is_navigating := true
@@ -27,7 +34,11 @@ var target_reached := false
 func _ready() -> void:
 	attack_area_hitbox.disabled = true
 	sprite.material = sprite.material.duplicate()
-
+	
+	dot_timer = Timer.new()
+	dot_timer.timeout.connect(_on_dot_tick) 
+	add_child(dot_timer)
+	
 func _physics_process(delta: float) -> void:
 	if not player or not target_provider:
 		return
@@ -67,12 +78,55 @@ func perform_attack() -> void:
 	attack_area_hitbox.disabled = false
 	
 	attack_length_timer.start()
-
+	
+func take_dot_damage(dot_tick_damage:float, dot_duration:float, tick_rate:float) -> void:
+	print("dot stats: ","dot dmg: ", dot_tick_damage,"dot duration: ", dot_duration,"dot tick rate: ",tick_rate) 
+	
+	remaining_dot_duration = dot_duration
+	current_tick_damage = dot_tick_damage
+	current_tick_rate = tick_rate
+	
+	dot_timer.set_wait_time(current_tick_rate)
+	
+	if dot_duration <= 0.0:
+		dot_timer.stop()
+		dot_tick_damage = 0
+		dot_duration = 0
+		return
+			
+	if enemy.health <= 0.0:
+		die()
+		return
+		
+	dot_timer.start()
+			
+func _on_dot_tick() -> void:
+	
+	if remaining_dot_duration > 0.0:
+		#print("dealing dot dmg: ",current_tick_damage) 
+		enemy.health -= current_tick_damage
+		update_health_bar.emit(enemy.health)
+		hit_flash()
+		SoundManager.play_sfx("dot_sfx", global_position)  #Might want DoT SFX here, maybe even separate depending on DoT (From resource)
+		
+		remaining_dot_duration -= current_tick_rate
+		
+		if remaining_dot_duration <= 0.0:
+			dot_timer.stop()
+			remaining_dot_duration = 0
+			current_tick_damage = 0
+			
+		if enemy.health <= 0.0:
+			die()
+			return
+		
+		dot_timer.start()
+			
+			
 func take_damage(damage:float) -> void:
 	enemy.health -= damage
 	update_health_bar.emit(enemy.health)
 	hit_flash()
-	
 	SoundManager.play_sfx("hit", global_position)
 	
 	if enemy.health <= 0.0:
@@ -143,3 +197,5 @@ func _on_attack_length_timer_timeout() -> void:
 
 func _on_wait_after_attack_timer_timeout() -> void:
 	target_provider = TargetPlayer.new()
+#
+	

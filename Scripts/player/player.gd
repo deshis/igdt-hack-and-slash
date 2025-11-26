@@ -30,8 +30,8 @@ var damageable := true
 #var base_heavy_attack_cooldown:= 0.5 # old 0.4
 #
 
-@export var attack_light_damage := 1
-@export var attack_heavy_damage := 2
+@export var attack_light_damage := 1.0
+@export var attack_heavy_damage := 2.0
 
 signal update_health_bar
 signal dash_used
@@ -51,9 +51,10 @@ var attacking := false
 var light_attack_shape: RectangleShape2D
 var light_attack_visual_shape: Sprite2D
 
-var light_attack_cooldown:= 0.3
+#var light_attack_cooldown:= 0.3
+var light_attack_speed_scale := 1.5
 #duration the hitbox lingers
-var light_attack_length:= light_attack_cooldown/2
+#var light_attack_length:= light_attack_cooldown/2
 
 @onready var heavy_attack = $AttackHeavy
 @onready var heavy_attack_hitbox = $AttackHeavy/CollisionShape2D
@@ -82,6 +83,8 @@ var dash_speed:= 2500
 var health_regen:= 0
 
 var overlapping_pickups := []
+
+var active_dot: DotResource = null
 
 func _ready() -> void:
 	light_attack_hitbox.disabled = true
@@ -173,7 +176,9 @@ func perform_light_attack() -> void:
 	
 	#attack_length_timer.start(light_attack_length)
 	#attack_cooldown_timer.start(light_attack_cooldown)
-	primary_attack_used.emit(light_attack_cooldown)
+	
+	#I think this is redundant now?
+	#primary_attack_used.emit(light_attack_cooldown)
 
 
 func perform_heavy_attack() -> void:
@@ -209,7 +214,7 @@ func perform_dash():
 
 func deal_damage(area: Area2D, amount: float) -> void:
 	var enemy = area.get_parent() as EnemyController
-	
+	#print("Damage: ", amount) 
 	#Lifesteal
 	#NOTE: Might just want to make this flat
 	life_stolen = amount * (life_steal/100)
@@ -218,11 +223,21 @@ func deal_damage(area: Area2D, amount: float) -> void:
 	
 	if health > max_health:
 		health = max_health
+	
+	#In case of negative dmg, don't heal the enemies!
+	if amount < 0:
+		amount = 0
 		
-	print(amount)
 	update_health_bar.emit(health)
 	
 	enemy.take_damage(amount)
+	
+func deal_dot_damage(area: Area2D, dot: DotResource) -> void:
+
+	var enemy = area.get_parent() as EnemyController
+
+	if dot.dot_tick_damage > 0:
+		enemy.take_dot_damage(dot.dot_tick_damage, dot.dot_duration, dot.dot_tick_rate)
 
 func heal(amount: float) -> void:
 	if health >= max_health:
@@ -293,9 +308,13 @@ func _on_dash_length_timer_timeout() -> void:
 	player_sprite.stop_dash()
 
 func _on_attack_light_area_entered(area: Area2D) -> void:
+	if active_dot != null:
+		deal_dot_damage(area, active_dot)
 	deal_damage(area, attack_light_damage)
 
 func _on_attack_heavy_area_entered(area: Area2D) -> void:
+	if active_dot != null:
+		deal_dot_damage(area, active_dot)
 	deal_damage(area, attack_heavy_damage)
 
 func _on_item_pickup_detector_area_entered(area: Area2D) -> void:

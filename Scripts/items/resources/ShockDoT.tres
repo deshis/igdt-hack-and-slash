@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DotResource" load_steps=2 format=3 uid="uid://hylp888g1m6u"]
+
+[ext_resource type="Script" uid="uid://ko57id0ce143" path="res://Scripts/items/resources/DotResource.gd" id="1_4gaow"]
+
+[resource]
+script = ExtResource("1_4gaow")
+dot_tick_damage = 0.35
+dot_tick_rate = 0.15
+dot_duration = 2.0
+metadata/_custom_type_script = "uid://ko57id0ce143"

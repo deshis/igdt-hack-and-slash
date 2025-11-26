@@ -3,6 +3,7 @@ class_name Stats
 
 @export var stat_type: Stat = Stat.HEALTH
 @export var value: float = 0.0
+@export var dot_resource: DotResource
 
 signal update_health_bar
 
@@ -24,7 +25,8 @@ enum Stat {
 	HEAVY_SIZE_X,
 	HEAVY_SIZE_Y,
 	
-	LIFESTEAL
+	LIFESTEAL,
+	DOT_EFFECT
 	}
 	
 func apply_effect(player) -> void:
@@ -46,7 +48,10 @@ func apply_effect(player) -> void:
 			player.movement_speed += value
 			
 		Stat.LIGHT_COOLDOWN:
-			player.light_attack_cooldown += value
+			player.light_attack_speed_scale += value
+			
+			#Might still be useful for the hitbox lingering? probably not.
+			#player.light_attack_cooldown += value
 		Stat.HEAVY_COOLDOWN:
 			player.heavy_attack_cooldown += value
 
@@ -73,6 +78,9 @@ func apply_effect(player) -> void:
 			
 		Stat.LIFESTEAL:
 			player.life_steal += value
+		Stat.DOT_EFFECT:
+			if dot_resource:
+				player.active_dot = dot_resource
 
 func remove_effect(player) -> void:
 	match stat_type:
@@ -93,7 +101,7 @@ func remove_effect(player) -> void:
 			player.movement_speed -= value
 			
 		Stat.LIGHT_COOLDOWN:
-			player.light_attack_cooldown -= value
+			player.light_attack_speed_scale -= value
 		Stat.HEAVY_COOLDOWN:
 			player.heavy_attack_cooldown -= value
 
@@ -117,3 +125,6 @@ func remove_effect(player) -> void:
 			
 		Stat.LIFESTEAL:
 			player.life_steal -= value
+		Stat.DOT_EFFECT:
+			if dot_resource:
+				player.active_dot = null

@@ -12,8 +12,8 @@
 [ext_resource type="Script" uid="uid://dglo22okhueyv" path="res://Scripts/hud/item_pickup.gd" id="9_484xk"]
 [ext_resource type="Script" uid="uid://c8noump2yhng5" path="res://Scripts/player/ui/augment_slot.gd" id="9_pbtju"]
 [ext_resource type="PackedScene" uid="uid://cexexdh4re63h" path="res://Scenes/inventory_slot.tscn" id="10_36s6t"]
-[ext_resource type="Resource" uid="uid://dfg2rydc2s2mc" path="res://Scripts/items/consumer/item5.tres" id="10_ajim5"]
 [ext_resource type="Script" uid="uid://c081ighahaot6" path="res://Scripts/hud/pause_menu.gd" id="10_lkt4f"]
+[ext_resource type="Resource" uid="uid://ck8g6fmyxihxq" path="res://Scripts/items/prototype/item6.tres" id="11_vxf74"]
 [ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="11_wfkbc"]
 [ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/hud/volume_slider.gd" id="12_s17ah"]
 [ext_resource type="Script" uid="uid://cdh5pjfwavchk" path="res://Scripts/player/ui/pickup_slot.gd" id="12_yidpd"]
@@ -329,7 +329,7 @@ custom_minimum_size = Vector2(84, 84)
 layout_mode = 0
 offset_right = 84.0
 offset_bottom = 84.0
-item = ExtResource("10_ajim5")
+item = ExtResource("11_vxf74")
 
 [node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot5/Item"]
 layout_mode = 0

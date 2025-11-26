@@ -29,7 +29,8 @@ func _ready() -> void:
 		"heavy_attack": load("res://Assets/audio/effect_light_attack.wav"), 
 		"dash": load("res://Assets/audio/effect_dash.wav"),
 		"hit": load("res://Assets/audio/effect_hit.wav"),
-		"enemy_die": load("res://Assets/audio/effect_enemy_die.wav")
+		"enemy_die": load("res://Assets/audio/effect_enemy_die.wav"),
+		"dot_sfx": load("res://Assets/audio/effect_dot.wav")
 	}
 	
 	
