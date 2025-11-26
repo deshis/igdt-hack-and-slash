@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cxfkpodvrl77o"]
+[gd_scene load_steps=9 format=3 uid="uid://cxfkpodvrl77o"]
 
 [ext_resource type="Script" uid="uid://brdidm5k40j17" path="res://Scripts/enemy/microbot.gd" id="1_j823o"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_amjd5"]
 [ext_resource type="Texture2D" uid="uid://cgyp55e05tmcl" path="res://Assets/enemies/microbot.png" id="3_amjd5"]
+[ext_resource type="PackedScene" uid="uid://0weod6ft2wss" path="res://Scenes/enemy/on_hit_particles.tscn" id="4_opgh6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
 radius = 16.27882
@@ -75,6 +76,12 @@ one_shot = true
 
 [node name="WaitBeforeAttackTimer" type="Timer" parent="Timers"]
 wait_time = 0.6
+one_shot = true
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="OnHitParticles" parent="Particles" instance=ExtResource("4_opgh6")]
+emitting = false
 one_shot = true
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]

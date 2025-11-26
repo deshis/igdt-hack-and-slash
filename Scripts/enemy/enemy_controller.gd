@@ -18,6 +18,7 @@ var target_provider: TargetProvider
 @export var wait_after_attack_timer: Timer
 
 @onready var dot_timer: Timer = $Timers/DotDurationTimer
+@onready var hit_particles: CPUParticles2D = $Particles/OnHitParticles
 
 var dot_tick_rate := 1.5
 var remaining_dot_duration := 0.0
@@ -129,11 +130,24 @@ func take_damage(damage:float) -> void:
 	hit_flash()
 	SoundManager.play_sfx("hit", global_position)
 	
+	if hit_particles:
+		hit_particles.restart()
+	
 	if enemy.health <= 0.0:
 		die()
 
 func die() -> void:
 	SoundManager.play_sfx("enemy_die", global_position)
+	
+	#Death particles here
+	if hit_particles:
+		#detaching the particles from the enemy so they don't get deleted as well
+		hit_particles.get_parent().remove_child(hit_particles)
+		get_tree().get_root().add_child(hit_particles)
+		hit_particles.global_position = global_position
+		hit_particles.restart()
+		
+		#TODO: CLEAN THE PARTICLE NODES AS WELL
 	
 	if health_bar:
 		health_bar.queue_free()

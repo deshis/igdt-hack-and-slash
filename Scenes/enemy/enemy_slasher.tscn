@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfykyy2y7odt7"]
+[gd_scene load_steps=9 format=3 uid="uid://bfykyy2y7odt7"]
 
 [ext_resource type="Script" uid="uid://6n8vopurwam1" path="res://Scripts/enemy/slasher.gd" id="1_j7slm"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_j7slm"]
 [ext_resource type="Texture2D" uid="uid://bub237aqhd52f" path="res://Assets/enemies/slasher.png" id="3_j7slm"]
+[ext_resource type="PackedScene" uid="uid://0weod6ft2wss" path="res://Scenes/enemy/on_hit_particles.tscn" id="4_4ui1s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
 radius = 50.01
@@ -83,6 +84,12 @@ one_shot = true
 
 [node name="FacePlayerLengthTimer" type="Timer" parent="Timers"]
 wait_time = 0.4
+one_shot = true
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="OnHitParticles" parent="Particles" instance=ExtResource("4_4ui1s")]
+emitting = false
 one_shot = true
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]

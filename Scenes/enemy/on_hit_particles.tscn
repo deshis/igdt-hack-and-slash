@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://0weod6ft2wss"]
+
+[ext_resource type="Texture2D" uid="uid://c15dsxqpwd0k" path="res://Assets/particles/star_05.png" id="1_j63uf"]
+
+[sub_resource type="Curve" id="Curve_goh8n"]
+_data = [Vector2(0, 0.8988764), 0.0, 0.0, 0, 0, Vector2(0.99999994, 0.49438208), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_jx8sk"]
+offsets = PackedFloat32Array(0, 0.9361702, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.28723407, 0.28723407, 0.28723407, 1, 0, 0, 0, 1)
+
+[node name="OnHitParticles" type="CPUParticles2D"]
+amount = 12
+texture = ExtResource("1_j63uf")
+lifetime = 0.8
+explosiveness = 1.0
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 200.0
+initial_velocity_max = 250.0
+scale_amount_min = 0.05
+scale_amount_max = 0.15
+scale_amount_curve = SubResource("Curve_goh8n")
+color = Color(0.85, 0.49668333, 0.35700002, 1)
+color_ramp = SubResource("Gradient_jx8sk")
