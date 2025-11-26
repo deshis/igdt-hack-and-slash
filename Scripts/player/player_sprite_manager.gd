@@ -49,12 +49,11 @@ func light_attack(rot):
 	model.set_cam_rotation(rot)
 	#Separating the speed scale to modify it in isolation
 	model.anim.speed_scale = player_script.light_attack_speed_scale
-	model.anim.play("Dagger")
+	model.anim.play("Light_attack_sword")
 
 func _on_anim_finished(anim_name):
 	current_state = STATE.IDLE
 	model.anim.speed_scale = 1
 	model.anim.play("Idle")
-	match  anim_name:
-		"Dagger":
+	if  anim_name.begins_with("Light_attack_"):
 			light_attack_finished.emit()
