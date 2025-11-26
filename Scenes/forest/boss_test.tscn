@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://b2edbik0xvasw"]
+[gd_scene load_steps=12 format=4 uid="uid://b2edbik0xvasw"]
 
 [ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="2_0o4qr"]
-[ext_resource type="Script" uid="uid://dopu0i2ovey53" path="res://Scenes/level/forest_gen.gd" id="3_dy500"]
+[ext_resource type="Script" uid="uid://dopu0i2ovey53" path="res://Scenes/forest/script/forest_gen.gd" id="3_dy500"]
 [ext_resource type="Texture2D" uid="uid://cb3158cqwbawb" path="res://Assets/area_tiles/basic_forest_tiles.png" id="4_minhk"]
-[ext_resource type="Script" uid="uid://dwcvxx4x4o01o" path="res://Scenes/level/nav_follow.gd" id="5_wug3x"]
+[ext_resource type="Script" uid="uid://be1pcqq5oedy" path="res://Scenes/forest/timer_fix.gd" id="5_c42ip"]
+[ext_resource type="Script" uid="uid://dwcvxx4x4o01o" path="res://Scenes/forest/script/nav_follow.gd" id="5_wug3x"]
 [ext_resource type="PackedScene" uid="uid://cwiavd3bgd63w" path="res://Scenes/enemy/test_boss/test_boss.tscn" id="6_0o4qr"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_3s8ey"]
@@ -93,7 +94,9 @@ player = NodePath("../../Player")
 
 [node name="Timer" type="Timer" parent="world/navRegion"]
 wait_time = 4.0
-autostart = true
+
+[node name="TimerStarter" type="Node" parent="world/navRegion/Timer"]
+script = ExtResource("5_c42ip")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(5907, 3903)
