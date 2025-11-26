@@ -278,9 +278,9 @@ func hit_flash() -> void:
 	if not mat:
 		return
 	
-	mat.set("shader_param/strength", 1.0)
+	mat.set_shader_parameter("strength", 1.0)
 	await get_tree().create_timer(0.1).timeout
-	mat.set("shader_param/strength", 0.0)
+	mat.set_shader_parameter("strength", 0.0)
 
 
 func _on_attack_length_timer_timeout() -> void:

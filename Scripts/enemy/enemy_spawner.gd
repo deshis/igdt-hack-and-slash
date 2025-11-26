@@ -12,12 +12,12 @@ extends Node2D
 @export var wave_cooldown_timer: Timer
 @export var wave_cooldown_min := 2.0
 @export var wave_cooldown_max := 6.0
-@export var min_enemy_spawn_amount := 2
-@export var max_enemy_spawn_amount := 4
+@export var min_enemy_spawn_amount := 1
+@export var max_enemy_spawn_amount := 2
 
 @export var credits_cooldown_timer: Timer
-@export var credits_gain_min := 2
-@export var credits_gain_max := 5
+@export var credits_gain_min := 1
+@export var credits_gain_max := 3
 
 @export var boss_cooldown_timer: Timer
 @export var boss_cooldown_time := 30.0
@@ -34,10 +34,7 @@ func spawn_enemy(prefab: EnemyPrefab) -> void:
 	enemy.player = player
 	enemy.target_provider = prefab.target_provider
 	
-	enemy.enemy.max_health *= difficulty_manager.health_mult
-	enemy.enemy.health = enemy.enemy.max_health
-	enemy.enemy.damage *= difficulty_manager.damage_mult
-	
+	enemy.enemy.setup(difficulty_manager.difficulty_level)
 	enemy.global_position = get_spawn_pos(enemy)
 	
 	setup_health_bar(enemy)
@@ -92,9 +89,9 @@ func _on_wave_cooldown_timer_timeout() -> void:
 	if not player:
 		return
 	
-	var min_enemy_amount = floor(min_enemy_spawn_amount * difficulty_manager.enemy_spawn_amount_mult / 2)
-	var max_enemy_amount = floor(max_enemy_spawn_amount * difficulty_manager.enemy_spawn_amount_mult)
-	var enemy_amount = randi_range(min_enemy_amount, max_enemy_amount)
+	var min_amount = floor(min_enemy_spawn_amount + (difficulty_manager.difficulty_level * difficulty_manager.enemy_spawn_amount_per_level / 2))
+	var max_amount = floor(max_enemy_spawn_amount + difficulty_manager.difficulty_level * difficulty_manager.enemy_spawn_amount_per_level)
+	var enemy_amount = randi_range(min_amount, max_amount)
 	
 	spawn_wave_of_enemies(enemy_amount)
 	
@@ -116,5 +113,7 @@ func _on_credits_cooldown_timer_timeout() -> void:
 	if not player:
 		return
 	
-	credits += randi_range(credits_gain_min * difficulty_manager.credits_mult, credits_gain_max * difficulty_manager.credits_mult)
+	var min_credits = credits_gain_min + difficulty_manager.difficulty_level * difficulty_manager.credits_per_level
+	var max_credits = credits_gain_max + difficulty_manager.difficulty_level * difficulty_manager.credits_per_level
+	credits += randi_range(min_credits, max_credits)
 	credits_cooldown_timer.start()

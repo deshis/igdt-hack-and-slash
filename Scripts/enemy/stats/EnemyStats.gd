@@ -4,7 +4,7 @@ class_name EnemyStats
 @export var name := "unnamed enemy"
 @export var type: EnemyType.Type = EnemyType.Type.NORMAL
 
-@export var loot_drop_chance := 0.2
+@export var loot_drop_chance := 0.05
 @export var loot_rarity_weights := {
 	ItemType.Grade.CONSUMER: 75,
 	ItemType.Grade.MILITARY: 20,
@@ -15,8 +15,15 @@ class_name EnemyStats
 @export var max_health := 4.0
 var health := max_health
 @export var damage := 2.0
-
 @export var cost := 2.0
+
+@export var health_per_level := 0.2
+@export var damage_per_level := 0.1
 
 var acceleration := 20.0
 var rotation_speed := 8.0
+
+func setup(difficulty_level: int) -> void:
+	max_health += difficulty_level * health_per_level
+	health = max_health
+	damage += difficulty_level * damage_per_level

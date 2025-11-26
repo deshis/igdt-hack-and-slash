@@ -1,15 +1,21 @@
-[gd_scene load_steps=17 format=3 uid="uid://cerovsgxmf0fk"]
+[gd_scene load_steps=19 format=3 uid="uid://cerovsgxmf0fk"]
 
 [ext_resource type="Script" uid="uid://sl7rs4hrme1x" path="res://Scripts/player/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://sqkoujqnueav" path="res://Scripts/player/player_sprite_manager.gd" id="2_vgqql"]
 [ext_resource type="Script" uid="uid://1i3w67cy0385" path="res://Scripts/player/player_model.gd" id="4_fkybt"]
 [ext_resource type="PackedScene" uid="uid://cffxpw73nnlnu" path="res://Scenes/player_model.tscn" id="19_fs7ks"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dm0k"]
-size = Vector2(100, 100)
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
+radius = 50.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
-size = Vector2(100, 100)
+[sub_resource type="CircleShape2D" id="CircleShape2D_fkybt"]
+radius = 50.08992
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x3wgy"]
+radius = 50.08992
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3smsa"]
+radius = 50.039986
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(190.00005, 161.99997)
@@ -56,28 +62,28 @@ collision_mask = 69633
 script = ExtResource("1_cvnsp")
 
 [node name="PlayerCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_7dm0k")
+shape = SubResource("CircleShape2D_vgqql")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 512
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_6t5aa")
+shape = SubResource("CircleShape2D_fkybt")
 
 [node name="ItemPickupDetector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 65536
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupDetector"]
-shape = SubResource("RectangleShape2D_6t5aa")
+shape = SubResource("CircleShape2D_x3wgy")
 
 [node name="HealthPickupDetector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 131072
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HealthPickupDetector"]
-shape = SubResource("RectangleShape2D_6t5aa")
+shape = SubResource("CircleShape2D_3smsa")
 
 [node name="AttackLight" type="Area2D" parent="."]
 visible = false

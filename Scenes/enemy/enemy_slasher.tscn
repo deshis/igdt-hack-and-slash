@@ -11,7 +11,7 @@ radius = 50.01
 size = Vector2(124, 124)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvk3b"]
-size = Vector2(110, 219)
+size = Vector2(110, 149)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ui1s"]
 shader = ExtResource("2_j7slm")
@@ -54,7 +54,7 @@ collision_mask = 512
 [node name="AttackAreaHitbox" type="CollisionShape2D" parent="AttackArea"]
 light_mask = 3
 visibility_layer = 3
-position = Vector2(0, 69.5)
+position = Vector2(0, 34.500008)
 shape = SubResource("RectangleShape2D_nvk3b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

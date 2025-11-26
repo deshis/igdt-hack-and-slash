@@ -147,9 +147,9 @@ func hit_flash() -> void:
 	if not mat:
 		return
 	
-	mat.set("shader_param/strength", 1.0)
+	mat.set_shader_parameter("strength", 1.0)
 	await get_tree().create_timer(0.1).timeout
-	mat.set("shader_param/strength", 0.0)
+	mat.set_shader_parameter("strength", 0.0)
 
 func drop_loot() -> void:
 	if LootDatabase.drop_loot(enemy):
@@ -175,6 +175,8 @@ func _on_attack_area_area_entered(_area: Area2D) -> void:
 	player.take_damage(enemy.damage)
 
 func _on_navigation_agent_2d_target_reached() -> void:
+	is_navigating = false
+	
 	if not wait_before_attack_timer:
 		perform_attack()
 		return
@@ -197,5 +199,5 @@ func _on_attack_length_timer_timeout() -> void:
 
 func _on_wait_after_attack_timer_timeout() -> void:
 	target_provider = TargetPlayer.new()
-#
+	is_navigating = true
 	

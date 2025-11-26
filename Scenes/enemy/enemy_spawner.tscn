@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://486d8jq4rlh0" path="res://Scripts/enemy/enemy_spawner.gd" id="1_4l55s"]
 [ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemy/prefabs/EnemyPrefab.gd" id="2_tdwud"]
 [ext_resource type="Resource" uid="uid://1dmu76yei0sm" path="res://Scripts/enemy/prefabs/microbot.tres" id="3_gga2x"]
-[ext_resource type="Resource" uid="uid://baujclodehp88" path="res://Scripts/enemy/prefabs/boss_slasher.tres" id="3_le3a8"]
+[ext_resource type="Resource" uid="uid://baujclodehp88" path="res://Scripts/enemy/prefabs/claw.tres" id="3_le3a8"]
 [ext_resource type="Resource" uid="uid://ctly0bibi2t2d" path="res://Scripts/enemy/prefabs/slasher.tres" id="4_2cu8b"]
 [ext_resource type="Script" uid="uid://2rg187ye080s" path="res://Scenes/enemy/difficulty_manager.gd" id="6_mjc5i"]
 
@@ -26,16 +26,11 @@ one_shot = true
 autostart = true
 
 [node name="BossCooldownTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 2.0
 one_shot = true
 autostart = true
 
 [node name="CreditsCooldownTimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-autostart = true
-
-[node name="CreditsCooldownTimer2" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 autostart = true

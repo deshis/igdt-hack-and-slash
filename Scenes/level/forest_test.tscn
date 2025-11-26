@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://bb8yqfa7be2g4"]
 
-[ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_wlp7t"]
+[ext_resource type="PackedScene" uid="uid://cerovsgxmf0fk" path="res://Scenes/player.tscn" id="1_wlp7t"]
 [ext_resource type="Script" uid="uid://dopu0i2ovey53" path="res://Scenes/level/forest_gen.gd" id="2_3tp1p"]
 [ext_resource type="Texture2D" uid="uid://cb3158cqwbawb" path="res://Assets/area_tiles/basic_forest_tiles.png" id="2_f48ge"]
 [ext_resource type="Script" uid="uid://dwcvxx4x4o01o" path="res://Scenes/level/nav_follow.gd" id="3_wyvj0"]
