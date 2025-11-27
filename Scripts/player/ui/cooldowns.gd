@@ -1,6 +1,6 @@
 extends Control
 
-var player: Player
+var player: Player = GameManager.player
 
 @onready var dash_cooldown_progress_bar: ProgressBar = $MarginContainer/HBoxContainer/DashCooldown/ProgressBar
 @onready var dash_cooldown_timer: Timer = $MarginContainer/HBoxContainer/DashCooldown/Timer
@@ -12,7 +12,10 @@ var player: Player
 @onready var secondary_attack_timer: Timer = $MarginContainer/HBoxContainer/SecondaryAttack/Timer
 
 
-func _on_player_ready() -> void:
+func _ready() -> void:
+	if not player:
+		return
+	
 	player.dash_used.connect(update_dash_cooldown)
 	player.primary_attack_used.connect(update_primary_cooldown)
 	player.secondary_attack_used.connect(update_secondary_cooldown)
@@ -21,12 +24,6 @@ func _process(_delta: float) -> void:
 	dash_cooldown_progress_bar.value = dash_cooldown_timer.time_left
 	primary_attack_progress_bar.value = primary_attack_timer.time_left
 	secondary_attack_progress_bar.value = secondary_attack_timer.time_left
-
-
-func setup(p: Player) -> void:
-	player = p
-	_on_player_ready()
-
 
 func update_dash_cooldown(cooldown:float)->void:
 	dash_cooldown_progress_bar.max_value = cooldown

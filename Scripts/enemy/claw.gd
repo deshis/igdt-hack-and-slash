@@ -66,7 +66,7 @@ func process_navigation(delta: float) -> void:
 	if is_spin_attacking:
 		new_target_pos = spin_target
 	else:
-		new_target_pos = target_provider.get_target(self, player)
+		new_target_pos = target_provider.get_target(self)
 	
 	var dir = Vector2.ZERO
 	
@@ -87,6 +87,9 @@ func process_navigation(delta: float) -> void:
 	
 	apply_movement(delta, dir)
 
+func die() -> void:
+	super.die()
+	GameManager.load_next_stage()
 
 func _on_navigation_agent_2d_target_reached() -> void:
 	if not is_navigating:
@@ -117,6 +120,6 @@ func _on_attack_length_timer_timeout() -> void:
 	spin_target = Vector2.ZERO
 
 func _on_wait_before_spin_attack_timer_timeout() -> void:
-	spin_target = target_provider.get_target(self, player)
+	spin_target = target_provider.get_target(self)
 	target_provider = TargetSelf.new()
 	perform_spin_attack()

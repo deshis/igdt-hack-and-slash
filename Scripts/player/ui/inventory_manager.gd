@@ -1,5 +1,5 @@
 extends Control
-class_name InventoryManager
+class_name InvMan2
 
 @export var backpack: Node
 @export var augment_slots: Node
@@ -19,7 +19,7 @@ func setup_inventory(p: Player) -> void:
 	
 	for child in backpack.get_children():
 		child.setup(p, self)
-	
+		
 	for child in augment_slots.get_children():
 		child.setup(p, self)
 	

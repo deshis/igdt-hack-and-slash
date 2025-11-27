@@ -1,13 +1,10 @@
 extends Node2D
+class_name EnemySpawner
 
-@export var player: Node2D
-@export var enemy_list: Array[EnemyPrefab] = []
-@export var mini_boss_list: Array[EnemyPrefab] = []
-@export var boss_list: Array[EnemyPrefab] = []
-
-@export var navigation_region: NavigationRegion2D
-
-@export var difficulty_manager: DifficultyManager
+var player: Player = GameManager.player
+@export var enemy_list: Array[EnemyPrefab]
+@export var mini_boss_list: Array[EnemyPrefab]
+@export var boss_list: Array[EnemyPrefab]
 
 @export var wave_cooldown_timer: Timer
 @export var wave_cooldown_min := 2.0
@@ -24,7 +21,8 @@ extends Node2D
 
 var credits := 0.0
 
-@export var hud_manager: HudManager
+@export var diff: DifficultyManager
+@export var navigation_region: NavigationRegion2D
 
 func spawn_enemy(prefab: EnemyPrefab) -> void:
 	var enemy = prefab.scene.instantiate() as EnemyController
@@ -32,9 +30,9 @@ func spawn_enemy(prefab: EnemyPrefab) -> void:
 	add_child(enemy)
 	
 	enemy.player = player
-	enemy.target_provider = prefab.target_provider
+	enemy.target_provider = prefab.target_provider if prefab.target_provider else TargetPlayer.new()
 	
-	enemy.enemy.setup(difficulty_manager.difficulty_level)
+	enemy.enemy.setup(diff.difficulty_level)
 	enemy.global_position = get_spawn_pos(enemy)
 	
 	setup_health_bar(enemy)
@@ -83,14 +81,14 @@ func get_random_enemy(array: Array) -> EnemyPrefab:
 	return prefab
 
 func setup_health_bar(enemy: CharacterBody2D) -> void:
-	enemy.health_bar = hud_manager.create_enemy_hp_bar(enemy)
+	enemy.health_bar = GameManager.HUD.create_enemy_hp_bar(enemy)
 
 func _on_wave_cooldown_timer_timeout() -> void:
 	if not player:
 		return
 	
-	var min_amount = floor(min_enemy_spawn_amount + (difficulty_manager.difficulty_level * difficulty_manager.enemy_spawn_amount_per_level / 2))
-	var max_amount = floor(max_enemy_spawn_amount + difficulty_manager.difficulty_level * difficulty_manager.enemy_spawn_amount_per_level)
+	var min_amount = floor(min_enemy_spawn_amount + (diff.difficulty_level * diff.enemy_spawn_amount_per_level / 2))
+	var max_amount = floor(max_enemy_spawn_amount + diff.difficulty_level * diff.enemy_spawn_amount_per_level)
 	var enemy_amount = randi_range(min_amount, max_amount)
 	
 	spawn_wave_of_enemies(enemy_amount)
@@ -113,7 +111,7 @@ func _on_credits_cooldown_timer_timeout() -> void:
 	if not player:
 		return
 	
-	var min_credits = credits_gain_min + difficulty_manager.difficulty_level * difficulty_manager.credits_per_level
-	var max_credits = credits_gain_max + difficulty_manager.difficulty_level * difficulty_manager.credits_per_level
+	var min_credits = credits_gain_min + diff.difficulty_level * diff.credits_per_level
+	var max_credits = credits_gain_max + diff.difficulty_level * diff.credits_per_level
 	credits += randi_range(min_credits, max_credits)
 	credits_cooldown_timer.start()

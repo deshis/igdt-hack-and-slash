@@ -1,7 +1,7 @@
 extends Node
 class_name HudManager
 
-@export var player: Player
+var player: Player = GameManager.player
 
 @onready var inventory = $Inventory
 @onready var cooldowns = $SkillCooldowns
@@ -9,9 +9,8 @@ class_name HudManager
 @onready var health_bar = $HPBars/Player
 
 func _ready() -> void:
-	inventory.setup_inventory(player)
-	cooldowns.setup(player)
-	health_bar.setup(player, player.health, player.max_health)
+	if player:
+		health_bar.setup(player, player.health, player.max_health)
 
 
 func create_enemy_hp_bar(enemy: CharacterBody2D) -> Control:

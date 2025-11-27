@@ -30,7 +30,7 @@ var remaining_dot_duration := 0.0
 var current_tick_damage := 0.0
 var current_tick_rate := 0.0
 
-var player: Node2D
+@onready var player: Player = GameManager.player
 var target: Node2D
 var is_navigating := true
 var target_reached := false
@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		process_navigation(delta)
 
 func process_navigation(delta: float) -> void:
-	var new_target_pos = target_provider.get_target(self, player)
+	var new_target_pos = target_provider.get_target(self)
 	
 	if global_position.distance_to(new_target_pos) > 1.0:
 		nav_agent.set_target_position(new_target_pos)

@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=4 uid="uid://bb8yqfa7be2g4"]
+[gd_scene load_steps=9 format=4 uid="uid://bb8yqfa7be2g4"]
 
-[ext_resource type="PackedScene" uid="uid://cerovsgxmf0fk" path="res://Scenes/player.tscn" id="1_wlp7t"]
-[ext_resource type="Script" uid="uid://dopu0i2ovey53" path="res://Scenes/level/forest_gen.gd" id="2_3tp1p"]
+[ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="1_wyvj0"]
+[ext_resource type="Script" uid="uid://dopu0i2ovey53" path="res://Scenes/forest/script/forest_gen.gd" id="2_3tp1p"]
 [ext_resource type="Texture2D" uid="uid://cb3158cqwbawb" path="res://Assets/area_tiles/basic_forest_tiles.png" id="2_f48ge"]
-[ext_resource type="Script" uid="uid://dwcvxx4x4o01o" path="res://Scenes/level/nav_follow.gd" id="3_wyvj0"]
-[ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="4_3tp1p"]
-[ext_resource type="PackedScene" uid="uid://cuuem545ega72" path="res://Scenes/hud.tscn" id="6_lvbhc"]
+[ext_resource type="Script" uid="uid://dwcvxx4x4o01o" path="res://Scenes/forest/script/nav_follow.gd" id="3_wyvj0"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_f48ge"]
 noise_type = 2
@@ -47,19 +45,6 @@ source_geometry_group_name = &"navigation"
 
 [node name="ForestTest" type="Node2D"]
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "navigation_region", "hud_manager") instance=ExtResource("4_3tp1p")]
-visibility_layer = 2
-z_index = 2
-position = Vector2(3444, 0)
-player = NodePath("../Player")
-navigation_region = NodePath("../world/navRegion")
-hud_manager = NodePath("../HUD")
-
-[node name="Player" parent="." instance=ExtResource("1_wlp7t")]
-top_level = true
-z_index = 2
-position = Vector2(4105, 4062)
-
 [node name="world" type="Node2D" parent="." node_paths=PackedStringArray("navReg")]
 scale = Vector2(3, 3)
 script = ExtResource("2_3tp1p")
@@ -90,19 +75,17 @@ rendering_quadrant_size = 32
 physics_quadrant_size = 32
 navigation_enabled = false
 
-[node name="navRegion" type="NavigationRegion2D" parent="world" node_paths=PackedStringArray("timer", "player", "spawner") groups=["navigation"]]
+[node name="navRegion" type="NavigationRegion2D" parent="world" node_paths=PackedStringArray("timer") groups=["navigation"]]
 scale = Vector2(1.0000002, 1.0000002)
 navigation_polygon = SubResource("NavigationPolygon_wyvj0")
 script = ExtResource("3_wyvj0")
 timer = NodePath("Timer")
-player = NodePath("../../Player")
-spawner = NodePath("../../EnemySpawner")
 
 [node name="Timer" type="Timer" parent="world/navRegion"]
 wait_time = 4.0
 one_shot = true
 
-[node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_lvbhc")]
-player = NodePath("../Player")
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("navigation_region") instance=ExtResource("1_wyvj0")]
+navigation_region = NodePath("../world/navRegion")
 
 [connection signal="timeout" from="world/navRegion/Timer" to="world/navRegion" method="_on_timer_timeout"]

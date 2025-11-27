@@ -7,15 +7,15 @@
 [ext_resource type="Resource" uid="uid://ctly0bibi2t2d" path="res://Scripts/enemy/prefabs/slasher.tres" id="4_2cu8b"]
 [ext_resource type="Script" uid="uid://2rg187ye080s" path="res://Scenes/enemy/difficulty_manager.gd" id="6_mjc5i"]
 
-[node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("difficulty_manager", "wave_cooldown_timer", "credits_cooldown_timer", "boss_cooldown_timer")]
+[node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("wave_cooldown_timer", "credits_cooldown_timer", "boss_cooldown_timer", "diff")]
 script = ExtResource("1_4l55s")
 enemy_list = Array[ExtResource("2_tdwud")]([ExtResource("3_gga2x"), ExtResource("4_2cu8b")])
 mini_boss_list = Array[ExtResource("2_tdwud")]([ExtResource("3_le3a8")])
 boss_list = Array[ExtResource("2_tdwud")]([ExtResource("3_le3a8")])
-difficulty_manager = NodePath("DifficultyManager")
 wave_cooldown_timer = NodePath("WaveCooldownTimer")
 credits_cooldown_timer = NodePath("CreditsCooldownTimer")
 boss_cooldown_timer = NodePath("BossCooldownTimer")
+diff = NodePath("DifficultyManager")
 
 [node name="DifficultyManager" type="Node2D" parent="."]
 script = ExtResource("6_mjc5i")

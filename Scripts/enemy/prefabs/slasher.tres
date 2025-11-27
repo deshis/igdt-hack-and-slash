@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://bowqpxf2yi5ip" path="res://Scripts/enemy/stats/slasherStats.tres" id="2_x4qm1"]
 [ext_resource type="Script" uid="uid://c3xt5r4pnu2pd" path="res://Scripts/enemy/targets/TargetPlayer.gd" id="4_x4qm1"]
 
-[sub_resource type="Resource" id="Resource_kg253"]
+[sub_resource type="Resource" id="Resource_x4qm1"]
 script = ExtResource("4_x4qm1")
 metadata/_custom_type_script = "uid://c3xt5r4pnu2pd"
 
@@ -13,5 +13,5 @@ metadata/_custom_type_script = "uid://c3xt5r4pnu2pd"
 script = ExtResource("1_076bs")
 stats = ExtResource("2_x4qm1")
 scene = ExtResource("1_tgfgn")
-target_provider = SubResource("Resource_kg253")
+target_provider = SubResource("Resource_x4qm1")
 metadata/_custom_type_script = "uid://cqw5n3pgcmai6"

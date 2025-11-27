@@ -1,19 +1,13 @@
-[gd_scene load_steps=27 format=3 uid="uid://cuuem545ega72"]
+[gd_scene load_steps=20 format=3 uid="uid://cuuem545ega72"]
 
 [ext_resource type="Script" uid="uid://cptm56sk2qede" path="res://Scripts/hud/hud_manager.gd" id="1_36s6t"]
 [ext_resource type="Script" uid="uid://b3p4e86xoqqh3" path="res://Scripts/player/ui/cooldowns.gd" id="2_36s6t"]
 [ext_resource type="PackedScene" uid="uid://dw5jqew75whcf" path="res://Scenes/HPBar.tscn" id="2_ajim5"]
-[ext_resource type="Script" uid="uid://5ote4itncqht" path="res://Scripts/player/ui/inventory_manager.gd" id="3_pbtju"]
-[ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="5_0iicw"]
-[ext_resource type="Resource" uid="uid://cqk2hd68kypyk" path="res://Scripts/items/military/Item2.tres" id="6_ajim5"]
-[ext_resource type="Resource" uid="uid://btqoki0dx13kb" path="res://Scripts/items/prototype/Item3.tres" id="7_vxf74"]
-[ext_resource type="Resource" uid="uid://c3lirlkahxk7w" path="res://Scripts/items/consumer/Item4.tres" id="9_0iicw"]
 [ext_resource type="Script" uid="uid://cnrj2cq3cvdn7" path="res://Scripts/player/ui/trash_slot.gd" id="9_36s6t"]
 [ext_resource type="Script" uid="uid://dglo22okhueyv" path="res://Scripts/hud/item_pickup.gd" id="9_484xk"]
 [ext_resource type="Script" uid="uid://c8noump2yhng5" path="res://Scripts/player/ui/augment_slot.gd" id="9_pbtju"]
 [ext_resource type="PackedScene" uid="uid://cexexdh4re63h" path="res://Scenes/inventory_slot.tscn" id="10_36s6t"]
 [ext_resource type="Script" uid="uid://c081ighahaot6" path="res://Scripts/hud/pause_menu.gd" id="10_lkt4f"]
-[ext_resource type="Resource" uid="uid://ck8g6fmyxihxq" path="res://Scripts/items/prototype/Item6.tres" id="11_vxf74"]
 [ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="11_wfkbc"]
 [ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/hud/volume_slider.gd" id="12_s17ah"]
 [ext_resource type="Script" uid="uid://cdh5pjfwavchk" path="res://Scripts/player/ui/pickup_slot.gd" id="12_yidpd"]
@@ -31,11 +25,6 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21xkr"]
 bg_color = Color(0, 0, 0, 0.50980395)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k12tt"]
-bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.92156863)
-expand_margin_left = 25.0
-expand_margin_right = 25.0
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_36s6t")
@@ -142,7 +131,7 @@ show_percentage = false
 [node name="Timer" type="Timer" parent="SkillCooldowns/MarginContainer/HBoxContainer/DashCooldown"]
 one_shot = true
 
-[node name="Inventory" type="Control" parent="." node_paths=PackedStringArray("backpack", "augment_slots", "item_selection", "trash_slot")]
+[node name="Inventory" type="Control" parent="."]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -151,11 +140,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_pbtju")
-backpack = NodePath("Backpack")
-augment_slots = NodePath("AugmentSlots")
-item_selection = NodePath("ItemSelection")
-trash_slot = NodePath("TrashSlot")
 
 [node name="Panel" type="Panel" parent="Inventory"]
 modulate = Color(1, 1, 1, 0.5019608)
@@ -177,187 +161,17 @@ columns = 3
 [node name="Slot1" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
 
-[node name="Item" parent="Inventory/Backpack/Slot1" instance=ExtResource("5_0iicw")]
-custom_minimum_size = Vector2(84, 84)
-layout_mode = 1
-offset_right = 84.0
-offset_bottom = 84.0
-
-[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot1/Item"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot1/Item/MarginContainer2"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot1/Item"]
-visible = false
-z_index = 8
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot1/Item/PanelContainer2"]
-clip_contents = false
-layout_mode = 2
-mouse_filter = 2
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-autowrap_mode = 2
-
 [node name="Slot2" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
-
-[node name="Item" parent="Inventory/Backpack/Slot2" instance=ExtResource("5_0iicw")]
-custom_minimum_size = Vector2(84, 84)
-layout_mode = 0
-offset_right = 84.0
-offset_bottom = 84.0
-item = ExtResource("6_ajim5")
-
-[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot2/Item"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot2/Item/MarginContainer2"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot2/Item"]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot2/Item/PanelContainer2"]
-clip_contents = false
-layout_mode = 2
-mouse_filter = 2
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-autowrap_mode = 2
 
 [node name="Slot3" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
 
-[node name="Item" parent="Inventory/Backpack/Slot3" instance=ExtResource("5_0iicw")]
-custom_minimum_size = Vector2(84, 84)
-layout_mode = 0
-offset_right = 84.0
-offset_bottom = 84.0
-item = ExtResource("7_vxf74")
-
-[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot3/Item"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot3/Item/MarginContainer2"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot3/Item"]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot3/Item/PanelContainer2"]
-clip_contents = false
-layout_mode = 2
-mouse_filter = 2
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-autowrap_mode = 2
-
 [node name="Slot4" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
 
-[node name="Item" parent="Inventory/Backpack/Slot4" instance=ExtResource("5_0iicw")]
-custom_minimum_size = Vector2(84, 84)
-layout_mode = 0
-offset_right = 84.0
-offset_bottom = 84.0
-item = ExtResource("9_0iicw")
-
-[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot4/Item"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot4/Item/MarginContainer2"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot4/Item"]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot4/Item/PanelContainer2"]
-clip_contents = false
-layout_mode = 2
-mouse_filter = 2
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-autowrap_mode = 2
-
 [node name="Slot5" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
-
-[node name="Item" parent="Inventory/Backpack/Slot5" instance=ExtResource("5_0iicw")]
-custom_minimum_size = Vector2(84, 84)
-layout_mode = 0
-offset_right = 84.0
-offset_bottom = 84.0
-item = ExtResource("11_vxf74")
-
-[node name="MarginContainer2" type="MarginContainer" parent="Inventory/Backpack/Slot5/Item"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="TextureRect" type="TextureRect" parent="Inventory/Backpack/Slot5/Item/MarginContainer2"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="PanelContainer2" type="PanelContainer" parent="Inventory/Backpack/Slot5/Item"]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k12tt")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/Backpack/Slot5/Item/PanelContainer2"]
-clip_contents = false
-layout_mode = 2
-mouse_filter = 2
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-autowrap_mode = 2
 
 [node name="Slot6" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
