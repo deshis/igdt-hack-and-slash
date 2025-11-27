@@ -25,7 +25,7 @@ func player_dead()->void:
 	damage_taken.append_text(yellow_text(str(GameStats.total_damage_taken)))
 	items_picked_up.append_text(yellow_text(str(GameStats.items_picked_up)))
 	
-	cause_of_death.append_text(red_text(GameStats.player_last_hit_by.get_script().get_global_name()))
+	cause_of_death.append_text(red_text(GameStats.player_last_hit_by.enemy.name))
 	
 	restart_button.grab_focus()
 
