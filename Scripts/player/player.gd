@@ -326,6 +326,7 @@ func _on_item_pickup_detector_area_exited(area: Area2D) -> void:
 
 func _on_health_pickup_detector_area_entered(area: Area2D) -> void:
 	heal(2.0)
+	SoundManager.play_sfx("heal", global_position)
 	area.queue_free()
 
 func _on_invulnerability_length_timer_timeout() -> void:
