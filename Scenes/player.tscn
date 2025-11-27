@@ -190,6 +190,9 @@ one_shot = true
 wait_time = 5.0
 autostart = true
 
+[node name="TimeAliveTimer" type="Timer" parent="Timers"]
+autostart = true
+
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 rotation = -3.1415927
 scale = Vector2(1.25, 1.25)
@@ -223,4 +226,5 @@ script = ExtResource("4_fkybt")
 [connection signal="timeout" from="Timers/AttackLengthTimer" to="." method="_on_attack_length_timer_timeout"]
 [connection signal="timeout" from="Timers/InvulnerabilityLengthTimer" to="." method="_on_invulnerability_length_timer_timeout"]
 [connection signal="timeout" from="Timers/HealthRegenTimer" to="." method="_on_health_regen_timer_timeout"]
+[connection signal="timeout" from="Timers/TimeAliveTimer" to="." method="_on_time_alive_timer_timeout"]
 [connection signal="light_attack_finished" from="PlayerSprite" to="." method="_on_player_sprite_light_attack_finished"]

@@ -24,6 +24,7 @@ LootDatabase="*res://Scripts/globals/LootDatabase.gd"
 EnemyType="*res://Scripts/globals/EnemyType.gd"
 GameManager="*res://Scripts/globals/GameManager.gd"
 InventoryManager="*res://Scripts/globals/InventoryManager.gd"
+GameStats="*res://Scripts/globals/GameStats.gd"
 
 [debug]
 

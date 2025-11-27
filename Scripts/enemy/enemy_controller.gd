@@ -124,6 +124,8 @@ func _on_dot_tick() -> void:
 		
 		electric_dot_particles.restart()
 		
+		GameStats.total_damage_dealt += current_tick_damage
+		
 		if remaining_dot_duration <= 0.0:
 			dot_timer.stop()
 			remaining_dot_duration = 0
@@ -147,6 +149,7 @@ func take_damage(damage:float) -> void:
 	hit_particles.global_position = global_position
 	
 	hit_particles.restart()
+	GameStats.total_damage_dealt += damage
 	
 	if enemy.health <= 0.0:
 		die()
@@ -168,6 +171,7 @@ func die() -> void:
 	if health_bar:
 		health_bar.queue_free()
 	
+	GameStats.enemies_killed +=1
 	drop_health_pickup()
 	drop_loot()
 	queue_free()
@@ -203,6 +207,7 @@ func drop_health_pickup() -> void:
 
 func _on_attack_area_area_entered(_area: Area2D) -> void:
 	player.take_damage(enemy.damage)
+	GameStats.player_last_hit_by=self
 
 func _on_navigation_agent_2d_target_reached() -> void:
 	is_navigating = false
