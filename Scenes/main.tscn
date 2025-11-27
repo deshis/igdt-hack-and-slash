@@ -4,6 +4,3 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jjgbg")
-start_game = false
-spawn_player = null
-spawn_hud = null
