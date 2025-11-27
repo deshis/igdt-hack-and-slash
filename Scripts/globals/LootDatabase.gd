@@ -15,7 +15,7 @@ var military_items := [
 var prototype_items := [
 	preload("res://Scripts/items/prototype/Item1.tres"),
 	preload("res://Scripts/items/prototype/Item3.tres"),
-	preload("res://Scripts/items/prototype/Item6.tres")
+	preload("res://Scripts/items/prototype/item6.tres")
 ]
 
 var type_colors := {

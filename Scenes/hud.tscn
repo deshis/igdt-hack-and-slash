@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cuuem545ega72"]
+[gd_scene load_steps=28 format=3 uid="uid://cuuem545ega72"]
 
 [ext_resource type="Script" uid="uid://cptm56sk2qede" path="res://Scripts/hud/hud_manager.gd" id="1_36s6t"]
 [ext_resource type="Script" uid="uid://b3p4e86xoqqh3" path="res://Scripts/player/ui/cooldowns.gd" id="2_36s6t"]
@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://c8noump2yhng5" path="res://Scripts/player/ui/augment_slot.gd" id="9_pbtju"]
 [ext_resource type="PackedScene" uid="uid://cexexdh4re63h" path="res://Scenes/inventory_slot.tscn" id="10_36s6t"]
 [ext_resource type="Script" uid="uid://c081ighahaot6" path="res://Scripts/hud/pause_menu.gd" id="10_lkt4f"]
-[ext_resource type="Resource" uid="uid://ck8g6fmyxihxq" path="res://Scripts/items/prototype/Item6.tres" id="11_vxf74"]
+[ext_resource type="Resource" uid="uid://ck8g6fmyxihxq" path="res://Scripts/items/prototype/item6.tres" id="11_vxf74"]
 [ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="11_wfkbc"]
 [ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/hud/volume_slider.gd" id="12_s17ah"]
 [ext_resource type="Script" uid="uid://cdh5pjfwavchk" path="res://Scripts/player/ui/pickup_slot.gd" id="12_yidpd"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/hud/anti_aliasing_selection.gd" id="15_q562m"]
 [ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/hud/vsync_toggle.gd" id="16_l8r83"]
 [ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/hud/control_remap_button.gd" id="17_v5hjn"]
+[ext_resource type="Script" uid="uid://6jore1um42bw" path="res://Scripts/game_over.gd" id="23_vxf74"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8gbba"]
 size = Vector2(50, 50)
@@ -885,6 +886,98 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back to menu"
 
+[node name="GameOverScreen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("23_vxf74")
+
+[node name="Panel" type="Panel" parent="GameOverScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverScreen/Panel"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverScreen/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="YOU DIED" type="RichTextLabel" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center] [color=red]YOU DIED
+"
+fit_content = true
+
+[node name="cause_of_death" type="RichTextLabel" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Cause of death: "
+fit_content = true
+
+[node name="time_alive" type="RichTextLabel" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Time alive: "
+fit_content = true
+
+[node name="enemies_killed" type="RichTextLabel" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Enemies killed: "
+fit_content = true
+
+[node name="damage_dealt" type="RichTextLabel" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Total damage dealt: "
+fit_content = true
+
+[node name="damage_taken" type="RichTextLabel" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Total damage taken: "
+fit_content = true
+
+[node name="items_picked_up" type="RichTextLabel" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Items picked up:  "
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 50
+
+[node name="restart_button" type="Button" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Restart"
+script = ExtResource("11_wfkbc")
+
+[node name="quit_button" type="Button" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("11_wfkbc")
+
 [connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="PauseMenu" method="_on_continue_button_pressed"]
 [connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" method="_on_mouse_entered"]
@@ -898,3 +991,7 @@ text = "Back to menu"
 [connection signal="toggled" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" to="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" method="_on_toggled"]
 [connection signal="pressed" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/BackToMenuButton" to="PauseMenu" method="_on_back_to_menu_button_pressed"]
 [connection signal="pressed" from="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/BackToMenuButton" to="PauseMenu" method="_on_back_to_menu_button_pressed"]
+[connection signal="mouse_entered" from="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer/restart_button" to="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer/restart_button" method="_on_mouse_entered"]
+[connection signal="pressed" from="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer/restart_button" to="GameOverScreen" method="_on_restart_button_pressed"]
+[connection signal="mouse_entered" from="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer/quit_button" to="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer/quit_button" method="_on_mouse_entered"]
+[connection signal="pressed" from="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer/quit_button" to="GameOverScreen" method="_on_quit_button_pressed"]

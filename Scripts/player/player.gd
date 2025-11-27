@@ -39,6 +39,7 @@ signal dash_used
 signal primary_attack_used
 signal secondary_attack_used
 signal item_picked_up(area)
+signal game_over
 
 var can_attack := true
 var attacking := false
@@ -266,11 +267,13 @@ func take_damage(damage:float) -> void:
 	update_health_bar.emit(health)
 	
 	hit_flash()
+	GameStats.total_damage_taken += damage
 	
 	if health <= 0.0:
 		die()
 
 func die() -> void:
+	game_over.emit()
 	queue_free()
 
 func hit_flash() -> void:
@@ -335,6 +338,8 @@ func _on_invulnerability_length_timer_timeout() -> void:
 func _on_health_regen_timer_timeout() -> void:
 	heal(health_regen)
 
+func _on_time_alive_timer_timeout() -> void:
+	GameStats.time_alive_seconds += 1
 
 func _on_player_sprite_light_attack_finished() -> void:
 	light_attack_hitbox.disabled = true
@@ -347,3 +352,4 @@ func _on_player_sprite_light_attack_finished() -> void:
 	attacking = false
 	performing_heavy_attack = false
 	current_speed = movement_speed
+	
