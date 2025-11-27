@@ -27,9 +27,10 @@ func start_game() -> void:
 	# init hud
 	HUD = preload("res://Scenes/hud.tscn").instantiate() as HudManager
 	add_child(HUD)
-	InventoryManager.init()
 	
 	load_stage(0)
+	
+	InventoryManager.init()
 
 func load_stage(num: int) -> void:
 	if current_stage and current_stage.is_inside_tree():
@@ -49,6 +50,13 @@ func load_stage(num: int) -> void:
 
 func load_next_stage() -> void:
 	load_stage(current_stage_ind + 1)
+
+func restart() -> void:
+	for child in get_children():
+		child.queue_free()
+	
+	InventoryManager.reset_inventory()
+	start_game()
 
 func open_menu() -> void:
 	open_menu_count += 1

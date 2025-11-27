@@ -207,7 +207,7 @@ func drop_health_pickup() -> void:
 
 func _on_attack_area_area_entered(_area: Area2D) -> void:
 	player.take_damage(enemy.damage)
-	GameStats.player_last_hit_by=self
+	GameStats.player_last_hit_by=enemy.name
 
 func _on_navigation_agent_2d_target_reached() -> void:
 	is_navigating = false

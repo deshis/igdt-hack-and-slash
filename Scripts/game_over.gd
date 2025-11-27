@@ -25,7 +25,7 @@ func player_dead()->void:
 	damage_taken.append_text(yellow_text(str(GameStats.total_damage_taken)))
 	items_picked_up.append_text(yellow_text(str(GameStats.items_picked_up)))
 	
-	cause_of_death.append_text(red_text(GameStats.player_last_hit_by.enemy.name))
+	cause_of_death.append_text(red_text(GameStats.player_last_hit_by))
 	
 	restart_button.grab_focus()
 
@@ -48,8 +48,9 @@ func red_text(s:String)->String:
 
 func _on_restart_button_pressed() -> void:
 	GameStats.reset_game_stats()
-	get_tree().change_scene_to_file("res://Scenes/main.tscn")
-	visible = false
+	GameManager.restart()
+	#get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	#visible = false
 
 
 func _on_quit_button_pressed() -> void:

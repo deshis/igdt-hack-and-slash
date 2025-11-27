@@ -7,8 +7,8 @@ var augments_node: Node
 var item_selection_node: Node
 var trash_slot_node: Node
 
-var augment_items: Array[ItemResource] = [null, null, null, null, null, null, null]
-var backpack_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres"), null, null, null, null, null]
+var augment_items: Array[ItemResource] = []
+var backpack_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres")]
 
 var item_scene: PackedScene = preload("res://Scenes/item.tscn")
 
@@ -29,6 +29,7 @@ func init() -> void:
 	init_slots()
 	
 	# setup backpack
+	backpack_items.resize(backpack_node.get_child_count())
 	for i in range(backpack_items.size()):
 		var slot = backpack_node.get_child(i)
 		var item_res = backpack_items[i]
@@ -38,6 +39,7 @@ func init() -> void:
 			slot.set_item(item_control)
 	
 	# setup augments
+	augment_items.resize(augments_node.get_child_count())
 	for i in range(augment_items.size()):
 		var slot = augments_node.get_child(i)
 		var item_res = augment_items[i]
@@ -64,7 +66,7 @@ func init_slots() -> void:
 
 func create_item(item_res: ItemResource) -> Control:
 	var instance: Control = item_scene.instantiate() as Control
-	instance.item = item_res
+	instance.item = item_res.duplicate(true)
 	return instance
 
 func move_item(origin_slot: InventorySlot, new_slot: InventorySlot = null) -> void:
@@ -78,15 +80,15 @@ func move_item(origin_slot: InventorySlot, new_slot: InventorySlot = null) -> vo
 	
 	# item was dragged into a slot
 	if new_slot:
-		check_and_swap_items(item, origin_slot, new_slot)
+		place_or_swap(item, origin_slot, new_slot)
 	
 	# item was right clicked
 	elif origin_slot in backpack_node.get_children():
 		new_slot = get_augment_slot(item)
-		check_and_swap_items(item, origin_slot, new_slot)
+		place_or_swap(item, origin_slot, new_slot)
 	else:
 		new_slot = get_backpack_slot()
-		check_and_swap_items(item, origin_slot, new_slot)
+		place_or_swap(item, origin_slot, new_slot)
 	
 	# item was from a pickup slot
 	var pickup_slot := origin_slot as PickupSlot
@@ -95,7 +97,7 @@ func move_item(origin_slot: InventorySlot, new_slot: InventorySlot = null) -> vo
 	
 	update_inventory_data()
 
-func check_and_swap_items(item: Control, origin_slot: Control, new_slot: Control) -> void:
+func place_or_swap(item: Control, origin_slot: Control, new_slot: Control) -> void:
 	if not new_slot:
 		return
 	
@@ -133,6 +135,7 @@ func update_inventory_data() -> void:
 		var new_item = slot.get_item().item if slot.get_item() else null
 		backpack_items[i] = new_item
 	
+	# update augments
 	for i in range(augments_node.get_child_count()):
 		var slot = augments_node.get_child(i)
 		
@@ -150,14 +153,17 @@ func update_item_effects(old_item: ItemResource, new_item: ItemResource) -> void
 		apply_item_effects(new_item)
 
 func apply_item_effects(item: ItemResource) -> void:
-	# print("Applying effects for: ", item.item_name)
 	if not item:
 		return
-	
+	#print("Applying effects for: ", item.item_name)
 	for effect in item.effects:
 		effect.apply_effect(GameManager.player)
 
 func remove_item_effects(item: ItemResource) -> void:
-	# print("Removing effects for: ", item.item_name)
+	#print("Removing effects for: ", item.item_name)
 	for effect in item.effects:
 		effect.remove_effect(GameManager.player)
+
+func reset_inventory() -> void:
+	augment_items.clear()
+	backpack_items.clear()

@@ -6,7 +6,7 @@ var total_damage_dealt:=0.0
 var total_damage_taken:=0.0
 var items_picked_up:=0
 
-var player_last_hit_by:EnemyController
+var player_last_hit_by: String
 
 
 func reset_game_stats()->void:
@@ -15,4 +15,4 @@ func reset_game_stats()->void:
 	total_damage_dealt = 0.0
 	total_damage_taken = 0.0
 	items_picked_up = 0
-	player_last_hit_by = null
+	player_last_hit_by = "null"
