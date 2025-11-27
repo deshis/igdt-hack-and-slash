@@ -49,6 +49,7 @@ func red_text(s:String)->String:
 func _on_restart_button_pressed() -> void:
 	GameStats.reset_game_stats()
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	visible = false
 
 
 func _on_quit_button_pressed() -> void:
