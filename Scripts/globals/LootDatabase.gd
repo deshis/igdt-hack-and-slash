@@ -53,6 +53,7 @@ func get_loot_rarity(enemy: EnemyStats) -> ItemType.Type:
 	var weights = PackedFloat32Array([consumer_chance, military_chance, prototype_chance])
 	var rarity = rng.rand_weighted(weights)
 	
+	print("rarity: ", rarity)
 	return rarity
 
 func get_items_by_rarity(rarity: ItemType.Grade, amount: int) -> Array:

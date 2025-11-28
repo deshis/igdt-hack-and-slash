@@ -7,9 +7,9 @@ var augments_node: Node
 var item_selection_node: Node
 var trash_slot_node: Node
 
-var starter_items: Array[ItemResource] = [] #[preload("res://Scripts/items/prototype/Item6.tres")] #Default item doesn't exist in the item slot?
+var starter_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres")]
 var augment_items: Array[ItemResource] = []
-var backpack_items: Array[ItemResource] = [preload("res://Scripts/items/consumer/Item5.tres"),preload("res://Scripts/items/prototype/Item6.tres")] #[preload("res://Scripts/items/prototype/Item6.tres"),preload("res://Scripts/items/prototype/Item3.tres"),preload("res://Scripts/items/consumer/Item4.tres"),preload("res://Scripts/items/military/Item2.tres")]
+var backpack_items: Array[ItemResource] = []
 
 var item_scene: PackedScene = preload("res://Scenes/item.tscn")
 
