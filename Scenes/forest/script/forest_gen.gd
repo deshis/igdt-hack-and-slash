@@ -58,13 +58,11 @@ func _generate():
 			
 	
 	print("not working offset I guess")
-	var furthest_global = ground.map_to_global(ground.get_used_cells()[-1])
-	print(furthest_global)
 	var furthest = ground.map_to_local(ground.get_used_cells()[-1])
 	print(furthest)
 	print(ground.get_used_cells()[-1])
-	self.position.x=furthest.x
-	self.position.y=furthest.y
+	self.position.x=-furthest.x
+	self.position.y=-furthest.y
 	
 	#_gen_navpoly()
 	
