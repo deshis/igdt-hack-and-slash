@@ -5,6 +5,7 @@ var can_look_around := true
 var can_move := true
 
 @onready var sprite = $PlayerSprite
+var player_on_damage_particles_scene = preload("res://Scenes/player/particles/player_on_hit_particles.tscn")
 
 @export var movement_speed := 500.0
 @export var acceleration := 15.0
@@ -87,6 +88,8 @@ var health_regen:= 0
 var overlapping_pickups := []
 
 var active_dot: DotResource = null
+
+
 
 func _ready() -> void:
 	light_attack_hitbox.disabled = true
@@ -252,6 +255,11 @@ func heal(amount: float) -> void:
 		health = max_health
 
 func take_damage(damage:float) -> void:
+	
+	instantiate_particles(player_on_damage_particles_scene)
+	
+	#player_on_damage_particles.restart()
+	
 	if invulnerability_length_timer.time_left > 0:
 		return
 	
@@ -271,6 +279,19 @@ func take_damage(damage:float) -> void:
 	
 	if health <= 0.0:
 		die()
+		
+func instantiate_particles(particle_scene: PackedScene):
+	var particles = particle_scene.instantiate()
+	
+	get_parent().add_child(particles)
+	particles.global_position = global_position
+	
+	particles.finished.connect(_on_particles_finished.bind(particles))
+	
+	particles.restart()
+
+func _on_particles_finished(particles_node: Node):
+	particles_node.queue_free()
 
 func die() -> void:
 	game_over.emit()

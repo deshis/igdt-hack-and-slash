@@ -18,7 +18,7 @@ var target_provider: TargetProvider
 @export var wait_after_attack_timer: Timer
 
 @onready var dot_timer: Timer = $Timers/DotDurationTimer
-#@onready var hit_particles: CPUParticles2D = $Particles/OnHitParticles
+
 var hit_particles_scene = preload("res://Scenes/enemy/particles/on_hit_particles.tscn")
 var electric_dot_particles_scene = preload("res://Scenes/enemy/particles/electric_dot_particles.tscn")
 
@@ -118,11 +118,7 @@ func _on_dot_tick() -> void:
 		remaining_dot_duration -= current_tick_rate
 		
 		#NOTE: Different particles for different DoT?
-		var electric_dot_particles = electric_dot_particles_scene.instantiate()
-		get_parent().add_child(electric_dot_particles)
-		electric_dot_particles.global_position = global_position
-		
-		electric_dot_particles.restart()
+		instantiate_particles(electric_dot_particles_scene)
 		
 		GameStats.total_damage_dealt += current_tick_damage
 		
@@ -144,11 +140,9 @@ func take_damage(damage:float) -> void:
 	hit_flash()
 	SoundManager.play_sfx("hit", global_position)
 	
-	var hit_particles = hit_particles_scene.instantiate()
-	get_parent().add_child(hit_particles)
-	hit_particles.global_position = global_position
+	instantiate_particles(hit_particles_scene)
 	
-	hit_particles.restart()
+
 	GameStats.total_damage_dealt += damage
 	
 	if enemy.health <= 0.0:
@@ -158,16 +152,14 @@ func die() -> void:
 	SoundManager.play_sfx("enemy_die", global_position)
 	
 	#Death particles here
+	#TODO: clean these
 	if death_particles:
-		#detaching the particles from the enemy so they don't get deleted as well
 		death_particles.get_parent().remove_child(death_particles)
 		get_tree().get_root().add_child(death_particles)
 		death_particles.global_position = global_position
-
 		death_particles.restart()
 		death_particles2.restart()
-		#TODO: CLEAN THE PARTICLE NODES AS WELL
-	
+		
 	if health_bar:
 		health_bar.queue_free()
 	
@@ -175,6 +167,19 @@ func die() -> void:
 	drop_health_pickup()
 	drop_loot()
 	queue_free()
+	
+func instantiate_particles(particle_scene: PackedScene):
+	var particles = particle_scene.instantiate()
+	
+	get_parent().add_child(particles)
+	particles.global_position = global_position
+	
+	particles.finished.connect(_on_particles_finished.bind(particles))
+	
+	particles.restart()
+
+func _on_particles_finished(particles_node: Node):
+	particles_node.queue_free()
 
 func hit_flash() -> void:
 	var mat = sprite.material
