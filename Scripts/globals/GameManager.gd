@@ -10,19 +10,22 @@ var stage_root: Node = null
 
 var HUD: HudManager = null
 
+func _ready() -> void:
+	# init player
+	player = preload("res://Scenes/player.tscn").instantiate() as Player
+	add_child(player)
+
+
 var stages := [
 	preload("res://Scenes/forest/forest_test.tscn"),
 	preload("res://Scenes/level/test_area.tscn")
 ]
 
+
 func start_game() -> void:
 	stage_root = Node.new()
 	stage_root.name = "StageRoot"
 	add_child(stage_root)
-	
-	# init player
-	player = preload("res://Scenes/player.tscn").instantiate() as Player
-	add_child(player)
 	
 	# init hud
 	HUD = preload("res://Scenes/hud.tscn").instantiate() as HudManager

@@ -19,7 +19,7 @@ shader = ExtResource("2_j7slm")
 shader_parameter/strength = 0.0
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("face_player_length_timer", "nav_agent", "attack_area", "attack_area_hitbox", "wait_before_attack_timer", "attack_length_timer", "wait_after_attack_timer")]
-z_index = 2
+z_index = 1
 scale = Vector2(0.9999999, 0.9999999)
 collision_layer = 4096
 collision_mask = 4353

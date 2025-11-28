@@ -57,6 +57,7 @@ gravity = Vector3(0, 0, 0)
 alpha_curve = SubResource("CurveTexture_x3wgy")
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 1
 collision_layer = 256
 collision_mask = 69633
 script = ExtResource("1_cvnsp")

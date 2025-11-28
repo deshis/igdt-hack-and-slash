@@ -1,15 +1,19 @@
 @tool
 extends NavigationRegion2D
 @export var timer: Timer
-@export var player: Node2D
 
-@export var width:int =2500
-@export var height:int =2500
+var player: Player = GameManager.player
+
+@export var width:int =1500
+@export var height:int =1500
 @export var spawner:Node2D
 var reg_size:Vector2i = Vector2i(width,height)
 
 @export_tool_button("generate") var gen = gen_nav
 
+
+func _ready() -> void:
+	print("init nav follow")
 
 func _on_timer_timeout():
 	gen_nav()

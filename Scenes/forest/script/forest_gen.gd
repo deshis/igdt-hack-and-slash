@@ -33,6 +33,7 @@ func _clear():
 	sky.clear()
 	play.clear()
 	ground.clear()
+	self.position=Vector2i(0,0)
 	print("clear!")
 	
 func _generate():
@@ -53,9 +54,17 @@ func _generate():
 				
 			if value==3:
 				create_tree(location)
-		
-		
+				
+			
 	
+	print("not working offset I guess")
+	var furthest_global = ground.map_to_global(ground.get_used_cells()[-1])
+	print(furthest_global)
+	var furthest = ground.map_to_local(ground.get_used_cells()[-1])
+	print(furthest)
+	print(ground.get_used_cells()[-1])
+	self.position.x=furthest.x
+	self.position.y=furthest.y
 	
 	#_gen_navpoly()
 	
