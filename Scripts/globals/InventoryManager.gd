@@ -176,12 +176,10 @@ func remove_item_effects(item: ItemResource) -> void:
 	#TODO: reset to default
 	if item.weapon_type != ItemType.WeaponType.NONE:
 		if item.attack_type == ItemType.AttackType.PRIMARY:
-			item.set_primary_weapon_type_name()
-			item.set_primary_attack_type_name()
+			ItemGlobals.primary_weapon_type = "Default"
 			
 		if item.attack_type == ItemType.AttackType.SECONDARY:
-			item.set_secondary_weapon_type_name()
-			item.set_secondary_attack_type_name()
+			ItemGlobals.secondary_weapon_type = "Default"
 
 func reset_inventory() -> void:
 	augment_items.clear()
