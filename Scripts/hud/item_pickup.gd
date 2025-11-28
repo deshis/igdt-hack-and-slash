@@ -25,9 +25,9 @@ func open_item_selection(area:Area2D):
 	var item2 = area.get_item(1).duplicate()
 	var item3 = area.get_item(2).duplicate()
 	
-	selection_slot_1.add_child(item1)
-	selection_slot_2.add_child(item2)
-	selection_slot_3.add_child(item3)
+	selection_slot_1.add_child(InventoryManager.create_item_control(item1))
+	selection_slot_2.add_child(InventoryManager.create_item_control(item2))
+	selection_slot_3.add_child(InventoryManager.create_item_control(item3))
 	
 	visible = true
 	GameManager.open_menu()

@@ -36,6 +36,10 @@ func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
 	var origin_slot: InventorySlot = data
 	var item = origin_slot.get_item()
 	
+	# dragged from a pickup slot
+	if origin_slot.name.begins_with("SelectionSlot") and get_item():
+		return false
+	
 	# generic slot
 	if type == ItemType.Type.NONE:
 		if origin_slot.type == ItemType.Type.NONE or not get_item():

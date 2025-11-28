@@ -5,7 +5,7 @@ extends PickupableObject
 
 @export var item_scene: PackedScene
 
-var items=[null,null,null]
+var items := [ItemResource]
 
 func _ready() -> void:
 	var interact = InputMap.action_get_events("interact")
@@ -32,9 +32,7 @@ func set_loot(rarity: ItemType.Grade) -> void:
 	var item_list = LootDatabase.get_items_by_rarity(rarity, 3)
 	
 	for res in item_list:
-		var node = item_scene.instantiate()
-		items.append(node)
-		node.update_item_display(res)
+		items.append(res.duplicate(true))
 
-func get_item(index:int)->Node:
+func get_item(index:int) -> ItemResource:
 	return items[index]
