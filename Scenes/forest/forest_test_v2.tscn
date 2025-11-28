@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://d4clcduhug1h5"]
+[gd_scene load_steps=7 format=4 uid="uid://d4clcduhug1h5"]
 
 [ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="1_jf16d"]
-[ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="2_plt4o"]
 [ext_resource type="Script" uid="uid://daoxuqqfk7h42" path="res://Scenes/forest/script/forest_gen_v2.gd" id="3_jf16d"]
 [ext_resource type="TileSet" uid="uid://cgpwlq0t0mnit" path="res://Scenes/forest/forest_tileset_v2.tres" id="4_plt4o"]
 [ext_resource type="Script" uid="uid://dwcvxx4x4o01o" path="res://Scenes/forest/script/nav_follow.gd" id="5_8p4n1"]
-[ext_resource type="PackedScene" uid="uid://cuuem545ega72" path="res://Scenes/hud.tscn" id="6_n0iw2"]
 [ext_resource type="Script" uid="uid://be1pcqq5oedy" path="res://Scenes/forest/timer_fix.gd" id="6_plt4o"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_plt4o"]
@@ -17,17 +15,11 @@ source_geometry_group_name = &"navigation"
 
 [node name="ForestTest" type="Node2D"]
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "navigation_region") instance=ExtResource("1_jf16d")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("navigation_region") instance=ExtResource("1_jf16d")]
 visibility_layer = 2
 z_index = 2
 position = Vector2(3444, 0)
-player = NodePath("../Player")
 navigation_region = NodePath("../world/navRegion")
-
-[node name="Player" parent="." instance=ExtResource("2_plt4o")]
-top_level = true
-z_index = 2
-position = Vector2(4327, 4062)
 
 [node name="world" type="Node2D" parent="." node_paths=PackedStringArray("navReg")]
 script = ExtResource("3_jf16d")
@@ -57,13 +49,14 @@ rendering_quadrant_size = 32
 physics_quadrant_size = 32
 navigation_enabled = false
 
-[node name="navRegion" type="NavigationRegion2D" parent="world" node_paths=PackedStringArray("timer", "player", "spawner") groups=["navigation"]]
+[node name="navRegion" type="NavigationRegion2D" parent="world" node_paths=PackedStringArray("timer", "spawner") groups=["navigation"]]
 position = Vector2(-133, 322)
 scale = Vector2(1.0000002, 1.0000002)
 navigation_polygon = SubResource("NavigationPolygon_plt4o")
 script = ExtResource("5_8p4n1")
 timer = NodePath("Timer")
-player = NodePath("../../Player")
+width = 0
+height = 0
 spawner = NodePath("../../EnemySpawner")
 
 [node name="Timer" type="Timer" parent="world/navRegion"]
@@ -71,9 +64,6 @@ wait_time = 3.0
 
 [node name="TimerStarter" type="Node" parent="world/navRegion"]
 script = ExtResource("6_plt4o")
-
-[node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_n0iw2")]
-player = NodePath("../Player")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 color = Color(0.77875066, 0.97768945, 0.8564389, 1)

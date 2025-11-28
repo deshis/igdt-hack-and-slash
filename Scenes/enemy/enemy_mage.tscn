@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://de3corsl6kg0s"]
+[gd_scene load_steps=10 format=3 uid="uid://de3corsl6kg0s"]
 
 [ext_resource type="Script" uid="uid://qs1ekdjyg2ro" path="res://Scripts/enemy/mage.gd" id="1_m24f1"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_d0xt8"]
@@ -12,13 +12,16 @@ radius = 50.089928
 size = Vector2(100.000015, 100.000015)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvk3b"]
-size = Vector2(128.00002, 96.00003)
+size = Vector2(92.00001, 96.00003)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m24f1"]
+radius = 96.87623
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ui1s"]
 shader = ExtResource("2_d0xt8")
 shader_parameter/strength = 0.0
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("wait_before_tp_timer", "face_player_length_timer", "nav_agent", "attack_area", "attack_area_hitbox", "wait_before_attack_timer", "attack_length_timer", "wait_after_attack_timer")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("wait_before_tp_timer", "tp_cooldown_timer", "tp_attack_area", "tp_attack_hitbox", "face_player_length_timer", "nav_agent", "attack_area", "attack_area_hitbox", "wait_before_attack_timer", "attack_length_timer", "wait_after_attack_timer")]
 z_index = 2
 scale = Vector2(0.9999999, 0.9999999)
 collision_layer = 4096
@@ -28,6 +31,9 @@ wall_min_slide_angle = 0.0
 safe_margin = 1.0
 script = ExtResource("1_m24f1")
 wait_before_tp_timer = NodePath("Timers/WaitBeforeTeleportTimer")
+tp_cooldown_timer = NodePath("Timers/TeleportCooldownTimer")
+tp_attack_area = NodePath("TeleportAttackArea")
+tp_attack_hitbox = NodePath("TeleportAttackArea/AttackAreaHitbox")
 face_player_length_timer = NodePath("Timers/FacePlayerLengthTimer")
 nav_agent = NodePath("NavigationAgent2D")
 attack_area = NodePath("AttackArea")
@@ -57,8 +63,19 @@ collision_mask = 512
 [node name="AttackAreaHitbox" type="CollisionShape2D" parent="AttackArea"]
 light_mask = 3
 visibility_layer = 3
-position = Vector2(0, 61.000004)
+position = Vector2(0, 61.00002)
 shape = SubResource("RectangleShape2D_nvk3b")
+
+[node name="TeleportAttackArea" type="Area2D" parent="."]
+position = Vector2(0, -109)
+collision_layer = 16384
+collision_mask = 512
+
+[node name="AttackAreaHitbox" type="CollisionShape2D" parent="TeleportAttackArea"]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(0, 109)
+shape = SubResource("CircleShape2D_m24f1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_4ui1s")
@@ -92,6 +109,10 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="TeleportCooldownTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
 [node name="Particles" type="Node2D" parent="."]
 
 [node name="OnDeathParticles" parent="Particles" instance=ExtResource("4_h8qhs")]
@@ -99,9 +120,11 @@ scale_amount_min = 0.6
 scale_amount_max = 0.6
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
+[connection signal="area_entered" from="TeleportAttackArea" to="." method="_on_teleport_attack_area_area_entered"]
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
 [connection signal="timeout" from="Timers/AttackLengthTimer" to="." method="_on_attack_length_timer_timeout"]
 [connection signal="timeout" from="Timers/WaitAfterAttackTimer" to="." method="_on_wait_after_attack_timer_timeout"]
 [connection signal="timeout" from="Timers/WaitBeforeAttackTimer" to="." method="_on_wait_before_attack_timer_timeout"]
 [connection signal="timeout" from="Timers/FacePlayerLengthTimer" to="." method="_on_face_player_length_timer_timeout"]
 [connection signal="timeout" from="Timers/WaitBeforeTeleportTimer" to="." method="_on_wait_before_teleport_timer_timeout"]
+[connection signal="timeout" from="Timers/TeleportCooldownTimer" to="." method="_on_teleport_cooldown_timer_timeout"]

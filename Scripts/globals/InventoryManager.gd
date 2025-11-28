@@ -7,8 +7,9 @@ var augments_node: Node
 var item_selection_node: Node
 var trash_slot_node: Node
 
+var starter_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres")]
 var augment_items: Array[ItemResource] = []
-var backpack_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres")]
+var backpack_items: Array[ItemResource] = []
 
 var item_scene: PackedScene = preload("res://Scenes/item.tscn")
 
@@ -35,7 +36,7 @@ func init() -> void:
 		var item_res = backpack_items[i]
 		
 		if backpack_items[i]:
-			var item_control = create_item(item_res)
+			var item_control = create_item_control(item_res)
 			slot.set_item(item_control)
 	
 	# setup augments
@@ -45,12 +46,10 @@ func init() -> void:
 		var item_res = augment_items[i]
 		
 		if augment_items[i]:
-			var item_control = create_item(item_res)
+			var item_control = create_item_control(item_res)
 			slot.set_item(item_control)
 	
-	# apply effects
-	for item_res in augment_items:
-		apply_item_effects(item_res)
+	equip_starter_items()
 
 func init_slots() -> void:
 	for i in range(backpack_node.get_child_count()):
@@ -64,7 +63,7 @@ func init_slots() -> void:
 	trash_slot_node.setup()
 	item_selection_node.setup()
 
-func create_item(item_res: ItemResource) -> Control:
+func create_item_control(item_res: ItemResource) -> Control:
 	var instance: Control = item_scene.instantiate() as Control
 	instance.item = item_res.duplicate(true)
 	return instance
@@ -167,3 +166,20 @@ func remove_item_effects(item: ItemResource) -> void:
 func reset_inventory() -> void:
 	augment_items.clear()
 	backpack_items.clear()
+
+func equip_starter_items() -> void:
+	if starter_items.size() == 0:
+		return
+	
+	"for i in range(starter_items.size()):
+		var item_res = starter_items[i]
+		var item_control = create_item(item_res)
+		backpack_node.add_child(item_control)
+		move_item()"
+	
+	for item in starter_items:
+		var item_control = create_item_control(item)
+		var slot = backpack_node.get_child(0)
+		slot.set_item(item_control)
+		move_item(slot)
+		
