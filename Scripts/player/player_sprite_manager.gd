@@ -13,10 +13,10 @@ var current_state = STATE.IDLE
 signal light_attack_finished
 signal heavy_attack_finished
 
-
 func _ready():
 	var a =  $"../SubViewport/model/AnimationPlayer"
 	a.animation_finished.connect(_on_anim_finished)
+	#var og_dash_cooldown = player_script.dash_cooldown
 
 func _process(_delta):
 	rotation = -get_parent().global_rotation
@@ -34,6 +34,11 @@ func update_sprite(direction):
 		current_state = STATE.IDLE
 
 func start_dash():
+	if current_state == STATE.LIGHT_ATTACK:
+		current_state = STATE.IDLE
+		#player_script.dash_cooldown *= 2
+
+	light_attack_finished.emit() #Dash cancels attack animation
 	afterimage_particles.emitting = true
 	model.anim.play("Dash")
 
@@ -71,10 +76,9 @@ func light_attack(rot):
 		model.anim.play(model_anim)
 		return
 	
-	
 func _on_anim_finished(anim_name):
 	current_state = STATE.IDLE
 	model.anim.speed_scale = 1
 	model.anim.play("Idle")
-	if  anim_name.begins_with("Light_attack_"):
-			light_attack_finished.emit()
+	if anim_name.begins_with("Light_attack_"):
+		light_attack_finished.emit()
