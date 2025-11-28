@@ -11,7 +11,7 @@ var stage_root: Node = null
 var HUD: HudManager = null
 
 var stages := [
-	preload("res://Scenes/level/forest_test.tscn"),
+	preload("res://Scenes/forest/forest_test.tscn"),
 	preload("res://Scenes/level/test_area.tscn")
 ]
 
