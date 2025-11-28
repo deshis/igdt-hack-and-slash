@@ -17,12 +17,15 @@ var player: Player = GameManager.player
 @export var credits_gain_max := 3
 
 @export var boss_cooldown_timer: Timer
-@export var boss_cooldown_time := 30.0
+@export var boss_cooldown_time := 150.0
 
 var credits := 0.0
 
 @export var diff: DifficultyManager
 @export var navigation_region: NavigationRegion2D
+
+func _ready() -> void:
+	boss_cooldown_timer.start(boss_cooldown_time)
 
 func spawn_enemy(prefab: EnemyPrefab) -> void:
 	var enemy = prefab.scene.instantiate() as EnemyController

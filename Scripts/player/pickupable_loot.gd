@@ -12,7 +12,9 @@ func _ready() -> void:
 	var button_name = OS.get_keycode_string(interact[0].physical_keycode)
 	$RichTextLabel.text = button_name + " interact"
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	
 	if not player:
 		return
 	

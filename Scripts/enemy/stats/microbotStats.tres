@@ -5,14 +5,8 @@
 [resource]
 script = ExtResource("1_ha25t")
 name = "Micro_Bot_2000"
-loot_rarity_weights = {
-0: 100,
-1: 0,
-2: 0
-}
 speed = 400.0
 max_health = 1.5
-damage = 4.0
-cost = 1.0
+damage = 3.0
 health_per_level = 0.1
 metadata/_custom_type_script = "uid://t76ghlhghorw"

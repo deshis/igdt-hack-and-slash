@@ -188,7 +188,7 @@ func hit_flash() -> void:
 func drop_loot() -> void:
 	if LootDatabase.drop_loot(enemy):
 		var loot = LootDatabase.pickupable_item.instantiate()
-		get_tree().root.add_child(loot)
+		GameManager.stage_root.add_child(loot)
 		loot.global_position = global_position
 		loot.set_loot(LootDatabase.get_loot_rarity(enemy))
 		
@@ -199,7 +199,7 @@ func drop_health_pickup() -> void:
 	# TODO: proper health drop chance
 	if randi() % 3 == 0:
 		var pickup = LootDatabase.pickupable_health.instantiate()
-		get_tree().root.add_child(pickup)
+		GameManager.stage_root.add_child(pickup)
 		pickup.global_position = global_position
 		
 		var dir = player.global_position.direction_to(global_position)

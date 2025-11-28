@@ -1,9 +1,13 @@
-[gd_scene load_steps=9 format=4 uid="uid://bb8yqfa7be2g4"]
+[gd_scene load_steps=13 format=4 uid="uid://bb8yqfa7be2g4"]
 
 [ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="1_wyvj0"]
 [ext_resource type="Script" uid="uid://dopu0i2ovey53" path="res://Scenes/forest/script/forest_gen.gd" id="2_3tp1p"]
 [ext_resource type="Texture2D" uid="uid://cb3158cqwbawb" path="res://Assets/area_tiles/basic_forest_tiles.png" id="2_f48ge"]
 [ext_resource type="Script" uid="uid://dwcvxx4x4o01o" path="res://Scenes/forest/script/nav_follow.gd" id="3_wyvj0"]
+[ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemy/prefabs/EnemyPrefab.gd" id="5_x2aw8"]
+[ext_resource type="Resource" uid="uid://1dmu76yei0sm" path="res://Scripts/enemy/prefabs/microbot.tres" id="6_1giyi"]
+[ext_resource type="Resource" uid="uid://ctly0bibi2t2d" path="res://Scripts/enemy/prefabs/slasher.tres" id="7_mrten"]
+[ext_resource type="Resource" uid="uid://x8fs3x2upf2j" path="res://Scripts/enemy/prefabs/mage.tres" id="8_j0wc8"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_f48ge"]
 noise_type = 2
@@ -86,6 +90,7 @@ wait_time = 4.0
 one_shot = true
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("navigation_region") instance=ExtResource("1_wyvj0")]
+enemy_list = Array[ExtResource("5_x2aw8")]([ExtResource("6_1giyi"), ExtResource("7_mrten"), ExtResource("8_j0wc8")])
 navigation_region = NodePath("../world/navRegion")
 
 [connection signal="timeout" from="world/navRegion/Timer" to="world/navRegion" method="_on_timer_timeout"]
