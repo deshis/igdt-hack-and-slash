@@ -45,12 +45,33 @@ func stop_dash():
 		model.anim.play("Idle")
 
 func light_attack(rot):
+	
+	var model_anim := "?"
+	
+	#print("Primary attack: ",ItemGlobals.primary_attack_type," || Primary weapon type: ",ItemGlobals.primary_weapon_type)
+	#print("Secondary attack: ",ItemGlobals.secondary_attack_type," || Secondary weapon type: ",ItemGlobals.secondary_weapon_type)
+	
 	current_state = STATE.LIGHT_ATTACK
 	model.set_cam_rotation(rot)
 	#Separating the speed scale to modify it in isolation
 	model.anim.speed_scale = player_script.light_attack_speed_scale
-	model.anim.play("Light_attack_sword")
+	
+	if ItemGlobals.primary_weapon_type == "Dagger":
+		model_anim = "Light_attack_dagger"
+		model.anim.play(model_anim)
+		return
 
+	if ItemGlobals.primary_weapon_type == "Sword":
+		model_anim = "Light_attack_sword"
+		model.anim.play(model_anim)
+		return
+		
+	else:
+		model_anim = "Light_attack_default"
+		model.anim.play(model_anim)
+		return
+	
+	
 func _on_anim_finished(anim_name):
 	current_state = STATE.IDLE
 	model.anim.speed_scale = 1

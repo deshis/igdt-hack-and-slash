@@ -6,6 +6,8 @@ class_name ItemResource
 @export var item_description: String
 @export var type: ItemType.Type
 @export var grade: ItemType.Grade
+@export var attack_type: ItemType.AttackType
+@export var weapon_type: ItemType.WeaponType
 @export var icon: Texture2D
 @export var effects: Array[Stats] = []
 
@@ -35,6 +37,46 @@ var stat_name
 var base_movement_speed := 500
 var base_light_attack_cooldown := 1.5
 var base_heavy_attack_cooldown := 0.5
+
+func set_primary_weapon_type_name() -> void:
+	
+	match weapon_type: 
+		ItemType.WeaponType.NONE:
+			ItemGlobals.primary_weapon_type = "Default"
+		ItemType.WeaponType.DAGGER:
+			ItemGlobals.primary_weapon_type = "Dagger"
+		ItemType.WeaponType.SWORD:
+			ItemGlobals.primary_weapon_type = "Sword"
+		ItemType.WeaponType.MAUL:
+			ItemGlobals.primary_weapon_type = "Maul"
+			
+func set_primary_attack_type_name() -> void:
+	
+	match attack_type: 
+		ItemType.AttackType.PRIMARY:
+			ItemGlobals.primary_attack_type = "Primary"
+		ItemType.AttackType.SECONDARY:
+			ItemGlobals.primary_attack_type = "Secondary"
+			
+func set_secondary_weapon_type_name() -> void:
+	
+	match weapon_type: 
+		ItemType.WeaponType.NONE:
+			ItemGlobals.secondary_weapon_type = "Dagger"
+		ItemType.WeaponType.DAGGER:
+			ItemGlobals.secondary_weapon_type = "Dagger"
+		ItemType.WeaponType.SWORD:
+			ItemGlobals.secondary_weapon_type = "Sword"
+		ItemType.WeaponType.MAUL:
+			ItemGlobals.secondary_weapon_type = "Maul"
+			
+func set_secondary_attack_type_name() -> void:
+	
+	match attack_type: 
+		ItemType.AttackType.PRIMARY:
+			ItemGlobals.secondary_attack_type = "Primary"
+		ItemType.AttackType.SECONDARY:
+			ItemGlobals.secondary_attack_type = "Secondary"
 
 #NOTE: https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_format_string.html
 

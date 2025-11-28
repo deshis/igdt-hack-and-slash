@@ -107,11 +107,12 @@ func _set_type_name() -> void:
 		ItemType.Type.SECONDARY_ATTACK:
 			type_name = "Secondary Attack"
 
+
 func _create_description() -> void:
-	
+
 	name = item.item_name
 	var formatted_desc = ""
-	
+
 	#Item name
 	var formatted_name = ""
 	formatted_name += "[center][color=" + hex(grade_color) + "][b]" + item.item_name + "[/b][/color][/center]\n\n"
@@ -124,7 +125,7 @@ func _create_description() -> void:
 	
 	#Item grade
 	formatted_desc += "\n[center][color=" + hex(grade_color) + "]" + grade_name + "[/color][/center]\n"
-	
+
 	#Item type
 	formatted_desc += "[center][color=" + hex(type_color) + "]" + type_name + "[/color][/center]\n"
 	change_panel_color()

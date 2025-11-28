@@ -6,7 +6,7 @@ class_name Stats
 @export var dot_resource: DotResource
 
 signal update_health_bar
-
+#
 #NOTE: Might want a separate damage stat for clarity?
 enum Stat { 
 	HEALTH, 

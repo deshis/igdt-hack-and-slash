@@ -7,13 +7,13 @@
 [sub_resource type="Resource" id="Resource_x4600"]
 script = ExtResource("1_x7x7j")
 stat_type = 9
-value = 0.7
+value = 1.2
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
-[sub_resource type="Resource" id="Resource_2yu6x"]
+[sub_resource type="Resource" id="Resource_wj2i3"]
 script = ExtResource("1_x7x7j")
-stat_type = 10
-value = 1.3
+stat_type = 7
+value = 0.22
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [resource]
@@ -21,6 +21,8 @@ script = ExtResource("2_yrbwt")
 item_name = "Katana"
 item_description = "The power of anime"
 type = 6
+attack_type = 1
+weapon_type = 2
 icon = ExtResource("2_a3pq7")
-effects = Array[ExtResource("1_x7x7j")]([SubResource("Resource_x4600"), SubResource("Resource_2yu6x")])
+effects = Array[ExtResource("1_x7x7j")]([SubResource("Resource_x4600"), SubResource("Resource_wj2i3")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

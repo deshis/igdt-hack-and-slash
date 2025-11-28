@@ -25,6 +25,7 @@ EnemyType="*res://Scripts/globals/EnemyType.gd"
 GameManager="*res://Scripts/globals/GameManager.gd"
 InventoryManager="*res://Scripts/globals/InventoryManager.gd"
 GameStats="*res://Scripts/globals/GameStats.gd"
+ItemGlobals="*res://Scripts/globals/ItemGlobals.gd"
 
 [debug]
 

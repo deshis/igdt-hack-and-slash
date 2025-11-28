@@ -16,3 +16,16 @@ enum Grade {
 	MILITARY,
 	PROTOTYPE
 }
+
+enum AttackType {
+	NONE,
+	PRIMARY,
+	SECONDARY
+}
+
+enum WeaponType {
+	NONE,
+	DAGGER,
+	SWORD,
+	MAUL
+}

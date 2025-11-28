@@ -7,9 +7,9 @@ var augments_node: Node
 var item_selection_node: Node
 var trash_slot_node: Node
 
-var starter_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres")]
+var starter_items: Array[ItemResource] = [] #[preload("res://Scripts/items/prototype/Item6.tres")] #Default item doesn't exist in the item slot?
 var augment_items: Array[ItemResource] = []
-var backpack_items: Array[ItemResource] = []
+var backpack_items: Array[ItemResource] = [preload("res://Scripts/items/consumer/Item5.tres"),preload("res://Scripts/items/prototype/Item6.tres")] #[preload("res://Scripts/items/prototype/Item6.tres"),preload("res://Scripts/items/prototype/Item3.tres"),preload("res://Scripts/items/consumer/Item4.tres"),preload("res://Scripts/items/military/Item2.tres")]
 
 var item_scene: PackedScene = preload("res://Scenes/item.tscn")
 
@@ -157,11 +157,31 @@ func apply_item_effects(item: ItemResource) -> void:
 	#print("Applying effects for: ", item.item_name)
 	for effect in item.effects:
 		effect.apply_effect(GameManager.player)
+		
+	#Checking between the primary & secondary weapon
+	if item.weapon_type != ItemType.WeaponType.NONE:
+		if item.attack_type == ItemType.AttackType.PRIMARY:
+			item.set_primary_weapon_type_name()
+			item.set_primary_attack_type_name()
+			
+		if item.attack_type == ItemType.AttackType.SECONDARY:
+			item.set_secondary_weapon_type_name()
+			item.set_secondary_attack_type_name()
 
 func remove_item_effects(item: ItemResource) -> void:
 	#print("Removing effects for: ", item.item_name)
 	for effect in item.effects:
 		effect.remove_effect(GameManager.player)
+		
+	#TODO: reset to default
+	if item.weapon_type != ItemType.WeaponType.NONE:
+		if item.attack_type == ItemType.AttackType.PRIMARY:
+			item.set_primary_weapon_type_name()
+			item.set_primary_attack_type_name()
+			
+		if item.attack_type == ItemType.AttackType.SECONDARY:
+			item.set_secondary_weapon_type_name()
+			item.set_secondary_attack_type_name()
 
 func reset_inventory() -> void:
 	augment_items.clear()
