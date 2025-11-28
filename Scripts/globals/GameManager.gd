@@ -41,6 +41,7 @@ func load_stage(num: int) -> void:
 	
 	stage_root.add_child(current_stage)
 	player.global_position = Vector2.ZERO
+	
 
 func load_next_stage() -> void:
 	load_stage(current_stage_ind + 1)

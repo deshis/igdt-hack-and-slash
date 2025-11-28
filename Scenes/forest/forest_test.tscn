@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=4 uid="uid://bb8yqfa7be2g4"]
 
-[ext_resource type="PackedScene" uid="uid://cejn0x82p4vcn" path="res://Scenes/player.tscn" id="1_wlp7t"]
+[ext_resource type="PackedScene" uid="uid://cerovsgxmf0fk" path="res://Scenes/player.tscn" id="1_wlp7t"]
 [ext_resource type="Script" uid="uid://dopu0i2ovey53" path="res://Scenes/forest/script/forest_gen.gd" id="2_3tp1p"]
 [ext_resource type="Texture2D" uid="uid://cb3158cqwbawb" path="res://Assets/area_tiles/basic_forest_tiles.png" id="2_f48ge"]
 [ext_resource type="Script" uid="uid://dwcvxx4x4o01o" path="res://Scenes/forest/script/nav_follow.gd" id="3_wyvj0"]
@@ -48,11 +48,10 @@ source_geometry_group_name = &"navigation"
 
 [node name="ForestTest" type="Node2D"]
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "navigation_region") instance=ExtResource("4_3tp1p")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("navigation_region") instance=ExtResource("4_3tp1p")]
 visibility_layer = 2
 z_index = 2
 position = Vector2(3444, 0)
-player = NodePath("../Player")
 navigation_region = NodePath("../world/navRegion")
 
 [node name="Player" parent="." instance=ExtResource("1_wlp7t")]
@@ -100,11 +99,11 @@ spawner = NodePath("../../EnemySpawner")
 
 [node name="Timer" type="Timer" parent="world/navRegion"]
 wait_time = 4.0
+autostart = true
 
 [node name="TimerStarter" type="Node" parent="world/navRegion"]
 script = ExtResource("6_kdii4")
 
-[node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_lvbhc")]
-player = NodePath("../Player")
+[node name="HUD" parent="." instance=ExtResource("6_lvbhc")]
 
 [connection signal="timeout" from="world/navRegion/Timer" to="world/navRegion" method="_on_timer_timeout"]
