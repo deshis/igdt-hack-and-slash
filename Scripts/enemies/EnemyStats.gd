@@ -13,7 +13,7 @@ var boss_drop_chance := 1.0
 
 var normal_weights := [100, 0, 0]
 var miniboss_weights := [75, 25, 0]
-var boss_weights := [100, 0, 0]
+var boss_weights := [0, 25, 75]
 
 @export var speed := 250.0
 @export var max_health := 4.0

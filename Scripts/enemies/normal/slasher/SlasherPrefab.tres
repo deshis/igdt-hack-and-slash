@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="EnemyPrefab" load_steps=6 format=3 uid="uid://ctly0bibi2t2d"]
 
-[ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemy/prefabs/EnemyPrefab.gd" id="1_076bs"]
+[ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemies/EnemyPrefab.gd" id="1_076bs"]
 [ext_resource type="PackedScene" uid="uid://bfykyy2y7odt7" path="res://Scenes/enemy/enemy_slasher.tscn" id="1_tgfgn"]
-[ext_resource type="Resource" uid="uid://bowqpxf2yi5ip" path="res://Scripts/enemy/stats/slasherStats.tres" id="2_x4qm1"]
-[ext_resource type="Script" uid="uid://c3xt5r4pnu2pd" path="res://Scripts/enemy/targets/TargetPlayer.gd" id="4_x4qm1"]
+[ext_resource type="Resource" uid="uid://bowqpxf2yi5ip" path="res://Scripts/enemies/normal/slasher/slasher_stats.tres" id="2_x4qm1"]
+[ext_resource type="Script" uid="uid://c3xt5r4pnu2pd" path="res://Scripts/enemies/targets/TargetPlayer.gd" id="4_x4qm1"]
 
 [sub_resource type="Resource" id="Resource_x4qm1"]
 script = ExtResource("4_x4qm1")

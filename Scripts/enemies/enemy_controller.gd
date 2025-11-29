@@ -1,58 +1,110 @@
 extends CharacterBody2D
 class_name EnemyController
 
+# HEALTH BAR
 signal update_health_bar(float)
 var health_bar
 
-@export var enemy: EnemyStats
+# ENEMY STATS
+var enemy: EnemyStats
 var target_provider: TargetProvider
-@onready var sprite = $Sprite2D
-
+@onready var current_speed := enemy.speed
 @export var nav_agent: NavigationAgent2D
 
-@export var attack_area: Area2D
-@export var attack_area_hitbox: CollisionShape2D
+@onready var player: Player = GameManager.player
 
-@export var wait_before_attack_timer: Timer
-@export var attack_length_timer: Timer
-@export var wait_after_attack_timer: Timer
-
-@onready var dot_timer: Timer = $Timers/DotDurationTimer
-
+# PARTICLES
 var hit_particles_scene = preload("res://Scenes/enemy/particles/on_hit_particles.tscn")
 var electric_dot_particles_scene = preload("res://Scenes/enemy/particles/electric_dot_particles.tscn")
 
 @onready var death_particles: CPUParticles2D = $Particles/OnDeathParticles
 @onready var death_particles2: CPUParticles2D = $Particles/OnDeathParticles/OnDeathParticles2
 
+
+# DOT EFFECT
+@onready var dot_timer: Timer = $Timers/DotDurationTimer
+var active_dots: DotResource = null
 var dot_tick_rate := 1.5
 var remaining_dot_duration := 0.0
 var current_tick_damage := 0.0
 var current_tick_rate := 0.0
 
-@onready var player: Player = GameManager.player
-var target: Node2D
-var is_navigating := true
-var target_reached := false
+# 3D MODEL
+var animator = null
+@export var model_view: Node3D = null
+@export var camera_point: Node3D = null
+@export var sprite: Sprite2D = null
 
-@onready var current_speed := enemy.speed
+# ATTACK
+@export var attack: PackedScene = null
+@export var attack_windup_duration := 0.6
+@export var attack_range := 200.0
+@export var cooldown_duration := 1.0
 
-var active_dots: DotResource = null
+# STATE MACHINE
+var state = "idle"
+var state_timer := 0.0
+
+const IDLE = "idle"
+const NAVIGATE = "navigate"
+const ATTACK = "attack"
+const COOLDOWN = "cooldown"
 
 func _ready() -> void:
-	attack_area_hitbox.disabled = true
 	sprite.material = sprite.material.duplicate()
+	change_state(IDLE)
+	
+	if model_view:
+		animator = camera_point.get_node("AnimationPlayer")
+		model_view.position = Vector3(randf()*1e6, randf()*1e6, randf()*1e6)
 	
 	dot_timer = Timer.new()
 	dot_timer.timeout.connect(_on_dot_tick) 
 	add_child(dot_timer)
-	
+
 func _physics_process(delta: float) -> void:
 	if not player or not target_provider:
 		return
 	
-	if is_navigating:
-		process_navigation(delta)
+	# model stuff
+	if model_view:
+		sprite.rotation = -rotation
+		camera_point.rotation.y = -deg_to_rad(round(rad_to_deg(rotation+PI) / 5.0) * 5.0)
+	
+	state_timer -= delta
+	
+	match state:
+		IDLE:
+			process_idle()
+		
+		NAVIGATE:
+			process_navigation(delta)
+		
+		ATTACK:
+			process_attack()
+		
+		COOLDOWN:
+			if state_timer <= 0:
+				change_state(IDLE)
+
+
+func change_state(new_state: String, duration := 0.0):
+	state = new_state
+	state_timer = duration
+	
+	match state:
+		NAVIGATE:
+			target_provider = TargetPlayer.new()
+
+func process_idle() -> void:
+	change_state(NAVIGATE)
+
+func process_attack() -> void:
+	if state_timer > 0:
+		return
+	
+	perform_attack(attack)
+	change_state(COOLDOWN, cooldown_duration)
 
 func process_navigation(delta: float) -> void:
 	var new_target_pos = target_provider.get_target(self)
@@ -77,16 +129,13 @@ func update_facing_dir(delta: float, dir: Vector2) -> void:
 	var target_angle = dir.angle() + Vector2.DOWN.angle()
 	rotation = lerp_angle(rotation, target_angle, enemy.rotation_speed * delta)
 
-func perform_attack() -> void:
-	if not attack_length_timer:
-		_on_wait_after_attack_timer_timeout()
-		return
-	
-	attack_area.visible = true
-	attack_area_hitbox.disabled = false
-	
-	attack_length_timer.start()
-	
+func perform_attack(attack_scene: PackedScene) -> void:
+	var instance = attack_scene.instantiate()
+	add_child(instance)
+	instance.global_position = global_position
+	instance.attack_hit.connect(_on_attack_area_area_entered)
+
+
 func take_dot_damage(dot: DotResource) -> void:
 	#print("dot stats: ","dot dmg: ", dot_tick_damage,"dot duration: ", dot_duration,"dot tick rate: ",tick_rate) 
 	
@@ -148,7 +197,6 @@ func take_damage(damage:float) -> void:
 	
 	instantiate_particles(hit_particles_scene)
 	
-
 	GameStats.total_damage_dealt += damage
 	
 	if enemy.health <= 0.0:
@@ -216,34 +264,9 @@ func drop_health_pickup() -> void:
 		var dir = player.global_position.direction_to(global_position)
 		pickup.setup(player, dir)
 
-func _on_attack_area_area_entered(_area: Area2D) -> void:
-	player.take_damage(enemy.damage)
+func _on_attack_area_area_entered(_area: Area2D, damage: float = enemy.damage) -> void:
+	player.take_damage(damage)
 	GameStats.player_last_hit_by=enemy.name
 
 func _on_navigation_agent_2d_target_reached() -> void:
-	is_navigating = false
-	
-	if not wait_before_attack_timer:
-		perform_attack()
-		return
-	
-	target_provider = TargetSelf.new()
-	wait_before_attack_timer.start()
-
-func _on_wait_before_attack_timer_timeout() -> void:
-	perform_attack()
-
-func _on_attack_length_timer_timeout() -> void:
-	if not wait_after_attack_timer:
-		_on_wait_after_attack_timer_timeout()
-		return
-	
-	attack_area.visible = false
-	attack_area_hitbox.disabled = true
-	
-	wait_after_attack_timer.start()
-
-func _on_wait_after_attack_timer_timeout() -> void:
-	target_provider = TargetPlayer.new()
-	is_navigating = true
-	
+	change_state(ATTACK, attack_windup_duration)

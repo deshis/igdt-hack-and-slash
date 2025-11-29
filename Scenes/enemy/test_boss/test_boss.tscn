@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cwiavd3bgd63w"]
 
 [ext_resource type="PackedScene" uid="uid://bfykyy2y7odt7" path="res://Scenes/enemy/enemy_slasher.tscn" id="1_5r271"]
-[ext_resource type="Script" uid="uid://t76ghlhghorw" path="res://Scripts/enemy/stats/EnemyStats.gd" id="2_8flpb"]
-[ext_resource type="Script" uid="uid://b4if25763viv3" path="res://Scripts/enemy/test_boss/boss.gd" id="2_n3hpa"]
+[ext_resource type="Script" uid="uid://t76ghlhghorw" path="res://Scripts/enemies/EnemyStats.gd" id="2_8flpb"]
+[ext_resource type="Script" uid="uid://b4if25763viv3" path="res://Scripts/enemies/test_boss/boss.gd" id="2_n3hpa"]
 
 [sub_resource type="Resource" id="Resource_7i6gw"]
 script = ExtResource("2_8flpb")

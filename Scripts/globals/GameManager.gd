@@ -49,6 +49,10 @@ func load_stage(num: int) -> void:
 func load_next_stage() -> void:
 	load_stage(current_stage_ind + 1)
 
+func boss_killed() -> void:
+	await get_tree().create_timer(10).timeout
+	load_next_stage()
+
 func restart() -> void:
 	for child in get_children():
 		child.queue_free()
