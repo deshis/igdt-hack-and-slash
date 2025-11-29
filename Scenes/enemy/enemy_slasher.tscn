@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfykyy2y7odt7"]
+[gd_scene load_steps=10 format=3 uid="uid://bfykyy2y7odt7"]
 
 [ext_resource type="Script" uid="uid://6n8vopurwam1" path="res://Scripts/enemy/slasher.gd" id="1_j7slm"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_j7slm"]
-[ext_resource type="Texture2D" uid="uid://bub237aqhd52f" path="res://Assets/enemies/slasher.png" id="3_j7slm"]
 [ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/enemy/particles/on_death_particles.tscn" id="5_l15iq"]
+[ext_resource type="PackedScene" uid="uid://dtmntfwnrv3ig" path="res://Scenes/enemy/slasher_model.tscn" id="5_u6ti3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
 radius = 50.01
@@ -17,6 +17,9 @@ size = Vector2(110, 149)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ui1s"]
 shader = ExtResource("2_j7slm")
 shader_parameter/strength = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4ui1s"]
+viewport_path = NodePath("SubViewport")
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("face_player_length_timer", "nav_agent", "attack_area", "attack_area_hitbox", "wait_before_attack_timer", "attack_length_timer", "wait_after_attack_timer")]
 z_index = 1
@@ -32,7 +35,7 @@ nav_agent = NodePath("NavigationAgent2D")
 attack_area = NodePath("AttackArea")
 attack_area_hitbox = NodePath("AttackArea/AttackAreaHitbox")
 wait_before_attack_timer = NodePath("Timers/WaitBeforeAttackTimer")
-attack_length_timer = NodePath("Timers/AttackLengthTimer")
+attack_length_timer = NodePath("")
 wait_after_attack_timer = NodePath("Timers/WaitAfterAttackTimer")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
@@ -48,6 +51,7 @@ visibility_layer = 3
 shape = SubResource("RectangleShape2D_1f0kj")
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -109)
 collision_layer = 16384
 collision_mask = 512
@@ -61,18 +65,14 @@ shape = SubResource("RectangleShape2D_nvk3b")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_4ui1s")
 position = Vector2(-5.722046e-06, 7.6293945e-06)
-scale = Vector2(0.484375, 0.48437506)
-texture = ExtResource("3_j7slm")
+scale = Vector2(1.25, 1.25)
+texture = SubResource("ViewportTexture_4ui1s")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 1.0
 target_desired_distance = 200.0
 
 [node name="Timers" type="Node" parent="."]
-
-[node name="AttackLengthTimer" type="Timer" parent="Timers"]
-wait_time = 0.2
-one_shot = true
 
 [node name="WaitAfterAttackTimer" type="Timer" parent="Timers"]
 wait_time = 0.4
@@ -83,7 +83,7 @@ wait_time = 0.15
 one_shot = true
 
 [node name="FacePlayerLengthTimer" type="Timer" parent="Timers"]
-wait_time = 0.4
+wait_time = 0.667
 one_shot = true
 
 [node name="Particles" type="Node2D" parent="."]
@@ -92,9 +92,24 @@ one_shot = true
 scale_amount_min = 0.6
 scale_amount_max = 0.6
 
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="3DView" type="Node3D" parent="SubViewport"]
+
+[node name="CameraPoint" type="Node3D" parent="SubViewport/3DView"]
+transform = Transform3D(1, 0, 0, 0, 0.9238793, -0.3826834, 0, 0.3826834, 0.9238793, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/3DView/CameraPoint"]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 1.462, 0)
+projection = 1
+size = 4.0
+
+[node name="slasher" parent="SubViewport/3DView" instance=ExtResource("5_u6ti3")]
+
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
-[connection signal="timeout" from="Timers/AttackLengthTimer" to="." method="_on_attack_length_timer_timeout"]
 [connection signal="timeout" from="Timers/WaitAfterAttackTimer" to="." method="_on_wait_after_attack_timer_timeout"]
 [connection signal="timeout" from="Timers/WaitBeforeAttackTimer" to="." method="_on_wait_before_attack_timer_timeout"]
 [connection signal="timeout" from="Timers/FacePlayerLengthTimer" to="." method="_on_face_player_length_timer_timeout"]
