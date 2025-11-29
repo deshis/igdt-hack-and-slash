@@ -181,9 +181,6 @@ one_shot = true
 [node name="AttackCooldownTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="AttackLengthTimer" type="Timer" parent="Timers"]
-one_shot = true
-
 [node name="InvulnerabilityLengthTimer" type="Timer" parent="Timers"]
 one_shot = true
 
@@ -193,6 +190,10 @@ autostart = true
 
 [node name="TimeAliveTimer" type="Timer" parent="Timers"]
 autostart = true
+
+[node name="HeavyAttackInitTimer" type="Timer" parent="Timers"]
+wait_time = 0.333
+one_shot = true
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 rotation = -3.1415927
@@ -224,8 +225,9 @@ script = ExtResource("4_fkybt")
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
 [connection signal="timeout" from="Timers/DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
 [connection signal="timeout" from="Timers/AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
-[connection signal="timeout" from="Timers/AttackLengthTimer" to="." method="_on_attack_length_timer_timeout"]
 [connection signal="timeout" from="Timers/InvulnerabilityLengthTimer" to="." method="_on_invulnerability_length_timer_timeout"]
 [connection signal="timeout" from="Timers/HealthRegenTimer" to="." method="_on_health_regen_timer_timeout"]
 [connection signal="timeout" from="Timers/TimeAliveTimer" to="." method="_on_time_alive_timer_timeout"]
+[connection signal="timeout" from="Timers/HeavyAttackInitTimer" to="." method="_on_heavy_attack_init_timer_timeout"]
+[connection signal="heavy_attack_finished" from="PlayerSprite" to="." method="_on_player_sprite_heavy_attack_finished"]
 [connection signal="light_attack_finished" from="PlayerSprite" to="." method="_on_player_sprite_light_attack_finished"]

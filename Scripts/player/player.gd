@@ -46,7 +46,7 @@ var can_attack := true
 var attacking := false
 @onready var health_regen_timer: Timer = $Timers/HealthRegenTimer
 @onready var attack_cooldown_timer: Timer = $Timers/AttackCooldownTimer
-@onready var attack_length_timer: Timer = $Timers/AttackLengthTimer
+@onready var heavy_attack_init_timer: Timer = $Timers/HeavyAttackInitTimer
 
 @onready var light_attack = $AttackLight
 @onready var light_attack_hitbox = $AttackLight/CollisionShape2D
@@ -71,7 +71,7 @@ var heavy_attack_dash_speed := movement_speed * 6.0
 
 var heavy_attack_cooldown:= 0.5
 #duration the hitbox lingers
-var heavy_attack_length:= heavy_attack_cooldown/2
+#var heavy_attack_length:= heavy_attack_cooldown/2
 
 var can_dash:= true
 var dashing = false
@@ -188,22 +188,21 @@ func perform_light_attack() -> void:
 
 
 func perform_heavy_attack() -> void:
-	# enable hitbox and visuals
-	heavy_attack.visible = true
-	heavy_attack_hitbox.disabled = false
+	
+	heavy_attack_init_timer.start()
 	
 	attacking = true
 	can_attack = false
 	can_look_around = false
 	performing_heavy_attack = true
 	
+	player_sprite.heavy_attack(rotation)
 	SoundManager.play_sfx("heavy_attack", global_position)
 	
-	attack_length_timer.start(heavy_attack_length)
-	attack_cooldown_timer.start(heavy_attack_cooldown)
-	secondary_attack_used.emit(heavy_attack_cooldown)
-	
-	current_speed = heavy_attack_dash_speed
+	#attack_length_timer.start(heavy_attack_length)
+	#attack_cooldown_timer.start(heavy_attack_cooldown)
+	#secondary_attack_used.emit(heavy_attack_cooldown)
+
 
 func perform_dash():
 	can_attack = false
@@ -317,17 +316,6 @@ func hit_flash() -> void:
 	mat.set_shader_parameter("strength", 0.0)
 
 
-func _on_attack_length_timer_timeout() -> void:
-	# TODO: need to make this smarter later, but for now it just disables both attacks
-	light_attack_hitbox.disabled = true
-	light_attack.visible = false
-	heavy_attack_hitbox.disabled = true
-	heavy_attack.visible = false
-	
-	attacking = false
-	performing_heavy_attack = false
-	current_speed = movement_speed
-
 func _on_attack_cooldown_timer_timeout() -> void:
 	can_attack = true
 	can_move = true
@@ -383,4 +371,23 @@ func _on_player_sprite_light_attack_finished() -> void:
 	attacking = false
 	performing_heavy_attack = false
 	current_speed = movement_speed
+
+func _on_player_sprite_heavy_attack_finished() -> void:
+	heavy_attack_hitbox.disabled = true
+	heavy_attack.visible = false
 	
+	can_attack = true
+	can_move = true
+	can_look_around = true
+	
+	attacking = false
+	performing_heavy_attack = false
+	current_speed = movement_speed
+
+
+func _on_heavy_attack_init_timer_timeout() -> void:
+	# enable hitbox and visuals
+	heavy_attack.visible = true
+	heavy_attack_hitbox.disabled = false
+	
+	current_speed = heavy_attack_dash_speed

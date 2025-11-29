@@ -7,7 +7,7 @@ extends Sprite2D
 #Storing the light attack speed scale in player.gd so I can access it with my item code
 @onready var player_script = get_parent()
 
-enum STATE {IDLE, RUN, LIGHT_ATTACK, DASH}
+enum STATE {IDLE, RUN, LIGHT_ATTACK, HEAVY_ATTACK, DASH}
 
 var current_state = STATE.IDLE
 
@@ -24,7 +24,7 @@ func _process(_delta):
 
 func update_sprite(direction):
 	
-	if current_state == STATE.LIGHT_ATTACK: return
+	if current_state == STATE.LIGHT_ATTACK || current_state == STATE.HEAVY_ATTACK: return
 		
 	model.rotate_cam(direction)
 	if direction.length() > 0 and current_state != STATE.RUN:
@@ -81,8 +81,12 @@ func light_attack(rot):
 		model_anim = "Light_attack_default"
 		model.anim.play(model_anim)
 		return
-		
-	
+
+func heavy_attack(rot):
+	current_state = STATE.HEAVY_ATTACK
+	model.set_cam_rotation(rot)
+	model.anim.play("Heavy_attack_default")
+
 func _on_anim_finished(anim_name):
 	#if current_state == STATE.DASH:
 		#return
@@ -92,3 +96,5 @@ func _on_anim_finished(anim_name):
 	if anim_name.begins_with("Light_attack_"):
 		weapon_mesh.mesh = null
 		light_attack_finished.emit()
+	elif anim_name.begins_with("Heavy_attack_"):
+		heavy_attack_finished.emit()
