@@ -37,6 +37,8 @@ var target_reached := false
 
 @onready var current_speed := enemy.speed
 
+var active_dots: DotResource = null
+
 func _ready() -> void:
 	attack_area_hitbox.disabled = true
 	sprite.material = sprite.material.duplicate()
@@ -85,19 +87,22 @@ func perform_attack() -> void:
 	
 	attack_length_timer.start()
 	
-func take_dot_damage(dot_tick_damage:float, dot_duration:float, tick_rate:float) -> void:
-	print("dot stats: ","dot dmg: ", dot_tick_damage,"dot duration: ", dot_duration,"dot tick rate: ",tick_rate) 
+func take_dot_damage(dot: DotResource) -> void:
+	#print("dot stats: ","dot dmg: ", dot_tick_damage,"dot duration: ", dot_duration,"dot tick rate: ",tick_rate) 
 	
-	remaining_dot_duration = dot_duration
-	current_tick_damage = dot_tick_damage
-	current_tick_rate = tick_rate
+	#stacking dots would be nice
+	active_dots = dot
+	
+	remaining_dot_duration = dot.dot_duration
+	current_tick_damage = dot.dot_tick_damage
+	current_tick_rate = dot.dot_tick_rate
 	
 	dot_timer.set_wait_time(current_tick_rate)
 	
-	if dot_duration <= 0.0:
+	if dot.dot_duration <= 0.0:
 		dot_timer.stop()
-		dot_tick_damage = 0
-		dot_duration = 0
+		dot.dot_tick_damage = 0
+		dot.dot_duration = 0
 		return
 			
 	if enemy.health <= 0.0:
@@ -109,16 +114,16 @@ func take_dot_damage(dot_tick_damage:float, dot_duration:float, tick_rate:float)
 func _on_dot_tick() -> void:
 	
 	if remaining_dot_duration > 0.0:
-		#print("dealing dot dmg: ",current_tick_damage) 
+
 		enemy.health -= current_tick_damage
 		update_health_bar.emit(enemy.health)
 		hit_flash()
 		SoundManager.play_sfx("dot_sfx", global_position)  #Might want DoT SFX here, maybe even separate depending on DoT (From resource)
 		
+		if active_dots.particle_scene:
+			instantiate_particles(active_dots.particle_scene)
+			
 		remaining_dot_duration -= current_tick_rate
-		
-		#NOTE: Different particles for different DoT?
-		instantiate_particles(electric_dot_particles_scene)
 		
 		GameStats.total_damage_dealt += current_tick_damage
 		
@@ -126,6 +131,7 @@ func _on_dot_tick() -> void:
 			dot_timer.stop()
 			remaining_dot_duration = 0
 			current_tick_damage = 0
+			active_dots = null
 			
 		if enemy.health <= 0.0:
 			die()

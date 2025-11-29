@@ -6,7 +6,7 @@ extends Sprite2D
 #Storing the light attack speed scale in player.gd so I can access it with my item code
 @onready var player_script = get_parent()
 
-enum STATE {IDLE, RUN, LIGHT_ATTACK}
+enum STATE {IDLE, RUN, LIGHT_ATTACK, DASH}
 
 var current_state = STATE.IDLE
 
@@ -22,7 +22,9 @@ func _process(_delta):
 	rotation = -get_parent().global_rotation
 
 func update_sprite(direction):
+	
 	if current_state == STATE.LIGHT_ATTACK: return
+		
 	model.rotate_cam(direction)
 	if direction.length() > 0 and current_state != STATE.RUN:
 		model.anim.speed_scale = player_script.movement_speed / player_script.default_speed
@@ -34,10 +36,12 @@ func update_sprite(direction):
 		current_state = STATE.IDLE
 
 func start_dash():
-	if current_state == STATE.LIGHT_ATTACK:
-		current_state = STATE.IDLE
+	
+	#if current_state == STATE.LIGHT_ATTACK:
+		#current_state = STATE.DASH
 		#player_script.dash_cooldown *= 2
-
+		
+	current_state = STATE.DASH
 	light_attack_finished.emit() #Dash cancels attack animation
 	afterimage_particles.emitting = true
 	model.anim.play("Dash")
@@ -75,8 +79,11 @@ func light_attack(rot):
 		model_anim = "Light_attack_default"
 		model.anim.play(model_anim)
 		return
+		
 	
 func _on_anim_finished(anim_name):
+	#if current_state == STATE.DASH:
+		#return
 	current_state = STATE.IDLE
 	model.anim.speed_scale = 1
 	model.anim.play("Idle")

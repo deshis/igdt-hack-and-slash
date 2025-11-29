@@ -7,9 +7,9 @@ var augments_node: Node
 var item_selection_node: Node
 var trash_slot_node: Node
 
-var starter_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres")]
+var starter_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres"),preload("res://Scripts/items/prototype/Labrys.tres")]
 var augment_items: Array[ItemResource] = []
-var backpack_items: Array[ItemResource] = []
+var backpack_items: Array[ItemResource] = [] # pls don't clean me! [preload("res://Scripts/items/prototype/Item6.tres"),preload("res://Scripts/items/consumer/Item4.tres")] #[preload("res://Scripts/items/prototype/Item6.tres")]
 
 var item_scene: PackedScene = preload("res://Scenes/item.tscn")
 
@@ -154,32 +154,47 @@ func update_item_effects(old_item: ItemResource, new_item: ItemResource) -> void
 func apply_item_effects(item: ItemResource) -> void:
 	if not item:
 		return
-	#print("Applying effects for: ", item.item_name)
-	for effect in item.effects:
-		effect.apply_effect(GameManager.player)
 		
-	#Checking between the primary & secondary weapon
+	#chaos, don't touch
 	if item.weapon_type != ItemType.WeaponType.NONE:
 		if item.attack_type == ItemType.AttackType.PRIMARY:
+			ItemGlobals.primary = true
 			item.set_primary_weapon_type_name()
 			item.set_primary_attack_type_name()
 			
 		if item.attack_type == ItemType.AttackType.SECONDARY:
+			ItemGlobals.secondary = true
 			item.set_secondary_weapon_type_name()
 			item.set_secondary_attack_type_name()
+			
+	#print("Applying effects for: ", item.item_name)
+	for effect in item.effects:
+		effect.apply_effect(GameManager.player)
+	
+	#reset the check
+	ItemGlobals.primary = false
+	ItemGlobals.secondary = false
+
 
 func remove_item_effects(item: ItemResource) -> void:
-	#print("Removing effects for: ", item.item_name)
-	for effect in item.effects:
-		effect.remove_effect(GameManager.player)
-		
-	#TODO: reset to default
+
+	#chaos, don't touch
 	if item.weapon_type != ItemType.WeaponType.NONE:
 		if item.attack_type == ItemType.AttackType.PRIMARY:
+			ItemGlobals.primary = true
 			ItemGlobals.primary_weapon_type = "Default"
 			
 		if item.attack_type == ItemType.AttackType.SECONDARY:
+			ItemGlobals.secondary = true
 			ItemGlobals.secondary_weapon_type = "Default"
+			
+	#print("Removing effects for: ", item.item_name)
+	for effect in item.effects:
+		effect.remove_effect(GameManager.player)
+			
+	#reset the check
+	ItemGlobals.primary = false
+	ItemGlobals.secondary = false
 
 func reset_inventory() -> void:
 	augment_items.clear()

@@ -133,8 +133,6 @@ func _create_description() -> void:
 	#Item description
 	formatted_desc += "[center][color=" + "#777777" + "]" + item.item_description + "[/color][/center]\n"
 	
-	
-	
 	description.set_text(formatted_desc)
 
 func hex(c: Color) -> String:

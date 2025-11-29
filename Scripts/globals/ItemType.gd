@@ -27,5 +27,6 @@ enum WeaponType {
 	NONE,
 	DAGGER,
 	SWORD,
-	MAUL
+	MAUL,
+	AXE
 }

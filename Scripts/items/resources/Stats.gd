@@ -6,6 +6,9 @@ class_name Stats
 @export var dot_resource: DotResource
 
 signal update_health_bar
+
+var primary
+var secondary
 #
 #NOTE: Might want a separate damage stat for clarity?
 enum Stat { 
@@ -26,10 +29,12 @@ enum Stat {
 	HEAVY_SIZE_Y,
 	
 	LIFESTEAL,
-	DOT_EFFECT
+	DOT_EFFECT,
+	PRIMARY_CHECK
 	}
 	
 func apply_effect(player) -> void:
+	
 	match stat_type:
 		
 		Stat.FLAT_DAMAGE_REDUCTION:
@@ -78,9 +83,18 @@ func apply_effect(player) -> void:
 			
 		Stat.LIFESTEAL:
 			player.life_steal += value
+			
 		Stat.DOT_EFFECT:
-			if dot_resource:
-				player.active_dot = dot_resource
+
+			if dot_resource: 
+				if ItemGlobals.primary:
+					player.primary_attack_active_dot = dot_resource
+					#print("set primary DoT")
+					
+				if ItemGlobals.secondary:
+					player.secondary_attack_active_dot = dot_resource
+					#print("set secondary DoT")
+			
 
 func remove_effect(player) -> void:
 	match stat_type:
@@ -126,5 +140,11 @@ func remove_effect(player) -> void:
 		Stat.LIFESTEAL:
 			player.life_steal -= value
 		Stat.DOT_EFFECT:
-			if dot_resource:
-				player.active_dot = null
+			if dot_resource: 
+				if ItemGlobals.primary:
+					player.primary_attack_active_dot = null
+					print("clear primary DoT")
+					
+				if ItemGlobals.secondary:
+					player.secondary_attack_active_dot = null
+					print("clear secondary DoT")
