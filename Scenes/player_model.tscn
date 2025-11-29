@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cffxpw73nnlnu"]
+[gd_scene load_steps=6 format=3 uid="uid://cffxpw73nnlnu"]
 
 [ext_resource type="PackedScene" uid="uid://dwtbamo1ikn5k" path="res://Assets/player/scifi-character.glb" id="1_dluh4"]
-[ext_resource type="ArrayMesh" uid="uid://c6mhtob85tmm4" path="res://Assets/player/weapons/katana.res" id="2_waurb"]
 [ext_resource type="Shader" uid="uid://4hwgr3jdxls" path="res://Assets/effects/slash/slash.gdshader" id="3_mqtts"]
 [ext_resource type="Texture2D" uid="uid://c4to5uo6rpnur" path="res://Assets/effects/slash/slash_erosion.png" id="4_31ovn"]
 [ext_resource type="Texture2D" uid="uid://dg11j431speyx" path="res://Assets/effects/slash/slash_tex.png" id="5_740jx"]
@@ -15,8 +14,9 @@ shader_parameter/texture_albedo = ExtResource("5_740jx")
 shader_parameter/erosion_texture = ExtResource("4_31ovn")
 shader_parameter/highlight_scale = 1.2090000099275
 shader_parameter/erosion = 0.0
-shader_parameter/uv_scale = Vector3(1, 1, 1)
-shader_parameter/uv_offset = Vector3(0, 0, 0)
+shader_parameter/fade = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
 
 [node name="model" instance=ExtResource("1_dluh4")]
 
@@ -216,7 +216,6 @@ bone_idx = 174
 transform = Transform3D(1, 0, 0, 0, -4.371138e-08, -0.9999999, 0, 0.9999998, -4.3711385e-08, -0.044, 0.108, -0.003)
 
 [node name="Mesh" type="MeshInstance3D" parent="rig/Skeleton3D/BoneAttachment3D/Weapon" index="0"]
-mesh = ExtResource("2_waurb")
 
 [node name="Cube" parent="." index="2"]
 visible = false

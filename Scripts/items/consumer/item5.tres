@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://dfg2rydc2s2mc"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=7 format=3 uid="uid://dfg2rydc2s2mc"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_x7x7j"]
 [ext_resource type="Texture2D" uid="uid://c0jlhbvb0hlcd" path="res://Assets/item_icons/katanaicon.png" id="2_a3pq7"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="2_yrbwt"]
+[ext_resource type="ArrayMesh" uid="uid://brngfcfsbf1cp" path="res://Assets/player/weapons/katana.res" id="4_ecl44"]
 
 [sub_resource type="Resource" id="Resource_x4600"]
 script = ExtResource("1_x7x7j")
@@ -23,6 +24,7 @@ item_description = "The power of anime"
 type = 6
 attack_type = 1
 weapon_type = 2
+weapon_mesh = ExtResource("4_ecl44")
 icon = ExtResource("2_a3pq7")
 effects = Array[ExtResource("1_x7x7j")]([SubResource("Resource_x4600"), SubResource("Resource_wj2i3")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

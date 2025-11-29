@@ -2,6 +2,7 @@ extends Sprite2D
 
 @onready var model = $"../SubViewport/model"
 @onready var afterimage_particles = $AfterimageParticles
+@onready var weapon_mesh = $"../SubViewport/model/rig/Skeleton3D/BoneAttachment3D/Weapon/Mesh"
 
 #Storing the light attack speed scale in player.gd so I can access it with my item code
 @onready var player_script = get_parent()
@@ -64,6 +65,7 @@ func light_attack(rot):
 	model.set_cam_rotation(rot)
 	#Separating the speed scale to modify it in isolation
 	model.anim.speed_scale = player_script.light_attack_speed_scale
+	weapon_mesh.mesh = ItemGlobals.primary_weapon_mesh
 	
 	if ItemGlobals.primary_weapon_type == "Dagger":
 		model_anim = "Light_attack_dagger"
@@ -88,4 +90,5 @@ func _on_anim_finished(anim_name):
 	model.anim.speed_scale = 1
 	model.anim.play("Idle")
 	if anim_name.begins_with("Light_attack_"):
+		weapon_mesh.mesh = null
 		light_attack_finished.emit()

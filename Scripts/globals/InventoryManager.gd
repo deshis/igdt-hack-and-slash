@@ -158,11 +158,13 @@ func apply_item_effects(item: ItemResource) -> void:
 	#chaos, don't touch
 	if item.weapon_type != ItemType.WeaponType.NONE:
 		if item.attack_type == ItemType.AttackType.PRIMARY:
+			ItemGlobals.primary_weapon_mesh = item.weapon_mesh
 			ItemGlobals.primary = true
 			item.set_primary_weapon_type_name()
 			item.set_primary_attack_type_name()
 			
 		if item.attack_type == ItemType.AttackType.SECONDARY:
+			ItemGlobals.secondary_weapon_mesh = item.weapon_mesh
 			ItemGlobals.secondary = true
 			item.set_secondary_weapon_type_name()
 			item.set_secondary_attack_type_name()
@@ -175,16 +177,17 @@ func apply_item_effects(item: ItemResource) -> void:
 	ItemGlobals.primary = false
 	ItemGlobals.secondary = false
 
-
 func remove_item_effects(item: ItemResource) -> void:
 
 	#chaos, don't touch
 	if item.weapon_type != ItemType.WeaponType.NONE:
 		if item.attack_type == ItemType.AttackType.PRIMARY:
+			ItemGlobals.primary_weapon_mesh = null
 			ItemGlobals.primary = true
 			ItemGlobals.primary_weapon_type = "Default"
 			
 		if item.attack_type == ItemType.AttackType.SECONDARY:
+			ItemGlobals.secondary_weapon_mesh = null
 			ItemGlobals.secondary = true
 			ItemGlobals.secondary_weapon_type = "Default"
 			

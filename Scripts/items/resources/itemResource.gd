@@ -8,6 +8,7 @@ class_name ItemResource
 @export var grade: ItemType.Grade
 @export var attack_type: ItemType.AttackType
 @export var weapon_type: ItemType.WeaponType
+@export var weapon_mesh: Mesh
 @export var icon: Texture2D
 @export var effects: Array[Stats] = []
 
