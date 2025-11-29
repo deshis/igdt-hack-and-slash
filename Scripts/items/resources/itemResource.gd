@@ -30,7 +30,8 @@ const STAT_NAMES = {
 	Stats.Stat.HEAVY_SIZE_Y: "Attack length",
 	
 	Stats.Stat.LIFESTEAL: "% Lifesteal",
-	Stats.Stat.DOT_EFFECT: "TODO: DOT INFO"
+	Stats.Stat.DOT_EFFECT: "Dot info",
+	Stats.Stat.PRIMARY_CHECK: "Primary check"
 	}
 	
 var stat_name
@@ -147,11 +148,21 @@ func get_formatted_stats() -> String:
 		
 		var formatted_value := format_stat_value(effect.stat_type, effect.value)
 		
+		#NOTE: Stats that shouldn't be shown in the item description go here
+		if dictionary_stat == "Primary check":
+			formatted_stats += ""
+			return formatted_stats
+			
+		if dictionary_stat == "Dot info":
+			formatted_stats += "[color=" + effect.dot_resource.dot_item_desc_color + "]" + "+" + effect.dot_resource.dot_name + "[/color]\n"
+			return formatted_stats
+			
 		if dictionary_stat == "Movement Speed" || dictionary_stat == "Attack width" || dictionary_stat == "Attack length" || dictionary_stat == "Light attackspeed" || dictionary_stat == "Heavy attackspeed":
 			# %s%s %s => 3 placeholders: 
 			# replaced with sign, formatted_value, dictionary_stat
 			stats1 = "%s%s %s\n" % [sign1, formatted_value, dictionary_stat]
 			formatted_stats += "[color=" + stat_color + "]" + stats1 + "[/color]"
+			#return formatted_stats
 		else:
 			stats2 = "%s%s %s\n" % [sign1, effect.value, dictionary_stat]
 			formatted_stats += "[color=" + stat_color + "]" + stats2 + "[/color]"

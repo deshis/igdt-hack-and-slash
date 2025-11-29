@@ -5,6 +5,8 @@
 
 [resource]
 script = ExtResource("2_w2j22")
+dot_name = "Bleed"
+dot_item_desc_color = "#b01515"
 dot_tick_damage = 1.0
 dot_tick_rate = 0.8
 particle_scene = ExtResource("1_bcd7x")

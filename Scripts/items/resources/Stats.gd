@@ -32,7 +32,7 @@ enum Stat {
 	DOT_EFFECT,
 	PRIMARY_CHECK
 	}
-	
+
 func apply_effect(player) -> void:
 	
 	match stat_type:
