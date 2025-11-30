@@ -6,8 +6,7 @@
 [resource]
 script = ExtResource("1_4gaow")
 dot_name = "Shock"
-dot_description_color = "#edc939"
-dot_tick_damage = 0.35
+dot_tick_damage = 0.3
 dot_tick_rate = 0.15
 dot_duration = 2.0
 particle_scene = ExtResource("1_4x3kw")

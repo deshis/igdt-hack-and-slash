@@ -336,22 +336,24 @@ func _on_dash_length_timer_timeout() -> void:
 	player_sprite.stop_dash()
 
 func _on_attack_light_area_entered(area: Area2D) -> void:
+	
+	deal_damage(area, attack_light_damage)
+		
 	if primary_attack_active_dot != null:
 		deal_dot_damage(area, primary_attack_active_dot)
 		
 	if primary_attack_active_debuff != null:
 		deal_stat_damage(area, primary_attack_active_debuff)
 
-	deal_damage(area, attack_light_damage)
-
 func _on_attack_heavy_area_entered(area: Area2D) -> void:
+	
+	deal_damage(area, attack_heavy_damage)
+	
 	if secondary_attack_active_dot != null:
 		deal_dot_damage(area, secondary_attack_active_dot)
 		
 	if secondary_attack_active_debuff != null:
 		deal_stat_damage(area, secondary_attack_active_debuff)
-		
-	deal_damage(area, attack_heavy_damage)
 
 func _on_item_pickup_detector_area_entered(area: Area2D) -> void:
 	overlapping_pickups.append(area)

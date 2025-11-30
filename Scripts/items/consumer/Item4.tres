@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_1plfm"]
 [ext_resource type="Texture2D" uid="uid://m1qokbect7xx" path="res://Assets/item_icons/maulicon.png" id="2_nfhpj"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_k4422"]
-[ext_resource type="ArrayMesh" uid="uid://ci5cpakgm83sm" path="res://Assets/player/weapons/maul.res" id="4_f6yso"]
+[ext_resource type="ArrayMesh" uid="uid://c43hvmywfkp1j" path="res://Assets/player/weapons/maul.res" id="4_f6yso"]
 
 [sub_resource type="Resource" id="Resource_6jpnv"]
 script = ExtResource("1_1plfm")

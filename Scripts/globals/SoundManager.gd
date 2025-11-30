@@ -31,7 +31,8 @@ func _ready() -> void:
 		"hit": load("res://Assets/audio/effect_hit.wav"),
 		"enemy_die": load("res://Assets/audio/effect_enemy_die.wav"),
 		"dot_sfx": load("res://Assets/audio/effect_dot.wav"),
-		"heal":load("res://Assets/audio/effect_heal.wav")
+		"heal":load("res://Assets/audio/effect_heal.wav"),
+		"freeze_sfx":load("res://Assets/audio/effect_freeze.wav")
 	}
 	
 	sfx_pitch_ranges = {

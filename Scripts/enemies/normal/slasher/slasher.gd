@@ -34,6 +34,7 @@ func change_state(new_state: String, duration := 0.0):
 		DASH:
 			current_speed = dash_speed
 
+
 func process_face_player(delta: float) -> void:
 	var dir = (player.global_position - global_transform.origin).normalized()
 	update_facing_dir(delta, dir)
