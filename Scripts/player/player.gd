@@ -70,6 +70,7 @@ var heavy_attack_dash_decay := 0.6
 var heavy_attack_dash_speed := movement_speed * 6.0
 
 var heavy_attack_cooldown:= 0.5
+var heavy_attack_init_time = 0
 #duration the hitbox lingers
 #var heavy_attack_length:= heavy_attack_cooldown/2
 
@@ -190,8 +191,6 @@ func perform_light_attack() -> void:
 
 func perform_heavy_attack() -> void:
 	
-	heavy_attack_init_timer.start()
-	
 	attacking = true
 	can_attack = false
 	can_look_around = false
@@ -199,6 +198,8 @@ func perform_heavy_attack() -> void:
 	
 	player_sprite.heavy_attack(rotation)
 	SoundManager.play_sfx("heavy_attack", global_position)
+	
+	heavy_attack_init_timer.start()
 	
 	#attack_length_timer.start(heavy_attack_length)
 	#attack_cooldown_timer.start(heavy_attack_cooldown)

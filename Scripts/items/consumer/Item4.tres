@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://c3lirlkahxk7w"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=7 format=3 uid="uid://c3lirlkahxk7w"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_1plfm"]
 [ext_resource type="Texture2D" uid="uid://m1qokbect7xx" path="res://Assets/item_icons/maulicon.png" id="2_nfhpj"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_k4422"]
+[ext_resource type="ArrayMesh" uid="uid://ci5cpakgm83sm" path="res://Assets/player/weapons/maul.res" id="4_f6yso"]
 
 [sub_resource type="Resource" id="Resource_6jpnv"]
 script = ExtResource("1_1plfm")
@@ -23,6 +24,7 @@ item_description = "Bonk"
 type = 7
 attack_type = 2
 weapon_type = 3
+weapon_mesh = ExtResource("4_f6yso")
 icon = ExtResource("2_nfhpj")
 effects = Array[ExtResource("1_1plfm")]([SubResource("Resource_6jpnv"), SubResource("Resource_vrl5g")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

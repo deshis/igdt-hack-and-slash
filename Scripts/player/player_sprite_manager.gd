@@ -85,7 +85,15 @@ func light_attack(rot):
 func heavy_attack(rot):
 	current_state = STATE.HEAVY_ATTACK
 	model.set_cam_rotation(rot)
-	model.anim.play("Heavy_attack_default")
+	
+	weapon_mesh.mesh = ItemGlobals.secondary_weapon_mesh
+	
+	if ItemGlobals.secondary_weapon_type == "Maul":
+		player_script.heavy_attack_init_time = 0.5
+		model.anim.play("Heavy_attack_maul")
+	else:
+		player_script.heavy_attack_init_time = 0.333
+		model.anim.play("Heavy_attack_default")
 
 func _on_anim_finished(anim_name):
 	#if current_state == STATE.DASH:
@@ -97,4 +105,5 @@ func _on_anim_finished(anim_name):
 		weapon_mesh.mesh = null
 		light_attack_finished.emit()
 	elif anim_name.begins_with("Heavy_attack_"):
+		weapon_mesh.mesh = null
 		heavy_attack_finished.emit()
