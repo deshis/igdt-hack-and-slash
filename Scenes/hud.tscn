@@ -364,7 +364,6 @@ grow_vertical = 2
 script = ExtResource("10_lkt4f")
 
 [node name="Panel" type="Panel" parent="PauseMenu"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -420,6 +419,7 @@ script = ExtResource("11_wfkbc")
 
 [node name="SettingsMenu" type="Control" parent="PauseMenu"]
 process_mode = 3
+visible = false
 layout_mode = 1
 anchors_preset = 0
 
@@ -437,11 +437,10 @@ offset_right = 250.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 2
+current_tab = 0
 script = ExtResource("11_36s6t")
 
 [node name="Audio" type="MarginContainer" parent="PauseMenu/SettingsMenu/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -572,6 +571,7 @@ size_flags_vertical = 8
 text = "Back to menu"
 
 [node name="Controls" type="MarginContainer" parent="PauseMenu/SettingsMenu/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
