@@ -159,12 +159,13 @@ func remove_effect(player) -> void:
 				if ItemGlobals.secondary:
 					player.secondary_attack_active_dot = null
 					print("clear secondary DoT")
-		Stat.DOT_EFFECT:
-			if dot_resource: 
+					
+		Stat.DEBUFF_EFFECT:
+			if debuff_resource: 
 				if ItemGlobals.primary:
-					player.primary_attack_active_dot = null
-					print("clear primary DoT")
+					player.primary_attack_active_debuff = null
+					#print("set primary DoT")
 					
 				if ItemGlobals.secondary:
-					player.secondary_attack_active_dot = null
-					print("clear secondary DoT")
+					player.secondary_attack_active_debuff = null
+					#print("set secondary DoT")
