@@ -199,6 +199,7 @@ func perform_heavy_attack() -> void:
 	player_sprite.heavy_attack(rotation)
 	SoundManager.play_sfx("heavy_attack", global_position)
 	
+	heavy_attack_init_timer.wait_time = heavy_attack_init_time
 	heavy_attack_init_timer.start()
 	
 	#attack_length_timer.start(heavy_attack_length)
