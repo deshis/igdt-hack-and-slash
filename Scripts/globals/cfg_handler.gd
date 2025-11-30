@@ -81,7 +81,10 @@ func load_audio_settings() -> Dictionary:
 
 
 func save_keybind(action:StringName, event:InputEvent)->void:
-	cfg.set_value("keybinds", action, event.as_text())
+	var event_str = event.as_text()
+	if " (Double Click)" in event_str:
+		event_str = event_str.rstrip((" (Double Click)"))
+	cfg.set_value("keybinds", action, event_str)
 	cfg.save(CFG_PATH)
 
 

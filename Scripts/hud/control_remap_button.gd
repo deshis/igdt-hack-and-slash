@@ -25,7 +25,7 @@ func _ready() -> void:
 
 
 func update_key_text():
-	text = InputMap.action_get_events(action)[0].as_text()
+	text = CfgHandler.load_keybinds()[action].as_text()
 
 
 func _toggled(toggled_on: bool) -> void:
