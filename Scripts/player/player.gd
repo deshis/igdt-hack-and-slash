@@ -90,7 +90,8 @@ var overlapping_pickups := []
 var primary_attack_active_dot: DotResource = null
 var secondary_attack_active_dot: DotResource = null
 
-
+var primary_attack_active_debuff: DebuffResource = null
+var secondary_attack_active_debuff: DebuffResource = null
 
 func _ready() -> void:
 	light_attack_hitbox.disabled = true
@@ -237,21 +238,24 @@ func deal_damage(area: Area2D, amount: float) -> void:
 	
 	enemy.take_damage(amount)
 	
-func apply_dot_to_enemy(enemy: EnemyController, dot_resource: DotResource):
-	
-	enemy.active_dot_resource = dot_resource
-	enemy.current_tick_damage = dot_resource.dot_tick_damage
-	enemy.current_tick_rate = dot_resource.dot_tick_rate
-	enemy.remaining_dot_duration = dot_resource.dot_duration
-	
-	enemy.dot_timer.start()
-	
 func deal_dot_damage(area: Area2D, dot: DotResource) -> void:
 
 	var enemy = area.get_parent() as EnemyController
 
 	if dot.dot_tick_damage > 0:
 		enemy.take_dot_damage(dot)
+		
+func deal_stat_damage(area: Area2D, debuff: DebuffResource) -> void:
+	
+	#print("Deal stat damage")
+
+	var enemy = area.get_parent() as EnemyController
+	
+	#print(enemy.current_speed)
+
+	if debuff.debuff_stat_damage > 0:
+		#print("Take stat damage")
+		enemy.take_stat_damage(debuff)
 
 func heal(amount: float) -> void:
 	if health >= max_health:
@@ -333,11 +337,19 @@ func _on_dash_length_timer_timeout() -> void:
 func _on_attack_light_area_entered(area: Area2D) -> void:
 	if primary_attack_active_dot != null:
 		deal_dot_damage(area, primary_attack_active_dot)
+		
+	if primary_attack_active_debuff != null:
+		deal_stat_damage(area, primary_attack_active_debuff)
+
 	deal_damage(area, attack_light_damage)
 
 func _on_attack_heavy_area_entered(area: Area2D) -> void:
 	if secondary_attack_active_dot != null:
 		deal_dot_damage(area, secondary_attack_active_dot)
+		
+	if secondary_attack_active_debuff != null:
+		deal_stat_damage(area, secondary_attack_active_debuff)
+		
 	deal_damage(area, attack_heavy_damage)
 
 func _on_item_pickup_detector_area_entered(area: Area2D) -> void:

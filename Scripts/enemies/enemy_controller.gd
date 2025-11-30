@@ -20,14 +20,18 @@ var electric_dot_particles_scene = preload("res://Scenes/enemy/particles/electri
 @onready var death_particles: CPUParticles2D = $Particles/OnDeathParticles
 @onready var death_particles2: CPUParticles2D = $Particles/OnDeathParticles/OnDeathParticles2
 
-
-# DOT EFFECT
 @onready var dot_timer: Timer = $Timers/DotDurationTimer
+@onready var debuff_timer: Timer
+
 var active_dots: DotResource = null
+var active_stat_debuffs: DebuffResource = null
 var dot_tick_rate := 1.5
 var remaining_dot_duration := 0.0
 var current_tick_damage := 0.0
 var current_tick_rate := 0.0
+
+var current_stat_damage := 0.0
+var remaining_debuff_duration := 0.0
 
 # 3D MODEL
 var animator = null
@@ -50,6 +54,10 @@ const NAVIGATE = "navigate"
 const ATTACK = "attack"
 const COOLDOWN = "cooldown"
 
+func _init() -> void:
+	debuff_timer = Timer.new()
+	dot_timer = Timer.new()
+
 func _ready() -> void:
 	sprite.material = sprite.material.duplicate()
 	change_state(IDLE)
@@ -57,10 +65,12 @@ func _ready() -> void:
 	if model_view:
 		animator = camera_point.get_node("AnimationPlayer")
 		model_view.position = Vector3(randf()*1e6, randf()*1e6, randf()*1e6)
-	
 	dot_timer = Timer.new()
 	dot_timer.timeout.connect(_on_dot_tick) 
 	add_child(dot_timer)
+	
+	debuff_timer.timeout.connect(_on_debuff_tick) 
+	add_child(debuff_timer)
 
 func _physics_process(delta: float) -> void:
 	if not player or not target_provider:
@@ -135,12 +145,12 @@ func perform_attack(attack_scene: PackedScene) -> void:
 	instance.global_position = global_position
 	instance.attack_hit.connect(_on_attack_area_area_entered)
 
-
 func take_dot_damage(dot: DotResource) -> void:
 	#print("dot stats: ","dot dmg: ", dot_tick_damage,"dot duration: ", dot_duration,"dot tick rate: ",tick_rate) 
 	
 	#stacking dots would be nice
 	active_dots = dot
+	#enemy.
 	
 	remaining_dot_duration = dot.dot_duration
 	current_tick_damage = dot.dot_tick_damage
@@ -187,8 +197,62 @@ func _on_dot_tick() -> void:
 			return
 		
 		dot_timer.start()
+		
+func take_stat_damage(debuff: DebuffResource) -> void:
+
+	#get_parent().take_stat_damage(debuff)
+	
+	print("Taking stat damage")
+
+	active_stat_debuffs = debuff
+	
+	remaining_debuff_duration = debuff.debuff_duration
+	current_stat_damage = debuff.debuff_stat_damage
+	current_tick_rate = debuff.debuff_tick_rate
+	
+	debuff_timer.set_wait_time(current_tick_rate)
+	
+	if not debuff_timer.is_stopped():
+		debuff_timer.stop()
+
+	debuff_timer.start()
 			
+	if enemy.health <= 0.0:
+		die()
+		return
+		
+	debuff_timer.start()
+	
+func _on_debuff_tick() -> void:
+
+	if remaining_debuff_duration > 0.0:
+		print("Debuff applied: ", remaining_debuff_duration, " seconds left")
+
+		#wait_before_attack_timer.set_wait_time(remaining_debuff_duration) #scuffed stun
+		#wait_before_attack_timer.start()
+
+		#SoundManager.play_sfx("dot_sfx", global_position)  #Might want DoT SFX here, maybe even separate depending on DoT (From resource)
+		
+		if active_stat_debuffs.particle_scene:
+			instantiate_particles(active_stat_debuffs.particle_scene)
 			
+		remaining_debuff_duration -= current_tick_rate
+		
+		change_state(COOLDOWN, remaining_debuff_duration)
+		
+		if remaining_debuff_duration <= 0.0:
+			debuff_timer.stop()
+			remaining_dot_duration = 0
+			current_stat_damage = 0
+			active_stat_debuffs = null
+			
+		if enemy.health <= 0.0:
+			die()
+			return
+		
+		debuff_timer.start()
+			
+
 func take_damage(damage:float) -> void:
 	enemy.health -= damage
 	update_health_bar.emit(enemy.health)

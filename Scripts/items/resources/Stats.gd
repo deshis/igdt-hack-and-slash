@@ -4,6 +4,7 @@ class_name Stats
 @export var stat_type: Stat = Stat.HEALTH
 @export var value: float = 0.0
 @export var dot_resource: DotResource
+@export var debuff_resource: DebuffResource
 
 signal update_health_bar
 
@@ -30,7 +31,8 @@ enum Stat {
 	
 	LIFESTEAL,
 	DOT_EFFECT,
-	PRIMARY_CHECK
+	PRIMARY_CHECK,
+	DEBUFF_EFFECT
 	}
 
 func apply_effect(player) -> void:
@@ -85,7 +87,6 @@ func apply_effect(player) -> void:
 			player.life_steal += value
 			
 		Stat.DOT_EFFECT:
-
 			if dot_resource: 
 				if ItemGlobals.primary:
 					player.primary_attack_active_dot = dot_resource
@@ -93,6 +94,16 @@ func apply_effect(player) -> void:
 					
 				if ItemGlobals.secondary:
 					player.secondary_attack_active_dot = dot_resource
+					#print("set secondary DoT")
+					
+		Stat.DEBUFF_EFFECT:
+			if debuff_resource: 
+				if ItemGlobals.primary:
+					player.primary_attack_active_debuff = debuff_resource
+					#print("set primary DoT")
+					
+				if ItemGlobals.secondary:
+					player.secondary_attack_active_debuff = debuff_resource
 					#print("set secondary DoT")
 			
 
@@ -139,6 +150,15 @@ func remove_effect(player) -> void:
 			
 		Stat.LIFESTEAL:
 			player.life_steal -= value
+		Stat.DOT_EFFECT:
+			if dot_resource: 
+				if ItemGlobals.primary:
+					player.primary_attack_active_dot = null
+					print("clear primary DoT")
+					
+				if ItemGlobals.secondary:
+					player.secondary_attack_active_dot = null
+					print("clear secondary DoT")
 		Stat.DOT_EFFECT:
 			if dot_resource: 
 				if ItemGlobals.primary:
