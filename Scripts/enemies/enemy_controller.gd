@@ -31,7 +31,8 @@ var active_stat_debuffs: DebuffResource = null
 var dot_tick_rate := 1.5
 var remaining_dot_duration := 0.0
 var current_tick_damage := 0.0
-var current_tick_rate := 0.0
+var current_debuff_tick_rate := 0.0
+var current_dot_tick_rate := 0.0
 
 var current_stat_damage := 0.0
 var remaining_debuff_duration := 0.0
@@ -157,9 +158,9 @@ func take_dot_damage(dot: DotResource) -> void:
 	
 	remaining_dot_duration = dot.dot_duration
 	current_tick_damage = dot.dot_tick_damage
-	current_tick_rate = dot.dot_tick_rate
+	current_dot_tick_rate = dot.dot_tick_rate
 	
-	dot_timer.set_wait_time(current_tick_rate)
+	dot_timer.set_wait_time(current_dot_tick_rate)
 	
 	if dot.dot_duration <= 0.0:
 		dot_timer.stop()
@@ -185,7 +186,7 @@ func _on_dot_tick() -> void:
 		if active_dots.particle_scene:
 			instantiate_particles(active_dots.particle_scene)
 			
-		remaining_dot_duration -= current_tick_rate
+		remaining_dot_duration -= current_dot_tick_rate
 		
 		GameStats.total_damage_dealt += current_tick_damage
 		
@@ -211,11 +212,11 @@ func take_stat_damage(debuff: DebuffResource) -> void:
 	
 	remaining_debuff_duration = debuff.debuff_duration
 	current_stat_damage = debuff.debuff_stat_damage
-	current_tick_rate = debuff.debuff_tick_rate
+	current_debuff_tick_rate = debuff.debuff_tick_rate
 	
 	apply_debuff_effect(debuff)
 	
-	debuff_timer.set_wait_time(current_tick_rate)
+	debuff_timer.set_wait_time(current_debuff_tick_rate)
 	
 	if not debuff_timer.is_stopped():
 		debuff_timer.stop()
@@ -229,6 +230,7 @@ func take_stat_damage(debuff: DebuffResource) -> void:
 	debuff_timer.start()
 	
 func apply_debuff_effect(debuff: DebuffResource) -> void:
+	print("Applying debuff")
 	match debuff.debuff_type:
 		DebuffResource.DebuffType.STUN:
 			if active_stat_debuffs.particle_scene:
@@ -262,7 +264,7 @@ func _on_debuff_tick() -> void:
 		if active_stat_debuffs.particle_scene:
 			instantiate_particles(active_stat_debuffs.particle_scene)
 		
-		remaining_debuff_duration -= current_tick_rate
+		remaining_debuff_duration -= current_debuff_tick_rate
 		
 		#if active_stat_debuffs.debuff_stat_damage > 0:
 			#enemy.take_stat_damage(active_stat_debuffs)
@@ -272,7 +274,7 @@ func _on_debuff_tick() -> void:
 		if remaining_debuff_duration <= 0.0:
 			remove_debuff_effect(active_stat_debuffs)
 			debuff_timer.stop()
-			remaining_dot_duration = 0
+			remaining_debuff_duration = 0
 			current_stat_damage = 0
 			active_stat_debuffs = null
 			
