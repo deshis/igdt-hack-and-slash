@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cuuem545ega72"]
+[gd_scene load_steps=22 format=3 uid="uid://cuuem545ega72"]
 
 [ext_resource type="Script" uid="uid://cptm56sk2qede" path="res://Scripts/hud/hud_manager.gd" id="1_36s6t"]
 [ext_resource type="Script" uid="uid://b3p4e86xoqqh3" path="res://Scripts/player/ui/cooldowns.gd" id="2_36s6t"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c8noump2yhng5" path="res://Scripts/player/ui/augment_slot.gd" id="9_pbtju"]
 [ext_resource type="PackedScene" uid="uid://cexexdh4re63h" path="res://Scenes/inventory_slot.tscn" id="10_36s6t"]
 [ext_resource type="Script" uid="uid://c081ighahaot6" path="res://Scripts/hud/pause_menu.gd" id="10_lkt4f"]
+[ext_resource type="Script" uid="uid://gvan738cxsdf" path="res://Scripts/hud/settings_menu_tab_container.gd" id="11_36s6t"]
 [ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="11_wfkbc"]
 [ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/hud/volume_slider.gd" id="12_s17ah"]
 [ext_resource type="Script" uid="uid://cdh5pjfwavchk" path="res://Scripts/player/ui/pickup_slot.gd" id="12_yidpd"]
@@ -16,7 +17,7 @@
 [ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/hud/anti_aliasing_selection.gd" id="15_q562m"]
 [ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/hud/vsync_toggle.gd" id="16_l8r83"]
 [ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/hud/control_remap_button.gd" id="17_v5hjn"]
-[ext_resource type="Script" path="res://Scripts/game_over.gd" id="23_vxf74"]
+[ext_resource type="Script" uid="uid://6jore1um42bw" path="res://Scripts/game_over.gd" id="23_vxf74"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8gbba"]
 size = Vector2(50, 50)
@@ -352,7 +353,6 @@ script = ExtResource("12_yidpd")
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -364,6 +364,7 @@ grow_vertical = 2
 script = ExtResource("10_lkt4f")
 
 [node name="Panel" type="Panel" parent="PauseMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -419,15 +420,8 @@ script = ExtResource("11_wfkbc")
 
 [node name="SettingsMenu" type="Control" parent="PauseMenu"]
 process_mode = 3
-visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 
 [node name="TabContainer" type="TabContainer" parent="PauseMenu/SettingsMenu"]
 custom_minimum_size = Vector2(500, 500)
@@ -443,9 +437,11 @@ offset_right = 250.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 2
+script = ExtResource("11_36s6t")
 
 [node name="Audio" type="MarginContainer" parent="PauseMenu/SettingsMenu/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -576,7 +572,6 @@ size_flags_vertical = 8
 text = "Back to menu"
 
 [node name="Controls" type="MarginContainer" parent="PauseMenu/SettingsMenu/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -586,8 +581,38 @@ metadata/_tab_index = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 alignment = 1
+
+[node name="primary" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/primary"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Primary Attack"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/primary"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "light_attack"
+
+[node name="secondary" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/secondary"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Secondary Attack"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/secondary"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "heavy_attack"
 
 [node name="moveup" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
 layout_mode = 2
@@ -601,23 +626,9 @@ text = "Move Up"
 
 [node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveup"]
 layout_mode = 2
+mouse_behavior_recursive = 2
 script = ExtResource("17_v5hjn")
 action = "move_up"
-
-[node name="movedown" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/movedown"]
-layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "Move Down"
-
-[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/movedown"]
-layout_mode = 2
-script = ExtResource("17_v5hjn")
-action = "move_down"
 
 [node name="moveleft" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
 layout_mode = 2
@@ -634,6 +645,21 @@ layout_mode = 2
 script = ExtResource("17_v5hjn")
 action = "move_left"
 
+[node name="movedown" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/movedown"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Move Down"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/movedown"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "move_down"
+
 [node name="moveright" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -648,6 +674,21 @@ text = "Move Right"
 layout_mode = 2
 script = ExtResource("17_v5hjn")
 action = "move_right"
+
+[node name="interact" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/interact"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Interact"
+
+[node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/interact"]
+layout_mode = 2
+script = ExtResource("17_v5hjn")
+action = "interact"
 
 [node name="dash" type="HBoxContainer" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer"]
 layout_mode = 2

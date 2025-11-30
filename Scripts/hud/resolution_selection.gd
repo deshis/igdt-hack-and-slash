@@ -4,6 +4,11 @@ var current_resolution
 
 func _ready() -> void:
 	var video_settings = CfgHandler.load_video_settings()
+	
+	if "resolution" not in video_settings:
+		CfgHandler.create_new_preferences_file() 
+		video_settings = CfgHandler.load_video_settings()
+	
 	current_resolution = CfgHandler.Resolutions[video_settings.resolution]
 	get_window().set_size(current_resolution)
 	add_resolutions()

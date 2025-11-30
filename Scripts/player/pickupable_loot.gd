@@ -9,7 +9,7 @@ var items := [ItemResource]
 
 func _ready() -> void:
 	var interact = InputMap.action_get_events("interact")
-	var button_name = OS.get_keycode_string(interact[0].physical_keycode)
+	var button_name = interact[0].as_text()
 	$RichTextLabel.text = button_name + " interact"
 
 func _physics_process(delta: float) -> void:

@@ -7,6 +7,10 @@ func _ready() -> void:
 	
 	var video_settings = CfgHandler.load_video_settings()
 	
+	if "antialiasing" not in video_settings:
+		CfgHandler.create_new_preferences_file() 
+		video_settings = CfgHandler.load_video_settings()
+	
 	match video_settings.antialiasing:
 		CfgHandler.AntiAliasing.OFF:
 			selected = 0

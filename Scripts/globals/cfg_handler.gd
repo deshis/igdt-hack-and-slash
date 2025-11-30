@@ -12,6 +12,7 @@ enum AntiAliasing {
 	MSAA8X,
 }
 
+
 var Resolutions: Dictionary = {
 	"3840x2160": Vector2i(3840, 2160),
 	"2560x1440": Vector2i(2560, 1440),
@@ -25,23 +26,34 @@ func _ready() -> void:
 	if FileAccess.file_exists(CFG_PATH):
 		cfg.load(CFG_PATH)
 	else:
-		cfg.set_value("keybinds", "move_up", "W")
-		cfg.set_value("keybinds", "move_left", "A")
-		cfg.set_value("keybinds", "move_down", "S")
-		cfg.set_value("keybinds", "move_right", "D")
-		cfg.set_value("keybinds", "movement_ability", "Shift")
-		cfg.set_value("keybinds", "inventory", "Tab")
-		
-		cfg.set_value("video", "antialiasing", AntiAliasing.TAA)
-		cfg.set_value("video", "resolution", "1920x1080")
-		cfg.set_value("video", "vsync", true)
-		cfg.set_value("video", "fullscreen", false)
-		
-		cfg.set_value ("audio", "master_volume", 1.0)
-		cfg.set_value ("audio", "music_volume", 1.0)
-		cfg.set_value ("audio", "sfx_volume", 1.0)
-		
-		cfg.save(CFG_PATH)
+		create_new_preferences_file()
+
+
+func create_new_preferences_file() -> void:
+	print("missing setting detected, creating new preferences file")
+	
+	cfg.clear()
+	
+	cfg.set_value("keybinds", "move_up", "W")
+	cfg.set_value("keybinds", "move_left", "A")
+	cfg.set_value("keybinds", "move_down", "S")
+	cfg.set_value("keybinds", "move_right", "D")
+	cfg.set_value("keybinds", "movement_ability", "Shift")
+	cfg.set_value("keybinds", "inventory", "Tab")
+	cfg.set_value("keybinds", "light_attack", "Left Mouse Button")
+	cfg.set_value("keybinds", "heavy_attack", "Right Mouse Button")
+	cfg.set_value("keybinds", "interact", "F")
+	
+	cfg.set_value("video", "antialiasing", AntiAliasing.TAA)
+	cfg.set_value("video", "resolution", "1920x1080")
+	cfg.set_value("video", "vsync", true)
+	cfg.set_value("video", "fullscreen", false)
+	
+	cfg.set_value ("audio", "Master", 1.0)
+	cfg.set_value ("audio", "Music", 1.0)
+	cfg.set_value ("audio", "SFX", 1.0)
+	
+	cfg.save(CFG_PATH)
 
 
 func save_video_setting(key:String, val)->void:
@@ -69,9 +81,23 @@ func load_audio_settings() -> Dictionary:
 
 
 func save_keybind(action:StringName, event:InputEvent)->void:
-	var event_str = OS.get_keycode_string(event.physical_keycode)
-	cfg.set_value("keybinds", action, event_str)
+	cfg.set_value("keybinds", action, event.as_text())
 	cfg.save(CFG_PATH)
+
+
+func mouse_str_to_button_index(str:String)->int:
+	match str:
+		"Left Mouse Button":
+			return 1
+		"Right Mouse Button":
+			return 2
+		"Middle Mouse Button":
+			return 3
+		"Mouse Thumb Button 1":
+			return 8
+		"Mouse Thumb Button 2":
+			return 9
+	return -1
 
 
 func load_keybinds() -> Dictionary:
@@ -79,7 +105,12 @@ func load_keybinds() -> Dictionary:
 	var keys = cfg.get_section_keys("keybinds")
 	for key in keys:
 		var event_str = cfg.get_value("keybinds", key)
-		var input_event = InputEventKey.new()
-		input_event.keycode = OS.find_keycode_from_string(event_str)
+		var input_event
+		if "Mouse" in event_str:
+			input_event = InputEventMouseButton.new()
+			input_event.button_index = mouse_str_to_button_index(event_str)
+		else:
+			input_event = InputEventKey.new()
+			input_event.keycode = OS.find_keycode_from_string(event_str)
 		keybinds[key] = input_event
 	return keybinds
