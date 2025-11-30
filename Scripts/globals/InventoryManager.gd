@@ -7,7 +7,7 @@ var augments_node: Node
 var item_selection_node: Node
 var trash_slot_node: Node
 
-var starter_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres"),preload("res://Scripts/items/prototype/Labrys.tres")]
+var starter_items: Array[ItemResource] = [preload("res://Scripts/items/prototype/Item6.tres"),preload("res://Scripts/items/prototype/Labrys.tres"),preload("res://Scripts/items/military/DashLimiter.tres")]
 var augment_items: Array[ItemResource] = []
 var backpack_items: Array[ItemResource] = [] # pls don't clean me! [preload("res://Scripts/items/prototype/Item6.tres"),preload("res://Scripts/items/consumer/Item4.tres")] #[preload("res://Scripts/items/prototype/Item6.tres")]
 

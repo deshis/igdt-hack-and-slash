@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=5 format=3 uid="uid://djdt3alsj7r5g"]
+
+[ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_074gj"]
+[ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="2_qp0c6"]
+
+[sub_resource type="Resource" id="Resource_074gj"]
+script = ExtResource("1_074gj")
+stat_type = 6
+value = 0.5
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[sub_resource type="Resource" id="Resource_qp0c6"]
+script = ExtResource("1_074gj")
+stat_type = 8
+value = 0.5
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[resource]
+script = ExtResource("2_qp0c6")
+item_name = "Axe"
+type = 7
+attack_type = 2
+weapon_type = 4
+effects = Array[ExtResource("1_074gj")]([SubResource("Resource_074gj"), SubResource("Resource_qp0c6")])
+metadata/_custom_type_script = "uid://dulvf1v1d8so8"

@@ -235,7 +235,9 @@ func apply_debuff_effect(debuff: DebuffResource) -> void:
 		DebuffResource.DebuffType.STUN:
 			if active_stat_debuffs.particle_scene:
 				instantiate_particles(active_stat_debuffs.particle_scene)
-
+				
+			SoundManager.play_sfx("stun_sfx", global_position)
+			
 			change_state(COOLDOWN, remaining_debuff_duration)
 		DebuffResource.DebuffType.FREEZE:
 			if active_stat_debuffs.particle_scene:
