@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxfkpodvrl77o"]
+[gd_scene load_steps=10 format=3 uid="uid://cxfkpodvrl77o"]
 
 [ext_resource type="Script" uid="uid://brdidm5k40j17" path="res://Scripts/enemies/normal/microbot/microbot.gd" id="1_j823o"]
 [ext_resource type="PackedScene" uid="uid://cjytwrvmi5ox0" path="res://Scripts/enemies/normal/microbot/attack_circle.tscn" id="2_8ddg0"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_amjd5"]
-[ext_resource type="Texture2D" uid="uid://cgyp55e05tmcl" path="res://Assets/enemies/microbot.png" id="3_amjd5"]
+[ext_resource type="PackedScene" uid="uid://cpp1xnash21x2" path="res://Scripts/enemies/normal/microbot/microbot_model.tscn" id="5_8ddg0"]
 [ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/enemy/particles/on_death_particles.tscn" id="5_kpfue"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
@@ -16,7 +16,10 @@ size = Vector2(42, 42)
 shader = ExtResource("2_amjd5")
 shader_parameter/strength = 0.0
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "sprite")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_byi3r"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "model_view", "camera_point", "sprite")]
 z_index = 2
 collision_layer = 4096
 collision_mask = 4353
@@ -25,10 +28,12 @@ wall_min_slide_angle = 0.0
 safe_margin = 1.0
 script = ExtResource("1_j823o")
 nav_agent = NodePath("NavigationAgent2D")
+model_view = NodePath("SubViewport/3DView")
+camera_point = NodePath("SubViewport/3DView/microbot")
 sprite = NodePath("Sprite2D")
 attack = ExtResource("2_8ddg0")
-attack_windup_duration = 0.8
-attack_range = 125.0
+attack_windup_duration = 1.167
+attack_range = 100.0
 cooldown_duration = 0.6
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
@@ -46,8 +51,8 @@ shape = SubResource("RectangleShape2D_1f0kj")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_opgh6")
 position = Vector2(4.7683716e-07, 9.536743e-07)
-scale = Vector2(0.1640625, 0.1640625)
-texture = ExtResource("3_amjd5")
+scale = Vector2(1.25, 1.25)
+texture = SubResource("ViewportTexture_byi3r")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 1.0
@@ -56,5 +61,21 @@ target_desired_distance = 150.0
 [node name="Particles" type="Node2D" parent="."]
 
 [node name="OnDeathParticles" parent="Particles" instance=ExtResource("5_kpfue")]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="3DView" type="Node3D" parent="SubViewport"]
+
+[node name="CameraPoint" type="Node3D" parent="SubViewport/3DView"]
+transform = Transform3D(1, 0, 0, 0, 0.9659255, -0.25881895, 0, 0.25881895, 0.9659255, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/3DView/CameraPoint"]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 3.177, 0)
+projection = 1
+size = 5.5
+
+[node name="microbot" parent="SubViewport/3DView" instance=ExtResource("5_8ddg0")]
 
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]

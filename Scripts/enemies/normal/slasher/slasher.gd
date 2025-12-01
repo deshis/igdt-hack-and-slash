@@ -30,8 +30,6 @@ func _physics_process(delta: float) -> void:
 func change_state(new_state: String, duration := 0.0):
 	super.change_state(new_state, duration)
 	
-	print_debug(new_state)
-	
 	match state:
 		COOLDOWN:
 			slash_trail.visible = false
