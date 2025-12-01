@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/hud/anti_aliasing_selection.gd" id="15_q562m"]
 [ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/hud/vsync_toggle.gd" id="16_l8r83"]
 [ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/hud/control_remap_button.gd" id="17_v5hjn"]
-[ext_resource type="Script" uid="uid://6jore1um42bw" path="res://Scripts/game_over.gd" id="23_vxf74"]
+[ext_resource type="Script" uid="uid://6jore1um42bw" path="res://Scripts/hud/game_over.gd" id="23_vxf74"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8gbba"]
 size = Vector2(50, 50)
