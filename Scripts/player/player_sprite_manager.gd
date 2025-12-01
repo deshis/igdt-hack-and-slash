@@ -41,7 +41,8 @@ func start_dash():
 	#if current_state == STATE.LIGHT_ATTACK:
 		#current_state = STATE.DASH
 		#player_script.dash_cooldown *= 2
-		
+	
+	model.reset_trails()
 	current_state = STATE.DASH
 	light_attack_finished.emit() #Dash cancels attack animation
 	afterimage_particles.emitting = true
@@ -105,8 +106,10 @@ func _on_anim_finished(anim_name):
 	model.anim.speed_scale = 1
 	model.anim.play("Idle")
 	if anim_name.begins_with("Light_attack_"):
+		model.reset_trails()
 		weapon_mesh.mesh = null
 		light_attack_finished.emit()
 	elif anim_name.begins_with("Heavy_attack_"):
+		model.reset_trails()
 		weapon_mesh.mesh = null
 		heavy_attack_finished.emit()

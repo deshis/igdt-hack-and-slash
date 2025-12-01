@@ -23,8 +23,8 @@ var active_freeze_particles_scene = preload("res://Scenes/enemy/particles/freeze
 @onready var death_particles: CPUParticles2D = $Particles/OnDeathParticles
 @onready var death_particles2: CPUParticles2D = $Particles/OnDeathParticles/OnDeathParticles2
 
-@onready var dot_timer: Timer = $Timers/DotDurationTimer
-@onready var debuff_timer: Timer
+var debuff_timer: Timer
+var dot_timer: Timer
 
 var active_dots: DotResource = null
 var active_stat_debuffs: DebuffResource = null
@@ -57,6 +57,7 @@ var state_timer := 0.0
 const IDLE = "idle"
 const NAVIGATE = "navigate"
 const ATTACK = "attack"
+const STUN = "stun"
 const COOLDOWN = "cooldown"
 
 func _init() -> void:
@@ -98,6 +99,10 @@ func _physics_process(delta: float) -> void:
 		
 		ATTACK:
 			process_attack()
+		
+		STUN:
+			if state_timer <= 0:
+				change_state(IDLE)
 		
 		COOLDOWN:
 			if state_timer <= 0:
@@ -238,7 +243,7 @@ func apply_debuff_effect(debuff: DebuffResource) -> void:
 				
 			SoundManager.play_sfx("stun_sfx", global_position)
 			
-			change_state(COOLDOWN, remaining_debuff_duration)
+			change_state(STUN, remaining_debuff_duration)
 		DebuffResource.DebuffType.FREEZE:
 			if active_stat_debuffs.particle_scene:
 				#First plays the freeze effect, then thawing effect once , as long as the debuff tick rate matches the debuff duration.

@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://cffxpw73nnlnu"]
+[gd_scene load_steps=21 format=3 uid="uid://cffxpw73nnlnu"]
 
 [ext_resource type="PackedScene" uid="uid://dwtbamo1ikn5k" path="res://Assets/player/scifi-character.glb" id="1_dluh4"]
+[ext_resource type="Script" uid="uid://1i3w67cy0385" path="res://Scripts/player/player_model.gd" id="2_740jx"]
 [ext_resource type="Shader" uid="uid://4hwgr3jdxls" path="res://Assets/effects/slash/slash.gdshader" id="3_mqtts"]
 [ext_resource type="Texture2D" uid="uid://cwhxuiydsf4bw" path="res://Assets/effects/slash/erosion_tex.png" id="5_31ovn"]
 [ext_resource type="Texture2D" uid="uid://dg11j431speyx" path="res://Assets/effects/slash/slash_tex.png" id="5_740jx"]
@@ -80,9 +81,13 @@ shader_parameter/fade = 0.15099999669470002
 shader_parameter/uv_scale = Vector2(1.45, 1)
 shader_parameter/uv_offset = Vector2(-1.09, 0)
 
-[node name="model" instance=ExtResource("1_dluh4")]
+[node name="model" node_paths=PackedStringArray("trail_objects") instance=ExtResource("1_dluh4")]
+script = ExtResource("2_740jx")
+trail_objects = [NodePath("AxeTrail"), NodePath("MaulTrail"), NodePath("KickTrail"), NodePath("SwordTrail"), NodePath("DaggerTrail")]
 
-[node name="CameraPoint" type="Node3D" parent="." index="0"]
+[node name="Weapons" type="Node3D" parent="." index="0"]
+
+[node name="CameraPoint" type="Node3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 0.96592575, -0.258819, 0, 0.258819, 0.96592575, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPoint" index="0"]
@@ -291,45 +296,45 @@ transform = Transform3D(1, 0, 0, 0, -4.371138e-08, -0.9999999, 0, 0.9999998, -4.
 
 [node name="Mesh" type="MeshInstance3D" parent="rig/Skeleton3D/BoneAttachment3D/Weapon" index="0"]
 
-[node name="Dagger" parent="." index="2"]
+[node name="Dagger" parent="." index="3"]
 visible = false
 
-[node name="DaggerTrail" parent="." index="3"]
+[node name="DaggerTrail" parent="." index="4"]
 visible = false
 
-[node name="Katana" parent="." index="4"]
+[node name="Katana" parent="." index="5"]
 visible = false
 
-[node name="Maul" parent="." index="5"]
+[node name="Maul" parent="." index="6"]
 visible = false
 
-[node name="SwordTrail" parent="." index="6"]
+[node name="SwordTrail" parent="." index="7"]
 visible = false
 material_override = SubResource("ShaderMaterial_mqtts")
 
-[node name="KickTrail" parent="." index="7"]
+[node name="KickTrail" parent="." index="8"]
 visible = false
 material_override = SubResource("ShaderMaterial_y36al")
 
-[node name="TrainingSword" parent="." index="8"]
+[node name="TrainingSword" parent="." index="9"]
 visible = false
 
-[node name="MaulTrail" parent="." index="9"]
+[node name="MaulTrail" parent="." index="10"]
 visible = false
 material_override = ExtResource("7_740jx")
 
-[node name="Stick" parent="." index="10"]
+[node name="Stick" parent="." index="11"]
 visible = false
 
-[node name="ElectricDagger" parent="." index="11"]
+[node name="ElectricDagger" parent="." index="12"]
 visible = false
 
-[node name="Labrys" parent="." index="12"]
+[node name="Labrys" parent="." index="13"]
 visible = false
 
-[node name="AxeTrail" parent="." index="13"]
+[node name="AxeTrail" parent="." index="14"]
 visible = false
 material_override = SubResource("ShaderMaterial_2q234")
 
-[node name="AnimationPlayer" parent="." index="14"]
+[node name="AnimationPlayer" parent="." index="15"]
 autoplay = "Idle"

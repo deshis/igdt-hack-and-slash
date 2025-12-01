@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://cerovsgxmf0fk"]
+[gd_scene load_steps=18 format=3 uid="uid://cerovsgxmf0fk"]
 
 [ext_resource type="Script" uid="uid://sl7rs4hrme1x" path="res://Scripts/player/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://sqkoujqnueav" path="res://Scripts/player/player_sprite_manager.gd" id="2_vgqql"]
-[ext_resource type="Script" uid="uid://1i3w67cy0385" path="res://Scripts/player/player_model.gd" id="4_fkybt"]
 [ext_resource type="PackedScene" uid="uid://cffxpw73nnlnu" path="res://Scenes/player_model.tscn" id="19_fs7ks"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
@@ -216,8 +215,6 @@ transparent_bg = true
 size = Vector2i(384, 384)
 
 [node name="model" parent="SubViewport" instance=ExtResource("19_fs7ks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.63359463, 0.12819028, 2.0918188)
-script = ExtResource("4_fkybt")
 
 [connection signal="area_entered" from="ItemPickupDetector" to="." method="_on_item_pickup_detector_area_entered"]
 [connection signal="area_exited" from="ItemPickupDetector" to="." method="_on_item_pickup_detector_area_exited"]

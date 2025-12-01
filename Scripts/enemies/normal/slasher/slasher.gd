@@ -3,10 +3,15 @@ class_name Slasher
 
 @export var face_player_duration := 0.667
 @export var dash_speed := 1000.0
-@export var dash_duration := 0.3
+@export var dash_duration := 0.5
+
+@onready var attack_duration = $"SubViewport/3DView/slasher/AnimationPlayer".get_animation("Attack").length 
+
+@onready var slash_trail = $"SubViewport/3DView/slasher/SlashMesh"
 
 const FACE_PLAYER = "face_player"
 const DASH = "dash"
+const ATTACK_WRAP_UP = "attack_wrap_up"
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -17,13 +22,27 @@ func _physics_process(delta: float) -> void:
 		
 		DASH:
 			process_dash(delta)
+		
+		ATTACK_WRAP_UP:
+			process_attack_wrap_up(delta)
 
 
 func change_state(new_state: String, duration := 0.0):
 	super.change_state(new_state, duration)
 	
+	print_debug(new_state)
+	
 	match state:
+		COOLDOWN:
+			slash_trail.visible = false
+			animator.play("Idle")
+		
+		STUN:
+			slash_trail.visible = false
+			animator.play("Stun")
+		
 		NAVIGATE:
+			slash_trail.visible = false
 			animator.play("Walk")
 			current_speed = enemy.speed
 		
@@ -33,6 +52,9 @@ func change_state(new_state: String, duration := 0.0):
 		
 		DASH:
 			current_speed = dash_speed
+		
+		ATTACK_WRAP_UP:
+			current_speed = 0
 
 
 func process_face_player(delta: float) -> void:
@@ -51,8 +73,11 @@ func process_dash(delta: float) -> void:
 	apply_movement(delta, dash_dir)
 	
 	if state_timer < 0:
-		change_state(COOLDOWN, cooldown_duration)
+		change_state(ATTACK_WRAP_UP, attack_duration-face_player_duration-dash_duration)
 
+func process_attack_wrap_up(_delta: float) -> void:
+	if state_timer < 0:
+		change_state(COOLDOWN, cooldown_duration)
 
 func _on_navigation_agent_2d_target_reached() -> void:
 	change_state(FACE_PLAYER, face_player_duration)
