@@ -46,8 +46,7 @@ func toggle_settings_menu()->void:
 
 
 func _on_quit_button_pressed() -> void:
-	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	get_tree().quit()
+	GameManager.quit_to_menu()
 
 
 func _on_back_to_menu_button_pressed() -> void:

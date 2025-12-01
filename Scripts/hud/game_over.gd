@@ -56,5 +56,4 @@ func _on_restart_button_pressed() -> void:
 
 
 func _on_quit_button_pressed() -> void:
-	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	get_tree().quit()
+	GameManager.quit_to_menu()

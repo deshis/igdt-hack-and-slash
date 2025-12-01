@@ -23,6 +23,7 @@ var stages := [
 
 
 func start_game() -> void:
+	
 	stage_root = Node.new()
 	stage_root.name = "StageRoot"
 	add_child(stage_root)
@@ -77,3 +78,24 @@ func set_menu(status: bool) -> void:
 	match status:
 		true: open_menu()
 		false: close_menu()
+
+
+func quit_to_menu()->void:
+	open_menu_count = 0
+	get_tree().paused = false
+	
+	for child in get_children():
+		child.queue_free()
+	
+	var main_menu = preload("res://Scenes/main_menu.tscn").instantiate()
+	add_child(main_menu)
+
+
+func start_game_from_main_menu()->void:
+	for child in get_children():
+		child.queue_free()
+	
+	player = preload("res://Scenes/player.tscn").instantiate() as Player
+	add_child(player)
+	
+	start_game()
