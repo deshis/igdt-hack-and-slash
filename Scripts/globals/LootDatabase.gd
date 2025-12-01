@@ -9,15 +9,15 @@ var consumer_items := [
 ]
 
 var military_items := [
-	preload("res://Scripts/items/military/Item2.tres"),
+	preload("res://Scripts/items/military/SecondHeart.tres"),
 	preload("res://Scripts/items/military/DashLimiter.tres"),
 	preload("res://Scripts/items/military/Plasteeltoedboots.tres")
 ]
 
 var prototype_items := [
-	preload("res://Scripts/items/prototype/Item1.tres"),
-	preload("res://Scripts/items/prototype/Item3.tres"),
-	preload("res://Scripts/items/prototype/Item6.tres")
+	preload("res://Scripts/items/prototype/OverclockedExoskeleton.tres"),
+	preload("res://Scripts/items/prototype/Statstick.tres"),
+	preload("res://Scripts/items/prototype/ArcFlash.tres")
 ]
 
 var type_colors := {

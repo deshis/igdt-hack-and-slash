@@ -39,6 +39,7 @@ signal update_health_bar
 signal dash_used
 signal primary_attack_used
 signal secondary_attack_used
+signal active_item_used
 signal item_picked_up(area)
 signal game_over
 
@@ -82,6 +83,10 @@ var dash_cooldown:= 3.0
 var dash_length:= 0.15
 var dash_speed:= 2500
 
+var can_active_item := true
+@onready var active_item_cooldown_timer: Timer = $Timers/ItemActiveCooldownTimer
+var active_item_cooldown := 5.0
+
 @onready var player_sprite = $PlayerSprite
 
 var health_regen:= 0
@@ -95,6 +100,9 @@ var primary_attack_active_debuff: DebuffResource = null
 var secondary_attack_active_debuff: DebuffResource = null
 
 func _ready() -> void:
+	
+	print("Q to use active item")
+	
 	light_attack_hitbox.disabled = true
 	light_attack.visible = false
 	heavy_attack_hitbox.disabled = true
@@ -130,6 +138,10 @@ func _physics_process(delta) -> void:
 		var item = get_closest_pickup()
 		if item:
 			item_picked_up.emit(item)
+			
+	if Input.is_action_just_pressed("active_item") and can_attack and can_active_item:
+		use_active_item()
+
 	
 	move_and_slide()
 
@@ -206,6 +218,14 @@ func perform_heavy_attack() -> void:
 	#attack_cooldown_timer.start(heavy_attack_cooldown)
 	#secondary_attack_used.emit(heavy_attack_cooldown)
 
+func use_active_item():
+	
+	can_active_item = false
+
+	SoundManager.play_sfx("stun_sfx", global_position)
+	
+	active_item_cooldown_timer.start(active_item_cooldown)
+	active_item_used.emit(active_item_cooldown)
 
 func perform_dash():
 	can_attack = false
@@ -407,3 +427,8 @@ func _on_heavy_attack_init_timer_timeout() -> void:
 	heavy_attack_hitbox.disabled = false
 	
 	current_speed = heavy_attack_dash_speed
+
+
+func _on_item_active_cooldown_timer_timeout() -> void:
+	can_active_item = true
+	pass # Replace with function body.

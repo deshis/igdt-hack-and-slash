@@ -195,6 +195,8 @@ autostart = true
 wait_time = 0.333
 one_shot = true
 
+[node name="ItemActiveCooldownTimer" type="Timer" parent="Timers"]
+
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 rotation = -3.1415927
 scale = Vector2(1.25, 1.25)
@@ -229,5 +231,6 @@ script = ExtResource("4_fkybt")
 [connection signal="timeout" from="Timers/HealthRegenTimer" to="." method="_on_health_regen_timer_timeout"]
 [connection signal="timeout" from="Timers/TimeAliveTimer" to="." method="_on_time_alive_timer_timeout"]
 [connection signal="timeout" from="Timers/HeavyAttackInitTimer" to="." method="_on_heavy_attack_init_timer_timeout"]
+[connection signal="timeout" from="Timers/ItemActiveCooldownTimer" to="." method="_on_item_active_cooldown_timer_timeout"]
 [connection signal="heavy_attack_finished" from="PlayerSprite" to="." method="_on_player_sprite_heavy_attack_finished"]
 [connection signal="light_attack_finished" from="PlayerSprite" to="." method="_on_player_sprite_light_attack_finished"]

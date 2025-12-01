@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource("2_y8tfx")
 item_name = "Dawn"
+item_description = "TODO this item"
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"
