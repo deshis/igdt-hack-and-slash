@@ -10,8 +10,9 @@ signal update_health_bar
 
 var primary
 var secondary
-#
+
 #NOTE: Might want a separate damage stat for clarity?
+#NOTE: Bloated! Too bad.
 enum Stat { 
 	HEALTH, 
 	HEALTH_REGEN,
@@ -32,7 +33,11 @@ enum Stat {
 	LIFESTEAL,
 	DOT_EFFECT,
 	PRIMARY_CHECK,
-	DEBUFF_EFFECT
+	DEBUFF_EFFECT,
+	DASH_COOLDOWN,
+	DASH_LENGTH,
+	DASH_SPEED
+	
 	}
 
 func apply_effect(player) -> void:
@@ -90,21 +95,25 @@ func apply_effect(player) -> void:
 			if dot_resource: 
 				if ItemGlobals.primary:
 					player.primary_attack_active_dot = dot_resource
-					#print("set primary DoT")
 					
 				if ItemGlobals.secondary:
 					player.secondary_attack_active_dot = dot_resource
-					#print("set secondary DoT")
 					
 		Stat.DEBUFF_EFFECT:
 			if debuff_resource: 
 				if ItemGlobals.primary:
 					player.primary_attack_active_debuff = debuff_resource
-					#print("set primary DoT")
 					
 				if ItemGlobals.secondary:
 					player.secondary_attack_active_debuff = debuff_resource
-					#print("set secondary DoT")
+					
+		Stat.DASH_COOLDOWN:
+			player.dash_cooldown += value
+		Stat.DASH_LENGTH:
+			player.dash_length += value
+		Stat.DASH_SPEED:
+			player.dash_speed += value
+				
 			
 
 func remove_effect(player) -> void:
@@ -154,18 +163,21 @@ func remove_effect(player) -> void:
 			if dot_resource: 
 				if ItemGlobals.primary:
 					player.primary_attack_active_dot = null
-					print("clear primary DoT")
-					
+										
 				if ItemGlobals.secondary:
 					player.secondary_attack_active_dot = null
-					print("clear secondary DoT")
 					
 		Stat.DEBUFF_EFFECT:
 			if debuff_resource: 
 				if ItemGlobals.primary:
 					player.primary_attack_active_debuff = null
-					#print("set primary DoT")
-					
+
 				if ItemGlobals.secondary:
 					player.secondary_attack_active_debuff = null
-					#print("set secondary DoT")
+					
+		Stat.DASH_COOLDOWN:
+			player.dash_cooldown -= value
+		Stat.DASH_LENGTH:
+			player.dash_length -= value
+		Stat.DASH_SPEED:
+			player.dash_speed -= value

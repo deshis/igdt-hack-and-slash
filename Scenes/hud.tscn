@@ -133,6 +133,26 @@ show_percentage = false
 [node name="Timer" type="Timer" parent="SkillCooldowns/MarginContainer/HBoxContainer/DashCooldown"]
 one_shot = true
 
+[node name="ActiveItemCooldown" type="TextureRect" parent="SkillCooldowns/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_8gbba")
+expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="SkillCooldowns/MarginContainer/HBoxContainer/ActiveItemCooldown"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/fill = SubResource("StyleBoxFlat_21xkr")
+fill_mode = 2
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="SkillCooldowns/MarginContainer/HBoxContainer/ActiveItemCooldown"]
+one_shot = true
+
 [node name="Inventory" type="Control" parent="."]
 process_mode = 3
 visible = false

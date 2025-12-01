@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://cerovsgxmf0fk"]
+[gd_scene load_steps=18 format=3 uid="uid://cerovsgxmf0fk"]
 
 [ext_resource type="Script" uid="uid://sl7rs4hrme1x" path="res://Scripts/player/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://sqkoujqnueav" path="res://Scripts/player/player_sprite_manager.gd" id="2_vgqql"]
-[ext_resource type="Script" uid="uid://1i3w67cy0385" path="res://Scripts/player/player_model.gd" id="4_fkybt"]
 [ext_resource type="PackedScene" uid="uid://cffxpw73nnlnu" path="res://Scenes/player_model.tscn" id="19_fs7ks"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
@@ -195,6 +194,8 @@ autostart = true
 wait_time = 0.333
 one_shot = true
 
+[node name="ItemActiveCooldownTimer" type="Timer" parent="Timers"]
+
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 rotation = -3.1415927
 scale = Vector2(1.25, 1.25)
@@ -214,8 +215,6 @@ transparent_bg = true
 size = Vector2i(384, 384)
 
 [node name="model" parent="SubViewport" instance=ExtResource("19_fs7ks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.63359463, 0.12819028, 2.0918188)
-script = ExtResource("4_fkybt")
 
 [connection signal="area_entered" from="ItemPickupDetector" to="." method="_on_item_pickup_detector_area_entered"]
 [connection signal="area_exited" from="ItemPickupDetector" to="." method="_on_item_pickup_detector_area_exited"]
@@ -229,5 +228,6 @@ script = ExtResource("4_fkybt")
 [connection signal="timeout" from="Timers/HealthRegenTimer" to="." method="_on_health_regen_timer_timeout"]
 [connection signal="timeout" from="Timers/TimeAliveTimer" to="." method="_on_time_alive_timer_timeout"]
 [connection signal="timeout" from="Timers/HeavyAttackInitTimer" to="." method="_on_heavy_attack_init_timer_timeout"]
+[connection signal="timeout" from="Timers/ItemActiveCooldownTimer" to="." method="_on_item_active_cooldown_timer_timeout"]
 [connection signal="heavy_attack_finished" from="PlayerSprite" to="." method="_on_player_sprite_heavy_attack_finished"]
 [connection signal="light_attack_finished" from="PlayerSprite" to="." method="_on_player_sprite_light_attack_finished"]

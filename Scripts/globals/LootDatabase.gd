@@ -1,21 +1,23 @@
 extends Node
 
 var consumer_items := [
-	preload("res://Scripts/items/consumer/Item4.tres"),
-	preload("res://Scripts/items/consumer/item5.tres"),
-	preload("res://Scripts/items/consumer/item5.tres")
+	preload("res://Scripts/items/consumer/Axe.tres"),
+	preload("res://Scripts/items/consumer/Dagger.tres"),
+	preload("res://Scripts/items/consumer/Katana.tres"),
+	preload("res://Scripts/items/consumer/Maul.tres"),
+	preload("res://Scripts/items/consumer/DashInverter.tres")
 ]
 
 var military_items := [
-	preload("res://Scripts/items/military/Item2.tres"),
-	preload("res://Scripts/items/military/Item2.tres"),
-	preload("res://Scripts/items/military/Item2.tres")
+	preload("res://Scripts/items/military/SecondHeart.tres"),
+	preload("res://Scripts/items/military/DashLimiter.tres"),
+	preload("res://Scripts/items/military/Plasteeltoedboots.tres")
 ]
 
 var prototype_items := [
-	preload("res://Scripts/items/prototype/Item1.tres"),
-	preload("res://Scripts/items/prototype/Item3.tres"),
-	preload("res://Scripts/items/prototype/Item6.tres")
+	preload("res://Scripts/items/prototype/OverclockedExoskeleton.tres"),
+	preload("res://Scripts/items/prototype/Statstick.tres"),
+	preload("res://Scripts/items/prototype/ArcFlash.tres")
 ]
 
 var type_colors := {

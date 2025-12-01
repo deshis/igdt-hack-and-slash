@@ -32,7 +32,8 @@ func _ready() -> void:
 		"enemy_die": load("res://Assets/audio/effect_enemy_die.wav"),
 		"dot_sfx": load("res://Assets/audio/effect_dot.wav"),
 		"heal":load("res://Assets/audio/effect_heal.wav"),
-		"freeze_sfx":load("res://Assets/audio/effect_freeze.wav")
+		"freeze_sfx":load("res://Assets/audio/effect_freeze.wav"),
+		"stun_sfx":load("res://Assets/audio/effect_stun.wav")
 	}
 	
 	sfx_pitch_ranges = {
@@ -42,7 +43,9 @@ func _ready() -> void:
 		"hit": [0.5, 1.2],
 		"enemy_die": [0.5, 1.5],
 		"dot_sfx": [0.5, 1.5],
-		"heal": [0.5, 1.0]
+		"heal": [0.5, 1.0],
+		"freeze_sfx": [0.9, 1.1],
+		"stun_sfx": [0.7,0.9]
 	}
 
 # Play one-shot sound effects
