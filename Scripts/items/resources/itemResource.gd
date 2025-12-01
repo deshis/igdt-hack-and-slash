@@ -57,6 +57,8 @@ func set_primary_weapon_type_name() -> void:
 			ItemGlobals.primary_weapon_type = "Sword"
 		ItemType.WeaponType.MAUL:
 			ItemGlobals.primary_weapon_type = "Maul"
+		ItemType.WeaponType.AXE:
+			ItemGlobals.secondary_weapon_type = "Axe"
 			
 func set_primary_attack_type_name() -> void:
 	
@@ -77,6 +79,8 @@ func set_secondary_weapon_type_name() -> void:
 			ItemGlobals.secondary_weapon_type = "Sword"
 		ItemType.WeaponType.MAUL:
 			ItemGlobals.secondary_weapon_type = "Maul"
+		ItemType.WeaponType.AXE:
+			ItemGlobals.secondary_weapon_type = "Axe"
 			
 func set_secondary_attack_type_name() -> void:
 	

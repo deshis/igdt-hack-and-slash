@@ -91,6 +91,9 @@ func heavy_attack(rot):
 	if ItemGlobals.secondary_weapon_type == "Maul":
 		player_script.heavy_attack_init_time = 0.5
 		model.anim.play("Heavy_attack_maul")
+	elif ItemGlobals.secondary_weapon_type == "Axe":
+		player_script.heavy_attack_init_time = 0.5
+		model.anim.play("Heavy_attack_axe")
 	else:
 		player_script.heavy_attack_init_time = 0.333
 		model.anim.play("Heavy_attack_default")

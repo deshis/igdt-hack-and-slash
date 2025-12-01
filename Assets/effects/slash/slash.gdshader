@@ -17,9 +17,8 @@ uniform vec2 uv_offset;
 
 void fragment() {
 	vec2 base_uv = UV * uv_scale + uv_offset;
-	base_uv = clamp(base_uv, vec2(0.0), vec2(1.0));
 
-	vec2 center = vec2(0.5);
+	vec2 center = vec2(0.1, 0.5);
 	vec2 uv_hi = clamp((base_uv - center) * highlight_scale + center, vec2(0.0), vec2(1.0));
 
 	vec4 tex_hi = texture(texture_albedo, uv_hi);
@@ -29,8 +28,8 @@ void fragment() {
 
 	float erosion_val = step(erosion, texture(erosion_texture, base_uv).r);
 
-	float minimum = step(0, uv_offset.x)*(uv_offset.x);
-	float maximum = 1.0 + step(uv_offset.x, 0.0)*(uv_offset.x);
+	float minimum = step(0, uv_offset.x*uv_scale.x)*(uv_offset.x);
+	float maximum = (1.0*uv_scale.x + step(uv_offset.x, 0.0)*(uv_offset.x))*uv_scale.x;
 	float fade_val = smoothstep(minimum, minimum+fade, base_uv.x) * smoothstep(maximum, maximum - fade, base_uv.x);
 
     // Final Composition
