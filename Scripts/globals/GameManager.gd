@@ -39,12 +39,13 @@ func load_stage(num: int) -> void:
 	if current_stage and current_stage.is_inside_tree():
 		current_stage.queue_free()
 	
+	GameStats.stages_cleared = num
+	
 	current_stage = stages[num].instantiate()
 	current_stage_ind = num
 	
 	stage_root.add_child(current_stage)
 	player.global_position = Vector2.ZERO
-	
 
 func load_next_stage() -> void:
 	load_stage(current_stage_ind + 1)

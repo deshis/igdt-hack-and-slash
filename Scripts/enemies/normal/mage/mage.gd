@@ -9,8 +9,6 @@ const TP_ATTACK = "teleport_attack"
 @onready var tp_attack_area = $TeleportAttackArea
 @onready var tp_attack_hitbox = $TeleportAttackArea/AttackAreaHitbox
 
-@export var attack_duration := 0.2
-
 @export var tp_attack_windup_duration := 0.8
 @export var max_tp_dist := 500
 @export var tp_chance := 0.4
@@ -46,6 +44,8 @@ func change_state(new_state: String, duration := 0.0):
 	super.change_state(new_state, duration)
 	
 	match state:
+		IDLE:
+			nav_agent.target_desired_distance = attack_range
 		TP:
 			target_provider = TargetSelf.new()
 

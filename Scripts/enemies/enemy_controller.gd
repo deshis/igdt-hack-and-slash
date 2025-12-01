@@ -70,7 +70,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	sprite.material = sprite.material.duplicate()
-	change_state(IDLE)
+	nav_agent.path_desired_distance = attack_range
 	
 	if model_view:
 		animator = camera_point.get_node("AnimationPlayer")
@@ -82,6 +82,8 @@ func _ready() -> void:
 	
 	debuff_timer.timeout.connect(_on_debuff_tick) 
 	add_child(debuff_timer)
+	
+	change_state(IDLE)
 
 func _physics_process(delta: float) -> void:
 	if not player or not target_provider:

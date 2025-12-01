@@ -1,6 +1,7 @@
 extends Control
 
 @onready var time_alive: RichTextLabel = $Panel/MarginContainer/VBoxContainer/time_alive
+@onready var stages_cleared: RichTextLabel = $Panel/MarginContainer/VBoxContainer/stages_cleared
 @onready var enemies_killed: RichTextLabel = $Panel/MarginContainer/VBoxContainer/enemies_killed
 @onready var cause_of_death: RichTextLabel = $Panel/MarginContainer/VBoxContainer/cause_of_death
 @onready var damage_dealt: RichTextLabel = $Panel/MarginContainer/VBoxContainer/damage_dealt
@@ -20,6 +21,7 @@ func setup(p: Player) -> void:
 func player_dead()->void:
 	visible=true
 	time_alive.append_text(yellow_text(seconds_to_minute_and_seconds(GameStats.time_alive_seconds)))
+	stages_cleared.append_text(yellow_text(str(GameStats.stages_cleared)))
 	enemies_killed.append_text(yellow_text(str(GameStats.enemies_killed)))
 	damage_dealt.append_text(yellow_text(str(GameStats.total_damage_dealt)))
 	damage_taken.append_text(yellow_text(str(GameStats.total_damage_taken)))

@@ -47,6 +47,8 @@ func spawn_wave_of_enemies(amount: int) -> void:
 		if credits == 0:
 			return
 		
+		print("credits: ", credits)
+		
 		var enemy = null
 		if randf() < augment_enemy_chance:
 			enemy = get_random_enemy(augmented_list)

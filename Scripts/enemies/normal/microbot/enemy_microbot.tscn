@@ -28,6 +28,7 @@ nav_agent = NodePath("NavigationAgent2D")
 sprite = NodePath("Sprite2D")
 attack = ExtResource("2_8ddg0")
 attack_windup_duration = 0.8
+attack_range = 125.0
 cooldown_duration = 0.6
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
@@ -50,7 +51,7 @@ texture = ExtResource("3_amjd5")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 1.0
-target_desired_distance = 100.0
+target_desired_distance = 150.0
 
 [node name="Particles" type="Node2D" parent="."]
 

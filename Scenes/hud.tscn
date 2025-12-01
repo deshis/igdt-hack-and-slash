@@ -799,6 +799,12 @@ bbcode_enabled = true
 text = "Time alive: "
 fit_content = true
 
+[node name="stages_cleared" type="RichTextLabel" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Stages cleared: "
+fit_content = true
+
 [node name="enemies_killed" type="RichTextLabel" parent="GameOverScreen/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
