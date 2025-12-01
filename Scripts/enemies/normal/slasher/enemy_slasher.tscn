@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://bfykyy2y7odt7"]
 
 [ext_resource type="Script" uid="uid://6n8vopurwam1" path="res://Scripts/enemies/normal/slasher/slasher.gd" id="1_j7slm"]
+[ext_resource type="PackedScene" uid="uid://davlo0j46gm1m" path="res://Scripts/enemies/normal/slasher/attack_square.tscn" id="2_ba0y8"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_j7slm"]
-[ext_resource type="PackedScene" uid="uid://bqg0ua7yde1hw" path="res://Scripts/enemies/normal/mage/attack_stab.tscn" id="2_l15iq"]
 [ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/enemy/particles/on_death_particles.tscn" id="5_l15iq"]
 [ext_resource type="PackedScene" uid="uid://dtmntfwnrv3ig" path="res://Scenes/enemy/slasher_model.tscn" id="5_u6ti3"]
 
@@ -33,7 +33,7 @@ nav_agent = NodePath("NavigationAgent2D")
 model_view = NodePath("SubViewport/3DView")
 camera_point = NodePath("SubViewport/3DView/slasher")
 sprite = NodePath("Sprite2D")
-attack = ExtResource("2_l15iq")
+attack = ExtResource("2_ba0y8")
 cooldown_duration = 0.9
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]

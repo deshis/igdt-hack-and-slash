@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlxhhja64imfy"]
+[gd_scene load_steps=5 format=3 uid="uid://c0knmdlg6mk1t"]
 
-[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/Attack.gd" id="1_coq2s"]
+[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/attack.gd" id="1_jj2xh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1dm0"]
 size = Vector2(100.000015, 100.000015)
@@ -13,7 +13,10 @@ gradient = SubResource("Gradient_86i4k")
 fill_from = Vector2(1, 1)
 
 [node name="Attack" type="Node2D"]
-script = ExtResource("1_coq2s")
+script = ExtResource("1_jj2xh")
+hitbox_duration = 0.1
+animation_duration = 0.2
+offset = Vector2(0, -0.5)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16384

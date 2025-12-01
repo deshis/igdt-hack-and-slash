@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://qldvbbr46fde" path="res://Scripts/enemies/bosses/claw/attack_spin.tscn" id="2_arnue"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_gw52e"]
 [ext_resource type="Texture2D" uid="uid://b5uktoex5456a" path="res://Assets/enemies/claw.png" id="3_abev2"]
-[ext_resource type="PackedScene" uid="uid://bqg0ua7yde1hw" path="res://Scripts/enemies/normal/mage/attack_stab.tscn" id="3_oae35"]
+[ext_resource type="PackedScene" uid="uid://bqg0ua7yde1hw" path="res://Scripts/enemies/normal/mage/attack_square.tscn" id="3_oae35"]
 [ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/enemy/particles/on_death_particles.tscn" id="5_abev2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]

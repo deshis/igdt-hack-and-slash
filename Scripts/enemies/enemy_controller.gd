@@ -20,6 +20,8 @@ var freeze_shatter_particles_scene = preload("res://Scenes/enemy/particles/freez
 
 var active_freeze_particles_scene = preload("res://Scenes/enemy/particles/freeze_particles.tscn")
 #var active_freeze_particles: Node2D = null
+var hit_flash_duration := 0.15
+var hit_flash_timer := 0.0
 @onready var death_particles: CPUParticles2D = $Particles/OnDeathParticles
 @onready var death_particles2: CPUParticles2D = $Particles/OnDeathParticles/OnDeathParticles2
 
@@ -49,6 +51,8 @@ var animator = null
 @export var attack_windup_duration := 0.6
 @export var attack_range := 200.0
 @export var cooldown_duration := 1.0
+
+var active_attacks: Array[PackedScene] = []
 
 # STATE MACHINE
 var state = "idle"
@@ -102,6 +106,10 @@ func _physics_process(delta: float) -> void:
 		COOLDOWN:
 			if state_timer <= 0:
 				change_state(IDLE)
+	
+	if hit_flash_timer > 0:
+		hit_flash_timer -= delta
+		hit_flash()
 
 
 func change_state(new_state: String, duration := 0.0):
@@ -145,11 +153,13 @@ func update_facing_dir(delta: float, dir: Vector2) -> void:
 	var target_angle = dir.angle() + Vector2.DOWN.angle()
 	rotation = lerp_angle(rotation, target_angle, enemy.rotation_speed * delta)
 
-func perform_attack(attack_scene: PackedScene) -> void:
+func perform_attack(attack_scene: PackedScene, offset: Vector2 = Vector2.ZERO) -> void:
 	var instance = attack_scene.instantiate()
+	instance.offset = instance.offset if offset == Vector2.ZERO else offset
 	add_child(instance)
-	instance.global_position = global_position
 	instance.attack_hit.connect(_on_attack_area_area_entered)
+	
+	active_attacks.append(instance)
 
 func take_dot_damage(dot: DotResource) -> void:
 
@@ -180,7 +190,7 @@ func _on_dot_tick() -> void:
 
 		enemy.health -= current_tick_damage
 		update_health_bar.emit(enemy.health)
-		hit_flash()
+		hit_flash_timer = hit_flash_duration
 		SoundManager.play_sfx("dot_sfx", global_position)  #Might want DoT SFX here, maybe even separate depending on DoT (From resource)
 		
 		if active_dots.particle_scene:
@@ -292,7 +302,7 @@ func take_damage(damage:float) -> void:
 		
 	enemy.health -= damage
 	update_health_bar.emit(enemy.health)
-	hit_flash()
+	hit_flash_timer = hit_flash_duration
 	SoundManager.play_sfx("hit", global_position)
 	
 	instantiate_particles(hit_particles_scene)
@@ -359,9 +369,14 @@ func hit_flash() -> void:
 	if not mat:
 		return
 	
-	mat.set_shader_parameter("strength", 1.0)
-	await get_tree().create_timer(0.1).timeout
-	mat.set_shader_parameter("strength", 0.0)
+	var strength = 1.0
+	
+	# reduce strength after duration * 0.5
+	if hit_flash_timer < hit_flash_duration * 0.5:
+		strength = hit_flash_timer / (hit_flash_duration * 0.5)
+		strength = clamp(strength, 0.0, 1.0)
+	
+	mat.set_shader_parameter("strength", strength)
 
 func drop_loot() -> void:
 	if LootDatabase.drop_loot(enemy):
@@ -389,3 +404,6 @@ func _on_attack_area_area_entered(_area: Area2D, damage: float = enemy.damage) -
 
 func _on_navigation_agent_2d_target_reached() -> void:
 	change_state(ATTACK, attack_windup_duration)
+
+func _on_attack_removed(attack_instance) -> void:
+	active_attacks.erase(attack_instance)

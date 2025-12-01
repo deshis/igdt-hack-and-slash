@@ -34,6 +34,15 @@ var grade_colors := {
 	ItemType.Grade.PROTOTYPE: Color(1.0, 0.757, 0.0)
 }
 
+var normal_drop_chance := 0.08
+var augmented_drop_chance := 1
+var boss_drop_chance := 1.0
+
+# [consumer, military, prototype]
+var normal_weights := [100, 0, 0]
+var augmented_weights := [75, 25, 0]
+var boss_weights := [0, 25, 75]
+
 var pickupable_item = preload("res://Scenes/pickupable_loot.tscn")
 var pickupable_health = preload("res://Scenes/pickupable_health.tscn")
 
@@ -53,8 +62,7 @@ func get_loot_rarity(enemy: EnemyStats) -> ItemType.Type:
 	var weights = PackedFloat32Array([consumer_chance, military_chance, prototype_chance])
 	var rarity = rng.rand_weighted(weights)
 	
-	print("rarity: ", rarity)
-	return rarity
+	return ItemType.Type.values()[rarity]
 
 func get_items_by_rarity(rarity: ItemType.Grade, amount: int) -> Array:
 	var list = []

@@ -1,26 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://qldvbbr46fde"]
+[gd_scene load_steps=5 format=3 uid="uid://bqg0ua7yde1hw"]
 
-[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/attack.gd" id="1_68tbe"]
+[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/attack.gd" id="1_yi4w0"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cm6kj"]
-radius = 72.94885
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1dm0"]
+size = Vector2(100.000015, 100.000015)
 
 [sub_resource type="Gradient" id="Gradient_86i4k"]
-offsets = PackedFloat32Array(0.8738739, 0.987988)
-colors = PackedColorArray(0, 0, 0, 0.33333334, 0, 0, 0, 0)
+colors = PackedColorArray(0, 0, 0, 0.33333334, 1, 1, 1, 0.3254902)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_m053x"]
 gradient = SubResource("Gradient_86i4k")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 0.5)
+fill_from = Vector2(1, 1)
 
 [node name="Attack" type="Node2D"]
-scale = Vector2(1.6, 1.6)
-script = ExtResource("1_68tbe")
-damage = 3.0
-hitbox_duration = 1.2
-animation_duration = 1.2
+script = ExtResource("1_yi4w0")
+damage = 1.0
+hitbox_duration = 0.1
+animation_duration = 0.2
+offset = Vector2(0, -0.5)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16384
@@ -30,10 +27,10 @@ collision_mask = 512
 light_mask = 3
 visibility_layer = 3
 position = Vector2(1.4901163e-06, -4.1723257e-07)
-shape = SubResource("CircleShape2D_cm6kj")
+shape = SubResource("RectangleShape2D_q1dm0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2.3615046, 2.3615046)
+scale = Vector2(1.5625001, 1.5625001)
 texture = SubResource("GradientTexture2D_m053x")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

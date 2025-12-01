@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_cebxw"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="1_nf640"]
 [ext_resource type="Texture2D" uid="uid://btc5f4lwtyk0v" path="res://Assets/item_icons/statstick.png" id="2_cebxw"]
-[ext_resource type="ArrayMesh" uid="uid://bp2s1fgkvihuw" path="res://Assets/player/weapons/stick.res" id="4_govkd"]
+[ext_resource type="ArrayMesh" uid="uid://b6sqrafjuknb8" path="res://Assets/player/weapons/stick.res" id="4_govkd"]
 
 [sub_resource type="Resource" id="Resource_pptsh"]
 script = ExtResource("1_cebxw")

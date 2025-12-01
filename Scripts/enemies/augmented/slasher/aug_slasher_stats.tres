@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3 uid="uid://3huwnne13hp3"]
+
+[ext_resource type="Script" uid="uid://t76ghlhghorw" path="res://Scripts/enemies/EnemyStats.gd" id="1_8ekfc"]
+
+[resource]
+script = ExtResource("1_8ekfc")
+name = "Augmented ://_Sher"
+type = 1
+speed = 275.0
+max_health = 8.0
+damage = 3.0
+cost = 4.0
+damage_per_level = 0.15
+metadata/_custom_type_script = "uid://t76ghlhghorw"

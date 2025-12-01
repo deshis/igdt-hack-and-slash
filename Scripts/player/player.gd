@@ -23,6 +23,9 @@ var life_stolen := 0.0
 @onready var invulnerability_length_timer: Timer = $Timers/InvulnerabilityLengthTimer
 var damageable := true
 
+var hit_flash_timer := 0.0
+var hit_flash_duration := 0.3
+
 ## Base stats
 #might be useful in the future
 #var base_attack_light_damage := 1 # old 2
@@ -130,6 +133,10 @@ func _physics_process(delta) -> void:
 		var item = get_closest_pickup()
 		if item:
 			item_picked_up.emit(item)
+	
+	if hit_flash_timer > 0:
+		hit_flash_timer = 0 # TODO: temporary fix to avoid infinite loop
+		hit_flash()
 	
 	move_and_slide()
 
@@ -289,7 +296,7 @@ func take_damage(damage:float) -> void:
 	print(damage)
 	update_health_bar.emit(health)
 	
-	hit_flash()
+	hit_flash_timer = hit_flash_duration
 	GameStats.total_damage_taken += damage
 	
 	if health <= 0.0:
@@ -317,9 +324,14 @@ func hit_flash() -> void:
 	if not mat:
 		return
 	
-	mat.set_shader_parameter("strength", 1.0)
-	await get_tree().create_timer(0.1).timeout
-	mat.set_shader_parameter("strength", 0.0)
+	var strength = 1.0
+	
+	# reduce strength after duration * 0.5
+	if hit_flash_timer < hit_flash_duration * 0.5:
+		strength = hit_flash_timer / (hit_flash_duration * 0.5)
+		strength = clamp(strength, 0.0, 1.0)
+	
+	mat.set_shader_parameter("strength", strength)
 
 
 func _on_attack_cooldown_timer_timeout() -> void:

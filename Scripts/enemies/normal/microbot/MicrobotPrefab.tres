@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyPrefab" load_steps=6 format=3 uid="uid://1dmu76yei0sm"]
 
-[ext_resource type="PackedScene" uid="uid://cxfkpodvrl77o" path="res://Scenes/enemy/enemy_microbot.tscn" id="1_8g1td"]
+[ext_resource type="PackedScene" uid="uid://cxfkpodvrl77o" path="res://Scripts/enemies/normal/microbot/enemy_microbot.tscn" id="1_8g1td"]
 [ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemies/EnemyPrefab.gd" id="1_fuwtw"]
 [ext_resource type="Resource" uid="uid://dba27lcq5wxbu" path="res://Scripts/enemies/normal/microbot/microbot_stats.tres" id="2_u7ytx"]
 [ext_resource type="Script" uid="uid://cstuktwrv6qs8" path="res://Scripts/enemies/targets/TargetSelf.gd" id="4_u7ytx"]

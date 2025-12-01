@@ -3,7 +3,7 @@ class_name EnemySpawner
 
 var player: Player = GameManager.player
 @export var enemy_list: Array[EnemyPrefab]
-@export var mini_boss_list: Array[EnemyPrefab]
+@export var augmented_list: Array[EnemyPrefab]
 @export var boss_list: Array[EnemyPrefab]
 
 @export var wave_cooldown_timer: Timer
@@ -15,6 +15,8 @@ var player: Player = GameManager.player
 @export var credits_cooldown_timer: Timer
 @export var credits_gain_min := 1
 @export var credits_gain_max := 3
+
+@export var augment_enemy_chance := 0.2
 
 @export var boss_cooldown_timer: Timer
 @export var boss_cooldown_time := 150.0
@@ -45,7 +47,12 @@ func spawn_wave_of_enemies(amount: int) -> void:
 		if credits == 0:
 			return
 		
-		var enemy = get_random_enemy(enemy_list)
+		var enemy = null
+		if randf() < augment_enemy_chance:
+			enemy = get_random_enemy(augmented_list)
+		else:
+			enemy = get_random_enemy(enemy_list)
+		
 		var cost = enemy.stats.cost
 		
 		if cost <= credits:

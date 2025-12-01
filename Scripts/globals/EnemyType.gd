@@ -2,6 +2,6 @@ extends Node
 
 enum Type {
 	NORMAL,
-	MINIBOSS,
+	AUGMENTED,
 	BOSS
 }
