@@ -20,16 +20,16 @@ var tp_cooldown := 0.0
 var tp_target = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	
 	tp_cooldown -= delta
 	
-	if tp_cooldown < 0:
+	if tp_cooldown < 0 and state == NAVIGATE:
 		tp_cooldown = tp_max_cooldown
 		
 		if randf() < tp_chance:
 			change_state(IDLE)
 			return
-	else:
-		super._physics_process(delta)
 	
 	match state:
 		ATTACK:

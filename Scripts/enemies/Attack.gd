@@ -13,10 +13,9 @@ class_name Attack
 @onready var coll: CollisionShape2D = $Area2D/CollisionShape2D
 
 signal attack_hit(target: Node, damage: float)
+signal attack_removed(node: Node)
 
 func _ready() -> void:
-	connect("tree_exited", Callable(self, "_on_attack_removed"))
-	
 	set_scale(size)
 	normalize_offset()
 	
@@ -57,6 +56,7 @@ func start_attack() -> void:
 	remove_attack()
 
 func remove_attack() -> void:
+	attack_removed.emit(self)
 	queue_free()
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:

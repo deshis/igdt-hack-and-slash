@@ -19,7 +19,7 @@ var player: Player = GameManager.player
 @export var augment_enemy_chance := 0.2
 
 @export var boss_cooldown_timer: Timer
-@export var boss_cooldown_time := 150.0
+@export var boss_cooldown_time := 120.0
 
 var credits := 0.0
 

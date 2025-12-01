@@ -91,10 +91,15 @@ func die() -> void:
 	GameManager.boss_killed()
 	super.die()
 
-func _on_navigation_agent_2d_target_reached() -> void:
-	var rng = randi_range(0, 1)
+func apply_debuff_effect(debuff: DebuffResource) -> void:
+	match debuff.debuff_type:
+		DebuffResource.DebuffType.STUN:
+			return
 	
-	if rng == 0:
-		change_state(ATTACK, attack_windup_duration)
-	else:
+	super.apply_debuff_effect(debuff)
+
+func _on_navigation_agent_2d_target_reached() -> void:
+	if randf() < spin_attack_chance:
 		change_state(SPIN_WINDUP, spin_attack_windup_duration)
+	else:
+		change_state(FACE_PLAYER, face_player_duration)

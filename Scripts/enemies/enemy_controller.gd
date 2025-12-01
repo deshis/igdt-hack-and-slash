@@ -52,7 +52,7 @@ var animator = null
 @export var attack_range := 200.0
 @export var cooldown_duration := 1.0
 
-var active_attacks: Array[PackedScene] = []
+var active_attacks: Array[Node2D] = []
 
 # STATE MACHINE
 var state = "idle"
@@ -124,6 +124,10 @@ func change_state(new_state: String, duration := 0.0):
 	match state:
 		NAVIGATE:
 			target_provider = TargetPlayer.new()
+		
+		STUN:
+			for instance in active_attacks:
+				instance.remove_attack()
 
 func process_idle() -> void:
 	change_state(NAVIGATE)
@@ -163,6 +167,7 @@ func perform_attack(attack_scene: PackedScene, offset: Vector2 = Vector2.ZERO) -
 	instance.offset = instance.offset if offset == Vector2.ZERO else offset
 	add_child(instance)
 	instance.attack_hit.connect(_on_attack_area_area_entered)
+	instance.attack_removed.connect(_on_attack_removed)
 	
 	active_attacks.append(instance)
 
@@ -412,5 +417,5 @@ func _on_attack_area_area_entered(_area: Area2D, damage: float = enemy.damage) -
 func _on_navigation_agent_2d_target_reached() -> void:
 	change_state(ATTACK, attack_windup_duration)
 
-func _on_attack_removed(attack_instance) -> void:
-	active_attacks.erase(attack_instance)
+func _on_attack_removed(node: Node2D) -> void:
+	active_attacks.erase(node)
