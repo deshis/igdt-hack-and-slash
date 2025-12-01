@@ -10,8 +10,9 @@ func setup(c: Node, value: float, max_value: float) -> void:
 	progress_bar.value = value
 	character.update_health_bar.connect(update_health)
 
-func update_health(health:float)->void:
+func update_health(health:float, max_health:float = progress_bar.max_value)->void:
 	progress_bar.value = health
+	progress_bar.max_value = max_health
 
 
 func _physics_process(_delta: float) -> void:

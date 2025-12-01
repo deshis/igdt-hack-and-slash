@@ -413,8 +413,8 @@ func drop_health_pickup() -> void:
 		pickup.setup(player, dir)
 
 func _on_attack_area_area_entered(_area: Area2D, damage: float = enemy.damage) -> void:
+	GameStats.player_last_hit_by = enemy.name
 	player.take_damage(damage)
-	GameStats.player_last_hit_by=enemy.name
 
 func _on_navigation_agent_2d_target_reached() -> void:
 	change_state(ATTACK, attack_windup_duration)

@@ -50,9 +50,9 @@ func apply_effect(player) -> void:
 			player.percent_damage_reduction += value
 			
 		Stat.HEALTH:
-			player.health += value
+			# player.health += value
 			player.max_health += value
-			player.emit_signal("update_health_bar", player.health)
+			player.emit_signal("update_health_bar", player.health, player.max_health)
 		Stat.HEALTH_REGEN:
 			player.health_regen += value
 		Stat.MOVEMENT_SPEED:
@@ -125,9 +125,10 @@ func remove_effect(player) -> void:
 			player.percent_damage_reduction -= value
 			
 		Stat.HEALTH:
-			player.health -= value
 			player.max_health -= value
-			player.emit_signal("update_health_bar", player.health)
+			if player.health > player.max_health:
+				player.health = player.max_health
+			player.emit_signal("update_health_bar", player.health, player.max_health)
 		Stat.HEALTH_REGEN:
 			player.health_regen -= value
 		Stat.MOVEMENT_SPEED:
