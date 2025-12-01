@@ -56,7 +56,7 @@ var light_attack_shape: RectangleShape2D
 var light_attack_visual_shape: Sprite2D
 
 #var light_attack_cooldown:= 0.3
-var light_attack_speed_scale := 1.5
+var light_attack_speed_scale := 1.0
 #duration the hitbox lingers
 #var light_attack_length:= light_attack_cooldown/2
 
