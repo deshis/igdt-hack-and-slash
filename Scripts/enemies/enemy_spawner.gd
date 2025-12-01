@@ -16,7 +16,7 @@ var player: Player = GameManager.player
 @export var credits_gain_min := 1
 @export var credits_gain_max := 3
 
-@export var augment_enemy_chance := 0.2
+@export var augment_enemy_chance := 0.15
 
 @export var boss_cooldown_timer: Timer
 @export var boss_cooldown_time := 120.0
@@ -47,10 +47,9 @@ func spawn_wave_of_enemies(amount: int) -> void:
 		if credits == 0:
 			return
 		
-		print("credits: ", credits)
-		
 		var enemy = null
-		if randf() < augment_enemy_chance:
+		var augment_chance = augment_enemy_chance + diff.difficulty * diff.augment_enemy_chance_per_level
+		if randf() < augment_chance:
 			enemy = get_random_enemy(augmented_list)
 		else:
 			enemy = get_random_enemy(enemy_list)

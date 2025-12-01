@@ -124,6 +124,7 @@ func get_backpack_slot() -> Control:
 	return null
 
 func close_item_pickup_menu() -> void:
+	GameStats.items_picked_up += 1
 	item_selection_node.close_menu()
 
 

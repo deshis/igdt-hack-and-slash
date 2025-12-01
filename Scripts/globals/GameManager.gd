@@ -36,8 +36,11 @@ func start_game() -> void:
 	InventoryManager.init()
 
 func load_stage(num: int) -> void:
-	if current_stage and current_stage.is_inside_tree():
-		current_stage.queue_free()
+	for child in stage_root.get_children():
+		child.queue_free()
+	
+	for child in HUD.get_node("HPBars").get_children():
+		child.queue_free()
 	
 	GameStats.stages_cleared = num
 	

@@ -4,8 +4,8 @@ extends Control
 var character: Node
 var is_static := true
 
-func setup(char: Node, value: float, max_value: float) -> void:
-	character = char
+func setup(c: Node, value: float, max_value: float) -> void:
+	character = c
 	progress_bar.max_value = max_value
 	progress_bar.value = value
 	character.update_health_bar.connect(update_health)

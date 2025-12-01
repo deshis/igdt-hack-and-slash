@@ -31,9 +31,7 @@ bg_color = Color(0, 0, 0, 0.50980395)
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_36s6t")
 
-[node name="HPBars" type="Node2D" parent="."]
-
-[node name="Player" parent="HPBars" instance=ExtResource("2_ajim5")]
+[node name="HPBarPlayer" parent="." instance=ExtResource("2_ajim5")]
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
@@ -45,6 +43,8 @@ offset_right = 415.6
 offset_bottom = 51.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="HPBars" type="Node2D" parent="."]
 
 [node name="SkillCooldowns" type="Control" parent="."]
 layout_mode = 3

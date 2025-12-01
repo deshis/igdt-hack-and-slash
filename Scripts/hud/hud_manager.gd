@@ -6,7 +6,7 @@ var player: Player = GameManager.player
 @onready var inventory = $Inventory
 @onready var cooldowns = $SkillCooldowns
 @onready var health_bars := $HPBars
-@onready var health_bar = $HPBars/Player
+@onready var health_bar = $HPBarPlayer
 @onready var game_over_screen: Control = $GameOverScreen
 
 func _ready() -> void:
