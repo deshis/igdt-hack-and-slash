@@ -79,27 +79,31 @@ func move_item(origin_slot: InventorySlot, new_slot: InventorySlot = null) -> vo
 	
 	# item was dragged into a slot
 	if new_slot:
-		place_or_swap(item, origin_slot, new_slot)
+		pass
 	
 	# item was right clicked
-	elif origin_slot in backpack_node.get_children():
-		new_slot = get_augment_slot(item)
-		place_or_swap(item, origin_slot, new_slot)
-	else:
+	elif origin_slot in augments_node.get_children():
 		new_slot = get_backpack_slot()
-		place_or_swap(item, origin_slot, new_slot)
+	else:
+		new_slot = get_augment_slot(item)
 	
 	# item was from a pickup slot
 	var pickup_slot := origin_slot as PickupSlot
 	if pickup_slot:
-		close_item_pickup_menu()
+		if new_slot.get_item():
+			# check if space in backpack
+			new_slot = get_backpack_slot()
+			if not new_slot:
+				new_slot = pickup_slot
+		
+		# if item was moved
+		if pickup_slot != new_slot:
+			close_item_pickup_menu()
 	
+	place_or_swap(item, origin_slot, new_slot)
 	update_inventory_data()
 
 func place_or_swap(item: Control, origin_slot: Control, new_slot: Control) -> void:
-	if not new_slot:
-		return
-	
 	if new_slot.get_item():
 		var item_to_swap = new_slot.get_item()
 		new_slot.remove_child(item_to_swap)
