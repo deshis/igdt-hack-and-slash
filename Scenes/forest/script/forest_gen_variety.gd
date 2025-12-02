@@ -2,9 +2,10 @@
 extends Node2D
 
 
-@onready var sky :TileMapLayer =$sky
-@onready var play :TileMapLayer =$"play-level"
-@onready var ground:TileMapLayer =$ground
+@onready var sky :TileMapLayer =$"5_sky"
+@onready var shrubs:TileMapLayer=$"2_shrub"
+@onready var nav :TileMapLayer =$"2_nav"
+@onready var ground:TileMapLayer =$"0_ground"
 
 @export var navReg:NavigationRegion2D
 @export var mapsize:Vector2= Vector2i(255, 255)
@@ -14,8 +15,8 @@ const gnd =[Vector2i(0,0),Vector2i(1,0)] # Base ground, stones
 const gnd_top =[Vector2i(0,0),Vector2i(1,0)] # masks?
 const shrub =[Vector2i(0,1)] # ??
 
-const nav =[Vector2i(0,1), Vector2i(0,1)] #Tree_Trunk, ??, ??
-const top_tree =[Vector2i(1,2),Vector2i(2,2),Vector2i(3,2)] # center, corner, side
+const nav_tiles =[Vector2i(0,1)] #Tree_Trunk, ??, ??
+const tree =[Vector2i(1,2),Vector2i(2,2),Vector2i(3,2)] # center, corner, side
 
 
 
@@ -29,32 +30,36 @@ const top_tree =[Vector2i(1,2),Vector2i(2,2),Vector2i(3,2)] # center, corner, si
 		#_generate()
 @export_tool_button("clear map") var clr = _clear
 
-@export var noise1: FastNoiseLite:
+@export var ground_noise: FastNoiseLite:
 	set(new_noise):
-		noise1=new_noise
+		ground_noise=new_noise
 
-@export var noise2: FastNoiseLite:
+@export var variance_noise: FastNoiseLite:
 	set(new_noise):
-		noise2=new_noise
+		variance_noise=new_noise
 
 
 
 
 func _clear():
 	sky.clear()
-	play.clear()
+	nav.clear()
 	ground.clear()
 	print("clear!")
 	
 func _generate():
 	var texture = NoiseTexture2D.new()
-	texture.noise = noise1
+	texture.noise = ground_noise
 	await texture.changed
-	var noiseImage = texture.get_image()
+	var noiseImage_ground = texture.get_image()
+	texture = NoiseTexture2D.new()
+	texture.noise = variance_noise
+	await texture.changed
+	var noiseImage_variance = texture.get_image()
 	
 	for i in mapsize.x:
 		for j in mapsize.y:
-			var value:int = noiseImage.get_pixel(i,j).r * height
+			var value:int = noiseImage_ground.get_pixel(i,j).r * height
 			var location=Vector2i(i,j)
 			
 			if value==1:
@@ -66,7 +71,7 @@ func _generate():
 				create_tree(location)
 				
 			if value==0:
-				play.set_cell(location, 1, Vector2i(3,1))
+				nav.set_cell(location, 1, Vector2i(3,1))
 		
 		
 	
@@ -106,18 +111,19 @@ func create_tree( location:Vector2i):
 	var x=location.x
 	var y=location.y
 	#Trunk
-	play.set_cell(location,1 ,tree[0])
+	nav.set_cell(location,1 ,nav_tiles[0])
 	#Center of leavage
-	sky.set_cell(location,1 ,tree[1])
-	sky.set_cell(Vector2i(x,y+1),1 ,tree[1])	
-	sky.set_cell(Vector2i(x,y-1),1 ,tree[1])
-	sky.set_cell(Vector2i(x+1,y),1 ,tree[1])	
-	sky.set_cell(Vector2i(x-1,y),1 ,tree[1])	
+	sky.set_cell(location,1 ,tree[0])
+	sky.set_cell(Vector2i(x,y+1),1 ,tree[0])	
+	sky.set_cell(Vector2i(x,y-1),1 ,tree[0])
+	sky.set_cell(Vector2i(x+1,y),1 ,tree[0])	
+	sky.set_cell(Vector2i(x-1,y),1 ,tree[0])	
 	
 	##Large tree, need rotation for corners :weary:
 	#leavage 
-	#sky.set_cell(Vector2i(x-1,y-1),1 ,Vector2i(tree[2],0))
-	#sky.set_cell(Vector2i(x-1,y+1),1 ,Vector2i(tree[2],0))
+	#sky.set_cell(Vector2i(x-1,y-1),1, tree[2])
+	#sky.set_cell(Vector2i(x-1,y+1),1, tree[2])
+	#sky.get_cell_tile_data(Vector2i(x-1,y+1)).tile_data_bl.set_flip_v(false) <- rotate not working...
 	#sky.set_cell(Vector2i(x+1,y-1),1 ,Vector2i(tree[2],0))
 	#sky.set_cell(Vector2i(x+1,y+1),1 ,Vector2i(tree[2],0))
 	
