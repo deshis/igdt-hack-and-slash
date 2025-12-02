@@ -88,7 +88,7 @@ trail_objects = [NodePath("AxeTrail"), NodePath("MaulTrail"), NodePath("KickTrai
 [node name="Weapons" type="Node3D" parent="." index="0"]
 
 [node name="CameraPoint" type="Node3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 0.96592575, -0.258819, 0, 0.258819, 0.96592575, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPoint" index="0"]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 1.462, 0)

@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://b8vlajaauat2k"]
 
-[ext_resource type="Script" uid="uid://brdidm5k40j17" path="res://Scripts/enemies/normal/microbot/microbot.gd" id="1_vbtv2"]
+[ext_resource type="Script" uid="uid://u5hsqrossone" path="res://Scripts/enemies/normal/microbot/augmented_microbot.gd" id="1_87q0s"]
 [ext_resource type="PackedScene" uid="uid://d0s7u0cd02g8b" path="res://Scripts/enemies/augmented/microbot/attack_aoe.tscn" id="2_87q0s"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="3_oal1j"]
 [ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/enemy/particles/on_death_particles.tscn" id="5_5cqms"]
-[ext_resource type="PackedScene" uid="uid://cpp1xnash21x2" path="res://Scripts/enemies/normal/microbot/microbot_model.tscn" id="6_s2omk"]
+[ext_resource type="PackedScene" uid="uid://bmr623wdisicv" path="res://Scripts/enemies/augmented/microbot/augmented_microbot_model.tscn" id="5_87q0s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
 radius = 16.27882
@@ -27,7 +27,7 @@ collision_mask = 4353
 motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 1.0
-script = ExtResource("1_vbtv2")
+script = ExtResource("1_87q0s")
 target_dist_min = 200.0
 target_dist_max = 350.0
 nav_agent = NodePath("NavigationAgent2D")
@@ -53,7 +53,6 @@ shape = SubResource("RectangleShape2D_1f0kj")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_opgh6")
 position = Vector2(4.7683716e-07, 9.536743e-07)
-scale = Vector2(1.2864585, 1.2864587)
 texture = SubResource("ViewportTexture_87q0s")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -66,18 +65,18 @@ target_desired_distance = 100.0
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(256, 256)
+size = Vector2i(384, 384)
 
 [node name="3DView" type="Node3D" parent="SubViewport"]
 
 [node name="CameraPoint" type="Node3D" parent="SubViewport/3DView"]
-transform = Transform3D(1, 0, 0, 0, 0.9659255, -0.25881895, 0, 0.25881895, 0.9659255, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999997, 0, 0, 0, 0.9999997, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport/3DView/CameraPoint"]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 3.177, 0)
 projection = 1
-size = 5.5
+size = 7.0
 
-[node name="microbot" parent="SubViewport/3DView" instance=ExtResource("6_s2omk")]
+[node name="microbot" parent="SubViewport/3DView" instance=ExtResource("5_87q0s")]
 
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
