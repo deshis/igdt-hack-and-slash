@@ -55,7 +55,7 @@ var animator = null
 var active_attacks: Array[Node2D] = []
 
 # STATE MACHINE
-var state = "idle"
+var state = IDLE
 var state_timer := 0.0
 
 const IDLE = "idle"

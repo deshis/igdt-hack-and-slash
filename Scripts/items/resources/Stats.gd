@@ -110,7 +110,7 @@ func apply_effect(player) -> void:
 		Stat.DASH_COOLDOWN:
 			player.dash_cooldown += value
 		Stat.DASH_LENGTH:
-			player.dash_length += value
+			player.dash_duration += value
 		Stat.DASH_SPEED:
 			player.dash_speed += value
 				
@@ -179,6 +179,6 @@ func remove_effect(player) -> void:
 		Stat.DASH_COOLDOWN:
 			player.dash_cooldown -= value
 		Stat.DASH_LENGTH:
-			player.dash_length -= value
+			player.dash_duration -= value
 		Stat.DASH_SPEED:
 			player.dash_speed -= value

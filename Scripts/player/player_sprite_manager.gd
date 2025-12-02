@@ -44,7 +44,6 @@ func start_dash():
 	
 	model.reset_trails()
 	current_state = STATE.DASH
-	light_attack_finished.emit() #Dash cancels attack animation
 	afterimage_particles.emitting = true
 	model.anim.play("Dash")
 
@@ -90,13 +89,13 @@ func heavy_attack(rot):
 	weapon_mesh.mesh = ItemGlobals.secondary_weapon_mesh
 	
 	if ItemGlobals.secondary_weapon_type == "Maul":
-		player_script.heavy_attack_init_time = 0.5
+		player_script.heavy_attack_windup_duration = 0.5
 		model.anim.play("Heavy_attack_maul")
 	elif ItemGlobals.secondary_weapon_type == "Axe":
-		player_script.heavy_attack_init_time = 0.5
+		player_script.heavy_attack_windup_duration = 0.5
 		model.anim.play("Heavy_attack_axe")
 	else:
-		player_script.heavy_attack_init_time = 0.333
+		player_script.heavy_attack_windup_duration = 0.333
 		model.anim.play("Heavy_attack_default")
 
 func _on_anim_finished(anim_name):
