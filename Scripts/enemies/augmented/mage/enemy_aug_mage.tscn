@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c0knmdlg6mk1t" path="res://Scripts/enemies/augmented/mage/attack_square.tscn" id="3_jruic"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="4_wcgcm"]
 [ext_resource type="Texture2D" uid="uid://c13orvektmxmp" path="res://Assets/enemies/mage.png" id="5_u21no"]
-[ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/enemy/particles/on_death_particles.tscn" id="6_3levx"]
+[ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/particles/on_death_particles.tscn" id="6_3levx"]
 [ext_resource type="Texture2D" uid="uid://drca8bif8ar3p" path="res://Assets/particles/trace_05.png" id="7_yb216"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]

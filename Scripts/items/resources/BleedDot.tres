@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DotResource" load_steps=3 format=3 uid="uid://ggdtprqadem7"]
 
-[ext_resource type="PackedScene" uid="uid://cugwm7r2os4n8" path="res://Scenes/enemy/particles/enemy_bleed_dot_particles.tscn" id="1_bcd7x"]
+[ext_resource type="PackedScene" uid="uid://cugwm7r2os4n8" path="res://Scenes/particles/enemy_bleed_dot_particles.tscn" id="1_bcd7x"]
 [ext_resource type="Script" uid="uid://ko57id0ce143" path="res://Scripts/items/resources/DotResource.gd" id="2_w2j22"]
 
 [resource]

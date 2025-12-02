@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dh7hmamc4xop8" path="res://Scripts/enemies/augmented/slasher/aug_slasher.gd" id="1_q8pww"]
 [ext_resource type="PackedScene" uid="uid://dalfvmxkxuape" path="res://Scripts/enemies/augmented/slasher/attack_square.tscn" id="2_q8pww"]
 [ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="3_yed8l"]
-[ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/enemy/particles/on_death_particles.tscn" id="4_wf5k7"]
+[ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/particles/on_death_particles.tscn" id="4_wf5k7"]
 [ext_resource type="PackedScene" uid="uid://dtmntfwnrv3ig" path="res://Scripts/enemies/normal/slasher/slasher_model.tscn" id="5_ugar0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]

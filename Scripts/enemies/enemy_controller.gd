@@ -14,11 +14,12 @@ var target_provider: TargetProvider
 @onready var player: Player = GameManager.player
 
 # PARTICLES
-var hit_particles_scene = preload("res://Scenes/enemy/particles/on_hit_particles.tscn")
-var electric_dot_particles_scene = preload("res://Scenes/enemy/particles/electric_dot_particles.tscn")
-var freeze_shatter_particles_scene = preload("res://Scenes/enemy/particles/freeze_shatter_particles.tscn")
+var hit_particles_scene = preload("res://Scenes/particles/on_hit_particles.tscn")
+var electric_dot_particles_scene = preload("res://Scenes/particles/electric_dot_particles.tscn")
+var electric_dot_particles_scene_3D = preload("res://Scenes/particles/electric_dot_particles_3d.tscn")
+var freeze_shatter_particles_scene = preload("res://Scenes/particles/freeze_shatter_particles.tscn")
 
-var active_freeze_particles_scene = preload("res://Scenes/enemy/particles/freeze_particles.tscn")
+var active_freeze_particles_scene = preload("res://Scenes/particles/freeze_particles.tscn")
 #var active_freeze_particles: Node2D = null
 var hit_flash_duration := 0.15
 var hit_flash_timer := 0.0
@@ -256,7 +257,16 @@ func apply_debuff_effect(debuff: DebuffResource) -> void:
 	match debuff.debuff_type:
 		DebuffResource.DebuffType.STUN:
 			if active_stat_debuffs.particle_scene:
-				instantiate_particles(active_stat_debuffs.particle_scene)
+				if model_view:
+					#testing 3D particles
+					print_debug(electric_dot_particles_scene_3D)
+					var particle_scene = electric_dot_particles_scene_3D.instantiate()
+					model_view.add_child(particle_scene)
+					particle_scene.finished.connect(_on_particles_finished.bind(particle_scene))
+		
+					particle_scene.restart()
+					
+					instantiate_particles(active_stat_debuffs.particle_scene)
 				
 			SoundManager.play_sfx("stun_sfx", global_position)
 			

@@ -17,7 +17,8 @@ signal game_over
 
 @onready var health_regen_timer: Timer = $Timers/HealthRegenTimer
 @onready var invulnerability_length_timer: Timer = $Timers/InvulnerabilityLengthTimer
-var player_on_damage_particles_scene = preload("res://Scenes/player/particles/player_on_hit_particles.tscn")
+var player_on_damage_particles_scene = preload("res://Scenes/particles/player_on_hit_particles_3D.tscn")
+@onready var model = $SubViewport/model
 
 var hit_flash_timer := 0.0
 var hit_flash_duration := 0.3
@@ -407,12 +408,8 @@ func die() -> void:
 
 func instantiate_particles(particle_scene: PackedScene):
 	var particles = particle_scene.instantiate()
-	
-	get_parent().add_child(particles)
-	particles.global_position = global_position
-	
+	model.add_child(particles)
 	particles.finished.connect(_on_particles_finished.bind(particles))
-	
 	particles.restart()
 
 

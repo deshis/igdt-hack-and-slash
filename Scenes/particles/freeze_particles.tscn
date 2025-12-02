@@ -13,7 +13,6 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.88235295, 0.88235295, 0.8823
 
 [node name="FreezeParticles" type="CPUParticles2D"]
 z_index = 2
-emitting = false
 amount = 1
 texture = ExtResource("1_wagxa")
 lifetime = 6.0

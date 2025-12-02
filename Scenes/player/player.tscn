@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://sl7rs4hrme1x" path="res://Scripts/player/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://sqkoujqnueav" path="res://Scripts/player/player_sprite_manager.gd" id="2_vgqql"]
-[ext_resource type="PackedScene" uid="uid://cffxpw73nnlnu" path="res://Scenes/player_model.tscn" id="19_fs7ks"]
+[ext_resource type="PackedScene" uid="uid://cffxpw73nnlnu" path="res://Scenes/player/player_model.tscn" id="19_fs7ks"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
 radius = 50.0

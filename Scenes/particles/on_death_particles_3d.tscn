@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://btscgfflc4d5l"]
+
+[ext_resource type="Texture2D" uid="uid://ceywic8omkrab" path="res://Assets/particles/light_02.png" id="1_5hbrp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sply2"]
+transparency = 1
+shading_mode = 0
+diffuse_mode = 3
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_5hbrp")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4dx00"]
+material = SubResource("StandardMaterial3D_sply2")
+
+[sub_resource type="Curve" id="Curve_3sabr"]
+_data = [Vector2(0, 0), 0.0, 9.944391, 0, 0, Vector2(0.043052837, 0.7631196), -0.08348007, -0.08348007, 0, 0, Vector2(0.16046965, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_i5cdo"]
+offsets = PackedFloat32Array(0, 0.23972602, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[node name="on_death_particles_3d" type="CPUParticles3D"]
+emitting = false
+amount = 1
+lifetime = 1.25
+one_shot = true
+fixed_fps = 12
+mesh = SubResource("PlaneMesh_4dx00")
+particle_flag_rotate_y = true
+direction = Vector3(1, 0, 1)
+gravity = Vector3(0, 0, 0)
+angular_velocity_min = 15.0
+angular_velocity_max = 25.0
+scale_amount_curve = SubResource("Curve_3sabr")
+color = Color(1.366, 0.692, 0, 1)
+color_ramp = SubResource("Gradient_i5cdo")

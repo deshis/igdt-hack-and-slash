@@ -12,7 +12,7 @@ var HUD: HudManager = null
 
 func _ready() -> void:
 	# init player
-	player = preload("res://Scenes/player.tscn").instantiate() as Player
+	player = preload("res://Scenes/player/player.tscn").instantiate() as Player
 	add_child(player)
 
 
@@ -95,7 +95,7 @@ func start_game_from_main_menu()->void:
 	for child in get_children():
 		child.queue_free()
 	
-	player = preload("res://Scenes/player.tscn").instantiate() as Player
+	player = preload("res://Scenes/player/player.tscn").instantiate() as Player
 	add_child(player)
 	
 	start_game()
