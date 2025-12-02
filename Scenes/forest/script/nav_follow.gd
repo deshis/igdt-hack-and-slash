@@ -12,8 +12,8 @@ var reg_size:Vector2i = Vector2i(width,height)
 @export_tool_button("generate") var gen = gen_nav
 
 
-func _ready() -> void:
-	print("init nav follow")
+#func _ready() -> void:
+#	print("init nav follow")
 
 func _on_timer_timeout():
 	gen_nav()

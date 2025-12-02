@@ -1,0 +1,69 @@
+[gd_scene load_steps=13 format=3 uid="uid://duet844vmtf2j"]
+
+[ext_resource type="Shader" uid="uid://0akfo51b0e7l" path="res://Scenes/forest/shaders/grass.gdshader" id="1_c5hpj"]
+[ext_resource type="Shader" uid="uid://dp6r0lqa6n5ym" path="res://Scenes/forest/shaders/rocks.gdshader" id="1_yf8mt"]
+[ext_resource type="Shader" uid="uid://chrrm2x4tv8u4" path="res://Scenes/forest/shaders/test.gdshader" id="3_vxg0n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf8mt"]
+albedo_color = Color(0.6784314, 0.46666667, 0.34117648, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dqj51"]
+material = SubResource("StandardMaterial3D_yf8mt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxg0n"]
+render_priority = 0
+shader = ExtResource("1_yf8mt")
+shader_parameter/heigth = 0.5
+shader_parameter/width = 0.001
+shader_parameter/density = 0.1
+shader_parameter/base_color = Color(0.6784314, 0.46666667, 0.34117648, 1)
+shader_parameter/tip_color = Color(0.5058824, 0.5921569, 0.5882353, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c5hpj"]
+material = SubResource("ShaderMaterial_vxg0n")
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf8mt"]
+render_priority = 0
+shader = ExtResource("1_c5hpj")
+shader_parameter/heigth = 0.5
+shader_parameter/width = 0.0005
+shader_parameter/density = 0.1
+shader_parameter/base_color = Color(0.09803922, 0.2, 0.1764706, 1)
+shader_parameter/tip_color = Color(0.27450982, 0.50980395, 0.19607843, 1)
+shader_parameter/wind_strenght = 0.2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vxg0n"]
+material = SubResource("ShaderMaterial_yf8mt")
+subdivide_width = 200
+subdivide_depth = 200
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dqj51"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dqj51"]
+render_priority = 0
+shader = ExtResource("3_vxg0n")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3qjtn"]
+material = SubResource("ShaderMaterial_dqj51")
+
+[node name="Forest3dTiles" type="Node3D"]
+
+[node name="ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("PlaneMesh_dqj51")
+
+[node name="rocks" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_c5hpj")
+
+[node name="grass" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_vxg0n")
+
+[node name="tree" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9820887, 0)
+mesh = SubResource("CylinderMesh_dqj51")
+
+[node name="sumthing" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("PlaneMesh_3qjtn")
