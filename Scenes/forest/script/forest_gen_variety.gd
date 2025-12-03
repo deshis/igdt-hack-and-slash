@@ -1,7 +1,6 @@
 @tool
 extends Node2D
 
-
 @onready var sky :TileMapLayer =$"5_sky"
 @onready var shrubs:TileMapLayer=$"2_shrub"
 @onready var nav :TileMapLayer =$"2_nav"

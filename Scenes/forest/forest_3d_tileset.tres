@@ -1,7 +1,6 @@
-[gd_resource type="MeshLibrary" load_steps=23 format=3 uid="uid://dm4ohn8pkc3x8"]
+[gd_resource type="MeshLibrary" load_steps=21 format=3 uid="uid://dm4ohn8pkc3x8"]
 
 [ext_resource type="Shader" uid="uid://dp6r0lqa6n5ym" path="res://Scenes/forest/shaders/rocks.gdshader" id="1_4j6ht"]
-[ext_resource type="Shader" uid="uid://0akfo51b0e7l" path="res://Scenes/forest/shaders/grass.gdshader" id="2_7vsla"]
 [ext_resource type="Shader" uid="uid://chrrm2x4tv8u4" path="res://Scenes/forest/shaders/test.gdshader" id="3_7vsla"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf8mt"]
@@ -48,20 +47,7 @@ data = {
 [sub_resource type="ImageTexture" id="ImageTexture_53ich"]
 image = SubResource("Image_pixym")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf8mt"]
-render_priority = 0
-shader = ExtResource("2_7vsla")
-shader_parameter/heigth = 0.5
-shader_parameter/width = 0.0005
-shader_parameter/density = 0.1
-shader_parameter/base_color = Color(0.09803922, 0.2, 0.1764706, 1)
-shader_parameter/tip_color = Color(0.27450982, 0.50980395, 0.19607843, 1)
-shader_parameter/wind_strenght = 0.2
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_gikqf"]
-material = SubResource("ShaderMaterial_yf8mt")
-subdivide_width = 200
-subdivide_depth = 200
+[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_4j6ht"]
 
 [sub_resource type="Image" id="Image_nibi4"]
 data = {
@@ -126,7 +112,7 @@ item/1/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
 item/1/navigation_layers = 1
 item/1/preview = SubResource("ImageTexture_53ich")
 item/2/name = "grass"
-item/2/mesh = SubResource("PlaneMesh_gikqf")
+item/2/mesh = SubResource("PlaceholderMesh_4j6ht")
 item/2/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 item/2/mesh_cast_shadow = 1
 item/2/shapes = []

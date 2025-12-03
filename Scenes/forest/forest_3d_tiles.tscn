@@ -35,6 +35,7 @@ shader_parameter/tip_color = Color(0.27450982, 0.50980395, 0.19607843, 1)
 shader_parameter/wind_strenght = 0.2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vxg0n"]
+lightmap_size_hint = Vector2i(12, 12)
 material = SubResource("ShaderMaterial_yf8mt")
 subdivide_width = 200
 subdivide_depth = 200
@@ -51,7 +52,7 @@ material = SubResource("ShaderMaterial_dqj51")
 [node name="Forest3dTiles" type="Node3D"]
 
 [node name="ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00093990564, 1.0019975, -0.0034722686)
 mesh = SubResource("PlaneMesh_dqj51")
 
 [node name="rocks" type="MeshInstance3D" parent="."]

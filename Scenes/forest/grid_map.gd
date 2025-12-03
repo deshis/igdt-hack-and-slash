@@ -2,6 +2,7 @@
 extends GridMap # Straight from another project :D
 
 @export var grid_2d: TileMapLayer 
+@export var grass: MultiMeshInstance3D
 
 @export_tool_button("generate") var gen = _generate
 
@@ -16,10 +17,9 @@ extends GridMap # Straight from another project :D
 @export var noise_gradual: FastNoiseLite
 
 
-
-
 func _clear():
 	clear()
+	grass.multimesh.instance_count = 0
 	print("clear!")
 	
 func _generate():
@@ -57,7 +57,34 @@ func _generate():
 				self.set_cell_item(location3,3)
 
 			self.set_cell_item(location,0)		
-	
+			
+	print("gridmap done!")
+	_generate_grass()
+	print("grass done!")
+
+func _generate_grass():
+	var grass_positions: Array[Transform3D] = []
+
+	for cell in self.get_used_cells():
+		if self.get_cell_item(cell) == 2:
+			var tile_center := self.map_to_local(cell)
+
+			for i in range(50):
+				var rand_offset = Vector3(randf() - 0.5,0,randf() - 0.5) * 2.0   # keeps blades within the tile
+
+				var pos = tile_center + rand_offset
+
+				var xf = Transform3D()
+				xf = xf.rotated(Vector3.UP, randf() * TAU)
+				xf.origin = pos
+
+				grass_positions.append(xf)
+
+	var mm = grass.multimesh
+	mm.instance_count = grass_positions.size()
+
+	for i in grass_positions.size():
+		mm.set_instance_transform(i, grass_positions[i])
 	
 func _enter_tree():
 	pass
