@@ -352,8 +352,7 @@ func die() -> void:
 		health_bar.queue_free()
 	
 	GameStats.enemies_killed +=1
-	drop_health_pickup()
-	drop_loot()
+	LootDatabase.drop_loot(self)
 	queue_free()
 	
 func shatter_ice() -> void:
@@ -401,26 +400,6 @@ func hit_flash() -> void:
 		strength = clamp(strength, 0.0, 1.0)
 	
 	mat.set_shader_parameter("strength", strength)
-
-func drop_loot() -> void:
-	if LootDatabase.drop_loot(enemy):
-		var loot = LootDatabase.pickupable_item.instantiate()
-		GameManager.stage_root.add_child(loot)
-		loot.global_position = global_position
-		loot.set_loot(LootDatabase.get_loot_rarity(enemy))
-		
-		var dir = player.global_position.direction_to(global_position)
-		loot.setup(player, dir)
-
-func drop_health_pickup() -> void:
-	# TODO: proper health drop chance
-	if randi() % 3 == 0:
-		var pickup = LootDatabase.pickupable_health.instantiate()
-		GameManager.stage_root.add_child(pickup)
-		pickup.global_position = global_position
-		
-		var dir = player.global_position.direction_to(global_position)
-		pickup.setup(player, dir)
 
 func _on_attack_area_area_entered(_area: Area2D, damage: float = enemy.damage) -> void:
 	GameStats.player_last_hit_by = enemy.name

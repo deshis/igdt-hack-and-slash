@@ -36,28 +36,56 @@ var grade_colors := {
 	ItemType.Grade.PROTOTYPE: Color(1.0, 0.757, 0.0)
 }
 
-var normal_drop_chance := 0.08
-var augmented_drop_chance := 1
-var boss_drop_chance := 1.0
-
-# [consumer, military, prototype]
-var normal_weights := [100, 0, 0]
-var augmented_weights := [75, 25, 0]
-var boss_weights := [0, 25, 75]
+var enemy_loot_table = preload("res://Scripts/globals/loot_table_enemy.tres")
+var aug_enemy_loot_table = preload("res://Scripts/globals/loot_table_aug_enemy.tres")
+var boss_loot_table = preload("res://Scripts/globals/loot_table_boss.tres")
 
 var pickupable_item = preload("res://Scenes/pickupable_loot.tscn")
 var pickupable_health = preload("res://Scenes/pickupable_health.tscn")
 
-func drop_loot(enemy: EnemyStats) -> bool:
-	if randf() > enemy.loot_drop_chance:
-		return false
-	return true
+func drop_loot(enemy: EnemyController) -> void:
+	var loot_table = get_loot_table(enemy.enemy)
+	var player = GameManager.player
+	
+	# ITEM
+	if randf() < loot_table.loot_drop_chance:
+		var loot = pickupable_item.instantiate()
+		GameManager.stage_root.add_child(loot)
+		loot.global_position = enemy.global_position
+		loot.set_loot(LootDatabase.get_loot_rarity(loot_table.loot_rarity_weights))
+		
+		var dir = player.global_position.direction_to(enemy.global_position)
+		loot.setup(player, dir)
+	
+	# HEALTH
+	for i in range(loot_table.health_drop_amount):
+		if randf() < loot_table.health_drop_chance:
+			var pickup = LootDatabase.pickupable_health.instantiate()
+			GameManager.stage_root.add_child(pickup)
+			pickup.global_position = enemy.global_position
 
-func get_loot_rarity(enemy: EnemyStats) -> ItemType.Type:
+			var dir = player.global_position.direction_to(enemy.global_position)
+			pickup.setup(player, dir)
+
+
+func get_loot_table(enemy: EnemyStats) -> LootTable:
+	match enemy.type:
+		EnemyType.Type.NORMAL:
+			return enemy_loot_table
+		
+		EnemyType.Type.AUGMENTED:
+			return aug_enemy_loot_table
+		
+		EnemyType.Type.BOSS:
+			return boss_loot_table
+	
+	return null
+
+func get_loot_rarity(loot_weights: Dictionary) -> ItemType.Type:
 	# set chances
-	var consumer_chance = enemy.loot_rarity_weights[0]
-	var military_chance = enemy.loot_rarity_weights[1]
-	var prototype_chance = enemy.loot_rarity_weights[2]
+	var consumer_chance = loot_weights.get("consumer")
+	var military_chance = loot_weights.get("military")
+	var prototype_chance = loot_weights.get("prototype")
 	
 	# pick weighted chance
 	var rng = RandomNumberGenerator.new()

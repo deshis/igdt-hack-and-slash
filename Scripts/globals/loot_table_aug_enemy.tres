@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=2 format=3 uid="uid://cgybca64ew6su"]
+
+[ext_resource type="Script" uid="uid://beyemw2yfq3mp" path="res://Scripts/enemies/LootTable.gd" id="1_2bn36"]
+
+[resource]
+script = ExtResource("1_2bn36")
+loot_drop_chance = 0.25
+loot_rarity_weights = {
+"consumer": 0.74,
+"military": 0.25,
+"prototype": 0.01
+}
+health_drop_chance = 0.35
+health_drop_amount = 2
+metadata/_custom_type_script = "uid://beyemw2yfq3mp"
