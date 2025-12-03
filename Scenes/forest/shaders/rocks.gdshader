@@ -16,7 +16,7 @@ varying float height_ratio;
 
 varying vec3 worldPos;
 varying float dist;
-const float max_dist=100.0;
+const float max_dist=50.0;
 
 float random (vec2 uv) {
     return fract(sin(dot(uv.xy, vec2(12.9898,78.233))) * 43758.5453123);
@@ -50,7 +50,7 @@ void vertex(){
 }
 
 void fragment(){
-
+	ALPHA_SCISSOR_THRESHOLD=0.2;
 	if (dist<max_dist){
 		ALBEDO = mix(base_color, tip_color,height_ratio);
 		ALPHA = mix(0.0,1.0,height_ratio);
