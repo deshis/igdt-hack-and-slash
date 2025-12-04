@@ -6,13 +6,13 @@ extends Control
 @onready var selection_slot_2: Control = $VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2
 @onready var selection_slot_3: Control = $VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3
 
-var item_on_ground:Area2D
+var item_on_ground:Area3D
 
 func setup() -> void:
 	if GameManager.player:
 		GameManager.player.item_picked_up.connect(open_item_selection)
 
-func open_item_selection(area:Area2D):
+func open_item_selection(area:Area3D):
 	item_on_ground = area
 	inventory.visible = true
 	visible = true

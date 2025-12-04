@@ -291,6 +291,7 @@ func take_damage(damage:float) -> void:
 func die() -> void:
 	SoundManager.play_sfx("enemy_die", global_position)
 	
+	GameManager.particles.emit_particles("enemy_on_death", global_position)
 	#Death particles here
 	#TODO: clean these
 		

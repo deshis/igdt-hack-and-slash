@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="5_vbco5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3a1hq"]
+size = Vector3(1, 2, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3a1hq"]
 transparency = 1
@@ -17,32 +18,24 @@ albedo_texture = ExtResource("2_t6aaw")
 material = SubResource("StandardMaterial3D_3a1hq")
 size = Vector2(1, 1)
 
-[node name="PickupableItem" type="Area3D" node_paths=PackedStringArray("mesh_instance")]
+[node name="PickupableItem" type="Area3D" node_paths=PackedStringArray("mesh_instance", "label")]
 collision_layer = 65536
 collision_mask = 0
 script = ExtResource("1_3a1hq")
 mesh_instance = NodePath("MeshInstance3D")
 mesh_list = Array[Mesh]([ExtResource("2_3a1hq"), ExtResource("3_t6aaw")])
 item_scene = ExtResource("5_vbco5")
-strength = 150.0
+label = NodePath("Label3D")
+strength = 1.5
 duration = 0.2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_3a1hq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_8ma31")
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.42261824, 0.9063078, 0, -0.9063078, 0.42261824, 0, 0.55826163, -0.59474856)
+transform = Transform3D(1, 0, 0, 0, 0.25881907, 0.9659258, 0, -0.9659258, 0.25881907, 0, 0.55826163, -0.59474856)
 text = "F interact"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -56.0
-offset_top = -43.0
-offset_right = 56.0
-offset_bottom = -20.0
-text = "F interact"
-fit_content = true
-horizontal_alignment = 1
-vertical_alignment = 2

@@ -49,7 +49,7 @@ frequency = 0.0332
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 
 [node name="Grass" type="MultiMeshInstance3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 material_override = SubResource("ShaderMaterial_gr2xc")
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_8rgxd")
@@ -72,7 +72,7 @@ noise_gradual = SubResource("FastNoiseLite_t144n")
 metadata/_editor_floor_ = Vector3(0, 1, 0)
 
 [node name="CameraPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.9396924, -0.34202003, 0, 0.34202003, 0.9396924, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9659256, -0.25881898, 0, 0.25881898, 0.9659256, 0, 0, 0)
 script = ExtResource("6_75ju8")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPoint"]

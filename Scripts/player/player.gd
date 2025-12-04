@@ -79,6 +79,8 @@ var active_item_cooldown := 5.0
 var can_active_item := true
 
 @onready var animator = $"model/AnimationPlayer"
+@onready var weapon_mesh = $model/rig/Skeleton3D/BoneAttachment3D/Weapon/Mesh
+
 
 # STATE MACHINE
 var state = IDLE
@@ -114,7 +116,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_pressed("interact"):
 		var item = get_closest_pickup()
-		if item:
+		if item is Area3D:
 			item_picked_up.emit(item)
 	
 	if Input.is_action_just_pressed("active_item") and can_active_item:
@@ -188,15 +190,34 @@ func enter_state(new_state) -> void:
 			perform_dash()
 		
 		LIGHT_ATTACK:
-			animator.play("Light_attack_default")
 			perform_light_attack()
+			
+			animator.speed_scale = light_attack_speed_scale
+			weapon_mesh.mesh = ItemGlobals.primary_weapon_mesh
+			
+			if ItemGlobals.primary_weapon_type == "Dagger":
+				animator.play("Light_attack_dagger")
+			if ItemGlobals.primary_weapon_type == "Sword":
+				animator.play("Light_attack_sword")
+			else:
+				animator.play("Light_attack_default")
 		
 		HEAVY_ATTACK_WINDUP:
-			animator.play("Heavy_attack_default")
+			weapon_mesh.mesh = ItemGlobals.secondary_weapon_mesh
+	
+			if ItemGlobals.secondary_weapon_type == "Maul":
+				heavy_attack_windup_duration = 0.5
+				animator.play("Heavy_attack_maul")
+			elif ItemGlobals.secondary_weapon_type == "Axe":
+				heavy_attack_windup_duration = 0.5
+				animator.play("Heavy_attack_axe")
+			else:
+				heavy_attack_windup_duration = 0.333
+				animator.play("Heavy_attack_default")
+				
 			current_speed = heavy_attack_dash_speed
 			state_timer = heavy_attack_windup_duration
 			set_facing_dir()
-			#sprite.heavy_attack(rotation)
 		
 		HEAVY_ATTACK:
 			perform_heavy_attack()
@@ -287,10 +308,12 @@ func stop_dash() -> void:
 	current_speed = movement_speed
 
 func stop_light_attack() -> void:
+	weapon_mesh.mesh = null
 	light_attack_hitbox.disabled = true
 	light_attack.visible = false
 
 func stop_heavy_attack() -> void:
+	weapon_mesh.mesh = null
 	heavy_attack_hitbox.disabled = true
 	heavy_attack.visible = false
 
@@ -323,7 +346,7 @@ func heal(amount: float) -> void:
 	if health > max_health:
 		health = max_health
 
-func get_closest_pickup() -> Area2D:
+func get_closest_pickup() -> Area3D:
 	var closest = null
 	var min_dist = INF
 	
@@ -355,13 +378,13 @@ func deal_damage(area: Area3D, amount: float) -> void:
 	
 	enemy.take_damage(amount)
 
-func deal_dot_damage(area: Area2D, dot: DotResource) -> void:
+func deal_dot_damage(area: Area3D, dot: DotResource) -> void:
 	var enemy = area.get_parent() as EnemyController
 	
 	if dot.dot_tick_damage > 0:
 		enemy.take_dot_damage(dot)
 
-func deal_stat_damage(area: Area2D, debuff: DebuffResource) -> void:
+func deal_stat_damage(area: Area3D, debuff: DebuffResource) -> void:
 	#print("Deal stat damage")
 	
 	var enemy = area.get_parent() as EnemyController
