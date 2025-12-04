@@ -253,10 +253,10 @@ func _on_debuff_tick() -> void:
 		
 		remaining_debuff_duration -= current_debuff_tick_rate
 		
-		#if active_stat_debuffs.debuff_stat_damage > 0:
-			#enemy.take_stat_damage(active_stat_debuffs)
+		if active_stat_debuffs.debuff_stat_damage > 0:
+			enemy.take_stat_damage(active_stat_debuffs)
 		
-		#change_state(COOLDOWN, remaining_debuff_duration)
+		change_state(COOLDOWN, remaining_debuff_duration)
 		
 		if remaining_debuff_duration <= 0.0:
 			remove_debuff_effect(active_stat_debuffs)
@@ -339,3 +339,6 @@ func _on_attack_area_area_entered(_area: Area3D, damage: float = enemy.damage) -
 
 func _on_attack_removed(node: Node3D) -> void:
 	active_attacks.erase(node)
+
+func _on_navigation_agent_3d_target_reached() -> void:
+	change_state(ATTACK, attack_windup_duration)

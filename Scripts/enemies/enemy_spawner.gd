@@ -63,26 +63,26 @@ func spawn_wave_of_enemies(amount: int) -> void:
 			credits -= enemy.stats.cost
 
 func get_spawn_pos(_enemy: EnemyController) -> Vector3:
-	var screen_size = get_viewport().get_size()
+	var vp_size = get_viewport().get_size()
 	
-	var side = randi() % 4
-	var pos := player.global_position
+	var screen_x
+	var screen_y
 	
-	# TODO: add dynamic offsets to ensure enemies spawning outside the screen
-	match side:
-		0: # top
-			pos.x += randi_range(-screen_size.x / 2, screen_size.x / 2)
-			pos.y += -screen_size.y - 100
-		1: # bottom
-			pos.x += randi_range(-screen_size.x / 2, screen_size.x / 2)
-			pos.y += screen_size.y + 100
-		2: # left
-			pos.x += -screen_size.x - 100
-			pos.y += randi_range(-screen_size.y / 2, screen_size.y / 2)
-		3: # right
-			pos.x += screen_size.x + 100
-			pos.y += randi_range(-screen_size.y / 2, screen_size.y / 2)
+	match randi() % 4:
+		0:  # left
+			screen_x = -0.1
+			screen_y = randf()
+		1:  # right
+			screen_x = 1.1
+			screen_y = randf()
+		2:  # bottom
+			screen_x = randf()
+			screen_y = -0.1
+		3:  # top
+			screen_x = randf()
+			screen_y = 1.1
 	
+	var pos = get_viewport().get_camera_3d().project_position(Vector2(screen_x, screen_y) * Vector2(vp_size.x, vp_size.y), 10)
 	var nav_map = navigation_region.get_navigation_map()
 	var fixed_pos = NavigationServer3D.map_get_closest_point(nav_map, pos)
 	return fixed_pos

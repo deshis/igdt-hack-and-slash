@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://dba27lcq5wxbu" path="res://Scripts/enemies/normal/microbot/microbot_stats.tres" id="2_u7ytx"]
 [ext_resource type="Script" uid="uid://cstuktwrv6qs8" path="res://Scripts/enemies/targets/TargetSelf.gd" id="4_u7ytx"]
 
-[sub_resource type="Resource" id="Resource_aejum"]
+[sub_resource type="Resource" id="Resource_d1dfb"]
 script = ExtResource("4_u7ytx")
 metadata/_custom_type_script = "uid://cstuktwrv6qs8"
 
@@ -13,5 +13,5 @@ metadata/_custom_type_script = "uid://cstuktwrv6qs8"
 script = ExtResource("1_fuwtw")
 stats = ExtResource("2_u7ytx")
 scene = ExtResource("1_d1dfb")
-target_provider = SubResource("Resource_aejum")
+target_provider = SubResource("Resource_d1dfb")
 metadata/_custom_type_script = "uid://cqw5n3pgcmai6"

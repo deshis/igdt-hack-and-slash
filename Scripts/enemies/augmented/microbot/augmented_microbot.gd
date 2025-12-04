@@ -4,7 +4,7 @@ class_name AugmentedMicrobot
 @export var target_dist_min := 100.0
 @export var target_dist_max := 250.0
 
-@onready var trail = $"SubViewport/3DView/microbot/AugmentedBlastWave"
+@onready var trail = $"model/AugmentedBlastWave"
 
 func change_state(new_state: String, duration := 0.0):
 	super.change_state(new_state, duration)

@@ -33,7 +33,7 @@ func process_navigation(delta: float) -> void:
 	super.process_navigation(delta)
 
 func process_dash(delta: float) -> void:
-	var dash_dir = Vector2.UP.rotated(rotation)
+	var dash_dir = Vector3(sin(rotation.y), 0, cos(rotation.y)).normalized()
 	apply_movement(delta, dash_dir)
 	
 	if state_timer < 0:

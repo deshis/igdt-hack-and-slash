@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://davlo0j46gm1m"]
 
-[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/attack.gd" id="1_gjj1a"]
+[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/Attack.gd" id="1_gjj1a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1dm0"]
 size = Vector2(100.000015, 100.000015)
@@ -16,8 +16,6 @@ fill_from = Vector2(1, 1)
 script = ExtResource("1_gjj1a")
 hitbox_duration = 0.1
 animation_duration = 0.2
-size = Vector2(1, 1.5)
-offset = Vector2(0, -0.5)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16384
