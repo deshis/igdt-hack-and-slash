@@ -15,7 +15,7 @@ func _ready() -> void:
 		game_over_screen.setup(player)
 
 
-func create_enemy_hp_bar(enemy: CharacterBody2D) -> Control:
+func create_enemy_hp_bar(enemy: CharacterBody3D) -> Control:
 	var health_bar = preload("res://Scenes/HPBar.tscn").instantiate()
 	health_bar.is_static = false
 	health_bars.add_child(health_bar)

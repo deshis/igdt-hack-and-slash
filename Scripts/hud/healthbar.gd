@@ -17,6 +17,6 @@ func update_health(health:float, max_health:float = progress_bar.max_value)->voi
 
 func _physics_process(_delta: float) -> void:
 	if character and not is_static:
-		var world_pos = character.global_position + Vector2(0, -80)
+		var world_pos = get_viewport().get_camera_3d().unproject_position(character.global_position) + Vector2(0, -200)
 		var screen_pos = get_viewport().get_canvas_transform() * world_pos
 		global_position = screen_pos - size / 2

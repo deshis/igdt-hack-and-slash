@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 class_name PickupableObject
 
 @export var strength := 250.0
@@ -6,12 +6,12 @@ class_name PickupableObject
 
 var player: Player
 
-var direction := Vector2.UP
-var velocity := Vector2.ZERO
+var direction := Vector3.FORWARD
+var velocity := Vector3.ZERO
 var active := false
 var time_left := 0.0
 
-func setup(p: Player, dir: Vector2) -> void:
+func setup(p: Player, dir: Vector3) -> void:
 	player = p
 	direction = dir
 	apply_impulse()
@@ -30,11 +30,11 @@ func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
 	
 	var decay = delta / duration
-	velocity = velocity.lerp(Vector2.ZERO, decay)
+	velocity = velocity.lerp(Vector3.ZERO, decay)
 	
 	time_left -= delta
 	if time_left <= 0.0:
-		velocity = Vector2.ZERO
+		velocity = Vector3.ZERO
 		active = false
 
 func randomize_impulse() -> void:
@@ -48,4 +48,4 @@ func randomize_impulse() -> void:
 	
 	var rot_angle = 30.0
 	var angle = deg_to_rad(randf_range(-rot_angle, rot_angle))
-	direction = direction.rotated(angle)
+	direction = direction.rotated(Vector3.UP, angle)

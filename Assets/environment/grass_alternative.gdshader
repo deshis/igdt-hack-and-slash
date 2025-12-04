@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded, depth_prepass_alpha, cull_disabled;
+render_mode unshaded, cull_disabled;
 
 uniform sampler2D shape_texture : source_color, filter_nearest_mipmap;
 uniform vec3 base_color : source_color;

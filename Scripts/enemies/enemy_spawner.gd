@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 class_name EnemySpawner
 
 var player: Player = GameManager.player
@@ -24,10 +24,12 @@ var player: Player = GameManager.player
 var credits := 0.0
 
 @export var diff: DifficultyManager
-@export var navigation_region: NavigationRegion2D
+@export var navigation_region: NavigationRegion3D
 
-func _ready() -> void:
+func start_spawner() -> void:
 	boss_cooldown_timer.start(boss_cooldown_time)
+	wave_cooldown_timer.start()
+	credits_cooldown_timer.start()
 
 func spawn_enemy(prefab: EnemyPrefab) -> void:
 	var enemy = prefab.scene.instantiate() as EnemyController
@@ -60,8 +62,8 @@ func spawn_wave_of_enemies(amount: int) -> void:
 			spawn_enemy(enemy)
 			credits -= enemy.stats.cost
 
-func get_spawn_pos(_enemy: EnemyController) -> Vector2:
-	var screen_size = get_viewport_rect().size
+func get_spawn_pos(_enemy: EnemyController) -> Vector3:
+	var screen_size = get_viewport().get_size()
 	
 	var side = randi() % 4
 	var pos := player.global_position
@@ -82,7 +84,7 @@ func get_spawn_pos(_enemy: EnemyController) -> Vector2:
 			pos.y += randi_range(-screen_size.y / 2, screen_size.y / 2)
 	
 	var nav_map = navigation_region.get_navigation_map()
-	var fixed_pos = NavigationServer2D.map_get_closest_point(nav_map, pos)
+	var fixed_pos = NavigationServer3D.map_get_closest_point(nav_map, pos)
 	return fixed_pos
 
 func get_random_enemy(array: Array) -> EnemyPrefab:
@@ -91,7 +93,7 @@ func get_random_enemy(array: Array) -> EnemyPrefab:
 	
 	return prefab
 
-func setup_health_bar(enemy: CharacterBody2D) -> void:
+func setup_health_bar(enemy: CharacterBody3D) -> void:
 	enemy.health_bar = GameManager.HUD.create_enemy_hp_bar(enemy)
 
 func _on_wave_cooldown_timer_timeout() -> void:

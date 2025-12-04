@@ -1,5 +1,5 @@
 extends Resource
 class_name TargetProvider
 
-func get_target(_enemy: Node2D) -> Vector2:
-	return Vector2.ZERO
+func get_target(_enemy: Node3D) -> Vector3:
+	return Vector3.ZERO

@@ -1,7 +1,7 @@
 extends PickupableObject
 
-@export var sprite := Sprite2D
-@export var sprite_list: Array[CompressedTexture2D]
+@export var mesh_instance := MeshInstance3D
+@export var mesh_list: Array[Mesh]
 
 @export var item_scene: PackedScene
 
@@ -25,8 +25,8 @@ func _physics_process(delta: float) -> void:
 		$RichTextLabel.visible = false
 
 func set_loot(rarity: ItemType.Grade) -> void:
-	sprite.texture = sprite_list[randi_range(0, sprite_list.size() - 1)]
-	sprite.modulate = LootDatabase.grade_colors.get(rarity)
+	mesh_instance.mesh = mesh_list[randi_range(0, mesh_list.size() - 1)]
+	mesh_instance.mesh.surface_get_material(0).color = LootDatabase.grade_colors.get(rarity)
 	
 	items = []
 	var item_list = LootDatabase.get_items_by_rarity(rarity, 3)

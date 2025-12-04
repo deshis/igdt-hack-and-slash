@@ -1,4 +1,4 @@
-class_name Player extends CharacterBody2D
+class_name Player extends CharacterBody3D
 
 signal update_health_bar
 
@@ -11,14 +11,6 @@ signal active_item_used
 signal item_picked_up(area)
 
 signal game_over
-
-# PLAYER STUFF IDK WHAT TO CALL THESE SOMEONE RENAME OR REORGANIZE THIS
-@onready var sprite = $PlayerSprite
-
-@onready var health_regen_timer: Timer = $Timers/HealthRegenTimer
-@onready var invulnerability_length_timer: Timer = $Timers/InvulnerabilityLengthTimer
-var player_on_damage_particles_scene = preload("res://Scenes/particles/player_on_hit_particles_3D.tscn")
-@onready var model = $SubViewport/model
 
 var hit_flash_timer := 0.0
 var hit_flash_duration := 0.3
@@ -45,9 +37,8 @@ var input: Vector2
 
 # DASH
 @onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
-@onready var dash_length_timer: Timer = $Timers/DashLengthTimer
 
-var dash_speed:= 2500
+@export var dash_speed := 2500.0
 var dash_duration:= 0.15
 var dash_cooldown:= 3.0
 var can_dash := true
@@ -56,24 +47,21 @@ var can_dash := true
 @export var attack_light_damage := 1.0
 @export var attack_heavy_damage := 2.0
 
-@onready var light_attack = $AttackLight
-@onready var heavy_attack = $AttackHeavy
+@onready var light_attack = $LightAttack
+@onready var heavy_attack = $HeavyAttack
 
-@onready var light_attack_hitbox = $AttackLight/CollisionShape2D
-@onready var heavy_attack_hitbox = $AttackHeavy/CollisionShape2D
-
-@onready var light_attack_sprite: Sprite2D = $AttackLight/CollisionShape2D/Sprite2D
-@onready var heavy_attack_sprite: Sprite2D = $AttackLight/CollisionShape2D/Sprite2D
+@onready var light_attack_hitbox = $LightAttack/Box
+@onready var heavy_attack_hitbox = $HeavyAttack/Box
 
 var light_attack_speed_scale := 1.0
 
-var light_attack_shape: RectangleShape2D
-var heavy_attack_shape: RectangleShape2D
+var light_attack_shape: Shape3D
+var heavy_attack_shape: Shape3D
 
 var light_attack_visual_shape: Sprite2D
 var heavy_attack_visual_shape: Sprite2D
 
-var heavy_attack_dash_speed := movement_speed * 6.0
+var heavy_attack_dash_speed := movement_speed * 0.1
 var heavy_attack_dash_decay := 0.6
 
 var heavy_attack_cooldown:= 0.5 # this is used in item stats but it feels redundant now?
@@ -90,6 +78,8 @@ var secondary_attack_active_debuff: DebuffResource = null
 var active_item_cooldown := 5.0
 var can_active_item := true
 
+@onready var animator = $"model/AnimationPlayer"
+
 # STATE MACHINE
 var state = IDLE
 var state_timer := 0.0
@@ -104,10 +94,10 @@ const HEAVY_ATTACK = "heavy_attack"
 func _ready() -> void:
 	print("Q to use active item")
 	
+	animator.animation_finished.connect(_on_animation_finished)
+	
 	light_attack_hitbox.disabled = true
-	light_attack.visible = false
 	heavy_attack_hitbox.disabled = true
-	heavy_attack.visible = false
 	
 	light_attack_shape = light_attack_hitbox.shape
 	heavy_attack_shape = heavy_attack_hitbox.shape
@@ -130,15 +120,15 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("active_item") and can_active_item:
 		use_active_item()
 	
-	if hit_flash_timer > 0:
-		hit_flash_timer = 0 # TODO: temporary fix to avoid infinite loop
-		hit_flash()
+	#if hit_flash_timer > 0:
+		#hit_flash_timer = 0 # TODO: temporary fix to avoid infinite loop
+		#hit_flash()
 	
 	move_and_slide()
 
 func update_state() -> void:
 	match state:
-		IDLE, MOVE:
+		IDLE:
 			if Input.is_action_just_pressed("movement_ability") and input.length() > 0 and can_dash:
 				change_state(DASH)
 			
@@ -147,6 +137,22 @@ func update_state() -> void:
 			
 			if Input.is_action_just_pressed("heavy_attack"):
 				change_state(HEAVY_ATTACK_WINDUP)
+				
+			if input.length() > 0:
+				change_state(MOVE)
+		
+		MOVE:
+			if Input.is_action_just_pressed("movement_ability") and input.length() > 0 and can_dash:
+				change_state(DASH)
+			
+			if Input.is_action_pressed("light_attack"):
+				change_state(LIGHT_ATTACK)
+			
+			if Input.is_action_just_pressed("heavy_attack"):
+				change_state(HEAVY_ATTACK_WINDUP)
+			
+			if input.length() <= 0:
+				change_state(IDLE)
 		
 		DASH:
 			if Input.is_action_pressed("light_attack"):
@@ -167,22 +173,30 @@ func enter_state(new_state) -> void:
 	state = new_state
 	
 	match state:
-		IDLE, MOVE:
+		IDLE:
+			animator.play("Idle")
+			current_speed = movement_speed
+		
+		MOVE:
+			animator.play("Run")
 			current_speed = movement_speed
 		
 		DASH:
+			animator.play("Dash")
 			state_timer = dash_duration
 			print(dash_duration)
 			perform_dash()
 		
 		LIGHT_ATTACK:
+			animator.play("Light_attack_default")
 			perform_light_attack()
 		
 		HEAVY_ATTACK_WINDUP:
+			animator.play("Heavy_attack_default")
 			current_speed = heavy_attack_dash_speed
 			state_timer = heavy_attack_windup_duration
 			set_facing_dir()
-			sprite.heavy_attack(rotation)
+			#sprite.heavy_attack(rotation)
 		
 		HEAVY_ATTACK:
 			perform_heavy_attack()
@@ -219,26 +233,20 @@ func perform_dash():
 	dash_cooldown_timer.start(dash_cooldown)
 	dash_used.emit(dash_cooldown)
 	
-	sprite.start_dash()
-	
 	SoundManager.play_sfx("dash", global_position)
 
 func perform_light_attack() -> void:
-	velocity = Vector2.ZERO
+	velocity = Vector3.ZERO
 	set_facing_dir()
 	
-	light_attack.visible = true
 	light_attack_hitbox.disabled = false
 	
 	# this is for the hud icon but idk if we should have those for light/heavy attacks
 	# light_attack_used.emit(light_attack_cooldown)
 	
-	sprite.light_attack(rotation)
-	
 	SoundManager.play_sfx("light_attack", global_position)
 
 func perform_heavy_attack() -> void:
-	heavy_attack.visible = true
 	heavy_attack_hitbox.disabled = false
 	
 	# this is for the hud icon but idk if we should have those for light/heavy attacks
@@ -255,30 +263,28 @@ func use_active_item():
 
 
 func process_move(delta: float) -> void:	
-	sprite.update_sprite(input)
-	apply_movement(delta, input)
+	apply_movement(delta)
 
 func process_dash(delta: float) -> void:
-	apply_movement(delta, input)
+	apply_movement(delta)
 	
 	if state_timer < 0:
 		change_state(IDLE)
 
 func process_heavy_attack_windup(delta: float) -> void:
 	current_speed *= heavy_attack_dash_decay
-	apply_movement(delta, Vector2.UP.rotated((rotation)))
+	apply_movement(delta)
 	
 	if state_timer < 0:
 		change_state(HEAVY_ATTACK)
 
 func process_heavy_attack(delta: float) -> void:
 	current_speed *= heavy_attack_dash_decay
-	apply_movement(delta, Vector2.UP.rotated((rotation)))
+	apply_movement(delta)
 
 
 func stop_dash() -> void:
 	current_speed = movement_speed
-	sprite.stop_dash()
 
 func stop_light_attack() -> void:
 	light_attack_hitbox.disabled = true
@@ -294,15 +300,18 @@ func update_input() -> void:
 	input.y = Input.get_axis("move_up", "move_down")
 	input = input.normalized()
 
-func apply_movement(delta: float, dir: Vector2) -> void:
-	velocity = lerp(velocity, dir * current_speed, acceleration * delta)
+func apply_movement(delta: float) -> void:
+	if input.length() > 0:
+		rotation.y = atan2(input.x, input.y)
+	
+	velocity = lerp(velocity, Vector3(input.x, 0.0, input.y)*current_speed, acceleration * delta)
 
 func set_facing_dir() -> void:
-	var screen_center: Vector2 = get_viewport_rect().size / 2
-	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var screen_center = get_viewport().get_size() / 2.0
+	var mouse_pos = get_viewport().get_mouse_position()
 	
-	var dir: Vector2 = mouse_pos - screen_center
-	rotation = dir.angle()+ Vector2.DOWN.angle()
+	var dir = (mouse_pos - screen_center).normalized()
+	rotation.y = atan2(dir.x, dir.y)
 
 func heal(amount: float) -> void:
 	if health >= max_health:
@@ -326,7 +335,7 @@ func get_closest_pickup() -> Area2D:
 	
 	return closest
 
-func deal_damage(area: Area2D, amount: float) -> void:
+func deal_damage(area: Area3D, amount: float) -> void:
 	var enemy = area.get_parent() as EnemyController
 	#print("Damage: ", amount) 
 	#Lifesteal
@@ -364,14 +373,14 @@ func deal_stat_damage(area: Area2D, debuff: DebuffResource) -> void:
 		enemy.take_stat_damage(debuff)
 
 func take_damage(damage:float) -> void:
-	instantiate_particles(player_on_damage_particles_scene)
+	#instantiate_particles(player_on_damage_particles_scene)
 	
 	#player_on_damage_particles.restart()
 	
-	if invulnerability_length_timer.time_left > 0:
-		return
+	#if invulnerability_length_timer.time_left > 0:
+		#return
 	
-	invulnerability_length_timer.start()
+	#invulnerability_length_timer.start()
 	
 	#Damage reduction
 	#NOTE: Applying flat damage reduction before percent damage reduction results in less mitigation
@@ -382,86 +391,62 @@ func take_damage(damage:float) -> void:
 	print(damage)
 	update_health_bar.emit(health)
 	
-	hit_flash_timer = hit_flash_duration
-	GameStats.total_damage_taken += damage
+	#hit_flash_timer = hit_flash_duration
+	#GameStats.total_damage_taken += damage
 	
 	if health <= 0.0:
 		die()
-
-func hit_flash() -> void:
-	var mat = sprite.material
-	if not mat:
-		return
-	
-	var strength = 1.0
-	
-	# reduce strength after duration * 0.5
-	if hit_flash_timer < hit_flash_duration * 0.5:
-		strength = hit_flash_timer / (hit_flash_duration * 0.5)
-		strength = clamp(strength, 0.0, 1.0)
-	
-	mat.set_shader_parameter("strength", strength)
 
 func die() -> void:
 	game_over.emit()
 	queue_free()
 
-func instantiate_particles(particle_scene: PackedScene):
-	var particles = particle_scene.instantiate()
-	model.add_child(particles)
-	particles.finished.connect(_on_particles_finished.bind(particles))
-	particles.restart()
+func _on_animation_finished(anim_name):
+	if state == DASH:
+		return
+	if anim_name.begins_with("Light_attack_"):
+		#model.reset_trails()
+		#weapon_mesh.mesh = null
+		exit_state(LIGHT_ATTACK)
+	elif anim_name.begins_with("Heavy_attack_"):
+		#model.reset_trails()
+		#weapon_mesh.mesh = null
+		exit_state(HEAVY_ATTACK)
+	
+	change_state(IDLE)
+	animator.speed_scale = 1
 
 
-func _on_particles_finished(particles_node: Node):
-	particles_node.queue_free()
+func _on_time_alive_timer_timeout() -> void:
+	#GameStats.time_alive_seconds += 1
+	pass
 
-func _on_attack_light_area_entered(area: Area2D) -> void:
+func _on_health_regen_timer_timeout() -> void:
+	heal(health_regen)
+
+func _on_invulnerability_length_timer_timeout() -> void:
+	pass # Replace with function body.
+
+func _on_dash_cooldown_timer_timeout() -> void:
+	can_dash = true
+
+func _on_item_active_cooldown_timer_timeout() -> void:
+	can_active_item = true
+
+func _on_light_attack_area_entered(area: Area3D) -> void:
 	deal_damage(area, attack_light_damage)
-	
-	if primary_attack_active_dot != null:
-		deal_dot_damage(area, primary_attack_active_dot)
-	
-	if primary_attack_active_debuff != null:
-		deal_stat_damage(area, primary_attack_active_debuff)
 
-func _on_attack_heavy_area_entered(area: Area2D) -> void:
-	
+func _on_heavy_attack_area_entered(area: Area3D) -> void:
 	deal_damage(area, attack_heavy_damage)
-	
-	if secondary_attack_active_dot != null:
-		deal_dot_damage(area, secondary_attack_active_dot)
-		
-	if secondary_attack_active_debuff != null:
-		deal_stat_damage(area, secondary_attack_active_debuff)
 
-func _on_item_pickup_detector_area_entered(area: Area2D) -> void:
-	overlapping_pickups.append(area)
-
-func _on_item_pickup_detector_area_exited(area: Area2D) -> void:
-	overlapping_pickups.erase(area)
-
-func _on_health_pickup_detector_area_entered(area: Area2D) -> void:
+func _on_health_radius_area_entered(area: Area3D) -> void:
 	# TODO: proper heal amount
 	heal(2.0)
 	SoundManager.play_sfx("heal", global_position)
 	area.queue_free()
 
-func _on_time_alive_timer_timeout() -> void:
-	GameStats.time_alive_seconds += 1
+func _on_loot_radius_area_entered(area: Area3D) -> void:
+	overlapping_pickups.append(area)
 
-func _on_health_regen_timer_timeout() -> void:
-	heal(health_regen)
-
-func _on_dash_cooldown_timer_timeout() -> void:
-	can_dash = true
-
-func _on_player_sprite_light_attack_finished() -> void:
-	change_state(IDLE)
-
-func _on_player_sprite_heavy_attack_finished() -> void:
-	change_state(IDLE)
-
-func _on_item_active_cooldown_timer_timeout() -> void:
-	can_active_item = true
-	pass # Replace with function body.
+func _on_loot_radius_area_exited(area: Area3D) -> void:
+	overlapping_pickups.erase(area)

@@ -90,9 +90,9 @@ position = Vector2(-133, 322)
 scale = Vector2(1.0000002, 1.0000002)
 navigation_polygon = SubResource("NavigationPolygon_plt4o")
 script = ExtResource("5_8p4n1")
-timer = NodePath("Timer")
 width = 0
 height = 0
+timer = NodePath("Timer")
 spawner = NodePath("../../EnemySpawner")
 
 [node name="Timer" type="Timer" parent="world/navRegion"]

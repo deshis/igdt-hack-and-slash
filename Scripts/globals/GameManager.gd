@@ -17,8 +17,7 @@ func _ready() -> void:
 
 
 var stages := [
-	preload("res://Scenes/forest/forest_test.tscn"),
-	preload("res://Scenes/level/test_area.tscn")
+	preload("res://Scenes/forest/forest_test_variety.tscn")
 ]
 
 
@@ -49,7 +48,7 @@ func load_stage(num: int) -> void:
 	current_stage_ind = num
 	
 	stage_root.add_child(current_stage)
-	player.global_position = Vector2.ZERO
+	player.global_position = Vector3.ZERO
 
 func load_next_stage() -> void:
 	load_stage(current_stage_ind + 1)

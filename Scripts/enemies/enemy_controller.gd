@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends CharacterBody3D
 class_name EnemyController
 
 # HEALTH BAR
@@ -9,22 +9,9 @@ var health_bar
 var enemy: EnemyStats
 var target_provider: TargetProvider
 @onready var current_speed := enemy.speed
-@export var nav_agent: NavigationAgent2D
+@export var nav_agent: NavigationAgent3D
 
 @onready var player: Player = GameManager.player
-
-# PARTICLES
-var hit_particles_scene = preload("res://Scenes/particles/on_hit_particles.tscn")
-var electric_dot_particles_scene = preload("res://Scenes/particles/electric_dot_particles.tscn")
-var electric_dot_particles_scene_3D = preload("res://Scenes/particles/electric_dot_particles_3d.tscn")
-var freeze_shatter_particles_scene = preload("res://Scenes/particles/freeze_shatter_particles.tscn")
-
-var active_freeze_particles_scene = preload("res://Scenes/particles/freeze_particles.tscn")
-#var active_freeze_particles: Node2D = null
-var hit_flash_duration := 0.15
-var hit_flash_timer := 0.0
-@onready var death_particles: CPUParticles2D = $Particles/OnDeathParticles
-@onready var death_particles2: CPUParticles2D = $Particles/OnDeathParticles/OnDeathParticles2
 
 var debuff_timer: Timer
 var dot_timer: Timer
@@ -42,10 +29,7 @@ var remaining_debuff_duration := 0.0
 var enemy_frozen := false
 
 # 3D MODEL
-var animator = null
-@export var model_view: Node3D = null
-@export var camera_point: Node3D = null
-@export var sprite: Sprite2D = null
+@onready var animator = $"model/AnimationPlayer"
 
 # ATTACK
 @export var attack: PackedScene = null
@@ -70,13 +54,8 @@ func _init() -> void:
 	dot_timer = Timer.new()
 
 func _ready() -> void:
-	sprite.material = sprite.material.duplicate()
 	nav_agent.path_desired_distance = attack_range
 	
-	if model_view:
-		animator = camera_point.get_node("AnimationPlayer")
-		model_view.position = Vector3(randf()*1e6, randf()*1e6, randf()*1e6)
-		
 	dot_timer = Timer.new()
 	dot_timer.timeout.connect(_on_dot_tick) 
 	add_child(dot_timer)
@@ -89,11 +68,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not player or not target_provider:
 		return
-	
-	# model stuff
-	if model_view:
-		sprite.rotation = -rotation
-		camera_point.rotation.y = -deg_to_rad(round(rad_to_deg(rotation+PI) / 5.0) * 5.0)
 	
 	state_timer -= delta
 	
@@ -114,10 +88,6 @@ func _physics_process(delta: float) -> void:
 		COOLDOWN:
 			if state_timer <= 0:
 				change_state(IDLE)
-	
-	if hit_flash_timer > 0:
-		hit_flash_timer -= delta
-		hit_flash()
 
 
 func change_state(new_state: String, duration := 0.0):
@@ -139,7 +109,7 @@ func process_attack() -> void:
 	if state_timer > 0:
 		return
 	
-	perform_attack(attack)
+	#perform_attack(attack)
 	change_state(COOLDOWN, cooldown_duration)
 
 func process_navigation(delta: float) -> void:
@@ -151,19 +121,21 @@ func process_navigation(delta: float) -> void:
 	if nav_agent.is_navigation_finished():
 		return
 	
-	var next_pos = nav_agent.get_next_path_position()
+	var next_pos = nav_agent.target_position
+	if nav_agent.get_current_navigation_path().size() >= 2:
+		next_pos = nav_agent.get_current_navigation_path()[1]
 	var dir = (next_pos - global_transform.origin).normalized()
 	
 	update_facing_dir(delta, dir)
 	apply_movement(delta, dir)
 
-func apply_movement(delta: float, dir: Vector2) -> void:
+func apply_movement(delta: float, dir: Vector3) -> void:
 	velocity = lerp(velocity, dir * current_speed, enemy.acceleration * delta)
 	move_and_slide()
 
-func update_facing_dir(delta: float, dir: Vector2) -> void:
-	var target_angle = dir.angle() + Vector2.DOWN.angle()
-	rotation = lerp_angle(rotation, target_angle, enemy.rotation_speed * delta)
+func update_facing_dir(delta: float, dir: Vector3) -> void:
+	var target_angle = atan2(dir.x, dir.z)
+	rotation.y = lerp_angle(rotation.y, target_angle, enemy.rotation_speed * delta)
 
 func perform_attack(attack_scene: PackedScene, offset: Vector2 = Vector2.ZERO) -> void:
 	var instance = attack_scene.instantiate()
@@ -203,7 +175,6 @@ func _on_dot_tick() -> void:
 
 		enemy.health -= current_tick_damage
 		update_health_bar.emit(enemy.health)
-		hit_flash_timer = hit_flash_duration
 		SoundManager.play_sfx("dot_sfx", global_position)  #Might want DoT SFX here, maybe even separate depending on DoT (From resource)
 		
 		if active_dots.particle_scene:
@@ -256,29 +227,11 @@ func apply_debuff_effect(debuff: DebuffResource) -> void:
 	print("Applying debuff")
 	match debuff.debuff_type:
 		DebuffResource.DebuffType.STUN:
-			if active_stat_debuffs.particle_scene:
-				if model_view:
-					#testing 3D particles
-					print_debug(electric_dot_particles_scene_3D)
-					var particle_scene = electric_dot_particles_scene_3D.instantiate()
-					model_view.add_child(particle_scene)
-					particle_scene.finished.connect(_on_particles_finished.bind(particle_scene))
-		
-					particle_scene.restart()
-					
-					instantiate_particles(active_stat_debuffs.particle_scene)
-				
 			SoundManager.play_sfx("stun_sfx", global_position)
-			
 			change_state(STUN, remaining_debuff_duration)
 		DebuffResource.DebuffType.FREEZE:
-			if active_stat_debuffs.particle_scene:
-				#First plays the freeze effect, then thawing effect once , as long as the debuff tick rate matches the debuff duration.
-				instantiate_particles(active_freeze_particles_scene)
-				
 			SoundManager.play_sfx("freeze_sfx", global_position)
 			enemy_frozen = true
-			
 			change_state(COOLDOWN, remaining_debuff_duration)
 			
 func remove_debuff_effect(debuff: DebuffResource) -> void:
@@ -326,10 +279,9 @@ func take_damage(damage:float) -> void:
 		
 	enemy.health -= damage
 	update_health_bar.emit(enemy.health)
-	hit_flash_timer = hit_flash_duration
 	SoundManager.play_sfx("hit", global_position)
 	
-	instantiate_particles(hit_particles_scene)
+	#instantiate_particles(hit_particles_scene)
 	
 	GameStats.total_damage_dealt += damage
 	
@@ -341,12 +293,6 @@ func die() -> void:
 	
 	#Death particles here
 	#TODO: clean these
-	if death_particles:
-		death_particles.get_parent().remove_child(death_particles)
-		get_tree().get_root().add_child(death_particles)
-		death_particles.global_position = global_position
-		death_particles.restart()
-		death_particles2.restart()
 		
 	if health_bar:
 		health_bar.queue_free()
@@ -372,7 +318,7 @@ func shatter_ice() -> void:
 	if state_timer:
 		state_timer = 0
 		
-	instantiate_particles(freeze_shatter_particles_scene)
+	#instantiate_particles(freeze_shatter_particles_scene)
 	
 func instantiate_particles(particle_scene: PackedScene):
 	var particles = particle_scene.instantiate()
@@ -387,26 +333,9 @@ func instantiate_particles(particle_scene: PackedScene):
 func _on_particles_finished(particles_node: Node):
 	particles_node.queue_free()
 
-func hit_flash() -> void:
-	var mat = sprite.material
-	if not mat:
-		return
-	
-	var strength = 1.0
-	
-	# reduce strength after duration * 0.5
-	if hit_flash_timer < hit_flash_duration * 0.5:
-		strength = hit_flash_timer / (hit_flash_duration * 0.5)
-		strength = clamp(strength, 0.0, 1.0)
-	
-	mat.set_shader_parameter("strength", strength)
-
 func _on_attack_area_area_entered(_area: Area2D, damage: float = enemy.damage) -> void:
 	GameStats.player_last_hit_by = enemy.name
 	player.take_damage(damage)
-
-func _on_navigation_agent_2d_target_reached() -> void:
-	change_state(ATTACK, attack_windup_duration)
 
 func _on_attack_removed(node: Node2D) -> void:
 	active_attacks.erase(node)

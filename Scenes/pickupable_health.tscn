@@ -1,22 +1,53 @@
-[gd_scene load_steps=4 format=3 uid="uid://co6hqeammfqxj"]
+[gd_scene load_steps=9 format=3 uid="uid://co6hqeammfqxj"]
 
 [ext_resource type="Script" uid="uid://c2mlvh78l8lyc" path="res://Scripts/player/pickupable_health.gd" id="1_hra3j"]
-[ext_resource type="Texture2D" uid="uid://v4yfhxneulwp" path="res://Assets/orb.png" id="1_jxo4e"]
+[ext_resource type="Shader" uid="uid://c3vnwshetya1x" path="res://Assets/effects/health/health_pickup.gdshader" id="2_34xcm"]
+[ext_resource type="Texture2D" uid="uid://bcrvod3kjfybf" path="res://Assets/gear.png" id="2_hra3j"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sd5tl"]
-size = Vector2(40, 40)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffcbt"]
+render_priority = 0
+shader = ExtResource("2_34xcm")
+shader_parameter/level = 1.0
+shader_parameter/emission_intensity = 0.0
+shader_parameter/fresnel_color = Color(0.19829297, 0.51785374, 0.20656762, 1)
+shader_parameter/fresnel_intensity = 1.5250000724375
+shader_parameter/fresnel_power = 1.0
+shader_parameter/rim_color = Color(0.30996388, 0.64572066, 0.29886872, 1)
+shader_parameter/rim_size = 0.4150000197125
+shader_parameter/rim_intensity = 0.05200000247
+shader_parameter/rim_start = 1.0
+shader_parameter/rim_end = -1.0
 
-[node name="PickupableHealth" type="Area2D"]
-scale = Vector2(0.3599993, 0.3599993)
+[sub_resource type="SphereMesh" id="SphereMesh_34xcm"]
+material = SubResource("ShaderMaterial_ffcbt")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1r6y2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6aaw"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("2_hra3j")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wn66f"]
+material = SubResource("StandardMaterial3D_t6aaw")
+size = Vector2(1, 1)
+
+[node name="PickupableHealth" type="Area3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 collision_layer = 131072
 collision_mask = 0
 script = ExtResource("1_hra3j")
-strength = null
-duration = null
+magnet_distance = 5.0
+magnet_speed = 4.0
+strength = 2.5
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.15625, 0.15624999)
-texture = ExtResource("1_jxo4e")
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_34xcm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_sd5tl")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1r6y2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.020249922, 0, 0, 0, 0.02024992, 0, 0, 0, 0, 0, 0, 0)
+mesh = SubResource("PlaneMesh_wn66f")
+skeleton = NodePath("../Mesh")

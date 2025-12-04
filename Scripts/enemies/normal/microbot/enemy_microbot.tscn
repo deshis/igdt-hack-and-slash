@@ -19,7 +19,7 @@ shader_parameter/strength = 0.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_byi3r"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "model_view", "camera_point", "sprite")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent")]
 z_index = 2
 collision_layer = 4096
 collision_mask = 4353
@@ -28,9 +28,6 @@ wall_min_slide_angle = 0.0
 safe_margin = 1.0
 script = ExtResource("1_j823o")
 nav_agent = NodePath("NavigationAgent2D")
-model_view = NodePath("SubViewport/3DView")
-camera_point = NodePath("SubViewport/3DView/microbot")
-sprite = NodePath("Sprite2D")
 attack = ExtResource("2_8ddg0")
 attack_windup_duration = 1.167
 attack_range = 100.0

@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 class_name DifficultyManager
 
 @export var starting_level := 0

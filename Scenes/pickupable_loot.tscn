@@ -1,30 +1,41 @@
-[gd_scene load_steps=7 format=3 uid="uid://dl58s8gkullwa"]
+[gd_scene load_steps=9 format=3 uid="uid://dl58s8gkullwa"]
 
 [ext_resource type="Script" uid="uid://d0ne14c7y6fvb" path="res://Scripts/player/pickupable_loot.gd" id="1_3a1hq"]
+[ext_resource type="ArrayMesh" uid="uid://c43hvmywfkp1j" path="res://Assets/player/weapons/maul.res" id="2_3a1hq"]
 [ext_resource type="Texture2D" uid="uid://bcrvod3kjfybf" path="res://Assets/gear.png" id="2_t6aaw"]
-[ext_resource type="Texture2D" uid="uid://cxaj371jrtd0h" path="res://Assets/bolt.png" id="3_8ma31"]
-[ext_resource type="Texture2D" uid="uid://cr0xtudlm5b2d" path="res://Assets/screw.png" id="4_pfs0u"]
+[ext_resource type="ArrayMesh" uid="uid://dtnaovd8bxw3a" path="res://Assets/player/weapons/labrys.res" id="3_t6aaw"]
 [ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="5_vbco5"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sd5tl"]
-size = Vector2(40, 40)
+[sub_resource type="BoxShape3D" id="BoxShape3D_3a1hq"]
 
-[node name="PickupableItem" type="Area2D" node_paths=PackedStringArray("sprite")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3a1hq"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("2_t6aaw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8ma31"]
+material = SubResource("StandardMaterial3D_3a1hq")
+size = Vector2(1, 1)
+
+[node name="PickupableItem" type="Area3D" node_paths=PackedStringArray("mesh_instance")]
 collision_layer = 65536
 collision_mask = 0
 script = ExtResource("1_3a1hq")
-sprite = NodePath("Sprite2D")
-sprite_list = Array[CompressedTexture2D]([ExtResource("2_t6aaw"), ExtResource("3_8ma31"), ExtResource("4_pfs0u")])
+mesh_instance = NodePath("MeshInstance3D")
+mesh_list = Array[Mesh]([ExtResource("2_3a1hq"), ExtResource("3_t6aaw")])
 item_scene = ExtResource("5_vbco5")
 strength = 150.0
 duration = 0.2
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.15625, 0.15624999)
-texture = ExtResource("2_t6aaw")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_3a1hq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_sd5tl")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_8ma31")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.42261824, 0.9063078, 0, -0.9063078, 0.42261824, 0, 0.55826163, -0.59474856)
+text = "F interact"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = -56.0

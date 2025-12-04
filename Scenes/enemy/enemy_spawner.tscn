@@ -1,33 +1,26 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1h6pqnhbr5no"]
+[gd_scene load_steps=5 format=3 uid="uid://c1h6pqnhbr5no"]
 
 [ext_resource type="Script" uid="uid://486d8jq4rlh0" path="res://Scripts/enemies/enemy_spawner.gd" id="1_4l55s"]
 [ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemies/EnemyPrefab.gd" id="2_tdwud"]
-[ext_resource type="Resource" uid="uid://1dmu76yei0sm" path="res://Scripts/enemies/normal/microbot/MicrobotPrefab.tres" id="3_5f1q1"]
-[ext_resource type="Resource" uid="uid://baujclodehp88" path="res://Scripts/enemies/bosses/claw/ClawPrefab.tres" id="3_le3a8"]
 [ext_resource type="Resource" uid="uid://ctly0bibi2t2d" path="res://Scripts/enemies/normal/slasher/SlasherPrefab.tres" id="4_mjc5i"]
-[ext_resource type="Resource" uid="uid://x8fs3x2upf2j" path="res://Scripts/enemies/normal/mage/MagePrefab.tres" id="5_qiwfs"]
-[ext_resource type="Resource" uid="uid://f1l3e7pudln" path="res://Scripts/enemies/augmented/slasher/AugSlasherPrefab.tres" id="6_iav0j"]
 [ext_resource type="Script" uid="uid://2rg187ye080s" path="res://Scenes/enemy/difficulty_manager.gd" id="6_mjc5i"]
-[ext_resource type="Resource" uid="uid://xrq4kt1wxhud" path="res://Scripts/enemies/augmented/microbot/AugMicrobotPrefab.tres" id="7_te1bg"]
-[ext_resource type="Resource" uid="uid://bhow6fae2mh5t" path="res://Scripts/enemies/augmented/mage/AugMagePrefab.tres" id="8_f438n"]
 
-[node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("wave_cooldown_timer", "credits_cooldown_timer", "boss_cooldown_timer", "diff")]
+[node name="EnemySpawner" type="Node3D" node_paths=PackedStringArray("wave_cooldown_timer", "credits_cooldown_timer", "boss_cooldown_timer", "diff")]
 script = ExtResource("1_4l55s")
-enemy_list = Array[ExtResource("2_tdwud")]([ExtResource("3_5f1q1"), ExtResource("4_mjc5i"), ExtResource("5_qiwfs")])
-augmented_list = Array[ExtResource("2_tdwud")]([ExtResource("7_te1bg"), ExtResource("6_iav0j"), ExtResource("8_f438n")])
-boss_list = Array[ExtResource("2_tdwud")]([ExtResource("3_le3a8")])
+enemy_list = Array[ExtResource("2_tdwud")]([ExtResource("4_mjc5i")])
+augmented_list = Array[ExtResource("2_tdwud")]([ExtResource("4_mjc5i")])
+boss_list = Array[ExtResource("2_tdwud")]([ExtResource("4_mjc5i")])
 wave_cooldown_timer = NodePath("WaveCooldownTimer")
 credits_cooldown_timer = NodePath("CreditsCooldownTimer")
 boss_cooldown_timer = NodePath("BossCooldownTimer")
 diff = NodePath("DifficultyManager")
 
-[node name="DifficultyManager" type="Node2D" parent="."]
+[node name="DifficultyManager" type="Node3D" parent="."]
 script = ExtResource("6_mjc5i")
 
 [node name="WaveCooldownTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
-autostart = true
 
 [node name="BossCooldownTimer" type="Timer" parent="."]
 one_shot = true
@@ -35,7 +28,6 @@ one_shot = true
 [node name="CreditsCooldownTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
-autostart = true
 
 [connection signal="timeout" from="WaveCooldownTimer" to="." method="_on_wave_cooldown_timer_timeout"]
 [connection signal="timeout" from="BossCooldownTimer" to="." method="_on_boss_cooldown_timer_timeout"]

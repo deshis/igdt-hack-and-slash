@@ -49,7 +49,7 @@ func _ready() -> void:
 	}
 
 # Play one-shot sound effects
-func play_sfx(name: String, position: Vector2 = Vector2.ZERO) -> void:
+func play_sfx(name: String, position: Vector3 = Vector3.ZERO) -> void:
 	
 	if not sfx_players.has(name):
 		push_warning("SFX not found: " + name)
@@ -57,7 +57,7 @@ func play_sfx(name: String, position: Vector2 = Vector2.ZERO) -> void:
 		
 	var player := AudioStreamPlayer2D.new()
 	player.stream = sfx_players[name]
-	player.position = position
+	player.position = Vector2(position.x, position.z)
 	
 	player.bus = "SFX"
 	

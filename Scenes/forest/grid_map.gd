@@ -12,10 +12,11 @@ extends GridMap # Straight from another project :D
 		#_generate()
 @export_tool_button("clear map") var clr = _clear
 
+@export var noise_scale: int
 @export var noise_sharp: FastNoiseLite
-		
 @export var noise_gradual: FastNoiseLite
 
+@onready var enemy_spawner = $"../../../EnemySpawner"
 
 func _notification(notification):
 	if notification == NOTIFICATION_EDITOR_PRE_SAVE:
@@ -38,10 +39,13 @@ func _generate():
 	await peaks.changed
 	var noisePeaks =peaks.get_image()
 	
-	var xi=texture.height/2
-	var yj=texture.width/2
-	for i in texture.height:
-		for j in texture.width:
+	var tex_width = texture.width / noise_scale
+	var tex_height = texture.height / noise_scale
+	
+	var xi=tex_height/2
+	var yj=tex_width/2
+	for i in tex_height:
+		for j in tex_width:
 			var flow:int = noiseImage.get_pixel(i,j).r * height
 			var points:int = noisePeaks.get_pixel(i,j).r * height
 			var location=Vector3(i-xi,0,j-yj)
@@ -61,10 +65,17 @@ func _generate():
 				self.set_cell_item(location3,3)
 
 			self.set_cell_item(location,0)		
-			
+	
+	print_debug(texture.height)
 	print("gridmap done!")
+	bake_gridmap_navmesh()
+	print("navmesh done!")
 	_generate_grass()
 	print("grass done!")
+	enemy_spawner.start_spawner()
+
+func bake_gridmap_navmesh():
+	get_parent().bake_navigation_mesh(true)
 
 func _generate_grass():
 	var grass_positions: Array[Transform3D] = []
@@ -73,14 +84,14 @@ func _generate_grass():
 		if self.get_cell_item(cell) == 2:
 			var tile_center := self.map_to_local(cell)
 
-			for i in range(100):
+			for i in range(50):
 				var rand_offset = Vector3(randf() - 0.5,0,randf() - 0.5) * 2.0   # keeps blades within the tile
 
 				var pos = tile_center + rand_offset
 
 				var xf = Transform3D()
 				xf = xf.rotated(Vector3.UP, randf() * TAU)
-				xf = xf.rotated(Vector3.RIGHT, deg_to_rad(-35))
+				xf = xf.rotated(Vector3.RIGHT, deg_to_rad(-30))
 				xf.origin = pos
 
 				grass_positions.append(xf)
@@ -95,5 +106,4 @@ func _enter_tree():
 	pass
 
 func _ready():
-	pass
-	
+	_generate()

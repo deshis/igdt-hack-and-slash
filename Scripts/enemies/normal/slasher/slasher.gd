@@ -1,13 +1,12 @@
-extends EnemyController	
+extends EnemyController
 class_name Slasher
 
 @export var face_player_duration := 0.667
 @export var dash_speed := 1000.0
 @export var dash_duration := 0.5
 
-@onready var attack_duration = $"SubViewport/3DView/slasher/AnimationPlayer".get_animation("Attack").length 
-
-@onready var slash_trail = $"SubViewport/3DView/slasher/SlashMesh"
+@onready var attack_duration = $"model/AnimationPlayer".get_animation("Attack").length 
+@onready var slash_trail = $"model/SlashMesh"
 
 const FACE_PLAYER = "face_player"
 const DASH = "dash"
@@ -63,11 +62,11 @@ func process_face_player(delta: float) -> void:
 		change_state(ATTACK, attack_windup_duration)
 
 func process_attack() -> void:
-	perform_attack(attack)
+	#perform_attack(attack)
 	change_state(DASH, dash_duration)
 
 func process_dash(delta: float) -> void:
-	var dash_dir = Vector2.UP.rotated(rotation)
+	var dash_dir = Vector3(sin(rotation.y), 0, cos(rotation.y)).normalized()
 	apply_movement(delta, dash_dir)
 	
 	if state_timer < 0:
@@ -77,5 +76,5 @@ func process_attack_wrap_up(_delta: float) -> void:
 	if state_timer < 0:
 		change_state(COOLDOWN, cooldown_duration)
 
-func _on_navigation_agent_2d_target_reached() -> void:
+func _on_navigation_agent_3d_target_reached() -> void:
 	change_state(FACE_PLAYER, face_player_duration)
