@@ -39,6 +39,10 @@ autostart = true
 
 [node name="ItemActiveCooldownTimer" type="Timer" parent="Timers"]
 
+[node name="HitFlash" type="Timer" parent="Timers"]
+wait_time = 0.3
+one_shot = true
+
 [node name="model" parent="." instance=ExtResource("19_fs7ks")]
 
 [node name="LightAttack" type="Area3D" parent="."]
@@ -88,6 +92,7 @@ shape = SubResource("CylinderShape3D_eo61r")
 [connection signal="timeout" from="Timers/InvulnerabilityLengthTimer" to="." method="_on_invulnerability_length_timer_timeout"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
 [connection signal="timeout" from="Timers/ItemActiveCooldownTimer" to="." method="_on_item_active_cooldown_timer_timeout"]
+[connection signal="timeout" from="Timers/HitFlash" to="." method="_on_hit_flash_timeout"]
 [connection signal="area_entered" from="LightAttack" to="." method="_on_light_attack_area_entered"]
 [connection signal="area_entered" from="HeavyAttack" to="." method="_on_heavy_attack_area_entered"]
 [connection signal="area_entered" from="LootRadius" to="." method="_on_loot_radius_area_entered"]

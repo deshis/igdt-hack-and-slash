@@ -12,9 +12,6 @@ signal item_picked_up(area)
 
 signal game_over
 
-var hit_flash_timer := 0.0
-var hit_flash_duration := 0.3
-
 var overlapping_pickups := []
 
 # PLAYER STATS
@@ -81,6 +78,9 @@ var can_active_item := true
 @onready var animator = $"model/AnimationPlayer"
 @onready var weapon_mesh = $model/rig/Skeleton3D/BoneAttachment3D/Weapon/Mesh
 
+@onready var hit_flash = $"model/rig/Skeleton3D/Char".mesh.surface_get_material(0).get_next_pass()
+@onready var hit_flash_timer = $Timers/HitFlash
+var hit_flash_duration := 0.15
 
 # STATE MACHINE
 var state = IDLE
@@ -121,10 +121,6 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("active_item") and can_active_item:
 		use_active_item()
-	
-	#if hit_flash_timer > 0:
-		#hit_flash_timer = 0 # TODO: temporary fix to avoid infinite loop
-		#hit_flash()
 	
 	move_and_slide()
 
@@ -398,6 +394,9 @@ func deal_stat_damage(area: Area3D, debuff: DebuffResource) -> void:
 func take_damage(damage:float) -> void:
 	GameManager.particles.emit_particles("player_on_hit", global_position, self)
 	
+	hit_flash.set_shader_parameter('strength',1.0)
+	hit_flash_timer.start(hit_flash_duration)
+	
 	#if invulnerability_length_timer.time_left > 0:
 		#return
 	
@@ -411,8 +410,7 @@ func take_damage(damage:float) -> void:
 	health -= damage
 	update_health_bar.emit(health)
 	
-	#hit_flash_timer = hit_flash_duration
-	#GameStats.total_damage_taken += damage
+	GameStats.total_damage_taken += damage
 	
 	if health <= 0.0:
 		die()
@@ -470,3 +468,7 @@ func _on_loot_radius_area_entered(area: Area3D) -> void:
 
 func _on_loot_radius_area_exited(area: Area3D) -> void:
 	overlapping_pickups.erase(area)
+
+
+func _on_hit_flash_timeout() -> void:
+	hit_flash.set_shader_parameter('strength',0.0)

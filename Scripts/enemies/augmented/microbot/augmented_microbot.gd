@@ -6,6 +6,17 @@ class_name AugmentedMicrobot
 
 @onready var trail = $"model/AugmentedBlastWave"
 
+func _ready():
+	super._ready()
+	var mesh_instance = $"model/Rig/Skeleton3D/AugMicrobot"
+	var base_mat = mesh_instance.mesh.surface_get_material(0)
+	var unique_mat = base_mat.duplicate()
+	var next_pass_base = hit_flash_material
+	var next_pass_unique = next_pass_base.duplicate()
+	unique_mat.next_pass = next_pass_unique
+	mesh_instance.set_surface_override_material(0, unique_mat)
+	hit_flash = next_pass_unique
+
 func change_state(new_state: String, duration := 0.0):
 	super.change_state(new_state, duration)
 	

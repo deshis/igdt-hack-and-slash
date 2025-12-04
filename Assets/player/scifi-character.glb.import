@@ -20603,8 +20603,8 @@ _subresources={
 "materials": {
 "Material.003": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://Assets/player/Material.003.tres",
-"use_external/path": "uid://kfoo1hxw5n1w"
+"use_external/fallback_path": "res://Assets/player/materials/player_mat.tres",
+"use_external/path": "uid://dhhknt7kteyse"
 }
 },
 "meshes": {

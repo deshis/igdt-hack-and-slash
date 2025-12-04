@@ -31,6 +31,11 @@ var enemy_frozen := false
 # 3D MODEL
 @onready var animator = $"model/AnimationPlayer"
 
+var hit_flash_timer: Timer
+var hit_flash_duration := 0.15
+var hit_flash
+var hit_flash_material = preload("res://Assets/effects/hit_flash/hit_flash.tres")
+
 # ATTACK
 @export var attack: PackedScene = null
 @export var attack_windup_duration := 0.6
@@ -57,11 +62,15 @@ func _ready() -> void:
 	nav_agent.path_desired_distance = attack_range
 	
 	dot_timer = Timer.new()
-	dot_timer.timeout.connect(_on_dot_tick) 
+	dot_timer.timeout.connect(_on_dot_tick)
 	add_child(dot_timer)
 	
 	debuff_timer.timeout.connect(_on_debuff_tick) 
 	add_child(debuff_timer)
+	
+	hit_flash_timer = Timer.new()
+	hit_flash_timer.timeout.connect(_on_hit_flash_end)
+	add_child(hit_flash_timer)
 	
 	change_state(IDLE)
 
@@ -281,6 +290,9 @@ func take_damage(damage:float) -> void:
 	update_health_bar.emit(enemy.health)
 	SoundManager.play_sfx("hit", global_position)
 	
+	hit_flash.set_shader_parameter('strength',1.0)
+	hit_flash_timer.start(hit_flash_duration)
+	
 	#instantiate_particles(hit_particles_scene)
 	
 	GameStats.total_damage_dealt += damage
@@ -343,3 +355,6 @@ func _on_attack_removed(node: Node3D) -> void:
 
 func _on_navigation_agent_3d_target_reached() -> void:
 	change_state(ATTACK, attack_windup_duration)
+
+func _on_hit_flash_end():
+	hit_flash.set_shader_parameter('strength',0.0)
