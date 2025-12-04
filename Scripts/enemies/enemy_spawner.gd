@@ -31,7 +31,7 @@ func start_spawner() -> void:
 	wave_cooldown_timer.start()
 	credits_cooldown_timer.start()
 
-func spawn_enemy(prefab: EnemyPrefab) -> void:
+func spawn_enemy(prefab: EnemyPrefab, pos: Vector3 = Vector3.ZERO) -> void:
 	var enemy = prefab.scene.instantiate() as EnemyController
 	enemy.enemy = prefab.stats.duplicate(true)
 	add_child(enemy)
@@ -40,7 +40,11 @@ func spawn_enemy(prefab: EnemyPrefab) -> void:
 	enemy.target_provider = prefab.target_provider if prefab.target_provider else TargetPlayer.new()
 	
 	enemy.enemy.setup(diff.difficulty_level)
-	enemy.global_position = get_spawn_pos(enemy)
+	
+	if pos == Vector3.ZERO:
+		enemy.global_position = get_spawn_pos(enemy)
+	else:
+		enemy.global_position = pos
 	
 	setup_health_bar(enemy)
 

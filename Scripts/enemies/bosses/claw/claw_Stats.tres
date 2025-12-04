@@ -6,7 +6,7 @@
 script = ExtResource("1_qs424")
 name = "C-14"
 type = 2
-speed = 200.0
+speed = 2.5
 max_health = 20.0
 damage = 3.0
 cost = 15.0

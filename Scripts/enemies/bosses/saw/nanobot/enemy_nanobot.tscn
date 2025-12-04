@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxfkpodvrl77o"]
+[gd_scene load_steps=6 format=3 uid="uid://g8knt0evncvq"]
 
-[ext_resource type="Script" uid="uid://brdidm5k40j17" path="res://Scripts/enemies/normal/microbot/microbot.gd" id="1_j823o"]
-[ext_resource type="PackedScene" uid="uid://cwctmtomge8j4" path="res://Scripts/enemies/normal/microbot/attack_microbot.tscn" id="2_yfg6p"]
-[ext_resource type="PackedScene" uid="uid://cpp1xnash21x2" path="res://Scripts/enemies/normal/microbot/microbot_model.tscn" id="5_8ddg0"]
+[ext_resource type="Script" uid="uid://chesackaw4aua" path="res://Scripts/enemies/bosses/saw/nanobot/nanobot.gd" id="1_sp4ew"]
+[ext_resource type="PackedScene" uid="uid://bl1oywharjent" path="res://Scripts/enemies/bosses/saw/nanobot/attack_nanobot.tscn" id="2_n4oim"]
+[ext_resource type="PackedScene" uid="uid://ba6kasdy5sv28" path="res://Scripts/enemies/bosses/saw/nanobot/nanobot_model.tscn" id="3_ucg41"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_puxwi"]
 size = Vector3(1, 2, 1)
@@ -11,21 +11,22 @@ size = Vector3(1, 2, 1)
 size = Vector3(1, 2, 1)
 
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 collision_layer = 4096
 collision_mask = 4353
 motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 1.0
-script = ExtResource("1_j823o")
-target_dist_min = 1.0
-target_dist_max = 2.5
+script = ExtResource("1_sp4ew")
+target_dist_min = 0.6
+target_dist_max = 1.5
 nav_agent = NodePath("NavigationAgent3D")
-attack = ExtResource("2_yfg6p")
-attack_windup_duration = 1.167
-attack_range = 90.0
-cooldown_duration = 0.4
+attack = ExtResource("2_n4oim")
+attack_windup_duration = 0.8
+attack_range = 100.0
+cooldown_duration = 0.6
 
-[node name="model" parent="." instance=ExtResource("5_8ddg0")]
+[node name="model" parent="." instance=ExtResource("3_ucg41")]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 target_desired_distance = 5.0
@@ -34,7 +35,7 @@ radius = 1.0
 debug_enabled = true
 
 [node name="Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 1.25, 0)
+transform = Transform3D(0.7028102, 0, 0, 0, 1.2499996, 0, 0, 0, 0.7028102, 0, 1.2499998, 0)
 shape = SubResource("BoxShape3D_puxwi")
 
 [node name="Hurtbox" type="Area3D" parent="."]

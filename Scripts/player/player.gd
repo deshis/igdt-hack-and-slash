@@ -391,16 +391,18 @@ func deal_stat_damage(area: Area3D, debuff: DebuffResource) -> void:
 		#print("Take stat damage")
 		enemy.take_stat_damage(debuff)
 
-func take_damage(damage:float) -> void:
+func take_damage(damage:float, ignore_invulnerability: bool = false) -> void:
 	GameManager.particles.emit_particles("player_on_hit", global_position, self)
 	
 	hit_flash.set_shader_parameter('strength',1.0)
 	hit_flash_timer.start(hit_flash_duration)
 	
-	#if invulnerability_length_timer.time_left > 0:
-		#return
+	# TODO: ADD INVULNERABILITY LENGTH TIMER
+	"if invulnerability_length_timer.time_left > 0 and not ignore_invulnerability:
+		return
 	
-	#invulnerability_length_timer.start()
+	if not ignore_invulnerability:
+		invulnerability_length_timer.start()"
 	
 	#Damage reduction
 	#NOTE: Applying flat damage reduction before percent damage reduction results in less mitigation

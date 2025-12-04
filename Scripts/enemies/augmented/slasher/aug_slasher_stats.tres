@@ -6,7 +6,7 @@
 script = ExtResource("1_8ekfc")
 name = "Augmented ://_Sher"
 type = 1
-speed = 275.0
+speed = 3.0
 max_health = 8.0
 damage = 3.0
 cost = 4.0
