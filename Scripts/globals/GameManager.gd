@@ -9,6 +9,7 @@ var current_stage_ind  := 0
 var stage_root: Node = null
 
 var HUD: HudManager = null
+var particles: ParticleManager = null
 
 func _ready() -> void:
 	# init player
@@ -30,6 +31,10 @@ func start_game() -> void:
 	# init hud
 	HUD = preload("res://Scenes/hud.tscn").instantiate() as HudManager
 	add_child(HUD)
+	
+	# init particle manager
+	particles = preload("res://Scenes/particles/particle_manager.tscn").instantiate() as ParticleManager
+	add_child(particles)
 	
 	load_stage(0)
 	

@@ -62,7 +62,7 @@ func process_face_player(delta: float) -> void:
 		change_state(ATTACK, attack_windup_duration)
 
 func process_attack() -> void:
-	#perform_attack(attack)
+	perform_attack(attack)
 	change_state(DASH, dash_duration)
 
 func process_dash(delta: float) -> void:

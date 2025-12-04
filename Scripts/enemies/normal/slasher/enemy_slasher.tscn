@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfykyy2y7odt7"]
+[gd_scene load_steps=6 format=3 uid="uid://bfykyy2y7odt7"]
 
 [ext_resource type="Script" uid="uid://6n8vopurwam1" path="res://Scripts/enemies/normal/slasher/slasher.gd" id="1_j7slm"]
+[ext_resource type="PackedScene" uid="uid://bkluuxs7dqdp2" path="res://Scripts/enemies/normal/slasher/attack_slasher.tscn" id="2_puxwi"]
 [ext_resource type="PackedScene" uid="uid://dtmntfwnrv3ig" path="res://Scripts/enemies/normal/slasher/slasher_model.tscn" id="5_u6ti3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_puxwi"]
+size = Vector3(1, 2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_48d4a"]
 size = Vector3(1, 2, 1)
@@ -16,6 +20,7 @@ safe_margin = 1.0
 script = ExtResource("1_j7slm")
 dash_speed = 10.0
 nav_agent = NodePath("NavigationAgent3D")
+attack = ExtResource("2_puxwi")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 target_desired_distance = 5.0
@@ -24,6 +29,10 @@ radius = 1.0
 debug_enabled = true
 
 [node name="model" parent="." instance=ExtResource("5_u6ti3")]
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_puxwi")
 
 [node name="Hurtbox" type="Area3D" parent="."]
 collision_layer = 8192

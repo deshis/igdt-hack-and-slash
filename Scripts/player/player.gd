@@ -373,9 +373,7 @@ func deal_stat_damage(area: Area2D, debuff: DebuffResource) -> void:
 		enemy.take_stat_damage(debuff)
 
 func take_damage(damage:float) -> void:
-	#instantiate_particles(player_on_damage_particles_scene)
-	
-	#player_on_damage_particles.restart()
+	GameManager.particles.emit_particles("player_on_hit", global_position, self)
 	
 	#if invulnerability_length_timer.time_left > 0:
 		#return
@@ -388,7 +386,6 @@ func take_damage(damage:float) -> void:
 	damage *= (100.0 - percent_damage_reduction)/100
 	snappedf(damage,3)
 	health -= damage
-	print(damage)
 	update_health_bar.emit(health)
 	
 	#hit_flash_timer = hit_flash_duration

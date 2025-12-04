@@ -7,5 +7,5 @@ script = ExtResource("1_30cjd")
 name = "://_Sher"
 speed = 2.5
 max_health = 3.5
-health_per_level = 0.1
+health_per_level = 1.0
 metadata/_custom_type_script = "uid://t76ghlhghorw"

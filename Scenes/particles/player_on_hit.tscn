@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bn26kn4nhfwt7"]
+[gd_scene load_steps=8 format=3 uid="uid://bn26kn4nhfwt7"]
+
+[ext_resource type="Script" uid="uid://cru4vu5lhhsng" path="res://Scripts/particles/particle.gd" id="1_7es3i"]
 
 [sub_resource type="Curve" id="Curve_uycyg"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5567765, 0.5410663), -3.0485666, -3.0485666, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -40,7 +42,7 @@ radius = 0.35
 section_rings = 7
 curve = SubResource("Curve_mryok")
 
-[node name="player_on_hit_particles_3D" type="GPUParticles3D"]
+[node name="player_on_hit_particles_3D" type="GPUParticles3D" node_paths=PackedStringArray("particles")]
 emitting = false
 amount = 100
 lifetime = 0.25
@@ -48,6 +50,8 @@ one_shot = true
 fixed_fps = 24
 interpolate = false
 trail_enabled = true
-trail_lifetime = 0.09999999999999999
+trail_lifetime = 0.1
 process_material = SubResource("ParticleProcessMaterial_mryok")
 draw_pass_1 = SubResource("TubeTrailMesh_c56q3")
+script = ExtResource("1_7es3i")
+particles = NodePath(".")

@@ -37,7 +37,7 @@ var enemy_frozen := false
 @export var attack_range := 200.0
 @export var cooldown_duration := 1.0
 
-var active_attacks: Array[Node2D] = []
+var active_attacks: Array[Node3D] = []
 
 # STATE MACHINE
 var state = IDLE
@@ -109,7 +109,7 @@ func process_attack() -> void:
 	if state_timer > 0:
 		return
 	
-	#perform_attack(attack)
+	perform_attack(attack)
 	change_state(COOLDOWN, cooldown_duration)
 
 func process_navigation(delta: float) -> void:
@@ -137,9 +137,9 @@ func update_facing_dir(delta: float, dir: Vector3) -> void:
 	var target_angle = atan2(dir.x, dir.z)
 	rotation.y = lerp_angle(rotation.y, target_angle, enemy.rotation_speed * delta)
 
-func perform_attack(attack_scene: PackedScene, offset: Vector2 = Vector2.ZERO) -> void:
+func perform_attack(attack_scene: PackedScene, offset: Vector3 = Vector3.ZERO) -> void:
 	var instance = attack_scene.instantiate()
-	instance.offset = instance.offset if offset == Vector2.ZERO else offset
+	instance.offset = instance.offset if offset == Vector3.ZERO else offset
 	add_child(instance)
 	instance.attack_hit.connect(_on_attack_area_area_entered)
 	instance.attack_removed.connect(_on_attack_removed)
@@ -333,9 +333,9 @@ func instantiate_particles(particle_scene: PackedScene):
 func _on_particles_finished(particles_node: Node):
 	particles_node.queue_free()
 
-func _on_attack_area_area_entered(_area: Area2D, damage: float = enemy.damage) -> void:
+func _on_attack_area_area_entered(_area: Area3D, damage: float = enemy.damage) -> void:
 	GameStats.player_last_hit_by = enemy.name
 	player.take_damage(damage)
 
-func _on_attack_removed(node: Node2D) -> void:
+func _on_attack_removed(node: Node3D) -> void:
 	active_attacks.erase(node)

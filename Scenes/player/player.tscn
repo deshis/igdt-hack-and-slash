@@ -68,16 +68,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_e41v5")
 
 [node name="LootRadius" type="Area3D" parent="."]
-collision_layer = 65536
-collision_mask = 0
+collision_layer = 0
+collision_mask = 65536
 
 [node name="Radius" type="CollisionShape3D" parent="LootRadius"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_eo61r")
 
 [node name="HealthRadius" type="Area3D" parent="."]
-collision_layer = 131072
-collision_mask = 0
+collision_layer = 0
+collision_mask = 131072
 
 [node name="Radius" type="CollisionShape3D" parent="HealthRadius"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
