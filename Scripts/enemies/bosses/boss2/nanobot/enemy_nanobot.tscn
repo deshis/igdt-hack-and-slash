@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxfkpodvrl77o"]
+[gd_scene load_steps=10 format=3 uid="uid://ba2lcd2qtrunu"]
 
-[ext_resource type="Script" uid="uid://brdidm5k40j17" path="res://Scripts/enemies/normal/microbot/microbot.gd" id="1_j823o"]
-[ext_resource type="PackedScene" uid="uid://cjytwrvmi5ox0" path="res://Scripts/enemies/normal/microbot/attack_circle.tscn" id="2_8ddg0"]
-[ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="2_amjd5"]
-[ext_resource type="PackedScene" uid="uid://cpp1xnash21x2" path="res://Scripts/enemies/normal/microbot/microbot_model.tscn" id="5_8ddg0"]
-[ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/particles/on_death_particles.tscn" id="5_kpfue"]
+[ext_resource type="Shader" uid="uid://dd6y3jqiyq4ej" path="res://Scenes/enemy/hit_flash.gdshader" id="1_407ut"]
+[ext_resource type="Script" uid="uid://dorbcwcsm7acf" path="res://Scripts/enemies/bosses/boss2/nanobot/nanobot.gd" id="1_tfo0e"]
+[ext_resource type="PackedScene" uid="uid://cank8wc1ic5am" path="res://Scenes/particles/on_death_particles.tscn" id="2_cvgic"]
+[ext_resource type="PackedScene" uid="uid://34pydva47333" path="res://Scripts/enemies/bosses/boss2/nanobot/attack_circle.tscn" id="2_xnwlm"]
+[ext_resource type="PackedScene" uid="uid://cpp1xnash21x2" path="res://Scripts/enemies/normal/microbot/microbot_model.tscn" id="5_xnwlm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
 radius = 16.27882
@@ -13,7 +13,7 @@ radius = 16.27882
 size = Vector2(42, 42)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_opgh6"]
-shader = ExtResource("2_amjd5")
+shader = ExtResource("1_407ut")
 shader_parameter/strength = 0.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_byi3r"]
@@ -21,22 +21,23 @@ viewport_path = NodePath("SubViewport")
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "model_view", "camera_point", "sprite")]
 z_index = 2
+scale = Vector2(0.47999847, 0.47999847)
 collision_layer = 4096
 collision_mask = 4353
 motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 1.0
-script = ExtResource("1_j823o")
-target_dist_min = 80.0
-target_dist_max = 150.0
+script = ExtResource("1_tfo0e")
+target_dist_min = 75.0
+target_dist_max = 100.0
 nav_agent = NodePath("NavigationAgent2D")
 model_view = NodePath("SubViewport/3DView")
 camera_point = NodePath("SubViewport/3DView/microbot")
 sprite = NodePath("Sprite2D")
-attack = ExtResource("2_8ddg0")
-attack_windup_duration = 1.167
-attack_range = 90.0
-cooldown_duration = 0.4
+attack = ExtResource("2_xnwlm")
+attack_windup_duration = null
+attack_range = 75.0
+cooldown_duration = 0.6
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1f0kj")
@@ -62,7 +63,7 @@ target_desired_distance = 150.0
 
 [node name="Particles" type="Node2D" parent="."]
 
-[node name="OnDeathParticles" parent="Particles" instance=ExtResource("5_kpfue")]
+[node name="OnDeathParticles" parent="Particles" instance=ExtResource("2_cvgic")]
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -79,6 +80,6 @@ projection = 1
 current = true
 size = 5.5
 
-[node name="microbot" parent="SubViewport/3DView" instance=ExtResource("5_8ddg0")]
+[node name="microbot" parent="SubViewport/3DView" instance=ExtResource("5_xnwlm")]
 
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]

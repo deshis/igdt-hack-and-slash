@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3 uid="uid://uv02mt6astjd"]
+
+[ext_resource type="Script" uid="uid://t76ghlhghorw" path="res://Scripts/enemies/EnemyStats.gd" id="1_jaqwy"]
+
+[resource]
+script = ExtResource("1_jaqwy")
+name = "Summoner"
+type = 2
+max_health = 26.0
+damage = 2.5
+cost = 14.0
+health_per_level = 0.5
+metadata/_custom_type_script = "uid://t76ghlhghorw"

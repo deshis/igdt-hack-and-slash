@@ -107,11 +107,7 @@ func _physics_process(delta: float) -> void:
 		ATTACK:
 			process_attack()
 		
-		STUN:
-			if state_timer <= 0:
-				change_state(IDLE)
-		
-		COOLDOWN:
+		STUN, COOLDOWN:
 			if state_timer <= 0:
 				change_state(IDLE)
 	

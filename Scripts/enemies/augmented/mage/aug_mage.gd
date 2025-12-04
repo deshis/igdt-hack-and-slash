@@ -29,3 +29,12 @@ func process_tp_attack() -> void:
 			perform_attack(aoe_attack_small, offset)
 		else:
 			return
+
+func _on_attack_area_area_entered(_area: Area2D, damage: float = enemy.damage) -> void:
+	GameStats.player_last_hit_by = enemy.name
+	
+	# small aoe ignores i-frames
+	if _area.get_parent().scene_file_path == aoe_attack_small.resource_path:
+		player.take_damage(damage, true)
+	else:
+		player.take_damage(damage)

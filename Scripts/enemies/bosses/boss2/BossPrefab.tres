@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyPrefab" load_steps=6 format=3 uid="uid://bm0jberehwd8k"]
+
+[ext_resource type="PackedScene" uid="uid://x60tb5gvjyi3" path="res://Scripts/enemies/bosses/boss2/boss2.tscn" id="1_kyehp"]
+[ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemies/EnemyPrefab.gd" id="2_oawqv"]
+[ext_resource type="Resource" uid="uid://uv02mt6astjd" path="res://Scripts/enemies/bosses/boss2/boss2_stats.tres" id="3_qnyvj"]
+[ext_resource type="Script" uid="uid://cstuktwrv6qs8" path="res://Scripts/enemies/targets/TargetSelf.gd" id="4_pegr5"]
+
+[sub_resource type="Resource" id="Resource_aejum"]
+script = ExtResource("4_pegr5")
+metadata/_custom_type_script = "uid://cstuktwrv6qs8"
+
+[resource]
+script = ExtResource("2_oawqv")
+stats = ExtResource("3_qnyvj")
+scene = ExtResource("1_kyehp")
+target_provider = SubResource("Resource_aejum")
+metadata/_custom_type_script = "uid://cqw5n3pgcmai6"

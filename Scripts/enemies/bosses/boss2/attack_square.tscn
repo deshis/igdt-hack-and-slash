@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3wxfkafy3ubq"]
+[gd_scene load_steps=5 format=3 uid="uid://duoqfvddmkqw1"]
 
-[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/attack.gd" id="1_h0ulo"]
+[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/attack.gd" id="1_c5b8t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1dm0"]
 size = Vector2(100.000015, 100.000015)
@@ -13,11 +13,11 @@ gradient = SubResource("Gradient_86i4k")
 fill_from = Vector2(1, 1)
 
 [node name="Attack" type="Node2D"]
-script = ExtResource("1_h0ulo")
-damage = 6.0
+script = ExtResource("1_c5b8t")
+damage = 3.0
 hitbox_duration = 0.1
 animation_duration = 0.2
-size = Vector2(1.5, 1.7)
+size = Vector2(0.4, 1)
 offset = Vector2(0, -0.5)
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -31,7 +31,8 @@ position = Vector2(1.4901163e-06, -4.1723257e-07)
 shape = SubResource("RectangleShape2D_q1dm0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1.5625001, 1.5625001)
+position = Vector2(-2.9802325e-06, 0)
+scale = Vector2(1.5625, 1.5625001)
 texture = SubResource("GradientTexture2D_m053x")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

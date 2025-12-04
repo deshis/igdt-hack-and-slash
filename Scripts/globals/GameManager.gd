@@ -45,8 +45,10 @@ func load_stage(num: int) -> void:
 	
 	GameStats.stages_cleared = num
 	
-	current_stage = stages[num].instantiate()
+	current_stage = stages[num % stages.size()].instantiate()
 	current_stage_ind = num
+	
+	print("stage:", num % stages.size())
 	
 	stage_root.add_child(current_stage)
 	player.global_position = Vector2.ZERO

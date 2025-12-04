@@ -29,7 +29,7 @@ var credits := 0.0
 func _ready() -> void:
 	boss_cooldown_timer.start(boss_cooldown_time)
 
-func spawn_enemy(prefab: EnemyPrefab) -> void:
+func spawn_enemy(prefab: EnemyPrefab, pos: Vector2 = Vector2.ZERO) -> void:
 	var enemy = prefab.scene.instantiate() as EnemyController
 	enemy.enemy = prefab.stats.duplicate(true)
 	add_child(enemy)
@@ -38,7 +38,11 @@ func spawn_enemy(prefab: EnemyPrefab) -> void:
 	enemy.target_provider = prefab.target_provider if prefab.target_provider else TargetPlayer.new()
 	
 	enemy.enemy.setup(diff.difficulty_level)
-	enemy.global_position = get_spawn_pos(enemy)
+	
+	if pos == Vector2.ZERO:
+		enemy.global_position = get_spawn_pos(enemy)
+	else:
+		enemy.global_position = pos
 	
 	setup_health_bar(enemy)
 

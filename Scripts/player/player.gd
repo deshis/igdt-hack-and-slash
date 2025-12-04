@@ -63,7 +63,7 @@ var can_dash := true
 @onready var heavy_attack_hitbox = $AttackHeavy/CollisionShape2D
 
 @onready var light_attack_sprite: Sprite2D = $AttackLight/CollisionShape2D/Sprite2D
-@onready var heavy_attack_sprite: Sprite2D = $AttackLight/CollisionShape2D/Sprite2D
+@onready var heavy_attack_sprite: Sprite2D = $AttackHeavy/CollisionShape2D/Sprite2D
 
 var light_attack_speed_scale := 1.0
 
@@ -153,7 +153,7 @@ func update_state() -> void:
 				change_state(LIGHT_ATTACK)
 			
 			if Input.is_action_just_pressed("heavy_attack"):
-				change_state(HEAVY_ATTACK)
+				change_state(HEAVY_ATTACK_WINDUP)
 		
 		LIGHT_ATTACK, HEAVY_ATTACK_WINDUP, HEAVY_ATTACK:
 			if Input.is_action_just_pressed("movement_ability") and input.length() > 0 and can_dash:
@@ -192,7 +192,7 @@ func exit_state(st: String) -> void:
 		LIGHT_ATTACK:
 			stop_light_attack()
 		
-		HEAVY_ATTACK:
+		HEAVY_ATTACK_WINDUP, HEAVY_ATTACK:
 			stop_heavy_attack()
 		
 		DASH:
@@ -363,15 +363,16 @@ func deal_stat_damage(area: Area2D, debuff: DebuffResource) -> void:
 		#print("Take stat damage")
 		enemy.take_stat_damage(debuff)
 
-func take_damage(damage:float) -> void:
+func take_damage(damage:float, ignore_invulnerability: bool = false) -> void:
 	instantiate_particles(player_on_damage_particles_scene)
 	
 	#player_on_damage_particles.restart()
 	
-	if invulnerability_length_timer.time_left > 0:
+	if invulnerability_length_timer.time_left > 0 and not ignore_invulnerability:
 		return
 	
-	invulnerability_length_timer.start()
+	if not ignore_invulnerability:
+		invulnerability_length_timer.start()
 	
 	#Damage reduction
 	#NOTE: Applying flat damage reduction before percent damage reduction results in less mitigation
