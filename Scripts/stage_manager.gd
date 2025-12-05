@@ -1,5 +1,5 @@
 extends Node
 
 func _ready() -> void:
-	GameManager.start_game()
+	GameManager.quit_to_menu()
 	queue_free()
