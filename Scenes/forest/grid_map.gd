@@ -72,7 +72,7 @@ func _generate():
 	print("navmesh done!")
 	_generate_grass()
 	print("grass done!")
-	enemy_spawner.start_spawner()
+	#enemy_spawner.start_spawner()
 
 func bake_gridmap_navmesh():
 	get_parent().bake_navigation_mesh(true)

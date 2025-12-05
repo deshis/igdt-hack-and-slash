@@ -10,6 +10,8 @@ var stage_root: Node = null
 
 var HUD: HudManager = null
 var particles: ParticleManager = null
+var spawner: EnemySpawner =null
+
 
 func _ready() -> void:
 	# init player
@@ -54,6 +56,8 @@ func load_stage(num: int) -> void:
 	
 	stage_root.add_child(current_stage)
 	player.global_position = Vector3.ZERO
+	spawner = current_stage.find_child("EnemySpawner")
+	spawner.start_spawner()
 
 func load_next_stage() -> void:
 	load_stage(current_stage_ind + 1)
