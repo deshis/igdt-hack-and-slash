@@ -17,6 +17,7 @@ size = Vector3(1, 2, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ca0mu"]
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 257
 collision_mask = 69633
 motion_mode = 1
 script = ExtResource("1_eo61r")

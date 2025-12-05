@@ -11,8 +11,8 @@ size = Vector3(1, 2, 1)
 size = Vector3(1, 2, 1)
 
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent")]
-collision_layer = 4096
-collision_mask = 4353
+collision_layer = 4352
+collision_mask = 4352
 motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 1.0
