@@ -57,7 +57,7 @@ func load_stage(num: int) -> void:
 	
 	stage_root.add_child(current_stage)
 	player.global_position = Vector3.ZERO
-	spawner = current_stage.find_child("EnemySpawner")
+	spawner = current_stage.get_child(2)
 	spawner.start_spawner()
 
 func load_next_stage() -> void:
