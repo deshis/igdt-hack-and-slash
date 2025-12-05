@@ -50,8 +50,8 @@ func _physics_process(delta: float) -> void:
 	previous_pos = global_position
 
 func process_arc() -> void:
-	if time < hitbox_duration:
-		var t = time / hitbox_duration
+	if time < duration:
+		var t = time / duration
 		var angle = lerp(angle_start, angle_start + angle_end, t)
 		
 		global_position =Vector3(
@@ -73,6 +73,5 @@ func start_attack() -> void:
 	for body in area.get_overlapping_areas():
 		_on_area_3d_area_entered(body)
 	
-	# boomerang duration
-	await get_tree().create_timer(hitbox_duration).timeout
+	await get_tree().create_timer(duration).timeout
 	state = RETURN

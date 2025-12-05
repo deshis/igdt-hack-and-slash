@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyPrefab" load_steps=6 format=3 uid="uid://bm0jberehwd8k"]
 
-[ext_resource type="PackedScene" uid="uid://ba7sw3bysmjlq" path="res://Scripts/enemies/bosses/saw/saw.tscn" id="1_7o254"]
+[ext_resource type="PackedScene" path="res://Scripts/enemies/bosses/saw/saw.tscn" id="1_7o254"]
 [ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemies/EnemyPrefab.gd" id="2_jjvsl"]
 [ext_resource type="Resource" uid="uid://uv02mt6astjd" path="res://Scripts/enemies/bosses/saw/saw_stats.tres" id="3_js5d5"]
 [ext_resource type="Script" uid="uid://cstuktwrv6qs8" path="res://Scripts/enemies/targets/TargetSelf.gd" id="4_fkeda"]

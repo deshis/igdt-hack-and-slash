@@ -2,8 +2,7 @@ extends Node3D
 class_name Attack
 
 @export var damage := 2.0
-@export var hitbox_duration := 0.05
-@export var animation_duration := 2.0
+@export var duration := 0.1
 
 @export var follow := true
 @export var offset := Vector3.ZERO
@@ -34,12 +33,7 @@ func start_attack() -> void:
 	for body in area.get_overlapping_areas():
 		_on_area_3d_area_entered(body)
 	
-	# hitbox duration
-	await get_tree().create_timer(hitbox_duration).timeout
-	area.monitoring = false
-	
-	# animation duration
-	await get_tree().create_timer(animation_duration - hitbox_duration).timeout
+	await get_tree().create_timer(duration).timeout
 	remove_attack()
 
 func remove_attack() -> void:

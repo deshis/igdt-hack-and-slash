@@ -19,6 +19,7 @@ func _ready() -> void:
 	add_child(player)
 
 
+
 var stages := [
 	preload("res://Scenes/forest/forest_test_variety.tscn")
 ]
