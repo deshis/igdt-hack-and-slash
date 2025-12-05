@@ -57,6 +57,8 @@ func load_stage(num: int) -> void:
 	
 	stage_root.add_child(current_stage)
 	player.global_position = Vector3.ZERO
+	
+	await await get_tree().create_timer(1).timeout #Stupid fix
 	spawner = current_stage.get_child(2)
 	spawner.start_spawner()
 
