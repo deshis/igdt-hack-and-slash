@@ -168,6 +168,7 @@ func change_state(new_state) -> void:
 	enter_state(new_state)
 
 func enter_state(new_state) -> void:
+	print(state, " -> ", new_state)
 	state = new_state
 	
 	match state:
@@ -326,11 +327,19 @@ func apply_movement(delta: float) -> void:
 	velocity = lerp(velocity, Vector3(input.x, 0.0, input.y)*current_speed, acceleration * delta)
 
 func set_facing_dir() -> void:
-	var screen_center = get_viewport().get_size() / 2.0
+	var cam = get_viewport().get_camera_3d()
 	var mouse_pos = get_viewport().get_mouse_position()
 	
-	var dir = (mouse_pos - screen_center).normalized()
-	rotation.y = atan2(dir.x, dir.y)
+	var from = cam.project_ray_origin(mouse_pos)
+	var to = cam.project_ray_normal(mouse_pos)
+	
+	var plane = Plane(Vector3.UP, global_position.y)
+	var hit_pos = plane.intersects_ray(from, to)
+	
+	var dir = (hit_pos - global_position)
+	dir.y = 0
+	
+	rotation.y = atan2(dir.x, dir.z)
 
 func heal(amount: float) -> void:
 	if health >= max_health:
