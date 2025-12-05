@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cj0664r6m3qql"]
+[gd_scene load_steps=8 format=3 uid="uid://cj0664r6m3qql"]
 
 [ext_resource type="Script" uid="uid://c7qe3c1q04hnv" path="res://Scripts/player/player.gd" id="1_eo61r"]
 [ext_resource type="PackedScene" uid="uid://cffxpw73nnlnu" path="res://Scenes/player/player_model.tscn" id="19_fs7ks"]
@@ -14,8 +14,10 @@ size = Vector3(1, 2, 1)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_eo61r"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ca0mu"]
+
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 256
+collision_layer = 257
 collision_mask = 69633
 motion_mode = 1
 script = ExtResource("1_eo61r")
@@ -86,6 +88,10 @@ collision_mask = 131072
 [node name="Radius" type="CollisionShape3D" parent="HealthRadius"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_eo61r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 2, 0, 0, 0, 0.25, 0, 1, 0)
+shape = SubResource("BoxShape3D_ca0mu")
 
 [connection signal="timeout" from="Timers/TimeAliveTimer" to="." method="_on_time_alive_timer_timeout"]
 [connection signal="timeout" from="Timers/HealthRegenTimer" to="." method="_on_health_regen_timer_timeout"]
