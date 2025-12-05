@@ -106,4 +106,5 @@ func _enter_tree():
 	pass
 
 func _ready():
-	_generate()
+	#_generate() #This is called the engine even touches the file becaus of the "tool" tag
+	_generate_grass() #Place the grass when loaded
