@@ -9,7 +9,6 @@ data = PackedVector3Array(-0.935, 1.0435, 0.20529999, -0.67249995, 1.0435, 0.163
 script = ExtResource("1_sfcin")
 hitbox_duration = 0.1
 animation_duration = 0.2
-size = Vector3(1.25, 1, 2)
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16384

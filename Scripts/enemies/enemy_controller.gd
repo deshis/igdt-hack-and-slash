@@ -59,7 +59,7 @@ func _init() -> void:
 	dot_timer = Timer.new()
 
 func _ready() -> void:
-	nav_agent.path_desired_distance = attack_range
+	nav_agent.target_desired_distance = attack_range
 	
 	dot_timer = Timer.new()
 	dot_timer.timeout.connect(_on_dot_tick)

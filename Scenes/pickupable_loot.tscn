@@ -26,8 +26,8 @@ mesh_instance = NodePath("MeshInstance3D")
 mesh_list = Array[Mesh]([ExtResource("2_3a1hq"), ExtResource("3_t6aaw")])
 item_scene = ExtResource("5_vbco5")
 label = NodePath("Label3D")
-strength = 1.5
-duration = 0.2
+strength = 3.5
+duration = 0.25
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -4,7 +4,6 @@ class_name Attack
 @export var damage := 2.0
 @export var hitbox_duration := 0.05
 @export var animation_duration := 2.0
-@export var size := Vector3.ONE
 
 @export var follow := true
 @export var offset := Vector3.ZERO
@@ -16,8 +15,6 @@ signal attack_hit(target: Node, damage: float)
 signal attack_removed(node: Node)
 
 func _ready() -> void:
-	set_scale(size)
-	
 	if follow:
 		position = offset
 	else:
