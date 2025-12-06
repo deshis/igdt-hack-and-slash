@@ -7,14 +7,14 @@ var player: Player = GameManager.player
 @export var boss_list: Array[EnemyPrefab]
 
 @export var wave_cooldown_timer: Timer
-@export var wave_cooldown_min := 2.0
-@export var wave_cooldown_max := 6.0
+@export var wave_cooldown_min := 3.0
+@export var wave_cooldown_max := 5.0
 @export var min_enemy_spawn_amount := 1
 @export var max_enemy_spawn_amount := 2
 
 @export var credits_cooldown_timer: Timer
-@export var credits_gain_min := 1
-@export var credits_gain_max := 3
+@export var credits_gain_min := 2.0
+@export var credits_gain_max := 4.0
 
 @export var augment_enemy_chance := 0.15
 
@@ -26,27 +26,67 @@ var credits := 0.0
 @export var diff: DifficultyManager
 @export var navigation_region: NavigationRegion3D
 
+var enemy_pools := {}
+var init_pool_size := 8
+
 func start_spawner() -> void:
+	init_pools()
+	
+	_on_credits_cooldown_timer_timeout()
+	_on_wave_cooldown_timer_timeout()
 	boss_cooldown_timer.start(boss_cooldown_time)
-	wave_cooldown_timer.start()
-	credits_cooldown_timer.start()
+
+func init_pools() -> void:
+	var all_prefabs = enemy_list + augmented_list + boss_list
+	
+	for prefab in all_prefabs:
+		var scene_key = prefab.scene.resource_path
+		enemy_pools[scene_key] = []
+		
+		for i in range(init_pool_size):
+			var instance = instantiate_enemy(prefab)
+			enemy_pools[scene_key].append(instance)
+
+func instantiate_enemy(prefab: EnemyPrefab) -> EnemyController:
+	var instance = prefab.scene.instantiate() as EnemyController
+	add_child(instance)
+	instance.visible = false
+	instance.process_mode = Node.PROCESS_MODE_DISABLED
+	
+	return instance
+
+func get_from_pool(prefab: EnemyPrefab) -> EnemyController:
+	var key = prefab.scene.resource_path
+	
+	if not enemy_pools.has(key):
+		enemy_pools[key] = []
+	
+	var pool = enemy_pools[key]
+	
+	for enemy in pool:
+		if not enemy.visible:
+			return enemy
+	
+	var new_instance = instantiate_enemy(prefab)
+	pool.append(new_instance)
+	return new_instance
 
 func spawn_enemy(prefab: EnemyPrefab, pos: Vector3 = Vector3.ZERO) -> void:
-	var enemy = prefab.scene.instantiate() as EnemyController
-	enemy.enemy = prefab.stats.duplicate(true)
-	add_child(enemy)
+	var enemy = get_from_pool(prefab)
 	
-	enemy.player = player
-	enemy.target_provider = prefab.target_provider if prefab.target_provider else TargetPlayer.new()
-	
-	enemy.enemy.setup(diff.difficulty_level)
+	if not enemy:
+		enemy = instantiate_enemy(prefab)
 	
 	if pos == Vector3.ZERO:
 		enemy.global_position = get_spawn_pos(enemy)
 	else:
 		enemy.global_position = pos
 	
-	setup_health_bar(enemy)
+	enemy.enemy = prefab.stats.duplicate(true)
+	enemy.enemy.setup(diff.difficulty_level)
+	enemy.target_provider = prefab.target_provider
+	enemy._activate()
+
 
 func spawn_wave_of_enemies(amount: int) -> void:
 	for i in range(amount):
@@ -97,9 +137,6 @@ func get_random_enemy(array: Array) -> EnemyPrefab:
 	
 	return prefab
 
-func setup_health_bar(enemy: CharacterBody3D) -> void:
-	enemy.health_bar = GameManager.HUD.create_enemy_hp_bar(enemy)
-
 func _on_wave_cooldown_timer_timeout() -> void:
 	if not player:
 		return
@@ -126,6 +163,7 @@ func _on_boss_cooldown_timer_timeout() -> void:
 
 func _on_credits_cooldown_timer_timeout() -> void:
 	if not player:
+		print("not player")
 		return
 	
 	var min_credits = credits_gain_min + diff.difficulty_level * diff.credits_per_level

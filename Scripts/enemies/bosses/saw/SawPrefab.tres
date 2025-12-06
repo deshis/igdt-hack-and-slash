@@ -3,15 +3,15 @@
 [ext_resource type="PackedScene" uid="uid://ba7sw3bysmjlq" path="res://Scripts/enemies/bosses/saw/boss_saw.tscn" id="1_7o254"]
 [ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemies/EnemyPrefab.gd" id="2_jjvsl"]
 [ext_resource type="Resource" uid="uid://uv02mt6astjd" path="res://Scripts/enemies/bosses/saw/saw_stats.tres" id="3_js5d5"]
-[ext_resource type="Script" uid="uid://cstuktwrv6qs8" path="res://Scripts/enemies/targets/TargetSelf.gd" id="4_fkeda"]
+[ext_resource type="Script" uid="uid://c3xt5r4pnu2pd" path="res://Scripts/enemies/targets/TargetPlayer.gd" id="4_7o254"]
 
-[sub_resource type="Resource" id="Resource_aejum"]
-script = ExtResource("4_fkeda")
-metadata/_custom_type_script = "uid://cstuktwrv6qs8"
+[sub_resource type="Resource" id="Resource_jjvsl"]
+script = ExtResource("4_7o254")
+metadata/_custom_type_script = "uid://c3xt5r4pnu2pd"
 
 [resource]
 script = ExtResource("2_jjvsl")
 stats = ExtResource("3_js5d5")
 scene = ExtResource("1_7o254")
-target_provider = SubResource("Resource_aejum")
+target_provider = SubResource("Resource_jjvsl")
 metadata/_custom_type_script = "uid://cqw5n3pgcmai6"

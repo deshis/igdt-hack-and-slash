@@ -8640,7 +8640,7 @@ theme_override_constants/separation = 30
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[center]wtf is this game called"
+text = "[center]Slash in Cytopia"
 fit_content = true
 autowrap_mode = 0
 

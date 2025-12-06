@@ -168,7 +168,6 @@ func change_state(new_state) -> void:
 	enter_state(new_state)
 
 func enter_state(new_state) -> void:
-	print(state, " -> ", new_state)
 	state = new_state
 	
 	match state:

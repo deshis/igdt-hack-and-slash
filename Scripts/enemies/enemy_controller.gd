@@ -8,10 +8,10 @@ var health_bar
 # ENEMY STATS
 var enemy: EnemyStats
 var target_provider: TargetProvider
-@onready var current_speed := enemy.speed
+var current_speed: float
 @export var nav_agent: NavigationAgent3D
 
-@onready var player: Player = GameManager.player
+var player: Player = GameManager.player
 
 var debuff_timer: Timer
 var dot_timer: Timer
@@ -54,10 +54,6 @@ const ATTACK = "attack"
 const STUN = "stun"
 const COOLDOWN = "cooldown"
 
-func _init() -> void:
-	debuff_timer = Timer.new()
-	dot_timer = Timer.new()
-
 func _ready() -> void:
 	nav_agent.target_desired_distance = attack_range
 	
@@ -65,6 +61,7 @@ func _ready() -> void:
 	dot_timer.timeout.connect(_on_dot_tick)
 	add_child(dot_timer)
 	
+	debuff_timer = Timer.new()
 	debuff_timer.timeout.connect(_on_debuff_tick) 
 	add_child(debuff_timer)
 	
@@ -73,6 +70,11 @@ func _ready() -> void:
 	add_child(hit_flash_timer)
 	
 	change_state(IDLE)
+
+func _activate() -> void:
+	visible = true
+	process_mode = Node.PROCESS_MODE_INHERIT
+	health_bar = GameManager.HUD.get_hp_bar(self)
 
 func _physics_process(delta: float) -> void:
 	if not player or not target_provider:
@@ -302,14 +304,19 @@ func die() -> void:
 	GameManager.particles.emit_particles("enemy_on_death", global_position)
 	#Death particles here
 	#TODO: clean these
-		
-	if health_bar:
-		health_bar.queue_free()
 	
 	GameStats.enemies_killed +=1
 	LootDatabase.drop_loot(self)
-	queue_free()
+	return_to_pool()
+
+func return_to_pool() -> void:
+	visible = false
+	process_mode = Node.PROCESS_MODE_DISABLED
+	health_bar.remove_health_bar()
 	
+	for instance in active_attacks:
+		instance.remove_attack()
+
 func shatter_ice() -> void:
 
 	print("Ice shattered")

@@ -1,7 +1,6 @@
 extends Node3D
 class_name DifficultyManager
 
-@export var starting_level := 0
 @export var seconds_per_level := 20
 @export var enemy_spawn_amount_per_level := 0.2
 @export var credits_per_level := 0.3
@@ -11,7 +10,7 @@ var difficulty_level := 1
 var difficulty := 0.0
 
 func _ready() -> void:
-	difficulty = starting_level
+	difficulty = GameManager.starting_difficulty
 
 func _physics_process(delta: float) -> void:
 	difficulty += delta / seconds_per_level

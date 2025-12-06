@@ -7,6 +7,7 @@ var open_menu_count := 0
 var current_stage: Node = null
 var current_stage_ind  := 0
 var stage_root: Node = null
+var starting_difficulty := 0.0
 
 var HUD: HudManager = null
 var particles: ParticleManager = null
@@ -47,9 +48,6 @@ func load_stage(num: int) -> void:
 	for child in stage_root.get_children():
 		child.queue_free()
 	
-	for child in HUD.get_node("HPBars").get_children():
-		child.queue_free()
-	
 	GameStats.stages_cleared = num
 	
 	current_stage = stages[num].instantiate()
@@ -58,11 +56,11 @@ func load_stage(num: int) -> void:
 	stage_root.add_child(current_stage)
 	player.global_position = Vector3.ZERO
 	
-	await get_tree().create_timer(4).timeout #Stupid fix
 	spawner = current_stage.get_child(2)
-	spawner.start_spawner()
+	spawner.start_spawner.call_deferred()
 
 func load_next_stage() -> void:
+	starting_difficulty = spawner.diff.difficulty
 	load_stage(current_stage_ind + 1)
 
 func boss_killed() -> void:
@@ -73,6 +71,7 @@ func restart() -> void:
 	for child in get_children():
 		child.queue_free()
 	
+	starting_difficulty = 0.0
 	InventoryManager.reset_inventory()
 	start_game()
 

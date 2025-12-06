@@ -21,6 +21,9 @@ diff = NodePath("DifficultyManager")
 
 [node name="DifficultyManager" type="Node3D" parent="."]
 script = ExtResource("6_mjc5i")
+seconds_per_level = 45
+credits_per_level = 0.5
+augment_enemy_chance_per_level = 0.02
 
 [node name="WaveCooldownTimer" type="Timer" parent="."]
 wait_time = 5.0
