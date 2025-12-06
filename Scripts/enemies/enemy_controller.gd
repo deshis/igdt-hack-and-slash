@@ -122,15 +122,13 @@ func process_attack() -> void:
 func process_navigation(delta: float) -> void:
 	var new_target_pos = target_provider.get_target(self)
 	
-	if global_position.distance_to(new_target_pos) > 1.0:
+	if global_position.distance_to(new_target_pos) > 0.1:
 		nav_agent.set_target_position(new_target_pos)
 	
 	if nav_agent.is_navigation_finished():
 		return
 	
-	var next_pos = nav_agent.target_position
-	if nav_agent.get_current_navigation_path().size() >= 2:
-		next_pos = nav_agent.get_current_navigation_path()[1]
+	var next_pos = nav_agent.get_next_path_position()
 	var dir = (next_pos - global_transform.origin).normalized()
 	
 	update_facing_dir(delta, dir)
