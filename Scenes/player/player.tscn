@@ -34,16 +34,13 @@ autostart = true
 wait_time = 5.0
 autostart = true
 
-[node name="InvulnerabilityLengthTimer" type="Timer" parent="Timers"]
-one_shot = true
-
 [node name="DashCooldownTimer" type="Timer" parent="Timers"]
 autostart = true
 
 [node name="ItemActiveCooldownTimer" type="Timer" parent="Timers"]
 
 [node name="HitFlash" type="Timer" parent="Timers"]
-wait_time = 0.3
+wait_time = 0.6
 one_shot = true
 
 [node name="model" parent="." instance=ExtResource("19_fs7ks")]
@@ -96,7 +93,6 @@ shape = SubResource("CylinderShape3D_mxepk")
 
 [connection signal="timeout" from="Timers/TimeAliveTimer" to="." method="_on_time_alive_timer_timeout"]
 [connection signal="timeout" from="Timers/HealthRegenTimer" to="." method="_on_health_regen_timer_timeout"]
-[connection signal="timeout" from="Timers/InvulnerabilityLengthTimer" to="." method="_on_invulnerability_length_timer_timeout"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
 [connection signal="timeout" from="Timers/ItemActiveCooldownTimer" to="." method="_on_item_active_cooldown_timer_timeout"]
 [connection signal="timeout" from="Timers/HitFlash" to="." method="_on_hit_flash_timeout"]

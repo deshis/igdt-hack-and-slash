@@ -17,6 +17,9 @@ var stages := [
 	preload("res://Scenes/forest/forest_test_variety.tscn")
 ]
 
+func _ready() -> void:
+	InventoryManager.process_mode = Node.PROCESS_MODE_DISABLED
+
 func start_game() -> void:
 	stage_root = Node.new()
 	stage_root.name = "StageRoot"
@@ -32,6 +35,9 @@ func start_game() -> void:
 	
 	load_stage(0)
 	
+	Engine.time_scale = 1.0
+	
+	InventoryManager.process_mode = Node.PROCESS_MODE_ALWAYS
 	InventoryManager.init()
 
 func load_stage(num: int) -> void:
@@ -86,6 +92,7 @@ func set_menu(status: bool) -> void:
 func quit_to_menu()->void:
 	open_menu_count = 0
 	get_tree().paused = false
+	InventoryManager.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	for child in get_children():
 		child.queue_free()

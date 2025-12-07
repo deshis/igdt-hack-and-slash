@@ -106,7 +106,6 @@ func _physics_process(delta: float) -> void:
 
 
 func change_state(new_state: String, duration := 0.0):
-	print(state, " -> ", new_state, " for: ", duration)
 	state = new_state
 	state_timer = duration
 	

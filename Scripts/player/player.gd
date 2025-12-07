@@ -75,12 +75,18 @@ var secondary_attack_active_debuff: DebuffResource = null
 var active_item_cooldown := 5.0
 var can_active_item := true
 
+# MODEL
 @onready var animator = $"model/AnimationPlayer"
 @onready var weapon_mesh = $model/rig/Skeleton3D/BoneAttachment3D/Weapon/Mesh
 
+# TAKING DAMAGE
+@export var hitstop_duration := 0.2
+var hit_stop_active := false
+
 @onready var hit_flash = $"model/rig/Skeleton3D/Char".mesh.surface_get_material(0).get_next_pass()
 @onready var hit_flash_timer = $Timers/HitFlash
-var hit_flash_duration := 0.15
+var hit_flash_duration := 0.6
+var hit_flash_blink_speed := 0.1
 
 # STATE MACHINE
 var state = IDLE
@@ -109,6 +115,9 @@ func _ready() -> void:
 # Function for regenerating health, defaults at zero, gets incremented from items
 
 func _physics_process(delta: float) -> void:
+	if hit_stop_active:
+		return
+	
 	state_timer -= delta
 	
 	if state != DASH: update_input()
@@ -122,6 +131,11 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("active_item") and can_active_item:
 		use_active_item()
+	
+	if hit_flash_timer.time_left > 0:
+		blink()
+	else:
+		hit_flash.set_shader_parameter('strength', 0.0)
 	
 	move_and_slide()
 
@@ -320,7 +334,7 @@ func update_input() -> void:
 	input = input.normalized()
 
 func apply_movement(delta: float) -> void:
-	if state != HEAVY_ATTACK_WINDUP and state != HEAVY_ATTACK:
+	if state != HEAVY_ATTACK_WINDUP and state != HEAVY_ATTACK and state != IDLE:
 		rotation.y = atan2(input.x, input.y)
 	
 	velocity = lerp(velocity, Vector3(input.x, 0.0, input.y)*current_speed, acceleration * delta)
@@ -402,21 +416,20 @@ func deal_stat_damage(area: Area3D, debuff: DebuffResource) -> void:
 func take_damage(damage:float, ignore_invulnerability: bool = false) -> void:
 	GameManager.particles.emit_particles("player_on_hit", global_position, self)
 	
-	hit_flash.set_shader_parameter('strength',1.0)
-	hit_flash_timer.start(hit_flash_duration)
-	
-	# TODO: ADD INVULNERABILITY LENGTH TIMER
-	"if invulnerability_length_timer.time_left > 0 and not ignore_invulnerability:
+	# hit flash = invulnerability as well
+	if hit_flash_timer.time_left > 0 and not ignore_invulnerability:
 		return
 	
 	if not ignore_invulnerability:
-		invulnerability_length_timer.start()"
+		hit_flash_timer.start(hit_flash_duration)
+		hit_flash.set_shader_parameter('strength', 1.0)
+		hitstop(hitstop_duration)
 	
 	#Damage reduction
 	#NOTE: Applying flat damage reduction before percent damage reduction results in less mitigation
 	damage -= flat_damage_reduction
 	damage *= (100.0 - percent_damage_reduction)/100
-	snappedf(damage,3)
+	damage = snappedf(damage,3)
 	health -= damage
 	update_health_bar.emit(health)
 	
@@ -428,6 +441,19 @@ func take_damage(damage:float, ignore_invulnerability: bool = false) -> void:
 func die() -> void:
 	game_over.emit()
 	queue_free()
+
+func blink() -> void:
+	var phase := int(Time.get_ticks_msec() / (hit_flash_blink_speed * 1000)) % 2
+	hit_flash.set_shader_parameter('strength', phase)
+
+func hitstop(duration: float) -> void:
+	Engine.time_scale = 0.0
+	hit_stop_active = true
+	
+	await get_tree().create_timer(duration, false, false, true).timeout
+	
+	Engine.time_scale = 1.0
+	hit_stop_active = false
 
 func _on_animation_finished(anim_name):
 	if state == DASH:
