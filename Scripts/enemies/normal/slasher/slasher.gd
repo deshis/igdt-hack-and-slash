@@ -68,6 +68,9 @@ func change_state(new_state: String, duration := 0.0):
 
 
 func process_face_player(delta: float) -> void:
+	if not player:
+		return
+	
 	var dir = (player.global_position - global_transform.origin).normalized()
 	update_facing_dir(delta, dir)
 	

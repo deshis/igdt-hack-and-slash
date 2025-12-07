@@ -96,6 +96,7 @@ const HEAVY_ATTACK = "heavy_attack"
 func _ready() -> void:
 	print("Q to use active item")
 	
+	hit_flash.set_shader_parameter('strength',0.0)
 	animator.animation_finished.connect(_on_animation_finished)
 	
 	light_attack_hitbox.disabled = true
@@ -446,8 +447,7 @@ func _on_animation_finished(anim_name):
 
 
 func _on_time_alive_timer_timeout() -> void:
-	#GameStats.time_alive_seconds += 1
-	pass
+	GameStats.time_alive_seconds += 1
 
 func _on_health_regen_timer_timeout() -> void:
 	heal(health_regen)

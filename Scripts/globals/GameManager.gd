@@ -13,21 +13,11 @@ var HUD: HudManager = null
 var particles: ParticleManager = null
 var spawner: EnemySpawner =null
 
-
-func _ready() -> void:
-	# init player
-	player = preload("res://Scenes/player/player.tscn").instantiate() as Player
-	add_child(player)
-
-
-
 var stages := [
 	preload("res://Scenes/forest/forest_test_variety.tscn")
 ]
 
-
 func start_game() -> void:
-	
 	stage_root = Node.new()
 	stage_root.name = "StageRoot"
 	add_child(stage_root)
@@ -71,6 +61,9 @@ func restart() -> void:
 	for child in get_children():
 		child.queue_free()
 	
+	player = preload("res://Scenes/player/player.tscn").instantiate() as Player
+	add_child(player)
+	
 	starting_difficulty = 0.0
 	InventoryManager.reset_inventory()
 	start_game()
@@ -99,13 +92,3 @@ func quit_to_menu()->void:
 	
 	var main_menu = preload("res://Scenes/main_menu.tscn").instantiate()
 	add_child(main_menu)
-
-
-func start_game_from_main_menu()->void:
-	for child in get_children():
-		child.queue_free()
-	
-	player = preload("res://Scenes/player/player.tscn").instantiate() as Player
-	add_child(player)
-	
-	start_game()

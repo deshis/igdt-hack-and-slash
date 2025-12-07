@@ -74,10 +74,11 @@ func _ready() -> void:
 func _activate() -> void:
 	visible = true
 	process_mode = Node.PROCESS_MODE_INHERIT
+	hit_flash.set_shader_parameter('strength',0.0)
 	health_bar = GameManager.HUD.get_hp_bar(self)
 
 func _physics_process(delta: float) -> void:
-	if not player or not target_provider:
+	if not player:
 		return
 	
 	state_timer -= delta

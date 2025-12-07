@@ -1,5 +1,5 @@
 extends EnemyController
-class_name Boss3D
+class_name Saw
 
 @export var max_navigation_time := 3.0
 var navigation_time := 0.0

@@ -84,7 +84,6 @@ func spawn_enemy(prefab: EnemyPrefab, pos: Vector3 = Vector3.ZERO) -> void:
 	
 	enemy.enemy = prefab.stats.duplicate(true)
 	enemy.enemy.setup(diff.difficulty_level)
-	enemy.target_provider = prefab.target_provider
 	enemy._activate()
 
 
@@ -114,17 +113,17 @@ func get_spawn_pos(_enemy: EnemyController) -> Vector3:
 	
 	match randi() % 4:
 		0:  # left
-			screen_x = -0.1
+			screen_x = -1.0
 			screen_y = randf()
 		1:  # right
-			screen_x = 1.1
+			screen_x = 1.0
 			screen_y = randf()
 		2:  # bottom
 			screen_x = randf()
-			screen_y = -0.1
+			screen_y = -1.0
 		3:  # top
 			screen_x = randf()
-			screen_y = 1.1
+			screen_y = 1.0
 	
 	var pos = get_viewport().get_camera_3d().project_position(Vector2(screen_x, screen_y) * Vector2(vp_size.x, vp_size.y), 10)
 	var nav_map = navigation_region.get_navigation_map()
@@ -163,7 +162,6 @@ func _on_boss_cooldown_timer_timeout() -> void:
 
 func _on_credits_cooldown_timer_timeout() -> void:
 	if not player:
-		print("not player")
 		return
 	
 	var min_credits = credits_gain_min + diff.difficulty_level * diff.credits_per_level
