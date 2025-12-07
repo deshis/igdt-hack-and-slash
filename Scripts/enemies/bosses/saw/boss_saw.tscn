@@ -16,7 +16,7 @@ size = Vector3(1, 2, 1)
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent")]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
 collision_layer = 4096
-collision_mask = 4353
+collision_mask = 4097
 motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 0.1
@@ -28,6 +28,7 @@ attack = ExtResource("4_30mev")
 attack_range = 3.0
 
 [node name="model" parent="." instance=ExtResource("5_a7157")]
+visible = false
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 target_desired_distance = 3.0
@@ -47,7 +48,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_48d4a")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 1.5125589e-22, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 0, 1.7286856, 0)
+transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 1.5125589e-22, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 0, 0.82490027, 0)
 pixel_size = 0.005
 texture = ExtResource("6_so2rk")
 

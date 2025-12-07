@@ -13,8 +13,11 @@ class_name Attack
 signal attack_hit(target: Node, damage: float)
 signal attack_removed(node: Node)
 
+var parent = null
+
 func _ready() -> void:
 	if follow:
+		parent = get_parent()
 		position = offset
 	else:
 		var world_pos = global_position + offset
@@ -26,14 +29,17 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if follow:
-		var parent = get_parent()
 		global_position = parent.global_position + offset.rotated(Vector3.UP, parent.global_rotation.y)
 
 func start_attack() -> void:
 	for body in area.get_overlapping_areas():
 		_on_area_3d_area_entered(body)
 	
-	await get_tree().create_timer(duration).timeout
+	var timer = Timer.new()
+	add_child(timer)
+	timer.start(duration)
+	
+	await timer.timeout
 	remove_attack()
 
 func remove_attack() -> void:

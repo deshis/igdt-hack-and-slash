@@ -56,6 +56,7 @@ const COOLDOWN = "cooldown"
 
 func _ready() -> void:
 	nav_agent.target_desired_distance = attack_range
+	set_collision_layer_value(13, true)
 	
 	dot_timer = Timer.new()
 	dot_timer.timeout.connect(_on_dot_tick)
@@ -71,11 +72,17 @@ func _ready() -> void:
 	
 	change_state(IDLE)
 
+
 func _activate() -> void:
 	visible = true
 	process_mode = Node.PROCESS_MODE_INHERIT
+	
 	hit_flash.set_shader_parameter('strength',0.0)
+	
 	health_bar = GameManager.HUD.get_hp_bar(self)
+	
+	await get_tree().create_timer(0.1).timeout
+	set_collision_layer_value(13, true)
 
 func _physics_process(delta: float) -> void:
 	if not player:
@@ -99,6 +106,7 @@ func _physics_process(delta: float) -> void:
 
 
 func change_state(new_state: String, duration := 0.0):
+	print(state, " -> ", new_state, " for: ", duration)
 	state = new_state
 	state_timer = duration
 	
@@ -298,6 +306,8 @@ func take_damage(damage:float) -> void:
 		die()
 
 func die() -> void:
+	set_collision_layer_value(13, false)
+	
 	SoundManager.play_sfx("enemy_die", global_position)
 	
 	GameManager.particles.emit_particles("enemy_on_death", global_position)

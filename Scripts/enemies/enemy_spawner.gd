@@ -50,6 +50,7 @@ func init_pools() -> void:
 func instantiate_enemy(prefab: EnemyPrefab) -> EnemyController:
 	var instance = prefab.scene.instantiate() as EnemyController
 	add_child(instance)
+	
 	instance.visible = false
 	instance.process_mode = Node.PROCESS_MODE_DISABLED
 	
