@@ -377,6 +377,8 @@ func get_closest_pickup() -> Area3D:
 	return closest
 
 func deal_damage(area: Area3D, amount: float) -> void:
+	
+	
 	var enemy = area.get_parent() as EnemyController
 	#print("Damage: ", amount) 
 	#Lifesteal
@@ -489,8 +491,20 @@ func _on_item_active_cooldown_timer_timeout() -> void:
 func _on_light_attack_area_entered(area: Area3D) -> void:
 	deal_damage(area, attack_light_damage)
 
+	if primary_attack_active_dot != null:
+		deal_dot_damage(area, primary_attack_active_dot)
+
+	if primary_attack_active_debuff != null:
+		deal_stat_damage(area, primary_attack_active_debuff)
+
 func _on_heavy_attack_area_entered(area: Area3D) -> void:
 	deal_damage(area, attack_heavy_damage)
+
+	if secondary_attack_active_dot != null:
+		deal_dot_damage(area, secondary_attack_active_dot)
+
+	if secondary_attack_active_debuff != null:
+		deal_stat_damage(area, secondary_attack_active_debuff)
 
 func _on_health_radius_area_entered(area: Area3D) -> void:
 	# TODO: proper heal amount

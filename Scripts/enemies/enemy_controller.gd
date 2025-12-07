@@ -256,6 +256,7 @@ func remove_debuff_effect(debuff: DebuffResource) -> void:
 			DebuffResource.DebuffType.FREEZE:
 				enemy_frozen = false
 
+#CRITICAL: DoT spreads to spawning enemies? 
 func _on_debuff_tick() -> void:
 
 	if remaining_debuff_duration > 0.0:
@@ -267,7 +268,9 @@ func _on_debuff_tick() -> void:
 		remaining_debuff_duration -= current_debuff_tick_rate
 		
 		if active_stat_debuffs.debuff_stat_damage > 0:
-			enemy.take_stat_damage(active_stat_debuffs)
+			#NOTE: Might be important, had to disable to make it work. I don't know why it broke.
+			#enemy.take_stat_damage(active_stat_debuffs)
+			pass
 		
 		change_state(COOLDOWN, remaining_debuff_duration)
 		
@@ -348,7 +351,8 @@ func instantiate_particles(particle_scene: PackedScene):
 	var particles = particle_scene.instantiate()
 	
 	get_parent().add_child(particles)
-	particles.global_position = global_position
+	#CRITICAL: Most particles are 2D, so this fucks up
+	#particles.global_position = global_position
 	
 	particles.finished.connect(_on_particles_finished.bind(particles))
 	
