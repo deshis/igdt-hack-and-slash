@@ -158,7 +158,7 @@ func update_state() -> void:
 				change_state(LIGHT_ATTACK)
 			
 			if Input.is_action_just_pressed("heavy_attack"):
-				change_state(HEAVY_ATTACK)
+				change_state(HEAVY_ATTACK_WINDUP)
 		
 		LIGHT_ATTACK, HEAVY_ATTACK_WINDUP, HEAVY_ATTACK:
 			if Input.is_action_just_pressed("movement_ability") and input.length() > 0 and can_dash:
@@ -183,7 +183,6 @@ func enter_state(new_state) -> void:
 		DASH:
 			animator.play("Dash")
 			state_timer = dash_duration
-			print(dash_duration)
 			perform_dash()
 		
 		LIGHT_ATTACK:
@@ -321,7 +320,7 @@ func update_input() -> void:
 	input = input.normalized()
 
 func apply_movement(delta: float) -> void:
-	if input.length() > 0:
+	if state != HEAVY_ATTACK_WINDUP and state != HEAVY_ATTACK:
 		rotation.y = atan2(input.x, input.y)
 	
 	velocity = lerp(velocity, Vector3(input.x, 0.0, input.y)*current_speed, acceleration * delta)
