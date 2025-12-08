@@ -257,6 +257,7 @@ func apply_debuff_effect(debuff: DebuffResource) -> void:
 	print("Applying debuff")
 	match debuff.debuff_type:
 		DebuffResource.DebuffType.STUN:
+			GameManager.particles.emit_particles("stun", global_position + Vector3.UP*2.0, self)
 			SoundManager.play_sfx("stun_sfx", global_position)
 			change_state(STUN, remaining_debuff_duration)
 		DebuffResource.DebuffType.FREEZE:
@@ -296,6 +297,10 @@ func _on_debuff_tick() -> void:
 			remaining_debuff_duration = 0
 			current_stat_damage = 0
 			active_stat_debuffs = null
+		
+		#NOTE: Apply debuff particle again, doesn't work?
+		elif DebuffResource.DebuffType.STUN:
+			GameManager.particles.emit_particles("stun", global_position + global_position + Vector3.UP*2.0, self)
 			
 		if enemy.health <= 0.0:
 			die()
@@ -332,8 +337,11 @@ func die() -> void:
 	SoundManager.play_sfx("enemy_die", global_position)
 	
 	GameManager.particles.emit_particles("enemy_on_death", global_position)
-	#Death particles here
-	#TODO: clean these
+	
+	#Remove active particles
+	for child in self.get_children():
+		if child is Particle:
+			child.queue_free()
 	
 	GameStats.enemies_killed +=1
 	LootDatabase.drop_loot(self)

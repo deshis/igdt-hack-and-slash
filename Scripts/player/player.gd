@@ -499,6 +499,9 @@ func _on_item_active_cooldown_timer_timeout() -> void:
 
 func _on_light_attack_area_entered(area: Area3D) -> void:
 	deal_damage(area, attack_light_damage)
+	
+	#EMIT HIT PARTICLES
+	GameManager.particles.emit_particles("on_hit", area.global_position)
 
 	if primary_attack_active_dot != null:
 		deal_dot_damage(area, primary_attack_active_dot)
@@ -508,6 +511,9 @@ func _on_light_attack_area_entered(area: Area3D) -> void:
 
 func _on_heavy_attack_area_entered(area: Area3D) -> void:
 	deal_damage(area, attack_heavy_damage)
+	
+	#EMIT HIT PARTICLES
+	GameManager.particles.emit_particles("on_hit", area.global_position)
 
 	if secondary_attack_active_dot != null:
 		deal_dot_damage(area, secondary_attack_active_dot)

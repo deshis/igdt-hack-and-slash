@@ -37,7 +37,6 @@ func change_state(new_state: String, duration := 0.0):
 			animator.play("Idle")
 		
 		STUN:
-			print("hello?")
 			slash_trail.visible = false
 			animator.play("Stun")
 		
