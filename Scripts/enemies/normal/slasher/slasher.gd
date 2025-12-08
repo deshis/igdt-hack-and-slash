@@ -14,17 +14,6 @@ const FACE_PLAYER = "face_player"
 const DASH = "dash"
 const ATTACK_WRAP_UP = "attack_wrap_up"
 
-func _ready():
-	super._ready()
-	var mesh_instance = $"model/rig/Skeleton3D/Body"
-	var base_mat = mesh_instance.mesh.surface_get_material(0)
-	var unique_mat = base_mat.duplicate()
-	var next_pass_base = hit_flash_material
-	var next_pass_unique = next_pass_base.duplicate()
-	unique_mat.next_pass = next_pass_unique
-	mesh_instance.set_surface_override_material(0, unique_mat)
-	hit_flash = next_pass_unique
-
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	
@@ -48,6 +37,7 @@ func change_state(new_state: String, duration := 0.0):
 			animator.play("Idle")
 		
 		STUN:
+			print("hello?")
 			slash_trail.visible = false
 			animator.play("Stun")
 		

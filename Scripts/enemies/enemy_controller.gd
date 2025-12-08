@@ -66,9 +66,21 @@ func _ready() -> void:
 	debuff_timer.timeout.connect(_on_debuff_tick) 
 	add_child(debuff_timer)
 	
+	hit_flash = hit_flash_material.duplicate()
+	if  $"model/rig/Skeleton3D/":
+		for child in $"model/rig/Skeleton3D/".get_children():
+			if child is MeshInstance3D:
+				var base_mat = child.mesh.surface_get_material(0)
+				var unique_mat = base_mat.duplicate()
+				var next_pass_unique = hit_flash
+				unique_mat.next_pass = next_pass_unique
+				child.set_surface_override_material(0, unique_mat)
+	
 	hit_flash_timer = Timer.new()
 	hit_flash_timer.timeout.connect(_on_hit_flash_end)
 	add_child(hit_flash_timer)
+	
+	hit_flash.set_shader_parameter('strength',0.0)
 	
 	change_state(IDLE)
 

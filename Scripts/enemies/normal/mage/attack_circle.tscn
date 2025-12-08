@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlqrau73eteuh"]
+[gd_scene load_steps=5 format=3 uid="uid://djwbe6h5u6tg4"]
 
-[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/attack.gd" id="1_4hefm"]
+[ext_resource type="Script" uid="uid://b6hmx5rlg6myc" path="res://Scripts/enemies/Attack.gd" id="1_4hefm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cm6kj"]
 radius = 72.94885
@@ -18,9 +18,6 @@ fill_to = Vector2(1, 0.5)
 [node name="Attack" type="Node2D"]
 scale = Vector2(1.7600007, 1.7600007)
 script = ExtResource("1_4hefm")
-hitbox_duration = 0.2
-animation_duration = 0.3
-size = Vector2(2, 2)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16384
