@@ -41,7 +41,7 @@ func _ready() -> void:
 	super._ready()
 	enemy_spawner = GameManager.current_stage.get_node("EnemySpawner")
 	
-	var mesh_instance = $"model/Rig/Skeleton3D/Microbot"
+	var mesh_instance = $"model/rig/Skeleton3D/Microbot"
 	var base_mat = mesh_instance.mesh.surface_get_material(0)
 	var unique_mat = base_mat.duplicate()
 	var next_pass_base = hit_flash_material

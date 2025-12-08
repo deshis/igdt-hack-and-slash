@@ -15,6 +15,8 @@ signal attack_removed(node: Node)
 
 var parent = null
 
+var timer : Timer
+
 func _ready() -> void:
 	if follow:
 		parent = get_parent()
@@ -35,7 +37,7 @@ func start_attack() -> void:
 	for body in area.get_overlapping_areas():
 		_on_area_3d_area_entered(body)
 	
-	var timer = Timer.new()
+	timer = Timer.new()
 	add_child(timer)
 	timer.start(duration)
 	

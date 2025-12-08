@@ -88,6 +88,8 @@ var hit_stop_active := false
 var hit_flash_duration := 0.6
 var hit_flash_blink_speed := 0.1
 
+@export var trails : Array[MeshInstance3D]
+
 # STATE MACHINE
 var state = IDLE
 var state_timer := 0.0
@@ -235,9 +237,11 @@ func enter_state(new_state) -> void:
 func exit_state(st: String) -> void:
 	match st:
 		LIGHT_ATTACK:
+			disable_trails()
 			stop_light_attack()
 		
 		HEAVY_ATTACK:
+			disable_trails()
 			stop_heavy_attack()
 		
 		DASH:
@@ -353,6 +357,10 @@ func set_facing_dir() -> void:
 	dir.y = 0
 	
 	rotation.y = atan2(dir.x, dir.z)
+
+func disable_trails():
+	for trail in trails:
+		trail.visible = false
 
 func heal(amount: float) -> void:
 	if health >= max_health:

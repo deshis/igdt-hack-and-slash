@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqoiqd1afd688"]
+[gd_scene load_steps=12 format=3 uid="uid://dpronawq41p0s"]
 
 [ext_resource type="Script" uid="uid://c4os75u4ygtvm" path="res://Scripts/enemies/augmented/mage/aug_mage.gd" id="1_b8h36"]
 [ext_resource type="PackedScene" uid="uid://b86lyhe2c2i7r" path="res://Scripts/enemies/augmented/mage/attack_circle_small.tscn" id="2_5owu2"]
@@ -16,10 +16,11 @@ radius = 50.089928
 size = Vector2(100.000015, 100.000015)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ui1s"]
+render_priority = 0
 shader = ExtResource("4_wcgcm")
 shader_parameter/strength = 0.0
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "sprite")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent")]
 z_index = 2
 scale = Vector2(1.1599994, 1.1599994)
 collision_layer = 4096
@@ -31,7 +32,6 @@ script = ExtResource("1_b8h36")
 aoe_attack_small = ExtResource("2_5owu2")
 aoe_attack = ExtResource("2_ymm4e")
 nav_agent = NodePath("NavigationAgent2D")
-sprite = NodePath("Sprite2D")
 attack = ExtResource("3_jruic")
 attack_range = 125.0
 
@@ -64,5 +64,6 @@ target_desired_distance = 200.0
 texture = ExtResource("7_yb216")
 scale_amount_min = 0.6
 scale_amount_max = 0.6
+script = null
 
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]

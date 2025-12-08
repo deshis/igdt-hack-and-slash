@@ -7,6 +7,7 @@ func emit_particles(n: String, pos: Vector3, parent: Node = null):
 	for scene in particles:
 		if n == scene.resource_path.get_file().get_basename():
 			var particle = scene.instantiate()
+			particle.process_material = particle.process_material.duplicate(true)
 			if parent:
 				parent.add_child(particle)
 			else:

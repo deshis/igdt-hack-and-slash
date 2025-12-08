@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cpp1xnash21x2"]
+[gd_scene load_steps=9 format=3 uid="uid://cpp1xnash21x2"]
 
 [ext_resource type="PackedScene" uid="uid://bsfn5eblbq7qw" path="res://Assets/enemies/microbot/microbot.glb" id="1_86sj6"]
-[ext_resource type="Material" uid="uid://dnq7kodfn01sk" path="res://Assets/enemies/microbot/materials/blastpoint.tres" id="2_0fktn"]
 [ext_resource type="Shader" uid="uid://cv55fdtqonax8" path="res://Assets/effects/impact/impact.gdshader" id="3_k2fx4"]
 [ext_resource type="Texture2D" uid="uid://c5okhx5774ilm" path="res://Assets/effects/impact/impact_tex.png" id="4_qplab"]
 
@@ -24,7 +23,7 @@ shader_parameter/base_color = Color(0.9490196, 0.8156863, 0.9490196, 1)
 shader_parameter/texture_albedo = ExtResource("4_qplab")
 shader_parameter/erosion_texture = SubResource("NoiseTexture2D_j30b5")
 shader_parameter/gradient_texture = SubResource("GradientTexture1D_jwwmi")
-shader_parameter/erosion = 0.0
+shader_parameter/erosion = 0.4059998045741582
 shader_parameter/fade = 0.05099999892989999
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, -0.5)
@@ -32,39 +31,8 @@ shader_parameter/uv_offset = Vector2(0, -0.5)
 [node name="microbot" instance=ExtResource("1_86sj6")]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 
-[node name="Rig" parent="." index="0"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
-
-[node name="Skeleton3D" parent="Rig" index="0"]
-bones/0/position = Vector3(0, 0.24450709, 0)
-bones/0/rotation = Quaternion(0.0011777198, -0.0077650975, 0.14994888, 0.9886626)
-bones/1/rotation = Quaternion(-0.5837854, -0.23003663, 0.30704972, -0.7155405)
-bones/2/rotation = Quaternion(0.61847365, 0.024208754, -0.019066859, 0.7852012)
-bones/3/rotation = Quaternion(-0.3537764, -0.71055233, 0.5652107, -0.22470987)
-bones/4/rotation = Quaternion(0.6187349, 0.00415563, -0.003269813, 0.7855822)
-bones/5/rotation = Quaternion(-0.49043307, 0.3732831, -0.061095767, -0.78511304)
-bones/6/rotation = Quaternion(0.6397025, -0.0236786, 0.019723592, 0.7680047)
-bones/7/rotation = Quaternion(0.12536755, -0.7871595, 0.46467263, 0.3856711)
-bones/8/rotation = Quaternion(0.64004254, -0.0040642195, 0.0033869694, 0.76832134)
-bones/9/rotation = Quaternion(-1.828565e-12, -1, 1.1642967e-10, 4.2229658e-08)
-bones/10/position = Vector3(0.68752223, 0, 0.68752223)
-bones/10/scale = Vector3(0.7432828, 0.7432828, 0.7432828)
-bones/11/position = Vector3(0.68752223, 0.08335897, 0.68752223)
-bones/12/position = Vector3(0.6875222, 1.4901161e-08, -0.6875224)
-bones/12/scale = Vector3(0.7432828, 0.74328274, 0.74328274)
-bones/13/position = Vector3(0.6875222, 0.08335894, -0.6875224)
-bones/14/position = Vector3(-0.68752223, 0, 0.68752223)
-bones/14/scale = Vector3(0.7432828, 0.7432828, 0.7432828)
-bones/15/position = Vector3(-0.68752223, 0.08335897, 0.68752223)
-bones/16/position = Vector3(-0.6875222, 1.4901161e-08, -0.6875224)
-bones/16/scale = Vector3(0.7432828, 0.74328274, 0.74328274)
-bones/17/position = Vector3(-0.6875222, 0.08335894, -0.6875224)
-
-[node name="AugMicrobot" parent="Rig/Skeleton3D" index="0"]
+[node name="AugMicrobot" parent="rig/Skeleton3D" index="0"]
 visible = false
-
-[node name="Microbot" parent="Rig/Skeleton3D" index="1"]
-surface_material_override/1 = ExtResource("2_0fktn")
 
 [node name="BlastWave" parent="." index="1"]
 transform = Transform3D(1.4, 0, 0, 0, 1, 0, 0, 0, 1.4, 0, 0, 0)

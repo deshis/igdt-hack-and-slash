@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkmfql71pbmmt"]
+[gd_scene load_steps=4 format=3 uid="uid://dkmfql71pbmmt"]
 
 [ext_resource type="Texture2D" uid="uid://bufaupro2ybf3" path="res://Assets/particles/star_06.png" id="1_n03i1"]
-[ext_resource type="Script" uid="uid://ceixtqqc0hvxq" path="res://Scripts/particles/particle_cleaner.gd" id="2_6liwm"]
 
 [sub_resource type="Curve" id="Curve_qx2c8"]
 _data = [Vector2(0, 0), 0.0, 55056.184, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.43023258, 0.6629214), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -30,4 +29,3 @@ scale_amount_max = 0.2
 scale_amount_curve = SubResource("Curve_qx2c8")
 color = Color(1.4586968, 1.441817, 0.4740413, 0.7058824)
 color_ramp = SubResource("Gradient_6liwm")
-script = ExtResource("2_6liwm")
