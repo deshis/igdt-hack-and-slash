@@ -451,7 +451,11 @@ func take_damage(damage:float, ignore_invulnerability: bool = false) -> void:
 func die() -> void:
 	Engine.time_scale = 1.0
 	game_over.emit()
-	queue_free()
+	animator.play("Death")
+	$Hurtbox.monitoring = false
+	$Hurtbox.monitorable = false
+	hit_flash.set_shader_parameter('strength', 0.0)
+	self.set_script(null)
 
 func blink() -> void:
 	var phase := int(Time.get_ticks_msec() / (hit_flash_blink_speed * 1000)) % 2

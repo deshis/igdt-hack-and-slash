@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxaj371jrtd0h"
-path="res://.godot/imported/bolt.png-2b1642082a830681dce9bd161b2a0458.ctex"
+uid="uid://cr0xtudlm5b2d"
+path="res://.godot/imported/screw.png-aab6a127fd7773dd230f2ecd1dd46c47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/bolt.png"
-dest_files=["res://.godot/imported/bolt.png-2b1642082a830681dce9bd161b2a0458.ctex"]
+source_file="res://Assets/item_pickups/screw.png"
+dest_files=["res://.godot/imported/screw.png-aab6a127fd7773dd230f2ecd1dd46c47.ctex"]
 
 [params]
 

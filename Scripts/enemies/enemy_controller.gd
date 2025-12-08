@@ -395,6 +395,8 @@ func _on_particles_finished(particles_node: Node):
 	particles_node.queue_free()
 
 func _on_attack_area_area_entered(_area: Area3D, damage: float = enemy.damage) -> void:
+	if player is not Player: return
+	
 	GameStats.player_last_hit_by = enemy.name
 	player.take_damage(damage)
 

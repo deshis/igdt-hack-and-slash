@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c2mlvh78l8lyc" path="res://Scripts/player/pickupable_health.gd" id="1_hra3j"]
 [ext_resource type="Shader" uid="uid://c3vnwshetya1x" path="res://Assets/effects/health/health_pickup.gdshader" id="2_34xcm"]
-[ext_resource type="Texture2D" uid="uid://bcrvod3kjfybf" path="res://Assets/gear.png" id="2_hra3j"]
+[ext_resource type="Texture2D" uid="uid://bcrvod3kjfybf" path="res://Assets/item_pickups/gear.png" id="2_hra3j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ffcbt"]
 render_priority = 0

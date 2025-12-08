@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcrvod3kjfybf"
-path.s3tc="res://.godot/imported/gear.png-efdc5b345d356f8bfbdc749f755a770d.s3tc.ctex"
+uid="uid://cxaj371jrtd0h"
+path="res://.godot/imported/bolt.png-34d32d0b80d416833abc806f6c3aff01.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/gear.png"
-dest_files=["res://.godot/imported/gear.png-efdc5b345d356f8bfbdc749f755a770d.s3tc.ctex"]
+source_file="res://Assets/item_pickups/bolt.png"
+dest_files=["res://.godot/imported/bolt.png-34d32d0b80d416833abc806f6c3aff01.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -24,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -38,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
