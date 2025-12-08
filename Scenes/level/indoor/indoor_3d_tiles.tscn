@@ -1,6 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://duet844vmtf2j"]
-
-[ext_resource type="Shader" uid="uid://dp6r0lqa6n5ym" path="res://Scenes/forest/shaders/rocks.gdshader" id="1_ya33w"]
+[gd_scene load_steps=8 format=3 uid="uid://duet844vmtf2j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf8mt"]
 shading_mode = 0
@@ -9,43 +7,39 @@ albedo_color = Color(0.6784314, 0.46666667, 0.34117648, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_dqj51"]
 material = SubResource("StandardMaterial3D_yf8mt")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxg0n"]
-render_priority = 0
-shader = ExtResource("1_ya33w")
-shader_parameter/heigth = 0.5
-shader_parameter/width = 0.001
-shader_parameter/density = 0.1
-shader_parameter/base_color = Color(0.6784314, 0.46666667, 0.34117648, 1)
-shader_parameter/tip_color = Color(0.5058824, 0.5921569, 0.5882353, 1)
+[sub_resource type="BoxMesh" id="BoxMesh_qj74k"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_c5hpj"]
-material = SubResource("ShaderMaterial_vxg0n")
-subdivide_width = 10
-subdivide_depth = 10
-
-[sub_resource type="PrismMesh" id="PrismMesh_jowf5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_iouw7"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_omqb2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x6nn7"]
 
+[sub_resource type="PrismMesh" id="PrismMesh_jowf5"]
+
 [node name="Forest3dTiles" type="Node3D"]
 
 [node name="ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00093990564, 1.0019975, -0.0034722686)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.003)
 mesh = SubResource("PlaneMesh_dqj51")
 
-[node name="rocks" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_c5hpj")
+[node name="obstacle" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_qj74k")
 
-[node name="grass" type="MeshInstance3D" parent="."]
-mesh = SubResource("PrismMesh_jowf5")
+[node name="StaticBody3D" type="StaticBody3D" parent="obstacle"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="obstacle/StaticBody3D"]
+shape = SubResource("BoxShape3D_iouw7")
 
 [node name="wall" type="MeshInstance3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.9820887, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 mesh = SubResource("BoxMesh_omqb2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="wall"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wall/StaticBody3D"]
 shape = SubResource("BoxShape3D_x6nn7")
+
+[node name="light" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PrismMesh_jowf5")

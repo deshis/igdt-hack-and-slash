@@ -5,6 +5,7 @@ extends GridMap # Straight from another project :D
 @export var grass: MultiMeshInstance3D
 
 @export_tool_button("generate") var gen = _generate
+@export_tool_button("navmesh") var bake = bake_gridmap_navmesh
 
 @export_range(1, 10, 1) var height := 5:
 	set(v):
@@ -42,40 +43,41 @@ func _generate():
 	var tex_width = texture.width / noise_scale
 	var tex_height = texture.height / noise_scale
 	
-	var xi=tex_height/2
-	var yj=tex_width/2
-	for i in tex_height:
-		for j in tex_width:
-			var flow:int = noiseImage.get_pixel(i,j).r * height
-			var points:int = noisePeaks.get_pixel(i,j).r * height
-			var location=Vector3(i-xi,0,j-yj)
+	#var xi=tex_height/2
+	#var yj=tex_width/2
+	#0 ground
+	#1 obstacle
+	#2 wall
+	#3 ????
+	var ground =[]
+	for cell in grid_2d.get_used_cells():
+		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(0,0):
+			self.set_cell_item(Vector3i(cell.x,0,cell.y),0)
+			ground.append(cell)
+		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(1,0):
+			self.set_cell_item(Vector3i(cell.x,1,cell.y),2) 
+			self.set_cell_item(Vector3i(cell.x,2,cell.y),2)	
 	
-			if flow>=2:
-				var location2=Vector3(i-xi,1,j-yj)
-				self.set_cell_item(location2,1)
-				
-			if flow>=3:
-				var location2=Vector3(i-xi,2,j-yj)
-				self.set_cell_item(location2,2)
-			
-			if points>=4:
-				var location2=Vector3(i-xi,3,j-yj)
-				self.set_cell_item(location2,3)
-				var location3=Vector3(i-xi,4,j-yj)
-				self.set_cell_item(location3,3)
-
-			self.set_cell_item(location,0)		
+	for cell in ground:
+		var xtmp=abs(cell.x)
+		var ytmp=abs(cell.y)
+		#var flow:int = noiseImage.get_pixel(cell.x,cell.y).r * height
+		var points:int = noisePeaks.get_pixel(xtmp,ytmp).r * height
+		if points>=4:
+			self.set_cell_item(Vector3i(cell.x,1,cell.y),1)
+	
 	
 	print_debug(texture.height)
 	print("gridmap done!")
-	bake_gridmap_navmesh()
-	print("navmesh done!")
-	_generate_grass()
-	print("grass done!")
+	#bake_gridmap_navmesh()
+	
+	#_generate_grass()
+	#print("grass done!")
 	#enemy_spawner.start_spawner()
 
 func bake_gridmap_navmesh():
 	get_parent().bake_navigation_mesh(true)
+	print("navmesh done!")
 
 func _generate_grass():
 	var grass_positions: Array[Transform3D] = []
@@ -105,6 +107,6 @@ func _generate_grass():
 func _enter_tree():
 	pass
 
-func _ready():
+#func _ready():
 	#_generate() #This is called the engine even touches the file becaus of the "tool" tag
-	_generate_grass() #Place the grass when loaded
+	#_generate_grass() #Place the grass when loaded
