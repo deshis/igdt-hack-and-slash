@@ -59,25 +59,22 @@ func _ready() -> void:
 	set_collision_layer_value(13, true)
 	
 	dot_timer = Timer.new()
-	dot_timer.timeout.connect(_on_dot_tick)
-	add_child(dot_timer)
-	
 	debuff_timer = Timer.new()
-	debuff_timer.timeout.connect(_on_debuff_tick) 
-	add_child(debuff_timer)
-	
 	hit_flash_timer = Timer.new()
+	
+	dot_timer.timeout.connect(_on_dot_tick)
+	debuff_timer.timeout.connect(_on_debuff_tick) 
 	hit_flash_timer.timeout.connect(_on_hit_flash_end)
+	
+	add_child(dot_timer)
+	add_child(debuff_timer)
 	add_child(hit_flash_timer)
 	
 	change_state(IDLE)
 
-
 func _activate() -> void:
 	visible = true
 	process_mode = Node.PROCESS_MODE_INHERIT
-	
-	hit_flash.set_shader_parameter('strength',0.0)
 	
 	health_bar = GameManager.HUD.get_hp_bar(self)
 	
@@ -100,7 +97,12 @@ func _physics_process(delta: float) -> void:
 		ATTACK:
 			process_attack()
 		
-		STUN, COOLDOWN:
+		STUN:
+			print(enemy.name, " stunned for: ", state_timer)
+			if state_timer <= 0:
+				change_state(COOLDOWN, 0.2)
+		
+		COOLDOWN:
 			if state_timer <= 0:
 				change_state(IDLE)
 
@@ -256,7 +258,6 @@ func remove_debuff_effect(debuff: DebuffResource) -> void:
 			DebuffResource.DebuffType.FREEZE:
 				enemy_frozen = false
 
-#CRITICAL: DoT spreads to spawning enemies? 
 func _on_debuff_tick() -> void:
 
 	if remaining_debuff_duration > 0.0:
@@ -272,7 +273,7 @@ func _on_debuff_tick() -> void:
 			#enemy.take_stat_damage(active_stat_debuffs)
 			pass
 		
-		change_state(COOLDOWN, remaining_debuff_duration)
+		#change_state(COOLDOWN, remaining_debuff_duration)
 		
 		if remaining_debuff_duration <= 0.0:
 			remove_debuff_effect(active_stat_debuffs)
@@ -289,10 +290,13 @@ func _on_debuff_tick() -> void:
 			
 
 func take_damage(damage:float) -> void:
+	if damage <= 0:
+		return
+	
 	if enemy_frozen:
 		enemy_frozen = false
 		shatter_ice()
-		
+	
 	enemy.health -= damage
 	update_health_bar.emit(enemy.health)
 	SoundManager.play_sfx("hit", global_position)
@@ -324,6 +328,12 @@ func return_to_pool() -> void:
 	visible = false
 	process_mode = Node.PROCESS_MODE_DISABLED
 	health_bar.remove_health_bar()
+	
+	hit_flash.set_shader_parameter('strength',0.0)
+	dot_timer.stop()
+	debuff_timer.stop()
+	hit_flash_timer.stop()
+	state_timer = 0.0
 	
 	for instance in active_attacks:
 		instance.remove_attack()

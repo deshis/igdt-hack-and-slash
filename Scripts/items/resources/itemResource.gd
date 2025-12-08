@@ -39,12 +39,14 @@ const STAT_NAMES = {
 	}
 #CRITICAL: DEFINITELY SYNC THESE WITH THE STATS
 var stat_name
-var base_movement_speed := 500
+var base_movement_speed := 5
+var base_light_attack_damage := 1.0
+var base_heavy_attack_damage := 2.0
 var base_light_attack_cooldown := 1.5
 var base_heavy_attack_cooldown := 0.5
 var base_dash_cooldown := 3.0
 var base_dash_length := 0.15
-var base_dash_speed := 2500
+var base_dash_speed := 25
 
 func set_primary_weapon_type_name() -> void:
 	
@@ -100,6 +102,12 @@ func format_stat_value(stat_type: int, value: float) -> String:
 			# %.1f is a placeholder integer
 			# % operator processes the string, replaces placeholders
 			# a literal % character must be escaped to avoid reading it as a placeholder. This is done by doubling the character
+			return "%.1f%%" % percent
+		Stats.Stat.LIGHT_DAMAGE:
+			var percent = (value / base_light_attack_damage) * 100
+			return "%.1f%%" % percent
+		Stats.Stat.HEAVY_DAMAGE:
+			var percent = (value / base_heavy_attack_damage) * 100
 			return "%.1f%%" % percent
 		Stats.Stat.LIGHT_SIZE_X:
 			var percent = (value * 100)
@@ -179,7 +187,7 @@ func get_formatted_stats() -> String:
 			formatted_stats += "[color=" + effect.dot_resource.dot_item_desc_color + "]" + "+" + effect.dot_resource.dot_name + "[/color]\n"
 			return formatted_stats
 			
-		if dictionary_stat == "Movement Speed" || dictionary_stat == "Attack width" || dictionary_stat == "Attack length" || dictionary_stat == "Light attackspeed" || dictionary_stat == "Heavy attackspeed" ||  dictionary_stat == "Dash cooldown" ||  dictionary_stat == "Dash length":
+		if dictionary_stat == "Light damage" || dictionary_stat == "Heavy damage" ||dictionary_stat == "Movement Speed" || dictionary_stat == "Attack width" || dictionary_stat == "Attack length" || dictionary_stat == "Light attackspeed" || dictionary_stat == "Heavy attackspeed" ||  dictionary_stat == "Dash cooldown" ||  dictionary_stat == "Dash length":
 			# %s%s %s => 3 placeholders: 
 			# replaced with sign, formatted_value, dictionary_stat
 			stats1 = "%s%s %s\n" % [sign1, formatted_value, dictionary_stat]

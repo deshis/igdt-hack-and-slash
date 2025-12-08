@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_2dt7p"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="2_2a10o"]
-[ext_resource type="Texture2D" uid="uid://bfacfjktj1g80" path="res://Assets/item_icons/plasteeltoedboots.png" id="2_r5nsw"]
+[ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_r5nsw"]
 
 [sub_resource type="Resource" id="Resource_7khyf"]
 script = ExtResource("1_2dt7p")
@@ -12,19 +12,19 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_4r28c"]
 script = ExtResource("1_2dt7p")
-value = 5.0
+value = 2.0
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_pka6w"]
 script = ExtResource("1_2dt7p")
 stat_type = 4
-value = -50.0
+value = -1.0
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [resource]
 script = ExtResource("2_2a10o")
-item_name = "Plasteel-toed Boots"
-type = 2
+item_name = "Chromatic Chassis"
+type = 1
 grade = 1
 icon = ExtResource("2_r5nsw")
 effects = Array[ExtResource("1_2dt7p")]([SubResource("Resource_7khyf"), SubResource("Resource_4r28c"), SubResource("Resource_pka6w")])

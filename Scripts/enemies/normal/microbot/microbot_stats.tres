@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ha25t")
-name = "Micro_Bot_2000"
+name = "Microbot-2000"
 speed = 4.0
 max_health = 1.5
 damage = 3.0

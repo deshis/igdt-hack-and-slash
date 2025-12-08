@@ -36,8 +36,8 @@ var input: Vector2
 @onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
 
 @export var dash_speed := 2500.0
-var dash_duration:= 0.15
-var dash_cooldown:= 3.0
+@export var dash_duration:= 0.15
+@export var dash_cooldown:= 3.0
 var can_dash := true
 
 # ATTACKS
@@ -441,6 +441,7 @@ func take_damage(damage:float, ignore_invulnerability: bool = false) -> void:
 		die()
 
 func die() -> void:
+	Engine.time_scale = 1.0
 	game_over.emit()
 	queue_free()
 
