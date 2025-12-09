@@ -1,14 +1,24 @@
 extends Control
 
-@onready var continue_button: Button = $Panel/MarginContainer/VBoxContainer/ContinueButton
 @onready var panel: Panel = $Panel
 @onready var settings_menu: Control = $SettingsMenu
-@onready var master_volume_slider: HSlider = $SettingsMenu/TabContainer/Audio/VBoxContainer/MasterVolumeSlider
 @onready var tab_container: TabContainer = $SettingsMenu/TabContainer
+@onready var master_volume_slider: HSlider = $SettingsMenu/TabContainer/Audio/VBoxContainer/MasterVolumeSlider
+# Pause menu buttons
+@onready var continue_button: Button = $Panel/MarginContainer/VBoxContainer/ContinueButton
+@onready var settings_button: Button = $Panel/MarginContainer/VBoxContainer/SettingsButton
+@onready var quit_button: Button = $Panel/MarginContainer/VBoxContainer/QuitButton
 
 
 func _ready() -> void:
 	visible = false
+
+	for b in [continue_button, settings_button, quit_button]:
+		if b:
+			b.add_to_group("ui_button")
+		else:
+			push_warning("Pause menu button missing")
+
 
 
 func pause()->void:

@@ -1,5 +1,7 @@
 extends Node3D
 
+func _ready() -> void:
+	$Menu/MarginContainer/VBoxContainer/Play.add_to_group("start_button")
 
 func _on_play_pressed() -> void:
 	GameManager.restart()
