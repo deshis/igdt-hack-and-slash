@@ -1,10 +1,7 @@
 extends Control
 
 @onready var inventory: Control = $".."
-
-@onready var selection_slot_1: Control = $VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot1
-@onready var selection_slot_2: Control = $VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot2
-@onready var selection_slot_3: Control = $VBoxContainer/MarginContainer/HBoxContainer/SelectionSlot3
+@onready var container: Control = $VBoxContainer/HBoxContainer
 
 var item_on_ground:Area3D
 
@@ -17,17 +14,15 @@ func open_item_selection(area:Area3D):
 	inventory.visible = true
 	visible = true
 	
-	clear_slot(selection_slot_1)
-	clear_slot(selection_slot_2)
-	clear_slot(selection_slot_3)
-	
-	var item1 = area.get_item(0).duplicate()
-	var item2 = area.get_item(1).duplicate()
-	var item3 = area.get_item(2).duplicate()
-	
-	selection_slot_1.add_child(InventoryManager.create_item_control(item1))
-	selection_slot_2.add_child(InventoryManager.create_item_control(item2))
-	selection_slot_3.add_child(InventoryManager.create_item_control(item3))
+	for i in range(container.get_child_count()):
+		var slot = container.get_child(i)
+		clear_slot(slot)
+		slot.visible = false
+		
+		if i < area.items.size():
+			var item = area.get_item(i).duplicate()
+			slot.add_child(InventoryManager.create_item_control(item))
+			slot.visible = true
 	
 	visible = true
 	GameManager.open_menu()

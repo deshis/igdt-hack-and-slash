@@ -41,6 +41,10 @@ enum Stat {
 	
 	CRIT_CHANCE,
 	THORNS_PERCENT,
+	
+	LOOT_DROP_CHANCE,
+	LOOT_RARITY_INC_PERCENT,
+	PICKUP_LOOT_AMOUNT,
 	}
 
 func apply_effect(player) -> void:
@@ -121,6 +125,13 @@ func apply_effect(player) -> void:
 			player.crit_chance += value
 		Stat.THORNS_PERCENT:
 			player.thorns_percent += value
+		
+		Stat.LOOT_DROP_CHANCE:
+			LootDatabase.update_loot_drop_chance(value)
+		Stat.LOOT_RARITY_INC_PERCENT:
+			LootDatabase.upgrade_loot_rarity_chance += value
+		Stat.PICKUP_LOOT_AMOUNT:
+			LootDatabase.pickup_slot_amount += int(value)
 
 func remove_effect(player) -> void:
 	match stat_type:
@@ -150,10 +161,6 @@ func remove_effect(player) -> void:
 			player.attack_light_damage -= value 
 		Stat.HEAVY_DAMAGE:
 			player.attack_heavy_damage -= value
-		Stat.CRIT_CHANCE:
-			player.crit_chance -= value
-		Stat.THORNS_PERCENT:
-			player.thorns_percent -= value
 		
 		Stat.LIGHT_SIZE_X:
 			player.light_attack_shape.size.x /= value
@@ -192,3 +199,15 @@ func remove_effect(player) -> void:
 			player.dash_duration -= value
 		Stat.DASH_SPEED:
 			player.dash_speed -= value
+		
+		Stat.CRIT_CHANCE:
+			player.crit_chance -= value
+		Stat.THORNS_PERCENT:
+			player.thorns_percent -= value
+		
+		Stat.LOOT_DROP_CHANCE:
+			LootDatabase.update_loot_drop_chance(-value)
+		Stat.LOOT_RARITY_INC_PERCENT:
+			LootDatabase.upgrade_loot_rarity_chance -= value
+		Stat.PICKUP_LOOT_AMOUNT:
+			LootDatabase.pickup_slot_amount -= int(value)

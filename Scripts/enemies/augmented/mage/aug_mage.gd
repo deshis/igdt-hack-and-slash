@@ -34,7 +34,7 @@ func change_state(new_state: String, duration := 0.0):
 
 func _on_attack_area_area_entered(_area: Area3D, damage: float = enemy.damage) -> void:
 	GameStats.player_last_hit_by = enemy.name
-	print("damage on aug_mage: ", damage)
+	
 	# small ranged attack ignores i-frames
 	if _area.get_parent().scene_file_path == ranged_attack_small.resource_path:
 		player.take_damage(damage, self, true)

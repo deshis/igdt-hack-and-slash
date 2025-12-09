@@ -14,7 +14,8 @@ var particles: ParticleManager = null
 var spawner: EnemySpawner =null
 
 var stages := [
-	preload("res://Scenes/forest/forest_test_variety.tscn")
+	#preload("res://Scenes/level/indoor/indoor.tscn"),
+	preload("res://Scenes/forest/forest_test_variety.tscn"),
 ]
 
 func _ready() -> void:

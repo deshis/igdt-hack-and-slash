@@ -400,46 +400,69 @@ grow_vertical = 2
 script = ExtResource("9_484xk")
 
 [node name="Panel" type="Panel" parent="Inventory/ItemSelection"]
-layout_mode = 0
-offset_left = 67.0
-offset_top = 18.0
-offset_right = 558.0
-offset_bottom = 197.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.5
+offset_top = -89.5
+offset_right = 245.5
+offset_bottom = 89.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Inventory/ItemSelection"]
-layout_mode = 0
-offset_left = 67.0
-offset_top = 18.0
-offset_right = 558.0
-offset_bottom = 197.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -63.5
+offset_right = 198.0
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 20
+alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Inventory/ItemSelection/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[center] Pick one item:"
+text = "[center] Pick one augment:"
 fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Inventory/ItemSelection/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectionSlot1" parent="Inventory/ItemSelection/VBoxContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
+layout_mode = 2
+script = ExtResource("12_yidpd")
+
+[node name="SelectionSlot2" parent="Inventory/ItemSelection/VBoxContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
+layout_mode = 2
+script = ExtResource("12_yidpd")
+
+[node name="SelectionSlot3" parent="Inventory/ItemSelection/VBoxContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
+layout_mode = 2
+script = ExtResource("12_yidpd")
+
+[node name="SelectionSlot4" parent="Inventory/ItemSelection/VBoxContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
+layout_mode = 2
+script = ExtResource("12_yidpd")
+
+[node name="SelectionSlot5" parent="Inventory/ItemSelection/VBoxContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
+layout_mode = 2
+script = ExtResource("12_yidpd")
 
 [node name="MarginContainer" type="MarginContainer" parent="Inventory/ItemSelection/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = -60
 theme_override_constants/margin_right = 20
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="SelectionSlot1" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
-layout_mode = 2
-script = ExtResource("12_yidpd")
-
-[node name="SelectionSlot2" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
-layout_mode = 2
-script = ExtResource("12_yidpd")
-
-[node name="SelectionSlot3" parent="Inventory/ItemSelection/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("10_36s6t")]
-layout_mode = 2
-script = ExtResource("12_yidpd")
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
