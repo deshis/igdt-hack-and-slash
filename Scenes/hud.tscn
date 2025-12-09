@@ -188,6 +188,7 @@ layout_mode = 2
 
 [node name="Slot2" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
+slot_name = "Backpack"
 
 [node name="Slot3" parent="Inventory/Backpack" instance=ExtResource("10_36s6t")]
 layout_mode = 2
