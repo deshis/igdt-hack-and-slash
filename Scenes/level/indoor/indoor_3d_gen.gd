@@ -51,13 +51,15 @@ func _generate():
 	#3 ????
 	var ground =[]
 	for cell in grid_2d.get_used_cells():
-		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(0,0):
+		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(42,0): # Ground gray
 			self.set_cell_item(Vector3i(cell.x,0,cell.y),0)
 			ground.append(cell)
-		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(1,0):
+		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(41,0): # Wall gray
 			self.set_cell_item(Vector3i(cell.x,1,cell.y),2) 
 			self.set_cell_item(Vector3i(cell.x,2,cell.y),2)	
-	
+		#Boss door location red?
+		
+		
 	for cell in ground:
 		var xtmp=abs(cell.x)
 		var ytmp=abs(cell.y)
@@ -108,5 +110,6 @@ func _enter_tree():
 	pass
 
 #func _ready():
+	#grid_2d.visible=false
 	#_generate() #This is called the engine even touches the file becaus of the "tool" tag
 	#_generate_grass() #Place the grass when loaded
