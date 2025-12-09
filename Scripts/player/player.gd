@@ -433,13 +433,14 @@ func take_damage(damage:float, ignore_invulnerability: bool = false) -> void:
 	if not ignore_invulnerability:
 		hit_flash_timer.start(hit_flash_duration)
 		hit_flash.set_shader_parameter('strength', 1.0)
-		hitstop(hitstop_duration)
+	
+	hitstop(hitstop_duration)
 	
 	#Damage reduction
 	#NOTE: Applying flat damage reduction before percent damage reduction results in less mitigation
 	damage -= flat_damage_reduction
 	damage *= (100.0 - percent_damage_reduction)/100
-	damage = snappedf(damage,3)
+	damage = snappedf(damage,0.1)
 	health -= damage
 	update_health_bar.emit(health)
 	

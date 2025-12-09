@@ -46,7 +46,8 @@ func load_stage(num: int) -> void:
 	
 	GameStats.stages_cleared = num
 	
-	current_stage = stages[num].instantiate()
+	var ind_mod = num % stages.size()
+	current_stage = stages[ind_mod].instantiate()
 	current_stage_ind = num
 	
 	stage_root.add_child(current_stage)

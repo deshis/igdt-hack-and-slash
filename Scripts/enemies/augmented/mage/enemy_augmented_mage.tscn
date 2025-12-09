@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://daq8gv1iuisrc"]
+[gd_scene load_steps=9 format=3 uid="uid://daq8gv1iuisrc"]
 
-[ext_resource type="Script" uid="uid://qs1ekdjyg2ro" path="res://Scripts/enemies/normal/mage/mage.gd" id="1_mli27"]
+[ext_resource type="Script" uid="uid://c4os75u4ygtvm" path="res://Scripts/enemies/augmented/mage/aug_mage.gd" id="1_c7l0u"]
 [ext_resource type="PackedScene" uid="uid://co3gggxnesrgf" path="res://Scripts/enemies/augmented/mage/aoe_attack_aug_mage.tscn" id="2_1t6lu"]
+[ext_resource type="PackedScene" uid="uid://bwlfm3jqpp534" path="res://Scripts/enemies/augmented/mage/small_ranged_magic_attack_aug_mage.tscn" id="2_evroh"]
 [ext_resource type="PackedScene" uid="uid://cr032bmqvwc80" path="res://Scripts/enemies/augmented/mage/ranged_magic_attack_aug_mage.tscn" id="3_evroh"]
 [ext_resource type="PackedScene" uid="uid://dvxfvfrh4a2t7" path="res://Scenes/particles/teleport.tscn" id="4_u4vbu"]
 [ext_resource type="PackedScene" uid="uid://byxsto3jgbjf4" path="res://Scripts/enemies/augmented/mage/aug_mage_model.tscn" id="5_oaq04"]
@@ -17,18 +18,18 @@ collision_layer = 4096
 collision_mask = 4353
 motion_mode = 1
 wall_min_slide_angle = 0.0
-safe_margin = 1.0
-script = ExtResource("1_mli27")
-aoe_attack = ExtResource("2_1t6lu")
-tp_attack_windup_duration = 0.2
+safe_margin = 0.1
+script = ExtResource("1_c7l0u")
+ranged_attack_small = ExtResource("2_evroh")
+aoe_radius_min = 0.8
+ranged_attack = ExtResource("3_evroh")
 tp_attack_duration = 0.75
 nav_agent = NodePath("NavigationAgent3D")
-attack = ExtResource("3_evroh")
+attack = ExtResource("2_1t6lu")
 attack_windup_duration = 2.0
-attack_range = 3.5
+attack_range = 2.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-avoidance_enabled = true
 radius = 1.0
 debug_enabled = true
 

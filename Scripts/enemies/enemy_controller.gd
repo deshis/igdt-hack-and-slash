@@ -60,8 +60,7 @@ func _ready() -> void:
 	
 	dot_timer = Timer.new()
 	debuff_timer = Timer.new()
-	debuff_timer.timeout.connect(_on_debuff_tick) 
-	add_child(debuff_timer)
+	hit_flash_timer = Timer.new()
 	
 	hit_flash = hit_flash_material.duplicate()
 	if  $"model/rig/Skeleton3D/":
@@ -73,7 +72,7 @@ func _ready() -> void:
 				unique_mat.next_pass = next_pass_unique
 				child.set_surface_override_material(0, unique_mat)
 	
-	hit_flash_timer = Timer.new()
+	hit_flash.set_shader_parameter('strength',0.0)
 	
 	dot_timer.timeout.connect(_on_dot_tick)
 	debuff_timer.timeout.connect(_on_debuff_tick) 
@@ -83,17 +82,15 @@ func _ready() -> void:
 	add_child(debuff_timer)
 	add_child(hit_flash_timer)
 	
-	hit_flash.set_shader_parameter('strength',0.0)
-	
 	change_state(IDLE)
 
 func _activate() -> void:
 	visible = true
 	process_mode = Node.PROCESS_MODE_INHERIT
 	
-	health_bar = GameManager.HUD.get_hp_bar(self)
-	
 	await get_tree().create_timer(0.1).timeout
+	
+	health_bar = GameManager.HUD.get_hp_bar(self)
 	set_collision_layer_value(13, true)
 
 func _physics_process(delta: float) -> void:
@@ -113,7 +110,6 @@ func _physics_process(delta: float) -> void:
 			process_attack()
 		
 		STUN:
-			print(enemy.name, " stunned for: ", state_timer)
 			if state_timer <= 0:
 				change_state(COOLDOWN, 0.2)
 		
@@ -128,6 +124,7 @@ func change_state(new_state: String, duration := 0.0):
 	
 	match state:
 		NAVIGATE:
+			current_speed = enemy.speed
 			target_provider = TargetPlayer.new()
 		
 		STUN:
@@ -146,17 +143,12 @@ func process_attack() -> void:
 
 func process_navigation(delta: float) -> void:
 	var new_target_pos = target_provider.get_target(self)
-	
-	if global_position.distance_to(new_target_pos) > 0.1:
-		nav_agent.set_target_position(new_target_pos)
-	
-	if nav_agent.is_navigation_finished():
-		return
-	
+	nav_agent.set_target_position(new_target_pos)
 	var next_pos = nav_agent.get_next_path_position()
-	var dir = (next_pos - global_transform.origin).normalized()
 	
+	var dir = (next_pos - global_transform.origin).normalized()
 	update_facing_dir(delta, dir)
+	
 	apply_movement(delta, dir)
 
 func apply_movement(delta: float, dir: Vector3) -> void:
@@ -169,8 +161,12 @@ func update_facing_dir(delta: float, dir: Vector3) -> void:
 
 func perform_attack(attack_scene: PackedScene, offset: Vector3 = Vector3.ZERO) -> void:
 	var instance = attack_scene.instantiate()
-	instance.offset = instance.offset if offset == Vector3.ZERO else offset
+	
+	if offset != Vector3.ZERO:
+		instance.offset = offset
+	
 	add_child(instance)
+	
 	instance.attack_hit.connect(_on_attack_area_area_entered)
 	instance.attack_removed.connect(_on_attack_removed)
 	

@@ -29,19 +29,19 @@ var prototype_items := [
 ]
 
 var type_colors := {
-	ItemType.Type.NONE: Color(0.788, 0.788, 0.788),
-	ItemType.Type.SURVIVABILITY: Color(0.0, 0.62, 0.465, 1.0),
-	ItemType.Type.MOVEMENT: Color(0.085, 0.318, 0.995, 1.0),
-	ItemType.Type.UTILITY: Color(0.845, 0.845, 0.0, 1.0),
-	ItemType.Type.DAMAGE: Color(0.52, 0.0, 0.0, 1.0),
-	ItemType.Type.PRIMARY_ATTACK: Color(0.66, 0.531, 0.231, 1.0),
-	ItemType.Type.SECONDARY_ATTACK: Color(0.504, 0.401, 0.16, 1.0),
+	ItemType.Type.NONE: Color(0.78, 0.812, 0.8, 1.0),
+	ItemType.Type.SURVIVABILITY: Color(0.659, 0.792, 0.345, 1.0),
+	ItemType.Type.MOVEMENT: Color(0.871, 0.62, 0.255, 1.0),
+	ItemType.Type.UTILITY: Color(0.451, 0.745, 0.827, 1.0),
+	ItemType.Type.DAMAGE: Color(0.776, 0.318, 0.592, 1.0),
+	ItemType.Type.PRIMARY_ATTACK: Color(0.812, 0.341, 0.235, 1.0),
+	ItemType.Type.SECONDARY_ATTACK: Color(0.647, 0.188, 0.188, 1.0),
 }
 
 var grade_colors := {
-	ItemType.Grade.CONSUMER: Color(0.788, 0.788, 0.788),
-	ItemType.Grade.MILITARY: Color(0.4, 0.0, 0.75, 1.0),
-	ItemType.Grade.PROTOTYPE: Color(1.0, 0.757, 0.0)
+	ItemType.Grade.CONSUMER: Color(0.922, 0.929, 0.914, 1.0),
+	ItemType.Grade.MILITARY: Color(0.478, 0.212, 0.482, 1.0),
+	ItemType.Grade.PROTOTYPE: Color(0.91, 0.757, 0.439, 1.0)
 }
 
 var enemy_loot_table = preload("res://Scripts/globals/loot_table_enemy.tres")

@@ -2,21 +2,29 @@ extends EnemyController
 class_name Mage
 
 const TP = "teleport"
-const TP_ATTACK = "teleport_attack"
-const TP_ATTACK_RECOVERY = "teleport_attack_recovery"
+const FACE_PLAYER = "face_player"
+const RANGED_ATTACK = "ranged_attack"
 
-@export var aoe_attack: PackedScene = null
+@export var ranged_attack: PackedScene = null
+@export var ranged_attack_chance := 0.3
+@export var ranged_attack_max_range := 10.0
+@export var ranged_attack_windup_duration := 2.2
+@export var ranged_attack_max_cooldown := 2.5
+var ranged_attack_cooldown := 0.0
+var ranged_attack_pos := Vector3.ZERO
 
-@onready var tp_attack_area = $TeleportAttackArea
-@onready var tp_attack_hitbox = $TeleportAttackArea/AttackAreaHitbox
+@onready var tp_attack_area = $TeleportArea
+@onready var tp_attack_hitbox = $TeleportArea/AttackAreaHitbox
 @onready var particles = $model/rig/Skeleton3D/BoneAttachment3D/Mesh/Particles
 
-@export var tp_attack_windup_duration := 0.8
+@export var tp_windup_duration := 0.4
 @export var tp_attack_duration := 0.8
 @export var max_tp_dist := 5
 @export var tp_chance := 0.4
 @export var tp_max_cooldown := 2.5
 var tp_cooldown := 0.0
+
+@export var face_player_duration := 0.8
 
 var tp_target = Vector3.ZERO
 
@@ -24,27 +32,18 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	
 	tp_cooldown -= delta
-	
-	if tp_cooldown < 0 and state == NAVIGATE:
-		tp_cooldown = tp_max_cooldown
-		
-		if randf() < tp_chance:
-			change_state(IDLE)
-			return
+	ranged_attack_cooldown -= delta
 	
 	match state:
-		ATTACK:
-			face_towards_player(delta)
+		FACE_PLAYER:
+			process_face_player(delta)
 		
 		TP:
 			GameManager.particles.emit_particles("teleport", global_position)
 			process_tp()
 		
-		TP_ATTACK:
-			process_tp_attack()
-		
-		TP_ATTACK_RECOVERY:
-			process_tp_attack_recovery()
+		RANGED_ATTACK:
+			process_ranged_attack(delta)
 
 
 func change_state(new_state: String, duration := 0.0):
@@ -53,19 +52,22 @@ func change_state(new_state: String, duration := 0.0):
 	match state:
 		ATTACK:
 			particles.emitting = true
-			animator.play("Attack")
-			perform_attack(attack, player.global_position)
+			animator.play("Teleport_attack")
+		FACE_PLAYER:
+			target_provider = TargetSelf.new()
 		IDLE:
 			particles.emitting = false
 			animator.play("Idle")
-			nav_agent.target_desired_distance = attack_range
 		NAVIGATE:
 			animator.play("Walk")
 		TP:
 			animator.play("Teleport")
 			target_provider = TargetSelf.new()
-		TP_ATTACK:
-			animator.play("Teleport_attack")
+		RANGED_ATTACK:
+			ranged_attack_pos = get_pos(global_position, player.global_position, ranged_attack_max_range)
+			ranged_attack_pos = get_random_pos(ranged_attack_pos, 0.0, 5.0)
+			perform_attack(ranged_attack, ranged_attack_pos)
+			animator.play("Attack")
 			target_provider = TargetSelf.new()
 		COOLDOWN:
 			particles.emitting = false
@@ -74,62 +76,83 @@ func change_state(new_state: String, duration := 0.0):
 			particles.emitting = false
 			animator.play("Stun")
 
-func process_attack() -> void:
-	if state_timer > 0:
-		return
-	
-	change_state(COOLDOWN, cooldown_duration)
-
-func process_idle() -> void:
-	if randf() < tp_chance:
-		change_state(TP, 0.4)
-		return
-	
-	change_state(NAVIGATE)
-
 func process_navigation(delta: float) -> void:
-	super.process_navigation(delta)
-	
 	var dist = global_position.distance_to(player.global_position)
-	if dist <= attack_range:
-		change_state(ATTACK, attack_windup_duration)
+	
+	if tp_cooldown < 0:
+		tp_cooldown = randf_range(0.5, tp_max_cooldown)
+	
+		if randf() < tp_chance:
+			change_state(TP, tp_windup_duration)
+			return
+	
+	elif ranged_attack_cooldown < 0 and dist < ranged_attack_max_range:
+		ranged_attack_cooldown = randf_range(0.5, ranged_attack_max_cooldown)
+		
+		if randf() < ranged_attack_chance:
+			change_state(RANGED_ATTACK, ranged_attack_windup_duration)
+			return
+	
+	if dist < attack_range:
+		change_state(FACE_PLAYER, face_player_duration)
+	
+	super.process_navigation(delta)
 
 func process_tp() -> void:
 	if state_timer > 0:
 		return
 	
-	tp_target = pick_tp_pos()
+	tp_target = get_pos(global_position, player.global_position, max_tp_dist, attack_range)
 	global_position = tp_target
 	
 	GameManager.particles.emit_particles("teleport", global_position)
-	change_state(TP_ATTACK, tp_attack_windup_duration)
+	
+	change_state(IDLE)
 
-func process_tp_attack() -> void:
-	if state_timer > 0:
+func process_face_player(delta: float) -> void:
+	if not player:
 		return
 	
-	perform_attack(aoe_attack)
-	change_state(TP_ATTACK_RECOVERY, tp_attack_duration-tp_attack_windup_duration)
-
-func process_tp_attack_recovery() -> void:
-	if state_timer > 0:
-		return
-	
-	change_state(COOLDOWN, cooldown_duration)
-
-func face_towards_player(delta: float) -> void:
 	var dir = (player.global_position - global_transform.origin).normalized()
 	update_facing_dir(delta, dir)
+	
+	if state_timer < 0:
+		change_state(ATTACK, attack_windup_duration)
 
-func pick_tp_pos() -> Vector3:
-	var dir = (player.global_position - global_position).normalized()
+func process_ranged_attack(delta: float) -> void:
+	var dir = (ranged_attack_pos - global_position).normalized()
+	update_facing_dir(delta, dir)
 	
-	var dist = global_position.distance_to(player.global_position)
-	var tp_pos = Vector3.ZERO
+	if state_timer > 0:
+		return
 	
-	if dist < max_tp_dist:
-		tp_pos = global_position + dir * (dist + attack_range)
+	change_state(COOLDOWN, ranged_attack_cooldown)
+
+func get_random_pos(center: Vector3, min_radius: float, max_radius: float) -> Vector3:
+	var angle = randf_range(0, TAU)
+	var dir = Vector3(cos(angle), 0.0, sin(angle))
+	var dist = randf_range(min_radius, max_radius)
+	var pos = center + dir * dist
+	pos.y = 0.0
+	
+	return pos
+
+func get_pos(start_pos: Vector3, end_pos: Vector3, max_dist: float, overshoot: float = 0.0) -> Vector3:
+	var dir = (end_pos - start_pos).normalized()
+	
+	var dist = start_pos.distance_to(end_pos)
+	var pos = Vector3.ZERO
+	
+	if dist < max_dist:
+		pos = start_pos + dir * (dist + overshoot)
 	else:
-		tp_pos = global_position + dir * max_tp_dist
+		pos = start_pos + dir * max_tp_dist
 	
-	return Vector3(tp_pos.x, global_position.y, tp_pos.z)
+	# this feels very scuffed but I can't be bothered
+	var nav_region = GameManager.current_stage.get_node("Node3D").get_node("NavigationRegion3D")
+	var nav_map = nav_region.get_navigation_map()
+	var fixed_pos = NavigationServer3D.map_get_closest_point(nav_map, pos)
+	return fixed_pos
+
+func _on_navigation_agent_3d_target_reached() -> void:
+	change_state(FACE_PLAYER, face_player_duration)

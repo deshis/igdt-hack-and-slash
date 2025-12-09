@@ -16,6 +16,10 @@ var stats = "?"
 func _ready() -> void:
 	update_item_display(item)
 
+func _physics_process(_delta: float) -> void:
+	if panel_container1.visible:
+		_position_description()
+
 func update_item_display(res: ItemResource) -> void:
 	if not item:
 		return
@@ -30,13 +34,18 @@ func update_item_display(res: ItemResource) -> void:
 	panel_container1.visible = false
 	texture_rect.texture = item.icon
 
-#Not functional!
 func _position_description() -> void:
-	var item_pos = get_global_position()
-	var offset_x = -25
-	var offset_y = -15
-	var new_pos = item_pos + Vector2(offset_x, offset_y)
+	var mouse_pos = get_viewport().get_mouse_position()
+	var offset = Vector2(10, 10)
+	var new_pos = mouse_pos + offset
+	
+	var viewport_size = get_viewport_rect().size
+	var panel_size = panel_container1.size
+	
+	new_pos.x = clamp(new_pos.x, 0, viewport_size.x - panel_size.x)
+	new_pos.y = clamp(new_pos.y, 0, viewport_size.y - panel_size.y)
 	panel_container1.global_position = new_pos
+
 
 func get_type() -> int:
 	return item.type
@@ -115,23 +124,23 @@ func _create_description() -> void:
 
 	#Item name
 	var formatted_name = ""
-	formatted_name += "[center][color=" + hex(grade_color) + "][b]" + item.item_name + "[/b][/color][/center]\n\n"
+	formatted_name += "[center][color=" + hex(grade_color) + "][b]" + item.item_name + "[/b][/color][/center]"
 	formatted_desc += formatted_name
 
+	#Item grade
+	formatted_desc += "\n[center][font_size=14][color=" + hex(grade_color) + "]---- " + grade_name + " ----[/color][/font_size][/center]"
+	
+	#Item type
+	formatted_desc += "\n[center][color=" + hex(type_color) + "]" + type_name + "[/color][/center]\n\n"
+	change_panel_color()
+	
 	#Item stat info
 	#formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_stat_info + "[/color][/center]\n\n"
 	
 	formatted_desc += item.get_formatted_stats()
 	
-	#Item grade
-	formatted_desc += "\n[center][color=" + hex(grade_color) + "]" + grade_name + "[/color][/center]\n"
-
-	#Item type
-	formatted_desc += "[center][color=" + hex(type_color) + "]" + type_name + "[/color][/center]\n"
-	change_panel_color()
-	
 	#Item description
-	formatted_desc += "[center][color=" + "#777777" + "]" + item.item_description + "[/color][/center]\n"
+	formatted_desc += "\n[center][color=" + "#777777" + "]" + item.item_description + "[/color][/center]"
 	
 	description.set_text(formatted_desc)
 
@@ -140,12 +149,12 @@ func hex(c: Color) -> String:
 
 func change_panel_color() -> void:
 	var stylebox = panel_container1.get("theme_override_styles/panel").duplicate()
+	var c = grade_color
 	
-	var c = type_color
 	var alpha = 0.9
 	var brightness = 0.2
 	c = Color(c.r * brightness, c.g * brightness, c.b * brightness, alpha)
-	stylebox.border_color = type_color
+	stylebox.border_color = grade_color
 	
 	stylebox.bg_color = c
 	panel_container1.add_theme_stylebox_override("panel", stylebox)
@@ -153,9 +162,6 @@ func change_panel_color() -> void:
 func _on_mouse_entered() -> void:
 	if item == null:
 		return
-		
-	#Busted, fix later
-	_position_description()
 	
 	description.visible = true
 	panel_container1.visible = true

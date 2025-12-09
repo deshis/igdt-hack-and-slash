@@ -17,7 +17,6 @@ func change_state(new_state: String, duration := 0.0):
 		NAVIGATE:
 			trail.visible = false
 			animator.play("Walk")
-			current_speed = enemy.speed
 		STUN:
 			trail.visible = false
 			animator.play("Stun")
