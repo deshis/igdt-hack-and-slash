@@ -4,6 +4,7 @@ class_name Mage
 const TP = "teleport"
 const FACE_PLAYER = "face_player"
 const RANGED_ATTACK = "ranged_attack"
+const ATTACK_RECOVERY = "attack_recovery"
 
 @export var ranged_attack: PackedScene = null
 @export var ranged_attack_chance := 0.3
@@ -23,6 +24,8 @@ var ranged_attack_pos := Vector3.ZERO
 @export var tp_chance := 0.4
 @export var tp_max_cooldown := 2.5
 var tp_cooldown := 0.0
+
+@export var attack_duration = 0.75
 
 @export var face_player_duration := 0.8
 
@@ -44,7 +47,11 @@ func _physics_process(delta: float) -> void:
 		
 		RANGED_ATTACK:
 			process_ranged_attack(delta)
-
+		
+		ATTACK_RECOVERY:
+			process_attack_recovery()
+		
+		
 
 func change_state(new_state: String, duration := 0.0):
 	super.change_state(new_state, duration)
@@ -108,6 +115,18 @@ func process_tp() -> void:
 	GameManager.particles.emit_particles("teleport", global_position)
 	
 	change_state(IDLE)
+
+func process_attack() -> void:
+	if state_timer > 0:
+		return
+	
+	perform_attack(attack)
+	change_state(ATTACK_RECOVERY, attack_duration-attack_windup_duration)
+
+func process_attack_recovery() -> void:
+	if state_timer > 0:
+		return
+	change_state(COOLDOWN, cooldown_duration)
 
 func process_face_player(delta: float) -> void:
 	if not player:
