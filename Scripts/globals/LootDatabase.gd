@@ -2,9 +2,9 @@ extends Node
 
 var consumer_items := [
 	preload("res://Scripts/items/consumer/Axe.tres"),
+	preload("res://Scripts/items/consumer/CrystalShell.tres"),
 	preload("res://Scripts/items/consumer/Dagger.tres"),
 	preload("res://Scripts/items/consumer/DashInverter.tres"),
-	preload("res://Scripts/items/consumer/Katana.tres"),
 	preload("res://Scripts/items/consumer/Maul.tres"),
 	preload("res://Scripts/items/consumer/PlaspringedBoots.tres"),
 	preload("res://Scripts/items/consumer/UnderclockedExoskeleton.tres")
@@ -15,6 +15,9 @@ var military_items := [
 	preload("res://Scripts/items/military/DashLimiter.tres"),
 	preload("res://Scripts/items/military/EnergyConverter.tres"),
 	preload("res://Scripts/items/military/Exoskeleton.tres"),
+	preload("res://Scripts/items/military/Katana.tres"),
+	preload("res://Scripts/items/military/LaserSensor.tres"),
+	preload("res://Scripts/items/military/NanoShell.tres"),
 	preload("res://Scripts/items/military/SecondHeart.tres"),
 ]
 
@@ -23,6 +26,7 @@ var prototype_items := [
 	preload("res://Scripts/items/prototype/EnergyConverterMk2.tres"),
 	preload("res://Scripts/items/prototype/Labrys.tres"),
 	preload("res://Scripts/items/prototype/OverclockedExoskeleton.tres"),
+	preload("res://Scripts/items/prototype/PlasmiumSensor.tres"),
 	preload("res://Scripts/items/prototype/SpectriteChassis.tres"),
 	preload("res://Scripts/items/prototype/Statstick.tres"),
 	

@@ -315,7 +315,6 @@ func take_damage(damage:float) -> void:
 	
 	enemy.health -= damage
 	update_health_bar.emit(enemy.health)
-	SoundManager.play_sfx("hit", global_position)
 	
 	hit_flash.set_shader_parameter('strength',1.0)
 	hit_flash_timer.start(hit_flash_duration)
@@ -394,7 +393,7 @@ func _on_attack_area_area_entered(_area: Area3D, damage: float = enemy.damage) -
 	if player is not Player: return
 	
 	GameStats.player_last_hit_by = enemy.name
-	player.take_damage(damage)
+	player.take_damage(damage, self)
 
 func _on_attack_removed(node: Node3D) -> void:
 	active_attacks.erase(node)

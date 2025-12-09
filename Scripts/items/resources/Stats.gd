@@ -22,6 +22,7 @@ enum Stat {
 	
 	LIGHT_DAMAGE,
 	HEAVY_DAMAGE,
+	
 	LIGHT_COOLDOWN,
 	HEAVY_COOLDOWN,
 	
@@ -36,8 +37,10 @@ enum Stat {
 	DEBUFF_EFFECT,
 	DASH_COOLDOWN,
 	DASH_LENGTH,
-	DASH_SPEED
+	DASH_SPEED,
 	
+	CRIT_CHANCE,
+	THORNS_PERCENT,
 	}
 
 func apply_effect(player) -> void:
@@ -71,7 +74,7 @@ func apply_effect(player) -> void:
 			player.attack_light_damage += value 
 		Stat.HEAVY_DAMAGE:
 			player.attack_heavy_damage += value
-
+		
 		Stat.LIGHT_SIZE_X:
 			#NOTE: Scaling is a bit off?
 			#Hitbox
@@ -113,8 +116,11 @@ func apply_effect(player) -> void:
 			player.dash_duration += value
 		Stat.DASH_SPEED:
 			player.dash_speed += value
-				
-			
+		
+		Stat.CRIT_CHANCE:
+			player.crit_chance += value
+		Stat.THORNS_PERCENT:
+			player.thorns_percent += value
 
 func remove_effect(player) -> void:
 	match stat_type:
@@ -144,7 +150,11 @@ func remove_effect(player) -> void:
 			player.attack_light_damage -= value 
 		Stat.HEAVY_DAMAGE:
 			player.attack_heavy_damage -= value
-
+		Stat.CRIT_CHANCE:
+			player.crit_chance -= value
+		Stat.THORNS_PERCENT:
+			player.thorns_percent -= value
+		
 		Stat.LIGHT_SIZE_X:
 			player.light_attack_shape.size.x /= value
 			player.light_attack.scale.x /= value

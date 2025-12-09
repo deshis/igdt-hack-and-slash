@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://byxsto3jgbjf4" path="res://Scripts/enemies/augmented/mage/aug_mage_model.tscn" id="5_oaq04"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5jn0u"]
-size = Vector3(1, 2, 1)
+size = Vector3(0.8, 2, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rmbf2"]
 size = Vector3(1, 2, 1)
@@ -31,7 +31,6 @@ attack_range = 2.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 radius = 1.0
-debug_enabled = true
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

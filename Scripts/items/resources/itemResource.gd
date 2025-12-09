@@ -35,7 +35,10 @@ const STAT_NAMES = {
 	Stats.Stat.PRIMARY_CHECK: "Primary check",
 	Stats.Stat.DASH_COOLDOWN: "Dash cooldown",
 	Stats.Stat.DASH_LENGTH: "Dash length",
-	Stats.Stat.DASH_SPEED: "Dash speed"
+	Stats.Stat.DASH_SPEED: "Dash speed",
+	
+	Stats.Stat.CRIT_CHANCE: "Critical chance",
+	Stats.Stat.THORNS_PERCENT: "Thorns damage"
 	}
 #CRITICAL: DEFINITELY SYNC THESE WITH THE STATS
 var stat_name
@@ -142,7 +145,10 @@ func format_stat_value(stat_type: int, value: float) -> String:
 			#value = abs(value)
 			#var percent = ((1 -(base_dash_speed-value) / base_dash_speed) * 100)
 			#return "%.1f%%" % percent
-			
+		Stats.Stat.CRIT_CHANCE:
+			return "%.1f%%" % value
+		Stats.Stat.THORNS_PERCENT:
+			return "%.1f%%" % value
 	return ""
 
 func get_formatted_stats() -> String:
@@ -187,7 +193,7 @@ func get_formatted_stats() -> String:
 			formatted_stats += "[color=" + effect.dot_resource.dot_item_desc_color + "]" + "+" + effect.dot_resource.dot_name + "[/color]\n"
 			return formatted_stats
 			
-		if dictionary_stat == "Light damage" || dictionary_stat == "Heavy damage" ||dictionary_stat == "Movement Speed" || dictionary_stat == "Attack width" || dictionary_stat == "Attack length" || dictionary_stat == "Light attackspeed" || dictionary_stat == "Heavy attackspeed" ||  dictionary_stat == "Dash cooldown" ||  dictionary_stat == "Dash length":
+		if dictionary_stat == "Light damage" or dictionary_stat == "Heavy damage" or dictionary_stat == "Movement Speed" or dictionary_stat == "Attack width" or dictionary_stat == "Attack length" or dictionary_stat == "Light attackspeed" or dictionary_stat == "Heavy attackspeed" or dictionary_stat == "Dash cooldown" or dictionary_stat == "Dash length":
 			# %s%s %s => 3 placeholders: 
 			# replaced with sign, formatted_value, dictionary_stat
 			stats1 = "%s%s %s\n" % [sign1, formatted_value, dictionary_stat]

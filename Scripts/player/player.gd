@@ -43,6 +43,7 @@ var can_dash := true
 # ATTACKS
 @export var attack_light_damage := 1.0
 @export var attack_heavy_damage := 2.0
+@export var crit_chance := 1.0
 
 @onready var light_attack = $LightAttack
 @onready var heavy_attack = $HeavyAttack
@@ -89,6 +90,8 @@ var hit_flash_duration := 0.6
 var hit_flash_blink_speed := 0.1
 
 @export var trails : Array[MeshInstance3D]
+
+var thorns_percent := 0.0
 
 # STATE MACHINE
 var state = IDLE
@@ -385,9 +388,15 @@ func get_closest_pickup() -> Area3D:
 	return closest
 
 func deal_damage(area: Area3D, amount: float) -> void:
-	
-	
 	var enemy = area.get_parent() as EnemyController
+	
+	# crit chance
+	if randf() * 100 < crit_chance:
+		amount *= 2
+		SoundManager.play_sfx("hit_crit", enemy.global_position)
+	else:
+		SoundManager.play_sfx("hit", enemy.global_position)
+	
 	#print("Damage: ", amount) 
 	#Lifesteal
 	#NOTE: Might just want to make this flat
@@ -423,7 +432,7 @@ func deal_stat_damage(area: Area3D, debuff: DebuffResource) -> void:
 		#print("Take stat damage")
 		enemy.take_stat_damage(debuff)
 
-func take_damage(damage:float, ignore_invulnerability: bool = false) -> void:
+func take_damage(damage:float, enemy: EnemyController, ignore_invulnerability: bool = false) -> void:
 	GameManager.particles.emit_particles("player_on_hit", global_position, self)
 	
 	# hit flash = invulnerability as well
@@ -435,6 +444,10 @@ func take_damage(damage:float, ignore_invulnerability: bool = false) -> void:
 		hit_flash.set_shader_parameter('strength', 1.0)
 	
 	hitstop(hitstop_duration)
+	
+	# thorns
+	if thorns_percent > 0:
+		enemy.take_damage(damage * (thorns_percent * 0.01))
 	
 	#Damage reduction
 	#NOTE: Applying flat damage reduction before percent damage reduction results in less mitigation
