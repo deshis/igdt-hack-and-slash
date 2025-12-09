@@ -3,6 +3,7 @@ extends CheckButton
 @export var res_selection:OptionButton
 
 func _ready() -> void:
+	mouse_entered.connect(take_focus)
 	var video_settings = CfgHandler.load_video_settings()
 	
 	if "fullscreen" not in video_settings:
@@ -24,3 +25,6 @@ func _on_toggled(toggled_on: bool) -> void:
 		CfgHandler.save_video_setting("fullscreen", false)
 	
 	res_selection.handle_full_screen_toggle(toggled_on)
+
+func take_focus() -> void:
+	grab_focus()

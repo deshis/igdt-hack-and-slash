@@ -14,6 +14,7 @@ extends TabContainer
 	]
 
 func _ready() -> void:
+	tab_hovered.connect(tab_grab_focus)
 	for button in buttons:
 		button.stop_taking_mouse_input.connect(_stop_taking_mouse_input)
 		button.start_taking_mouse_input.connect(_start_taking_mouse_input)
@@ -23,3 +24,8 @@ func _stop_taking_mouse_input() -> void:
 
 func _start_taking_mouse_input() -> void:
 	set_mouse_behavior_recursive(MouseBehaviorRecursive.MOUSE_BEHAVIOR_INHERITED)
+
+func tab_grab_focus(i:int)->void:
+	get_tab_bar().grab_focus()
+	set_current_tab(i)
+	

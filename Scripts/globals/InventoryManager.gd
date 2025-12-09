@@ -15,8 +15,17 @@ var item_scene: PackedScene = preload("res://Scenes/item.tscn")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory"):
-		inventory_node.visible = !inventory_node.visible
-		GameManager.set_menu(inventory_node.visible)
+		if GameManager.open_menu_count < 1:
+			inventory_node.visible = true
+			GameManager.set_menu(true)
+		elif inventory_node.visible:
+			inventory_node.visible = false
+			GameManager.set_menu(false)
+	
+	if event.is_action_pressed("ui_cancel") and inventory_node.visible:
+		inventory_node.visible = false
+		GameManager.set_menu(false)
+
 
 func init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

@@ -11,23 +11,31 @@ func _ready() -> void:
 	visible = false
 
 
-func toggle_pause()->void:
-	visible = !visible
-	GameManager.set_menu(visible)
+func pause()->void:
+	visible = true
+	GameManager.set_menu(true)
+	continue_button.grab_focus()
+
+
+func unpause()->void:
+	visible = false
+	GameManager.set_menu(false)
 	continue_button.grab_focus()
 
 
 func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.is_action_pressed("ui_cancel"):
-			if settings_menu.visible:
+			if GameManager.open_menu_count < 1:
+				pause()
+			elif settings_menu.visible:
 				toggle_settings_menu()
 			else:
-				toggle_pause()
+				unpause()
 
 
 func _on_continue_button_pressed() -> void:
-	toggle_pause()
+	unpause()
 
 
 func _on_settings_button_pressed() -> void:
@@ -40,7 +48,7 @@ func toggle_settings_menu()->void:
 	
 	if settings_menu.visible:
 		tab_container.current_tab = 0 
-		master_volume_slider.grab_focus()
+		tab_container.get_tab_bar().grab_focus()
 	else:
 		continue_button.grab_focus()
 

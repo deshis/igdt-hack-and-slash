@@ -2,6 +2,7 @@ extends CheckButton
 
 
 func _ready() -> void:
+	mouse_entered.connect(take_focus)
 	var video_settings = CfgHandler.load_video_settings()
 	
 	if "vsync" not in video_settings:
@@ -21,3 +22,7 @@ func _on_toggled(toggled_on: bool) -> void:
 	else:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		CfgHandler.save_video_setting("vsync", false)
+
+
+func take_focus() -> void:
+	grab_focus()

@@ -10,7 +10,7 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	
+	mouse_entered.connect(take_focus)
 	var keybinds = CfgHandler.load_keybinds()
 	
 	if action not in keybinds:
@@ -57,3 +57,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			InputMap.action_add_event(action, event)
 			CfgHandler.save_keybind(action, event)
 			button_pressed = false
+
+func take_focus()->void:
+	grab_focus()

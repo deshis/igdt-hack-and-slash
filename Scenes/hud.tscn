@@ -591,6 +591,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back to menu"
+script = ExtResource("11_wfkbc")
 
 [node name="Graphics" type="MarginContainer" parent="PauseMenu/SettingsMenu/TabContainer"]
 visible = false
@@ -660,6 +661,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back to menu"
+script = ExtResource("11_wfkbc")
 
 [node name="Controls" type="MarginContainer" parent="PauseMenu/SettingsMenu/TabContainer"]
 visible = false
@@ -717,7 +719,6 @@ text = "Move Up"
 
 [node name="ControlRemapButton" type="Button" parent="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/moveup"]
 layout_mode = 2
-mouse_behavior_recursive = 2
 script = ExtResource("17_v5hjn")
 action = "move_up"
 
@@ -816,6 +817,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back to menu"
+script = ExtResource("11_wfkbc")
 
 [node name="GameOverScreen" type="Control" parent="."]
 visible = false
@@ -945,11 +947,8 @@ layout_mode = 2
 text = "Quit"
 script = ExtResource("11_wfkbc")
 
-[connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="PauseMenu/Panel/MarginContainer/VBoxContainer/ContinueButton" to="PauseMenu" method="_on_continue_button_pressed"]
-[connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="PauseMenu/Panel/MarginContainer/VBoxContainer/SettingsButton" to="PauseMenu" method="_on_settings_button_pressed"]
-[connection signal="mouse_entered" from="PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="PauseMenu/Panel/MarginContainer/VBoxContainer/QuitButton" to="PauseMenu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="PauseMenu/SettingsMenu/TabContainer/Audio/VBoxContainer/BackToMenuButton" to="PauseMenu" method="_on_back_to_menu_button_pressed"]
 [connection signal="item_selected" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/ResolutionSelection" to="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/ResolutionSelection" method="_on_item_selected"]
@@ -958,7 +957,5 @@ script = ExtResource("11_wfkbc")
 [connection signal="toggled" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" to="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/Vsynctoggle" method="_on_toggled"]
 [connection signal="pressed" from="PauseMenu/SettingsMenu/TabContainer/Graphics/VBoxContainer/BackToMenuButton" to="PauseMenu" method="_on_back_to_menu_button_pressed"]
 [connection signal="pressed" from="PauseMenu/SettingsMenu/TabContainer/Controls/VBoxContainer/BackToMenuButton" to="PauseMenu" method="_on_back_to_menu_button_pressed"]
-[connection signal="mouse_entered" from="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer2/restart_button" to="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer2/restart_button" method="_on_mouse_entered"]
 [connection signal="pressed" from="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer2/restart_button" to="GameOverScreen" method="_on_restart_button_pressed"]
-[connection signal="mouse_entered" from="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer2/quit_button" to="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer2/quit_button" method="_on_mouse_entered"]
 [connection signal="pressed" from="GameOverScreen/Panel/MarginContainer/VBoxContainer/HBoxContainer2/quit_button" to="GameOverScreen" method="_on_quit_button_pressed"]

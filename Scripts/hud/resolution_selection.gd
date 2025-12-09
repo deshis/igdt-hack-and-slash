@@ -3,6 +3,7 @@ extends OptionButton
 var current_resolution
 
 func _ready() -> void:
+	mouse_entered.connect(take_focus)
 	var video_settings = CfgHandler.load_video_settings()
 	
 	if "resolution" not in video_settings:
@@ -54,3 +55,7 @@ func handle_full_screen_toggle(fullscreen:bool)->void:
 				get_window().set_size(CfgHandler.Resolutions[res])
 			ID+=1
 		center_window()
+
+
+func take_focus() -> void:
+	grab_focus()

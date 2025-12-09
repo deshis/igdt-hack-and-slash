@@ -4,7 +4,7 @@ extends OptionButton
 
 
 func _ready() -> void:
-	
+	mouse_entered.connect(take_focus)
 	var video_settings = CfgHandler.load_video_settings()
 	
 	if "antialiasing" not in video_settings:
@@ -68,3 +68,7 @@ func _on_item_selected(index: int) -> void:
 			RenderingServer.viewport_set_msaa_2d(vp_rid, RenderingServer.VIEWPORT_MSAA_8X)
 			RenderingServer.viewport_set_msaa_3d(vp_rid, RenderingServer.VIEWPORT_MSAA_8X)
 			CfgHandler.save_video_setting("antialiasing", CfgHandler.AntiAliasing.MSAA8X)
+
+
+func take_focus() -> void:
+	grab_focus()
