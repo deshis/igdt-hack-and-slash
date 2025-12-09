@@ -140,7 +140,8 @@ func _create_description() -> void:
 	formatted_desc += item.get_formatted_stats()
 	
 	#Item description
-	formatted_desc += "\n[center][color=" + "#777777" + "]" + item.item_description + "[/color][/center]"
+	if item.item_description != "":
+		formatted_desc += "\n[center][color=" + "#777777" + "]" + item.item_description + "[/color][/center]"
 	
 	description.set_text(formatted_desc)
 
