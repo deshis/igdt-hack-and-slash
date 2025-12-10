@@ -46,7 +46,11 @@ enum Stat {
 	LOOT_DROP_CHANCE,
 	LOOT_RARITY_INC_PERCENT,
 	PICKUP_LOOT_AMOUNT,
-	ACTIVE_EFFECT
+	ACTIVE_EFFECT,
+	LIGHT_DOT_CHANCE,
+	HEAVY_DOT_CHANCE,
+	LIGHT_DEBUFF_CHANCE,
+	HEAVY_DEBUFF_CHANCE
 	}
 
 func apply_effect(player) -> void:
@@ -126,7 +130,17 @@ func apply_effect(player) -> void:
 		Stat.ACTIVE_EFFECT:
 			if active_effect_resource:
 				player.active_item_effect = active_effect_resource
-
+				
+		Stat.LIGHT_DOT_CHANCE:
+			player.light_dot_chance += value
+		Stat.HEAVY_DOT_CHANCE:
+			player.heavy_dot_chance += value
+			
+		Stat.LIGHT_DEBUFF_CHANCE:
+			player.light_debuff_chance += value
+		Stat.HEAVY_DEBUFF_CHANCE:
+			player.heavy_debuff_chance += value
+			
 func remove_effect(player) -> void:
 	match stat_type:
 		
@@ -205,3 +219,13 @@ func remove_effect(player) -> void:
 		Stat.ACTIVE_EFFECT:
 			if active_effect_resource:
 				player.active_item_effect = null
+				
+		Stat.LIGHT_DOT_CHANCE:
+			player.light_dot_chance -= value
+		Stat.HEAVY_DOT_CHANCE:
+			player.heavy_dot_chance -= value
+			
+		Stat.LIGHT_DEBUFF_CHANCE:
+			player.light_debuff_chance -= value
+		Stat.HEAVY_DEBUFF_CHANCE:
+			player.heavy_debuff_chance -= value

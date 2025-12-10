@@ -25,6 +25,16 @@ var flat_damage_reduction := 0
 var life_steal := 0.0
 var life_stolen := 0.0
 
+# DOT / DEBUFF ODDS
+
+var rng = RandomNumberGenerator.new()
+var rng_dot_roll := 0.0
+var rng_debuff_roll := 0.0
+var light_dot_chance := 0.0
+var heavy_dot_chance := 0.0
+var light_debuff_chance := 0.0
+var heavy_debuff_chance := 0.0
+
 # MOVEMENT
 @export var movement_speed := 500.0
 @export var acceleration := 15.0
@@ -116,6 +126,8 @@ const LIGHT_ATTACK_WINDUP = "light_attack_windup"
 const LIGHT_ATTACK = "light_attack"
 const HEAVY_ATTACK_WINDUP = "heavy_attack_windup"
 const HEAVY_ATTACK = "heavy_attack"
+
+
 
 func _ready() -> void:
 	print("Q to use active item")
@@ -385,6 +397,7 @@ func use_active_item(active_effect: ActiveEffectResource):
 	
 func apply_active_item_effect(active_effect: ActiveEffectResource) -> void:
 	var value = active_effect.active_effect_value
+	var radius = active_effect.aoe_radius
 	
 	match active_effect.active_type:
 		ActiveEffectResource.ActiveType.HEAL:
@@ -395,7 +408,6 @@ func apply_active_item_effect(active_effect: ActiveEffectResource) -> void:
 			pass
 		
 		ActiveEffectResource.ActiveType.STUN_AOE:
-			var radius = 6.0
 			var stun_length = value
 			
 			var stun_dot = preload("res://Scripts/items/resources/StunDebuff.tres")
@@ -413,6 +425,25 @@ func apply_active_item_effect(active_effect: ActiveEffectResource) -> void:
 			animator.play("Dash")
 			state_timer = dash_duration
 			perform_second_dash()
+			
+		ActiveEffectResource.ActiveType.DAMAGE_AOE:
+			var dot_length = value
+			var aoe_damage = active_effect.aoe_damage
+			
+			var fracture_dot = preload("res://Scripts/items/resources/RealityFractureDoT.tres").duplicate()
+			fracture_dot.dot_duration = dot_length
+			#fracture_dot.dot_tick_rate = 1
+			
+			for enemy in GameManager.spawner.get_children():
+				if enemy is not EnemyController or not enemy.visible:
+					continue
+				
+				if global_position.distance_to(enemy.global_position) < radius:
+					#enemy.change_state(enemy.STUN, dot_length)
+					deal_dot_damage(null, fracture_dot, enemy)
+					
+					if active_effect.aoe_damage != 0:
+						deal_damage(null, aoe_damage, enemy)
 
 
 func process_move(delta: float) -> void:	
@@ -508,8 +539,15 @@ func get_closest_pickup() -> Area3D:
 	
 	return closest
 
-func deal_damage(area: Area3D, amount: float) -> void:
-	var enemy = area.get_parent() as EnemyController
+func deal_damage(area: Area3D, amount: float, e: EnemyController = null) -> void:
+	
+	var enemy = null
+	if e:
+		enemy = e
+	else:
+		enemy = area.get_parent() as EnemyController
+	
+	#var enemy = area.get_parent() as EnemyController
 	
 	# crit chance
 	if randf() * 100 < crit_chance:
@@ -536,8 +574,15 @@ func deal_damage(area: Area3D, amount: float) -> void:
 	
 	enemy.take_damage(amount)
 
-func deal_dot_damage(area: Area3D, dot: DotResource) -> void:
-	var enemy = area.get_parent() as EnemyController
+func deal_dot_damage(area: Area3D, dot: DotResource, e: EnemyController = null) -> void:
+
+	var enemy = null
+	if e:
+		enemy = e
+	else:
+		enemy = area.get_parent() as EnemyController
+	
+	#var enemy = area.get_parent() as EnemyController
 	
 	if dot.dot_tick_damage > 0:
 		enemy.take_dot_damage(dot)
@@ -641,10 +686,23 @@ func _on_light_attack_area_entered(area: Area3D) -> void:
 	GameManager.particles.emit_particles("on_hit", area.global_position)
 
 	if primary_attack_active_dot != null:
-		deal_dot_damage(area, primary_attack_active_dot)
+		
+		#Generate a random number between 0 and 100
+		#If number generated smaller or equal than the odds of inflicting debuff/dot ; proceed
+		
+		rng_dot_roll = rng.randf_range(0,100)
+		print("Roll: ",rng_dot_roll)
+		
+		if light_dot_chance >= rng_dot_roll:
+			deal_dot_damage(area, primary_attack_active_dot)
 
 	if primary_attack_active_debuff != null:
-		deal_stat_damage(area, primary_attack_active_debuff)
+		
+		rng_debuff_roll = rng.randf_range(0,100)
+		print("Roll: ",rng_dot_roll)
+		
+		if light_debuff_chance >= rng_debuff_roll:
+			deal_stat_damage(area, primary_attack_active_debuff)
 
 func _on_heavy_attack_area_entered(area: Area3D) -> void:
 	deal_damage(area, attack_heavy_damage)
@@ -653,9 +711,23 @@ func _on_heavy_attack_area_entered(area: Area3D) -> void:
 	GameManager.particles.emit_particles("on_hit", area.global_position)
 
 	if secondary_attack_active_dot != null:
+		
+		rng_dot_roll = rng.randf_range(0,100)
+		print("Roll: ",rng_dot_roll)
+		
+		if heavy_dot_chance >= rng_dot_roll:
+			deal_dot_damage(area, primary_attack_active_dot)
+		
 		deal_dot_damage(area, secondary_attack_active_dot)
 
 	if secondary_attack_active_debuff != null:
+		
+		rng_debuff_roll = rng.randf_range(0,100)
+		print("Roll: ",rng_dot_roll)
+		
+		if heavy_debuff_chance >= rng_dot_roll:
+			deal_dot_damage(area, primary_attack_active_dot)
+		
 		deal_stat_damage(area, secondary_attack_active_debuff)
 
 func _on_health_radius_area_entered(area: Area3D) -> void:
