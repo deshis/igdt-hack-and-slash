@@ -8,19 +8,19 @@
 [sub_resource type="Resource" id="Resource_pptsh"]
 script = ExtResource("1_ohs3p")
 stat_type = 9
-value = 0.7
+value = 70.0
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_pwjje"]
 script = ExtResource("1_ohs3p")
 stat_type = 10
-value = 0.65
+value = 60.0
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_ohs3p"]
 script = ExtResource("1_ohs3p")
 stat_type = 1
-value = 1.0
+value = 0.2
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_umq30"]
@@ -37,7 +37,7 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [sub_resource type="Resource" id="Resource_itrkx"]
 script = ExtResource("1_ohs3p")
 stat_type = 7
-value = 0.225
+value = 125.0
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_cebxw"]

@@ -1039,7 +1039,6 @@ trails = [NodePath("model/DaggerTrail"), NodePath("model/SwordTrail"), NodePath(
 autostart = true
 
 [node name="HealthRegenTimer" type="Timer" parent="Timers"]
-wait_time = 5.0
 autostart = true
 
 [node name="DashCooldownTimer" type="Timer" parent="Timers"]

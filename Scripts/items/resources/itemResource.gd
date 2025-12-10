@@ -12,47 +12,56 @@ class_name ItemResource
 @export var icon: Texture2D
 @export var effects: Array[Stats] = []
 
-#Dictionary to format and give stat enums abbreviations
-const STAT_NAMES = {
-	Stats.Stat.HEALTH: "HP",
-	Stats.Stat.HEALTH_REGEN: "HP/5s",
-	Stats.Stat.FLAT_DAMAGE_REDUCTION: "Damage reduction",
-	Stats.Stat.PERCENT_DAMAGE_REDUCTION: "% Damage reduction", 
-	Stats.Stat.MOVEMENT_SPEED: "Movement Speed",  
+const DESC = "desc"
+const RELATIVE = "relative"
+const ATTACK_SIZE = "attack_size"
+const PERCENT = "percent"
+const INV_SCALE = "inverted_scale"
+
+# leave disctionary empty to omit from description
+const STAT_BEHAVIOR := {
+	Stats.Stat.HEALTH: { DESC: "health" },
+	Stats.Stat.HEALTH_REGEN: { DESC: "health / sec" },
+	Stats.Stat.FLAT_DAMAGE_REDUCTION: { DESC: "flat damage reduction" },
+	Stats.Stat.PERCENT_DAMAGE_REDUCTION: { DESC: "damage reduction ", PERCENT: true },
+	Stats.Stat.MOVEMENT_SPEED: { DESC: "move speed", PERCENT: true, RELATIVE: true },
 	
-	Stats.Stat.LIGHT_DAMAGE: "Light damage",
-	Stats.Stat.HEAVY_DAMAGE: "Heavy damage",
-	Stats.Stat.LIGHT_COOLDOWN: "Light attackspeed",
-	Stats.Stat.HEAVY_COOLDOWN: "Heavy attackspeed",
+	Stats.Stat.LIGHT_DAMAGE: { DESC: "damage", PERCENT: true, RELATIVE: true },
+	Stats.Stat.HEAVY_DAMAGE: { DESC: "damage", PERCENT: true, RELATIVE: true },
+	Stats.Stat.LIGHT_SPEED: { DESC: "attack speed", PERCENT: true },
+	Stats.Stat.HEAVY_SPEED: { DESC: "attack speed", PERCENT: true },
 	
-	Stats.Stat.LIGHT_SIZE_X: "Attack width",
-	Stats.Stat.LIGHT_SIZE_Y: "Attack length",
-	Stats.Stat.HEAVY_SIZE_X: "Attack width",
-	Stats.Stat.HEAVY_SIZE_Y: "Attack length",
+	Stats.Stat.LIGHT_SIZE_X: { DESC: "attack width", PERCENT: true, ATTACK_SIZE: true },
+	Stats.Stat.LIGHT_SIZE_Y: { DESC: "attack length", PERCENT: true, ATTACK_SIZE: true },
+	Stats.Stat.HEAVY_SIZE_X: { DESC: "attack width", PERCENT: true, ATTACK_SIZE: true },
+	Stats.Stat.HEAVY_SIZE_Y: { DESC: "attack length", PERCENT: true, ATTACK_SIZE: true },
 	
-	Stats.Stat.LIFESTEAL: "% Lifesteal",
-	Stats.Stat.DOT_EFFECT: "Dot info",
-	Stats.Stat.PRIMARY_CHECK: "Primary check",
-	Stats.Stat.DASH_COOLDOWN: "Dash cooldown",
-	Stats.Stat.DASH_LENGTH: "Dash length",
-	Stats.Stat.DASH_SPEED: "Dash speed",
+	Stats.Stat.LIFESTEAL: { DESC: "lifesteal", PERCENT: true },
+	Stats.Stat.DOT_EFFECT: { DESC: "dot info" },
+	Stats.Stat.PRIMARY_CHECK: { },
 	
-	Stats.Stat.CRIT_CHANCE: "Critical chance",
-	Stats.Stat.THORNS_PERCENT: "Thorns damage"
-	}
+	Stats.Stat.DASH_COOLDOWN: { DESC: "dash cooldown", INV_SCALE: true, PERCENT: true, RELATIVE: true },
+	Stats.Stat.DASH_LENGTH: { DESC: "dash length", PERCENT: true, RELATIVE: true },
+	Stats.Stat.DASH_SPEED: { },
+	
+	Stats.Stat.CRIT_CHANCE: { DESC: "critical chance", PERCENT: true },
+	Stats.Stat.THORNS_PERCENT: { DESC: "thorns damage ", PERCENT: true},
+	
+	Stats.Stat.LOOT_DROP_CHANCE: { DESC: "loot drop chance", PERCENT: true },
+	Stats.Stat.LOOT_RARITY_INC_PERCENT: { DESC: "chance to upgrade loot", PERCENT: true },
+	Stats.Stat.PICKUP_LOOT_AMOUNT: { DESC: "loot drop slots" },
+}
+
 #CRITICAL: DEFINITELY SYNC THESE WITH THE STATS
-var stat_name
-var base_movement_speed := 5
+#var stat_name
+var base_movement_speed := 5.0
 var base_light_attack_damage := 1.0
 var base_heavy_attack_damage := 2.0
-var base_light_attack_cooldown := 1.5
-var base_heavy_attack_cooldown := 0.5
 var base_dash_cooldown := 3.0
 var base_dash_length := 0.15
 var base_dash_speed := 25
 
 func set_primary_weapon_type_name() -> void:
-	
 	match weapon_type: 
 		ItemType.WeaponType.NONE:
 			ItemGlobals.primary_weapon_type = "Default"
@@ -64,17 +73,15 @@ func set_primary_weapon_type_name() -> void:
 			ItemGlobals.primary_weapon_type = "Maul"
 		ItemType.WeaponType.AXE:
 			ItemGlobals.secondary_weapon_type = "Axe"
-			
+
 func set_primary_attack_type_name() -> void:
-	
 	match attack_type: 
 		ItemType.AttackType.PRIMARY:
 			ItemGlobals.primary_attack_type = "Primary"
 		ItemType.AttackType.SECONDARY:
 			ItemGlobals.primary_attack_type = "Secondary"
-			
+
 func set_secondary_weapon_type_name() -> void:
-	
 	match weapon_type: 
 		ItemType.WeaponType.NONE:
 			ItemGlobals.secondary_weapon_type = "Dagger"
@@ -86,9 +93,8 @@ func set_secondary_weapon_type_name() -> void:
 			ItemGlobals.secondary_weapon_type = "Maul"
 		ItemType.WeaponType.AXE:
 			ItemGlobals.secondary_weapon_type = "Axe"
-			
+
 func set_secondary_attack_type_name() -> void:
-	
 	match attack_type: 
 		ItemType.AttackType.PRIMARY:
 			ItemGlobals.secondary_attack_type = "Primary"
@@ -96,112 +102,91 @@ func set_secondary_attack_type_name() -> void:
 			ItemGlobals.secondary_attack_type = "Secondary"
 
 #NOTE: https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_format_string.html
-
-func format_stat_value(stat_type: int, value: float) -> String:
-
-	match stat_type:
-		Stats.Stat.MOVEMENT_SPEED:
-			var percent = ((value / base_movement_speed) * 100)
-			# %.1f is a placeholder integer
-			# % operator processes the string, replaces placeholders
-			# a literal % character must be escaped to avoid reading it as a placeholder. This is done by doubling the character
-			return "%.1f%%" % percent
-		Stats.Stat.LIGHT_DAMAGE:
-			var percent = (value / base_light_attack_damage) * 100
-			return "%.1f%%" % percent
-		Stats.Stat.HEAVY_DAMAGE:
-			var percent = (value / base_heavy_attack_damage) * 100
-			return "%.1f%%" % percent
-		Stats.Stat.LIGHT_SIZE_X:
-			var percent = (value * 100)
-			return "%.1f%%" % percent
-		Stats.Stat.LIGHT_SIZE_Y:
-			var percent = (value * 100)
-			return "%.1f%%" % percent
-		Stats.Stat.HEAVY_SIZE_X:
-			var percent = (value * 100)
-			return "%.1f%%" % percent 
-		Stats.Stat.HEAVY_SIZE_Y:
-			var percent = (value * 100)
-			return "%.1f%%" % percent
-		Stats.Stat.LIGHT_COOLDOWN:
-			value = abs(value)
-			var percent = ((1 -(base_light_attack_cooldown-value) / base_light_attack_cooldown) * 100)
-			#print(percent)
-			return "%.1f%%" % percent
-		Stats.Stat.HEAVY_COOLDOWN:
-			value = abs(value)
-			var percent = ((1 -(base_heavy_attack_cooldown-value) / base_heavy_attack_cooldown) * 100)
-			return "%.1f%%" % percent
-		Stats.Stat.DASH_COOLDOWN:
-			value = abs(value)
-			var percent = ((1 -(base_dash_cooldown-value) / base_dash_cooldown) * 100)
-			return "%.1f%%" % percent
-		Stats.Stat.DASH_LENGTH:
-			value = abs(value)
-			var percent = ((1 -(base_dash_length-value) / base_dash_length) * 100)
-			return "%.1f%%" % percent
-		#Stats.Stat.DASH_SPEED:
-			#value = abs(value)
-			#var percent = ((1 -(base_dash_speed-value) / base_dash_speed) * 100)
-			#return "%.1f%%" % percent
-		Stats.Stat.CRIT_CHANCE:
-			return "%.1f%%" % value
-		Stats.Stat.THORNS_PERCENT:
-			return "%.1f%%" % value
-	return ""
-
 func get_formatted_stats() -> String:
-
-	var formatted_stats := ""
-	var stats1 := ""
-	var stats2 := ""
-	var sign1
-	var positive_color := "#a0a3a1"
-	var negative_color := "#b32a20"
-	var stat_color := ""
+	var positive_stats := ""
+	var negative_stats := ""
 	
 	for effect in effects:
-
-		var dictionary_stat = STAT_NAMES.get(effect.stat_type, stat_name)
+		var behavior = STAT_BEHAVIOR.get(effect.stat_type)
+		if not behavior:
+			continue
+		
+		var stat_string = ""
 		var value = effect.value
 		
-		if value >= 0:
-			sign1 = "+"
-			stat_color = positive_color
-		else:
-			sign1 = ""
-			stat_color = negative_color
+		if behavior.get(RELATIVE, false):
+			value = get_relative_value(value, effect.stat_type)
 		
-		# NOTE: Bandaid
-		if dictionary_stat == "Light attackspeed" || dictionary_stat == "Heavy attackspeed"  || dictionary_stat == "Dash cooldown" || dictionary_stat == "Dash length":
-			if value >= 0:
-				sign1 = "+"
-				stat_color = negative_color
+		if behavior.get(ATTACK_SIZE, false):
+			value = get_attack_size_value(value)
+		
+		stat_string += get_sign(value) 
+		stat_string += get_snapped_string(value)
+		stat_string += get_percent(behavior.get(PERCENT, false)) + " "
+		stat_string += behavior.get(DESC) + "\n"
+		
+		var color = get_color(value, behavior.get(INV_SCALE, false))
+		
+		# add to correct stats (used so positive stats are above negative)
+		if behavior.get(INV_SCALE, false):
+			if value < 0:
+				positive_stats += colored_text(stat_string, color)
 			else:
-				sign1 = "-"
-				stat_color = positive_color
-		
-		var formatted_value := format_stat_value(effect.stat_type, effect.value)
-		
-		#NOTE: Stats that shouldn't be shown in the item description go here
-		if dictionary_stat == "Primary check" || dictionary_stat == "Dash speed":
-			formatted_stats += ""
-			return formatted_stats
-			
-		if dictionary_stat == "Dot info":
-			formatted_stats += "[color=" + effect.dot_resource.dot_item_desc_color + "]" + "+" + effect.dot_resource.dot_name + "[/color]\n"
-			return formatted_stats
-			
-		if dictionary_stat == "Light damage" or dictionary_stat == "Heavy damage" or dictionary_stat == "Movement Speed" or dictionary_stat == "Attack width" or dictionary_stat == "Attack length" or dictionary_stat == "Light attackspeed" or dictionary_stat == "Heavy attackspeed" or dictionary_stat == "Dash cooldown" or dictionary_stat == "Dash length":
-			# %s%s %s => 3 placeholders: 
-			# replaced with sign, formatted_value, dictionary_stat
-			stats1 = "%s%s %s\n" % [sign1, formatted_value, dictionary_stat]
-			formatted_stats += "[color=" + stat_color + "]" + stats1 + "[/color]"
-			#return formatted_stats
+				negative_stats += colored_text(stat_string, color)
 		else:
-			stats2 = "%s%s %s\n" % [sign1, effect.value, dictionary_stat]
-			formatted_stats += "[color=" + stat_color + "]" + stats2 + "[/color]"
+			if value >= 0:
+				positive_stats += colored_text(stat_string, color)
+			else:
+				negative_stats += colored_text(stat_string, color)
 	
+	return positive_stats + negative_stats
 
-	return formatted_stats
+func get_sign(value: float) -> String:
+	if value > 0:
+		return "+"
+	else:
+		return ""
+
+func get_snapped_string(value: float) -> String:
+	if value == int(value):
+		return str(int(value))
+	else:
+		return str(snappedf(value, 0.1))
+
+func get_relative_value(value, stat_type: Stats.Stat) -> float:
+	match stat_type:
+		Stats.Stat.MOVEMENT_SPEED:
+			return value / base_movement_speed * 100
+		
+		Stats.Stat.LIGHT_DAMAGE:
+			return value / base_light_attack_damage * 100
+		Stats.Stat.HEAVY_DAMAGE:
+			return value / base_heavy_attack_damage * 100
+		
+		Stats.Stat.DASH_COOLDOWN:
+			return value / base_dash_cooldown * 100
+		Stats.Stat.DASH_LENGTH:
+			return value / base_dash_length * 100
+	
+	return 0.0
+
+func get_attack_size_value(value: float) -> float:
+	return value - 100
+
+func get_percent(is_percent: bool) -> String:
+	if is_percent:
+		return "%"
+	else:
+		return ""
+
+func get_color(value: float, is_inverted: bool) -> String:
+	var positive_color := "#a0a3a1"
+	var negative_color := "#b32a20"
+	
+	if is_inverted:
+		return negative_color if value >= 0 else positive_color
+	else:
+		return positive_color if value >= 0 else negative_color
+
+func colored_text(text: String, color: String) -> String:
+	return "[color=" + color + "]" + text + "[/color]"

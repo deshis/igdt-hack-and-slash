@@ -18,6 +18,7 @@ var military_items := [
 	preload("res://Scripts/items/military/Exoskeleton.tres"),
 	preload("res://Scripts/items/military/HomeMadeClover.tres"),
 	preload("res://Scripts/items/military/Katana.tres"),
+	preload("res://Scripts/items/military/LaserFlail.tres"),
 	preload("res://Scripts/items/military/LaserSensor.tres"),
 	preload("res://Scripts/items/military/NanoShell.tres"),
 	preload("res://Scripts/items/military/PlasteelToolbelt.tres"),

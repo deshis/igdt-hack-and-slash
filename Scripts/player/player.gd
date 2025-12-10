@@ -52,6 +52,7 @@ var can_dash := true
 @onready var heavy_attack_hitbox = $HeavyAttack/Box
 
 var light_attack_speed_scale := 1.0
+var heavy_attack_speed_scale := 1.0
 
 var light_attack_shape: Shape3D
 var heavy_attack_shape: Shape3D
@@ -62,7 +63,6 @@ var heavy_attack_visual_shape: Sprite2D
 var heavy_attack_dash_speed := movement_speed * 0.1
 var heavy_attack_dash_decay := 0.6
 
-var heavy_attack_cooldown:= 0.5 # this is used in item stats but it feels redundant now?
 var heavy_attack_windup_duration := 0.333
 
 var primary_attack_active_dot: DotResource = null
@@ -219,18 +219,19 @@ func enter_state(new_state) -> void:
 		
 		HEAVY_ATTACK_WINDUP:
 			weapon_mesh.mesh = ItemGlobals.secondary_weapon_mesh
-	
+			
 			if ItemGlobals.secondary_weapon_type == "Maul":
-				heavy_attack_windup_duration = 0.5
+				heavy_attack_windup_duration = 0.5 / heavy_attack_speed_scale
 				animator.play("Heavy_attack_maul")
 			elif ItemGlobals.secondary_weapon_type == "Axe":
-				heavy_attack_windup_duration = 0.5
+				heavy_attack_windup_duration = 0.5 / heavy_attack_speed_scale
 				animator.play("Heavy_attack_axe")
 			else:
-				heavy_attack_windup_duration = 0.333
+				heavy_attack_windup_duration = 0.333 / heavy_attack_speed_scale
 				animator.play("Heavy_attack_default")
-				
+			
 			current_speed = heavy_attack_dash_speed
+			animator.speed_scale = heavy_attack_speed_scale
 			state_timer = heavy_attack_windup_duration
 			set_facing_dir()
 		
