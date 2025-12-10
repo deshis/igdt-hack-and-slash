@@ -130,7 +130,6 @@ func _create_description() -> void:
 	var formatted_name = ""
 	formatted_name += "[center][color=" + hex(grade_color) + "][b]" + wrap_text(item.item_name) + "[/b][/color][/center]"
 	formatted_desc += formatted_name
-	print(item.item_name)
 
 	#Item grade
 	formatted_desc += "\n[center][font_size=14][color=" + hex(grade_color) + "]---- " + grade_name + " ----[/color][/font_size][/center]"

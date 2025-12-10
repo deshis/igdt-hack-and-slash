@@ -10,6 +10,7 @@ transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 script = ExtResource("1_q7cw5")
 start_size = Vector3(0.2, 0.2, 0.2)
 damage = 4.5
+damage_per_level = 0.2
 duration = 0.3
 
 [node name="Area3D" type="Area3D" parent="."]

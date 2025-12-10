@@ -163,6 +163,11 @@ func update_facing_dir(delta: float, dir: Vector3) -> void:
 func perform_attack(attack_scene: PackedScene, offset: Vector3 = Vector3.ZERO) -> void:
 	var instance = attack_scene.instantiate()
 	
+	var spawner = GameManager.spawner
+	var diff = spawner.diff.get_difficulty()
+	var damage_mult = instance.damage_per_level
+	instance.damage += diff * damage_mult
+	
 	if offset != Vector3.ZERO:
 		instance.offset = offset
 	

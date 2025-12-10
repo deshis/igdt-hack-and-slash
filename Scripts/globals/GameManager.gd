@@ -11,7 +11,7 @@ var starting_difficulty := 0.0
 
 var HUD: HudManager = null
 var particles: ParticleManager = null
-var spawner: EnemySpawner =null
+var spawner: EnemySpawner = null
 
 var portaldoor= preload("res://Scenes/level_changer.tscn")
 

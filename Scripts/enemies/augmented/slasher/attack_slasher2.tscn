@@ -7,10 +7,8 @@ data = PackedVector3Array(-0.935, 1.0435, 0.20529999, -0.67249995, 1.0435, 0.163
 
 [node name="Attack" type="Node3D"]
 script = ExtResource("1_p27is")
-damage = 3.5
-hitbox_duration = 0.1
-animation_duration = 0.2
-size = Vector3(1.25, 1, 2)
+damage = 3.0
+damage_per_level = 0.15
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16384

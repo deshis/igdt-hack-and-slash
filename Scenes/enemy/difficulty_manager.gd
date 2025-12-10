@@ -6,7 +6,6 @@ class_name DifficultyManager
 @export var credits_per_level := 0.3
 @export var augment_enemy_chance_per_level := 0.015
 
-var difficulty_level := 1
 var difficulty := 0.0
 
 func _ready() -> void:
@@ -14,6 +13,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	difficulty += delta / seconds_per_level
-	
-	if difficulty > difficulty_level:
-		difficulty_level += 1
+
+func get_difficulty() -> int:
+	return int(floor(difficulty))

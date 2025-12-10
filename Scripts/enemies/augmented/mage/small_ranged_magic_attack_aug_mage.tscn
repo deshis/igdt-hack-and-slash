@@ -67,6 +67,7 @@ script = ExtResource("1_flbfx")
 pulse_speed = 5.0
 anticipation_duration = 2.2
 damage = 1.0
+damage_per_level = 0.08
 duration = 1.0
 follow = false
 

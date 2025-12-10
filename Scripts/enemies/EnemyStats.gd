@@ -7,7 +7,6 @@ class_name EnemyStats
 @export var speed := 250.0
 @export var max_health := 4.0
 var health := max_health
-@export var damage := 2.0
 @export var cost := 2.0
 
 @export var health_per_level := 0.2
@@ -19,4 +18,3 @@ var rotation_speed := 8.0
 func setup(difficulty_level: int) -> void:
 	max_health += difficulty_level * health_per_level
 	health = max_health
-	damage += difficulty_level * damage_per_level

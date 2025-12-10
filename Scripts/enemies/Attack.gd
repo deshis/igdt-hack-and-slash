@@ -2,6 +2,7 @@ extends Node3D
 class_name Attack
 
 @export var damage := 2.0
+@export var damage_per_level := 0.1
 @export var duration := 0.1
 
 @export var follow := true
