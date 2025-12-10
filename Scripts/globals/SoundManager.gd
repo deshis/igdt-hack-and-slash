@@ -31,7 +31,8 @@ func _ready() -> void:
 		"heavy_attack": load("res://Assets/audio/effect_heavy_attack.wav"), 
 		"dash": load("res://Assets/audio/effect_dash.wav"),
 		"hit": load("res://Assets/audio/effect_hit.wav"),
-		"hit_crit": load("res://Assets/audio/effect_stun.wav"), # SOMEONE REPLACE WITH CRIT SFX
+		"hit_crit": load("res://Assets/audio/effect_hit_critical.wav"),
+		"damage_taken": load("res://Assets/audio/effect_damage_Taken.wav"),
 		"enemy_die": load("res://Assets/audio/effect_enemy_die.wav"),
 		"dot_sfx": load("res://Assets/audio/effect_dot.wav"),
 		"heal":load("res://Assets/audio/effect_heal.wav"),
@@ -47,8 +48,10 @@ func _ready() -> void:
 	pitch_ranges = {
 		"light_attack": [0.5, 1.5],
 		"heavy_attack": [0.9, 1.2],
-		"dash": [0.5, 1.5],
+		"dash": [0.8, 1.5],
 		"hit": [0.5, 1.2],
+		"hit_crit": [0.5, 1.2],
+		"damage_taken": [0.8, 1.2],
 		"enemy_die": [0.5, 1.5],
 		"dot_sfx": [0.5, 1.5],
 		"heal": [0.5, 1.0],
