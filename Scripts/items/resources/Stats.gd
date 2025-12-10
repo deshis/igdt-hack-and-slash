@@ -77,18 +77,12 @@ func apply_effect(player) -> void:
 		
 		Stat.LIGHT_SIZE_X:
 			#NOTE: Scaling is a bit off?
-			#Hitbox
-			player.light_attack_shape.size.x *= value * 0.01
-			#Visual
 			player.light_attack.scale.x *= value * 0.01
 		Stat.LIGHT_SIZE_Y:
-			player.light_attack_shape.size.z *= value * 0.01
 			player.light_attack.scale.z *= value * 0.01
 		Stat.HEAVY_SIZE_X:
-			player.heavy_attack_shape.size.x *= value * 0.01
 			player.heavy_attack.scale.x *= value * 0.01
 		Stat.HEAVY_SIZE_Y:
-			player.heavy_attack_shape.size.z *= value * 0.01
 			player.heavy_attack.scale.z *= value * 0.01
 			
 		Stat.LIFESTEAL:
@@ -163,16 +157,12 @@ func remove_effect(player) -> void:
 			player.attack_heavy_damage -= value
 		
 		Stat.LIGHT_SIZE_X:
-			player.light_attack_shape.size.x /= value * 0.01
 			player.light_attack.scale.x /= value * 0.01
 		Stat.LIGHT_SIZE_Y:
-			player.light_attack_shape.size.z /= value * 0.01
 			player.light_attack.scale.z /= value * 0.01
 		Stat.HEAVY_SIZE_X:
-			player.heavy_attack_shape.size.x /= value * 0.01
 			player.heavy_attack.scale.x /= value * 0.01
 		Stat.HEAVY_SIZE_Y:
-			player.heavy_attack_shape.size.z /= value * 0.01
 			player.heavy_attack.scale.z /= value * 0.01
 			
 		Stat.LIFESTEAL:

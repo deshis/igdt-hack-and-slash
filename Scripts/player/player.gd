@@ -48,8 +48,12 @@ var can_dash := true
 @onready var light_attack = $LightAttack
 @onready var heavy_attack = $HeavyAttack
 
-@onready var light_attack_hitbox = $LightAttack/Box
-@onready var heavy_attack_hitbox = $HeavyAttack/Box
+@onready var hitbox_light_attack_default = $LightAttack/Default
+@onready var hitbox_light_attack_dagger = $LightAttack/Dagger
+@onready var hitbox_light_attack_sword = $LightAttack/Sword
+@onready var hitbox_heavy_attack_default = $HeavyAttack/Default
+@onready var hitbox_heavy_attack_axe = $HeavyAttack/Axe
+@onready var hitbox_heavy_attack_maul = $HeavyAttack/Maul
 
 var light_attack_duration := 1.0
 var heavy_attack_duration := 1.0
@@ -117,11 +121,8 @@ func _ready() -> void:
 	hit_flash.set_shader_parameter('strength',0.0)
 	animator.animation_finished.connect(_on_animation_finished)
 	
-	light_attack_hitbox.disabled = true
-	heavy_attack_hitbox.disabled = true
-	
-	light_attack_shape = light_attack_hitbox.shape
-	heavy_attack_shape = heavy_attack_hitbox.shape
+	update_light_attack_hitbox()
+	update_heavy_attack_hitbox()
 	
 	change_state(IDLE)
 
@@ -269,11 +270,11 @@ func enter_state(new_state) -> void:
 
 func exit_state(st: String) -> void:
 	match st:
-		LIGHT_ATTACK_WINDUP, LIGHT_ATTACK:
+		LIGHT_ATTACK:
 			disable_trails()
 			stop_light_attack()
 		
-		HEAVY_ATTACK_WINDUP, HEAVY_ATTACK:
+		HEAVY_ATTACK:
 			disable_trails()
 			stop_heavy_attack()
 		
@@ -297,6 +298,31 @@ func process_state(delta: float) -> void:
 		HEAVY_ATTACK:
 			process_heavy_attack(delta)
 
+func update_light_attack_hitbox(enabled_type: String = ""):
+	hitbox_light_attack_default.disabled = true
+	hitbox_light_attack_dagger.disabled = true
+	hitbox_light_attack_sword.disabled = true
+	
+	match enabled_type:
+		"Default":
+			hitbox_light_attack_default.disabled = false
+		"Dagger":
+			hitbox_light_attack_dagger.disabled = false
+		"Sword":
+			hitbox_light_attack_sword.disabled = false
+
+func update_heavy_attack_hitbox(enabled_type: String = ""):
+	hitbox_heavy_attack_default.disabled = true
+	hitbox_heavy_attack_axe.disabled = true
+	hitbox_heavy_attack_maul.disabled = true
+	
+	match enabled_type:
+		"Default":
+			hitbox_heavy_attack_default.disabled = false
+		"Axe":
+			hitbox_heavy_attack_axe.disabled = false
+		"Maul":
+			hitbox_heavy_attack_maul.disabled = false
 
 func perform_dash():
 	can_dash = false
@@ -307,12 +333,15 @@ func perform_dash():
 	SoundManager.play_sfx("dash", global_position)
 
 func perform_light_attack() -> void:
-	light_attack_hitbox.disabled = false
+	velocity = Vector3.ZERO
+	set_facing_dir()
+	
+	update_light_attack_hitbox(ItemGlobals.primary_weapon_type)
 	
 	SoundManager.play_sfx("light_attack", global_position)
 
 func perform_heavy_attack() -> void:
-	heavy_attack_hitbox.disabled = false
+	update_heavy_attack_hitbox(ItemGlobals.secondary_weapon_type)
 	
 	SoundManager.play_sfx("heavy_attack", global_position)
 
@@ -384,13 +413,13 @@ func stop_dash() -> void:
 
 func stop_light_attack() -> void:
 	weapon_mesh.mesh = null
-	light_attack_hitbox.disabled = true
+	update_light_attack_hitbox()
 	light_attack.visible = false
 	animator.speed_scale = 1.0
 
 func stop_heavy_attack() -> void:
 	weapon_mesh.mesh = null
-	heavy_attack_hitbox.disabled = true
+	update_heavy_attack_hitbox()
 	heavy_attack.visible = false
 	animator.speed_scale = 1.0
 
