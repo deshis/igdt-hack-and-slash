@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_l23d5"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="2_3jxtt"]
 [ext_resource type="Resource" uid="uid://b7u27nahctfnu" path="res://Scripts/items/resources/ActiveEffectResources/Heal.tres" id="2_m7r36"]
-[ext_resource type="Texture2D" uid="uid://v4yfhxneulwp" path="res://Assets/orb.png" id="3_m7r36"]
+[ext_resource type="Texture2D" uid="uid://cmtg1csjhb1mv" path="res://Assets/item_icons/Consumer/HealthItemIcon.png" id="3_m7r36"]
 
 [sub_resource type="Resource" id="Resource_l23d5"]
 script = ExtResource("1_l23d5")

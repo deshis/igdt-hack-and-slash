@@ -8,11 +8,13 @@ var consumer_items := [
 	preload("res://Scripts/items/consumer/DashInverter.tres"),
 	preload("res://Scripts/items/consumer/Maul.tres"),
 	preload("res://Scripts/items/consumer/SpringedBoots.tres"),
-	preload("res://Scripts/items/consumer/UnderclockedExoskeleton.tres")
+	preload("res://Scripts/items/consumer/UnderclockedExoskeleton.tres"),
+	preload("res://Scripts/items/consumer/ChromaticChassis.tres"),
+	preload("res://Scripts/items/consumer/TestActiveItem.tres")
 ]
 
 var military_items := [
-	preload("res://Scripts/items/military/ChromaticChassis.tres"),
+	preload("res://Scripts/items/military/PlasteelChassis.tres"),
 	preload("res://Scripts/items/military/DashLimiter.tres"),
 	preload("res://Scripts/items/military/EnergyConverter.tres"),
 	preload("res://Scripts/items/military/Exoskeleton.tres"),

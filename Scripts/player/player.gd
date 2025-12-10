@@ -81,6 +81,8 @@ var secondary_attack_active_debuff: DebuffResource = null
 
 var active_item_effect: ActiveEffectResource = null
 
+var picked_animation := false
+
 # ACTIVE ABILITY
 @onready var active_item_cooldown_timer: Timer = $Timers/ItemActiveCooldownTimer
 #@onready var active_item_icon
@@ -195,6 +197,8 @@ func change_state(new_state) -> void:
 	enter_state(new_state)
 
 func enter_state(new_state) -> void:
+	picked_animation = false
+
 	state = new_state
 	
 	match state:
@@ -220,20 +224,25 @@ func enter_state(new_state) -> void:
 			set_facing_dir()
 			
 			if ItemGlobals.primary_weapon_type == "Dagger":
+				print("Hi")
+				picked_animation = true
 				animator.play("Light_attack_dagger")
 				light_attack_windup_duration = 0.17 / light_attack_speed_scale
 				light_attack_duration = 0.333 / light_attack_speed_scale
 			
 			if ItemGlobals.primary_weapon_type == "Sword":
+				picked_animation = true
 				animator.play("Light_attack_sword")
 				light_attack_windup_duration = 0.333 / light_attack_speed_scale
 				light_attack_duration = 0.5833 / light_attack_speed_scale
 			
 			else:
-				animator.play("Light_attack_default")
-				light_attack_windup_duration = 0.25 / light_attack_speed_scale
-				light_attack_duration = 0.5833 / light_attack_speed_scale
-			
+				if !picked_animation:
+					pass
+					animator.play("Light_attack_default")
+					light_attack_windup_duration = 0.25 / light_attack_speed_scale
+					light_attack_duration = 0.5833 / light_attack_speed_scale
+				
 			primary_attack_used.emit(light_attack_duration)
 			state_timer = light_attack_windup_duration
 		

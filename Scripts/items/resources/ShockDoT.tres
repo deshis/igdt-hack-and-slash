@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="DotResource" load_steps=3 format=3 uid="uid://hylp888g1m6u"]
 
 [ext_resource type="Script" uid="uid://ko57id0ce143" path="res://Scripts/items/resources/DotResource.gd" id="1_4gaow"]
-[ext_resource type="PackedScene" uid="uid://bdh37djmoccgq" path="res://Scenes/particles/electric_dot_particles.tscn" id="1_4x3kw"]
+[ext_resource type="PackedScene" uid="uid://cvvj5hl8wpxu1" path="res://Scenes/particles/electric_dot_particles_3d.tscn" id="1_4x3kw"]
 
 [resource]
 script = ExtResource("1_4gaow")

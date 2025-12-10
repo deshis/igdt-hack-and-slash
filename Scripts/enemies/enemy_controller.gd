@@ -258,6 +258,7 @@ func apply_debuff_effect(debuff: DebuffResource) -> void:
 			SoundManager.play_sfx("stun_sfx", global_position)
 			change_state(STUN, remaining_debuff_duration)
 		DebuffResource.DebuffType.FREEZE:
+			GameManager.particles.emit_particles("freeze_particles_3D", global_position, self)
 			SoundManager.play_sfx("freeze_sfx", global_position)
 			enemy_frozen = true
 			change_state(COOLDOWN, remaining_debuff_duration)
@@ -320,7 +321,7 @@ func take_damage(damage:float) -> void:
 	hit_flash.set_shader_parameter('strength',1.0)
 	hit_flash_timer.start(hit_flash_duration)
 	
-	#instantiate_particles(hit_particles_scene)
+	GameManager.particles.emit_particles("on_hit", global_position, self)
 	
 	GameStats.total_damage_dealt += damage
 	
@@ -374,14 +375,14 @@ func shatter_ice() -> void:
 	if state_timer:
 		state_timer = 0
 		
-	#instantiate_particles(freeze_shatter_particles_scene)
+	GameManager.particles.emit_particles("freeze_shatter_particles_3D", global_position, self)
 	
 func instantiate_particles(particle_scene: PackedScene):
 	var particles = particle_scene.instantiate()
 	
 	get_parent().add_child(particles)
 	#CRITICAL: Most particles are 2D, so this fucks up
-	#particles.global_position = global_position
+	particles.global_position = global_position
 	
 	particles.finished.connect(_on_particles_finished.bind(particles))
 	
