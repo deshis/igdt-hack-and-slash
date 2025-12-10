@@ -1,0 +1,15 @@
+extends Resource
+class_name ActiveEffectResource
+
+@export var active_type: ActiveType
+@export var active_effect_name: String
+@export var active_effect_value: float
+@export var active_effect_cooldown: float = 5
+#@export var active_effect_desc_color: String = "#edc939"
+#NOTE: Might be redundant. Can call GameManager for the particles.
+@export var particle_scene: PackedScene
+
+enum ActiveType { 
+	HEAL,
+	MOVEMENT_SPEED
+	}

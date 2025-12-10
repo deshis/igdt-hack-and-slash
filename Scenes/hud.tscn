@@ -305,6 +305,21 @@ script = ExtResource("9_pbtju")
 slot_name = "Secondary Attack"
 type = 7
 
+[node name="ActiveItem" parent="Inventory/AugmentSlots" instance=ExtResource("10_36s6t")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 600.0
+offset_top = 455.0
+offset_right = 684.0
+offset_bottom = 539.0
+grow_horizontal = 1
+grow_vertical = 1
+script = ExtResource("9_pbtju")
+slot_name = "Active Item"
+type = 5
+
 [node name="TrashSlot" parent="Inventory" instance=ExtResource("10_36s6t")]
 modulate = Color(1, 0, 0, 1)
 self_modulate = Color(1, 0, 0, 1)

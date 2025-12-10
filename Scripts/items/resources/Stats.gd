@@ -5,6 +5,7 @@ class_name Stats
 @export var value: float = 0.0
 @export var dot_resource: DotResource
 @export var debuff_resource: DebuffResource
+@export var active_effect_resource: ActiveEffectResource
 
 signal update_health_bar
 
@@ -45,6 +46,7 @@ enum Stat {
 	LOOT_DROP_CHANCE,
 	LOOT_RARITY_INC_PERCENT,
 	PICKUP_LOOT_AMOUNT,
+	ACTIVE_EFFECT
 	}
 
 func apply_effect(player) -> void:
@@ -126,6 +128,10 @@ func apply_effect(player) -> void:
 			LootDatabase.upgrade_loot_rarity_chance += value
 		Stat.PICKUP_LOOT_AMOUNT:
 			LootDatabase.pickup_slot_amount += int(value)
+			
+		Stat.ACTIVE_EFFECT:
+			if active_effect_resource:
+				player.active_item_effect = active_effect_resource
 
 func remove_effect(player) -> void:
 	match stat_type:
@@ -205,3 +211,7 @@ func remove_effect(player) -> void:
 			LootDatabase.upgrade_loot_rarity_chance -= value
 		Stat.PICKUP_LOOT_AMOUNT:
 			LootDatabase.pickup_slot_amount -= int(value)
+			
+		Stat.ACTIVE_EFFECT:
+			if active_effect_resource:
+				player.active_item_effect = null

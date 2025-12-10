@@ -18,6 +18,7 @@ var dot_timer: Timer
 
 var active_dots: DotResource = null
 var active_stat_debuffs: DebuffResource = null
+
 var dot_tick_rate := 1.5
 var remaining_dot_duration := 0.0
 var current_tick_damage := 0.0

@@ -71,9 +71,11 @@ var secondary_attack_active_dot: DotResource = null
 var primary_attack_active_debuff: DebuffResource = null
 var secondary_attack_active_debuff: DebuffResource = null
 
+var active_item_effect: ActiveEffectResource = null
+
 # ACTIVE ABILITY
 @onready var active_item_cooldown_timer: Timer = $Timers/ItemActiveCooldownTimer
-var active_item_cooldown := 5.0
+#@onready var active_item_icon
 var can_active_item := true
 
 # MODEL
@@ -135,7 +137,7 @@ func _physics_process(delta: float) -> void:
 			item_picked_up.emit(item)
 	
 	if Input.is_action_just_pressed("active_item") and can_active_item:
-		use_active_item()
+		use_active_item(active_item_effect)
 	
 	if hit_flash_timer.time_left > 0:
 		blink()
@@ -293,12 +295,27 @@ func perform_heavy_attack() -> void:
 	
 	SoundManager.play_sfx("heavy_attack", global_position)
 
-func use_active_item():
+func use_active_item(active_effect: ActiveEffectResource):
+	var active_item_cooldown = active_effect.active_effect_cooldown
+	
 	can_active_item = false
 	active_item_cooldown_timer.start(active_item_cooldown)
 	active_item_used.emit(active_item_cooldown)
 	
 	SoundManager.play_sfx("stun_sfx", global_position)
+	
+	apply_active_item_effect(active_item_effect)
+	
+func apply_active_item_effect(active_effect: ActiveEffectResource) -> void:
+	var value = active_effect.active_effect_value
+	
+	match active_effect.active_type:
+		ActiveEffectResource.ActiveType.HEAL:
+			heal(value)
+			GameManager.particles.emit_particles("heal", global_position, self)
+
+		ActiveEffectResource.ActiveType.MOVEMENT_SPEED:
+			pass
 
 
 func process_move(delta: float) -> void:	

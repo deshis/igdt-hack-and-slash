@@ -129,8 +129,12 @@ func _create_description() -> void:
 
 	#Item grade
 	formatted_desc += "\n[center][font_size=14][color=" + hex(grade_color) + "]---- " + grade_name + " ----[/color][/font_size][/center]"
-	
+
+		
 	#Item type
+	if type_color == null:
+		type_color = "#777777"
+	
 	formatted_desc += "\n[center][color=" + hex(type_color) + "]" + type_name + "[/color][/center]\n\n"
 	change_panel_color()
 	
