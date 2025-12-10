@@ -10,6 +10,11 @@ extends Control
 
 @onready var restart_button: Button = $Panel/MarginContainer/VBoxContainer/HBoxContainer2/restart_button
 
+func _ready() -> void:
+	# Add audio to buttons
+	$Panel/MarginContainer/VBoxContainer/HBoxContainer2/restart_button.add_to_group("ui_button")
+	$Panel/MarginContainer/VBoxContainer/HBoxContainer2/quit_button.add_to_group("ui_button")
+
 var player:Player
 
 

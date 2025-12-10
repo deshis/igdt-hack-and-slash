@@ -15,7 +15,7 @@
 size = Vector3(1, 2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_48d4a"]
-size = Vector3(1, 2, 1)
+size = Vector3(1.4, 2, 1.4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ivy4"]
 resource_name = "Material"
@@ -283,6 +283,7 @@ spin_attack_duration = 1.833
 spin_attack_speed = 7.0
 nav_agent = NodePath("NavigationAgent3D")
 attack = ExtResource("3_3f44a")
+attack_windup_duration = 0.75
 attack_range = 4.0
 cooldown_duration = 0.8
 
