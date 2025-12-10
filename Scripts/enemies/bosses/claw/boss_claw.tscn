@@ -283,6 +283,7 @@ spin_attack_duration = 1.833
 spin_attack_speed = 7.0
 nav_agent = NodePath("NavigationAgent3D")
 attack = ExtResource("3_3f44a")
+attack_windup_duration = 0.75
 attack_range = 4.0
 cooldown_duration = 0.8
 
