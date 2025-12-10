@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="7_8rgxd"]
 [ext_resource type="Shader" uid="uid://1rauri1px6gq" path="res://Assets/environment/grass_alternative.gdshader" id="8_8rgxd"]
 [ext_resource type="ArrayMesh" uid="uid://bgleexwkuqems" path="res://Assets/environment/grass.res" id="8_75ju8"]
-[ext_resource type="PackedScene" uid="uid://dk104ll3dehau" path="res://Scenes/door.tscn" id="8_gr2xc"]
+[ext_resource type="PackedScene" uid="uid://dk104ll3dehau" path="res://Scenes/level_changer.tscn" id="8_gr2xc"]
 [ext_resource type="Texture2D" uid="uid://cu5w0ne7m2cet" path="res://Assets/environment/grass.png" id="9_gr2xc"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_gr2xc"]

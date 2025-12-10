@@ -19,6 +19,10 @@ extends GridMap # Straight from another project :D
 
 @onready var enemy_spawner = $"../../../EnemySpawner"
 
+
+
+var light_load= preload("res://Scenes/level/indoor/light.tscn").instantiate()
+
 func _notification(notification):
 	if notification == NOTIFICATION_EDITOR_PRE_SAVE:
 		grass.multimesh.instance_count = 0
@@ -49,11 +53,16 @@ func _generate():
 	#1 obstacle
 	#2 wall
 	#3 ????
-	var ground =[]
+	var ground = []
+	var light_loc = []
 	for cell in grid_2d.get_used_cells():
 		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(42,0): # Ground gray
 			self.set_cell_item(Vector3i(cell.x,0,cell.y),0)
 			ground.append(cell)
+		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(23,0): # Ground gray
+			self.set_cell_item(Vector3i(cell.x,0,cell.y),0)
+			self.set_cell_item(Vector3i(cell.x,2,cell.y),3)
+			light_loc.append(cell)
 		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(41,0): # Wall gray
 			self.set_cell_item(Vector3i(cell.x,1,cell.y),2) 
 			self.set_cell_item(Vector3i(cell.x,2,cell.y),2)	
@@ -67,7 +76,15 @@ func _generate():
 		var points:int = noisePeaks.get_pixel(xtmp,ytmp).r * height
 		if points>=4:
 			self.set_cell_item(Vector3i(cell.x,1,cell.y),1)
-	
+
+	for cell in light_loc:
+		var light_instance:Node3D = light_load.instantiate()
+		self.add_child(light_instance)
+		
+		
+		
+
+
 	
 	print_debug(texture.height)
 	print("gridmap done!")
