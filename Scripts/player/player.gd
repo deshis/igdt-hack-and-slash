@@ -408,6 +408,8 @@ func apply_active_item_effect(active_effect: ActiveEffectResource) -> void:
 				if global_position.distance_to(enemy.global_position) < radius:
 					enemy.change_state(enemy.STUN, stun_length)
 					deal_stat_damage(null, stun_dot, enemy)
+		ActiveEffectResource.ActiveType.INVULNERABILITY:
+			hit_flash_timer.start(value)
 
 		ActiveEffectResource.ActiveType.SECOND_DASH:
 			animator.play("Dash")

@@ -26,8 +26,8 @@ const STAT_BEHAVIOR := {
 	Stats.Stat.PERCENT_DAMAGE_REDUCTION: { DESC: "damage reduction ", PERCENT: true },
 	Stats.Stat.MOVEMENT_SPEED: { DESC: "move speed", PERCENT: true, RELATIVE: true },
 	
-	Stats.Stat.LIGHT_DAMAGE: { DESC: "damage", PERCENT: true, RELATIVE: true },
-	Stats.Stat.HEAVY_DAMAGE: { DESC: "damage", PERCENT: true, RELATIVE: true },
+	Stats.Stat.LIGHT_DAMAGE: { DESC: "light damage", PERCENT: true, RELATIVE: true },
+	Stats.Stat.HEAVY_DAMAGE: { DESC: "heavy damage", PERCENT: true, RELATIVE: true },
 	Stats.Stat.LIGHT_SPEED: { DESC: "attack speed", PERCENT: true },
 	Stats.Stat.HEAVY_SPEED: { DESC: "attack speed", PERCENT: true },
 	
