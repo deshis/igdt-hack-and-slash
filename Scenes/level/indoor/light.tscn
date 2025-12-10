@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfr3rgsf2qctj"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_w81se"]
+
+[node name="Light" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PrismMesh_w81se")
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(0.9123846, 0.054427307, -0.40569937, 0.4030892, 0.05299907, 0.91362476, 0.07122782, -0.99711025, 0.026416477, 0.17325956, -0.086179554, 0)
+light_energy = 9.654
+spot_range = 8.418095
+spot_angle = 68.90624

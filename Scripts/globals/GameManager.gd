@@ -13,6 +13,8 @@ var HUD: HudManager = null
 var particles: ParticleManager = null
 var spawner: EnemySpawner =null
 
+var portaldoor= preload("res://Scenes/level_changer.tscn")
+
 var stages := [
 	preload("res://Scenes/forest/forest_test_variety.tscn"),
 	preload("res://Scenes/level/indoor/indoor.tscn"),
@@ -63,8 +65,11 @@ func load_next_stage() -> void:
 	load_stage(current_stage_ind + 1)
 
 func boss_killed() -> void:
-	await get_tree().create_timer(10).timeout
-	load_next_stage()
+	var exit=portaldoor.instantiate()
+	current_stage.add_child(exit)
+	var location=player.global_position+Vector3(0,0,-3)
+	exit.global_position=location
+
 
 func restart() -> void:
 	for child in get_children():
