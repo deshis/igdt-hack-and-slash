@@ -21,6 +21,8 @@ radius = 2.2
 
 [node name="aoe attack" type="Node3D"]
 script = ExtResource("1_wwa4c")
+damage = 1.5
+damage_per_level = 0.05
 duration = 0.5
 
 [node name="Circle" type="MeshInstance3D" parent="."]

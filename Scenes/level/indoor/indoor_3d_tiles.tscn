@@ -1,23 +1,31 @@
-[gd_scene load_steps=8 format=3 uid="uid://duet844vmtf2j"]
+[gd_scene load_steps=10 format=3 uid="uid://duet844vmtf2j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf8mt"]
 shading_mode = 0
-albedo_color = Color(0.6784314, 0.46666667, 0.34117648, 1)
+albedo_color = Color(0.34117648, 0.44705883, 0.46666667, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_dqj51"]
 material = SubResource("StandardMaterial3D_yf8mt")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qj74k"]
+albedo_color = Color(0.47843137, 0.28235295, 0.25490198, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_qj74k"]
+material = SubResource("StandardMaterial3D_qj74k")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iouw7"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iouw7"]
+albedo_color = Color(0.11764706, 0.11372549, 0.22352941, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_omqb2"]
+material = SubResource("StandardMaterial3D_iouw7")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x6nn7"]
 
-[sub_resource type="PrismMesh" id="PrismMesh_jowf5"]
+[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_qj74k"]
 
-[node name="Forest3dTiles" type="Node3D"]
+[node name="Indoor3dTiles" type="Node3D"]
 
 [node name="ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.003)
@@ -43,4 +51,4 @@ shape = SubResource("BoxShape3D_x6nn7")
 
 [node name="light" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("PrismMesh_jowf5")
+mesh = SubResource("PlaceholderMesh_qj74k")

@@ -9,7 +9,8 @@ radius = 4.8
 [node name="Attack" type="Node3D"]
 script = ExtResource("1_xl5ob")
 damage = 3.0
-duration = 1.8
+damage_per_level = 0.15
+duration = 1.7
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16384

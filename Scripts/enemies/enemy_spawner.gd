@@ -81,10 +81,10 @@ func spawn_enemy(prefab: EnemyPrefab, pos: Vector3 = Vector3.ZERO) -> void:
 	if pos == Vector3.ZERO:
 		enemy.global_position = get_spawn_pos(enemy)
 	else:
-		enemy.global_position = pos
+		enemy.global_position = Vector3(pos.x, 0.0, pos.z)
 	
 	enemy.enemy = prefab.stats.duplicate(true)
-	enemy.enemy.setup(diff.difficulty_level)
+	enemy.enemy.setup(diff.get_difficulty())
 	enemy._activate()
 
 
@@ -94,7 +94,7 @@ func spawn_wave_of_enemies(amount: int) -> void:
 			return
 		
 		var enemy = null
-		var augment_chance = augment_enemy_chance + diff.difficulty * diff.augment_enemy_chance_per_level
+		var augment_chance = augment_enemy_chance + diff.get_difficulty() * diff.augment_enemy_chance_per_level
 		if randf() < augment_chance:
 			enemy = get_random_enemy(augmented_list)
 		else:
@@ -141,8 +141,8 @@ func _on_wave_cooldown_timer_timeout() -> void:
 	if not player:
 		return
 	
-	var min_amount = floor(min_enemy_spawn_amount + (diff.difficulty_level * diff.enemy_spawn_amount_per_level / 2))
-	var max_amount = floor(max_enemy_spawn_amount + diff.difficulty_level * diff.enemy_spawn_amount_per_level)
+	var min_amount = floor(min_enemy_spawn_amount + (diff.get_difficulty() * diff.enemy_spawn_amount_per_level / 2))
+	var max_amount = floor(max_enemy_spawn_amount + diff.get_difficulty() * diff.enemy_spawn_amount_per_level)
 	var enemy_amount = randi_range(min_amount, max_amount)
 	
 	spawn_wave_of_enemies(enemy_amount)
@@ -165,7 +165,7 @@ func _on_credits_cooldown_timer_timeout() -> void:
 	if not player:
 		return
 	
-	var min_credits = credits_gain_min + diff.difficulty_level * diff.credits_per_level
-	var max_credits = credits_gain_max + diff.difficulty_level * diff.credits_per_level
+	var min_credits = credits_gain_min + diff.get_difficulty() * diff.credits_per_level
+	var max_credits = credits_gain_max + diff.get_difficulty() * diff.credits_per_level
 	credits += randi_range(min_credits, max_credits)
 	credits_cooldown_timer.start()

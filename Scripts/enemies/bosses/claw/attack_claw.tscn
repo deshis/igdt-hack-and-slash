@@ -7,7 +7,8 @@ size = Vector3(2, 2, 4.691)
 
 [node name="Attack" type="Node3D"]
 script = ExtResource("1_ik5xe")
-damage = 5.0
+damage = 4.0
+damage_per_level = 0.25
 duration = 0.2
 
 [node name="Area3D" type="Area3D" parent="."]

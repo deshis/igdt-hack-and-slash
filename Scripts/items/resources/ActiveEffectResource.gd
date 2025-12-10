@@ -16,5 +16,6 @@ enum ActiveType {
 	MOVEMENT_SPEED,
 	STUN_AOE,
 	SECOND_DASH,
-	DAMAGE_AOE #Might want this to do damage as well as the option for a DoT
+	DAMAGE_AOE, #Might want this to do damage as well as the option for a DoT
+	INVULNERABILITY
 	}

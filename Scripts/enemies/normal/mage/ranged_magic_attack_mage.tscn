@@ -65,11 +65,13 @@ radius = 1.1
 script = ExtResource("1_r5b78")
 pulse_speed = 5.0
 anticipation_duration = 2.0
-damage = 1.0
+damage = 3.0
+damage_per_level = 0.05
 duration = 1.0
 follow = false
 
 [node name="Circle" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 material_override = SubResource("ShaderMaterial_fkiw7")
 mesh = ExtResource("1_mipin")
 
