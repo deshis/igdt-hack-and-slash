@@ -67,5 +67,5 @@ func _on_quit_button_pressed() -> void:
 	GameManager.quit_to_menu()
 
 
-func _on_back_to_menu_button_pressed() -> void:
+func _on_settings_menu_relay_back_to_menu_signal() -> void:
 	toggle_settings_menu()
