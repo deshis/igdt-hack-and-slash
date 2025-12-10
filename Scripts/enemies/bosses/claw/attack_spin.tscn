@@ -4,12 +4,12 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_f713x"]
 height = 3.0
-radius = 5.0
+radius = 4.8
 
 [node name="Attack" type="Node3D"]
 script = ExtResource("1_xl5ob")
 damage = 3.0
-duration = 1.0
+duration = 1.8
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16384

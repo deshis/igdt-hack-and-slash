@@ -23,8 +23,6 @@ const SPIN = "spin"
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	
-	#print_debug("State: " + str(state) + ", Time: " + str(state_timer))
-	
 	match state:
 		FACE_PLAYER:
 			process_face_player(delta)
@@ -46,11 +44,15 @@ func change_state(new_state: String, duration := 0.0):
 	match state:
 		ATTACK:
 			animator.play("Attack")
+		
 		IDLE:
 			animator.play("Idle")
 			current_speed = 2 #enemy.speed
 		
-		FACE_PLAYER, SPIN_WINDUP:
+		FACE_PLAYER:
+			target_provider = TargetSelf.new()
+		
+		SPIN_WINDUP:
 			target_provider = TargetSelf.new()
 			animator.play("SpinAttack")
 		
