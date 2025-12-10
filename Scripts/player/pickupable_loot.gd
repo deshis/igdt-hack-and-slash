@@ -35,7 +35,7 @@ func set_loot(rarity: ItemType.Grade) -> void:
 	material.albedo_color = LootDatabase.grade_colors.get(rarity)
 	
 	items = []
-	var item_list = LootDatabase.get_items_by_rarity(rarity, 3)
+	var item_list = LootDatabase.get_items_by_rarity(rarity)
 	
 	for res in item_list:
 		items.append(res.duplicate(true))

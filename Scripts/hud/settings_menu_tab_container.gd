@@ -18,6 +18,10 @@ func _ready() -> void:
 	for button in buttons:
 		button.stop_taking_mouse_input.connect(_stop_taking_mouse_input)
 		button.start_taking_mouse_input.connect(_start_taking_mouse_input)
+	
+	$Audio/VBoxContainer/BackToMenuButton.add_to_group("ui_button")
+	$Graphics/VBoxContainer/BackToMenuButton.add_to_group("ui_button")
+	$Controls/VBoxContainer/BackToMenuButton.add_to_group("ui_button")
 
 func _stop_taking_mouse_input() -> void:
 	set_mouse_behavior_recursive(MouseBehaviorRecursive.MOUSE_BEHAVIOR_DISABLED)

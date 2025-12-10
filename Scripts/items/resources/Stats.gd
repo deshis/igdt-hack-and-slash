@@ -23,8 +23,8 @@ enum Stat {
 	LIGHT_DAMAGE,
 	HEAVY_DAMAGE,
 	
-	LIGHT_COOLDOWN,
-	HEAVY_COOLDOWN,
+	LIGHT_SPEED,
+	HEAVY_SPEED,
 	
 	LIGHT_SIZE_X,
 	LIGHT_SIZE_Y,
@@ -41,19 +41,20 @@ enum Stat {
 	
 	CRIT_CHANCE,
 	THORNS_PERCENT,
+	
+	LOOT_DROP_CHANCE,
+	LOOT_RARITY_INC_PERCENT,
+	PICKUP_LOOT_AMOUNT,
 	}
 
 func apply_effect(player) -> void:
-	
 	match stat_type:
-		
 		Stat.FLAT_DAMAGE_REDUCTION:
 			player.flat_damage_reduction += value
 		Stat.PERCENT_DAMAGE_REDUCTION:
 			player.percent_damage_reduction += value
 			
 		Stat.HEALTH:
-			# player.health += value
 			player.max_health += value
 			player.emit_signal("update_health_bar", player.health, player.max_health)
 		Stat.HEALTH_REGEN:
@@ -62,13 +63,10 @@ func apply_effect(player) -> void:
 			player.current_speed += value
 			player.movement_speed += value
 			
-		Stat.LIGHT_COOLDOWN:
-			player.light_attack_speed_scale += value
-			
-			#Might still be useful for the hitbox lingering? probably not.
-			#player.light_attack_cooldown += value
-		Stat.HEAVY_COOLDOWN:
-			player.heavy_attack_cooldown += value
+		Stat.LIGHT_SPEED:
+			player.light_attack_speed_scale += value * 0.01
+		Stat.HEAVY_SPEED:
+			player.heavy_attack_speed_scale += value * 0.01
 
 		Stat.LIGHT_DAMAGE:
 			player.attack_light_damage += value 
@@ -78,18 +76,18 @@ func apply_effect(player) -> void:
 		Stat.LIGHT_SIZE_X:
 			#NOTE: Scaling is a bit off?
 			#Hitbox
-			player.light_attack_shape.size.x *= value
+			player.light_attack_shape.size.x *= value * 0.01
 			#Visual
-			player.light_attack.scale.x *= value
+			player.light_attack.scale.x *= value * 0.01
 		Stat.LIGHT_SIZE_Y:
-			player.light_attack_shape.size.y *= value
-			player.light_attack.scale.y *= value
+			player.light_attack_shape.size.z *= value * 0.01
+			player.light_attack.scale.z *= value * 0.01
 		Stat.HEAVY_SIZE_X:
-			player.heavy_attack_shape.size.x *= value
-			player.heavy_attack.scale.x *= value
+			player.heavy_attack_shape.size.x *= value * 0.01
+			player.heavy_attack.scale.x *= value * 0.01
 		Stat.HEAVY_SIZE_Y:
-			player.heavy_attack_shape.size.y *= value
-			player.heavy_attack.scale.y *= value
+			player.heavy_attack_shape.size.z *= value * 0.01
+			player.heavy_attack.scale.z *= value * 0.01
 			
 		Stat.LIFESTEAL:
 			player.life_steal += value
@@ -121,6 +119,13 @@ func apply_effect(player) -> void:
 			player.crit_chance += value
 		Stat.THORNS_PERCENT:
 			player.thorns_percent += value
+		
+		Stat.LOOT_DROP_CHANCE:
+			LootDatabase.update_loot_drop_chance(value)
+		Stat.LOOT_RARITY_INC_PERCENT:
+			LootDatabase.upgrade_loot_rarity_chance += value
+		Stat.PICKUP_LOOT_AMOUNT:
+			LootDatabase.pickup_slot_amount += int(value)
 
 func remove_effect(player) -> void:
 	match stat_type:
@@ -141,32 +146,28 @@ func remove_effect(player) -> void:
 			player.current_speed -= value
 			player.movement_speed -= value
 			
-		Stat.LIGHT_COOLDOWN:
-			player.light_attack_speed_scale -= value
-		Stat.HEAVY_COOLDOWN:
-			player.heavy_attack_cooldown -= value
+		Stat.LIGHT_SPEED:
+			player.light_attack_speed_scale -= value * 0.01
+		Stat.HEAVY_SPEED:
+			player.heavy_attack_speed_scale -= value * 0.01
 
 		Stat.LIGHT_DAMAGE:
 			player.attack_light_damage -= value 
 		Stat.HEAVY_DAMAGE:
 			player.attack_heavy_damage -= value
-		Stat.CRIT_CHANCE:
-			player.crit_chance -= value
-		Stat.THORNS_PERCENT:
-			player.thorns_percent -= value
 		
 		Stat.LIGHT_SIZE_X:
-			player.light_attack_shape.size.x /= value
-			player.light_attack.scale.x /= value
+			player.light_attack_shape.size.x /= value * 0.01
+			player.light_attack.scale.x /= value * 0.01
 		Stat.LIGHT_SIZE_Y:
-			player.light_attack_shape.size.y /= value
-			player.light_attack.scale.y /= value
+			player.light_attack_shape.size.y /= value * 0.01
+			player.light_attack.scale.y /= value * 0.01
 		Stat.HEAVY_SIZE_X:
-			player.heavy_attack_shape.size.x /= value
-			player.heavy_attack.scale.x /= value
+			player.heavy_attack_shape.size.x /= value * 0.01
+			player.heavy_attack.scale.x /= value * 0.01
 		Stat.HEAVY_SIZE_Y:
-			player.heavy_attack_shape.size.y /= value
-			player.heavy_attack.scale.y /= value
+			player.heavy_attack_shape.size.y /= value * 0.01
+			player.heavy_attack.scale.y /= value * 0.01
 			
 		Stat.LIFESTEAL:
 			player.life_steal -= value
@@ -192,3 +193,15 @@ func remove_effect(player) -> void:
 			player.dash_duration -= value
 		Stat.DASH_SPEED:
 			player.dash_speed -= value
+		
+		Stat.CRIT_CHANCE:
+			player.crit_chance -= value
+		Stat.THORNS_PERCENT:
+			player.thorns_percent -= value
+		
+		Stat.LOOT_DROP_CHANCE:
+			LootDatabase.update_loot_drop_chance(-value)
+		Stat.LOOT_RARITY_INC_PERCENT:
+			LootDatabase.upgrade_loot_rarity_chance -= value
+		Stat.PICKUP_LOOT_AMOUNT:
+			LootDatabase.pickup_slot_amount -= int(value)

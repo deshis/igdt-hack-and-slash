@@ -1,7 +1,8 @@
 extends Node
 
 var sfx_players: Dictionary = {}
-var sfx_pitch_ranges: Dictionary = {}
+var ui_players: Dictionary = {}
+var pitch_ranges: Dictionary = {}
 var music_player: AudioStreamPlayer
 var bgm_players: Dictionary = {}
 
@@ -20,6 +21,7 @@ func _ready() -> void:
 	
 	# TODO Hard-coded bgm_player, go with this before we have a proper level system and bgm for different levels.
 	music_player.stream = bgm_players["common_bgm"]
+	music_player.stream.loop = true
 	music_player.play()
 	
 	
@@ -37,7 +39,12 @@ func _ready() -> void:
 		"stun_sfx":load("res://Assets/audio/effect_stun.wav")
 	}
 	
-	sfx_pitch_ranges = {
+	ui_players = {
+		"start": load("res://Assets/audio/effect_freeze.wav"),
+		"button": load("res://Assets/audio/ui_button_click.wav")
+	}
+	
+	pitch_ranges = {
 		"light_attack": [0.5, 1.5],
 		"heavy_attack": [0.9, 1.2],
 		"dash": [0.5, 1.5],
@@ -46,8 +53,11 @@ func _ready() -> void:
 		"dot_sfx": [0.5, 1.5],
 		"heal": [0.5, 1.0],
 		"freeze_sfx": [0.9, 1.1],
-		"stun_sfx": [0.7,0.9]
+		"stun_sfx": [0.7,0.9],
 	}
+	# Auto-connect to all buttons in the scene tree
+	get_tree().node_added.connect(_on_node_added)
+	
 
 # Play one-shot sound effects
 func play_sfx(name: String, position: Vector3 = Vector3.ZERO) -> void:
@@ -63,10 +73,37 @@ func play_sfx(name: String, position: Vector3 = Vector3.ZERO) -> void:
 	player.bus = "SFX"
 	
 	# Pitch variation
-	var pitch_range = sfx_pitch_ranges.get(name, [0.9, 1.1])
+	var pitch_range = pitch_ranges.get(name, [0.9, 1.1])
 	player.pitch_scale = randf_range(pitch_range[0], pitch_range[1])
 	
 	add_child(player)
 	player.play()
 	
+	player.finished.connect(player.queue_free)
+	
+# Automatically connect to any button that gets added to the scene
+func _on_node_added(node: Node) -> void:
+	if node is Button:
+		if not node.pressed.is_connected(_on_button_pressed):
+			node.pressed.connect(_on_button_pressed.bind(node))
+	
+func _on_button_pressed(button: Button) -> void:
+	# Sounds are assigned separately in each menu (scene)
+	if button.is_in_group("start_button"):
+		play_ui_sfx("start")
+	elif button.is_in_group("ui_button"):
+		play_ui_sfx("button")
+
+# Play UI sound effects
+func play_ui_sfx(name: String) -> void:
+	if not ui_players.has(name):
+		push_warning("UI SFX not found: " + name)
+		return
+		
+	var player := AudioStreamPlayer.new()
+	player.stream = ui_players[name]
+	player.bus = "SFX"
+	
+	add_child(player)
+	player.play()
 	player.finished.connect(player.queue_free)

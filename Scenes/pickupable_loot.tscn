@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dl58s8gkullwa"]
 
 [ext_resource type="Script" uid="uid://d0ne14c7y6fvb" path="res://Scripts/player/pickupable_loot.gd" id="1_3a1hq"]
-[ext_resource type="ArrayMesh" uid="uid://cikwe8rsbw7kp" path="res://Assets/item_pickups/gear.res" id="2_3a1hq"]
-[ext_resource type="ArrayMesh" uid="uid://6jliujt7qw0c" path="res://Assets/item_pickups/bolt.res" id="3_t6aaw"]
+[ext_resource type="ArrayMesh" uid="uid://c13720qsautjx" path="res://Assets/item_pickups/gear.res" id="2_3a1hq"]
+[ext_resource type="ArrayMesh" uid="uid://cny0ra281uuu0" path="res://Assets/item_pickups/bolt.res" id="3_t6aaw"]
 [ext_resource type="Material" uid="uid://o0d72hmec3tm" path="res://Assets/item_pickups/item_pickup_material.tres" id="4_3a1hq"]
 [ext_resource type="PackedScene" uid="uid://cheduqgq01lw6" path="res://Scenes/item.tscn" id="5_vbco5"]
 

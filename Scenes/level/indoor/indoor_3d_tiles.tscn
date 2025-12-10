@@ -33,6 +33,7 @@ shape = SubResource("BoxShape3D_iouw7")
 
 [node name="wall" type="MeshInstance3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+layers = 2
 mesh = SubResource("BoxMesh_omqb2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="wall"]

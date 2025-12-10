@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8ltultvngxjd"]
+[gd_scene load_steps=16 format=3 uid="uid://b8ltultvngxjd"]
 
 [ext_resource type="MeshLibrary" uid="uid://cydhm78utwux2" path="res://Scenes/forest/forest_3d_tiles.tres" id="4_6ihb0"]
 [ext_resource type="Script" uid="uid://d2y77kkedf6o6" path="res://Scenes/forest/grid_map.gd" id="6_6ihb0"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="7_8rgxd"]
 [ext_resource type="Shader" uid="uid://1rauri1px6gq" path="res://Assets/environment/grass_alternative.gdshader" id="8_8rgxd"]
 [ext_resource type="ArrayMesh" uid="uid://bgleexwkuqems" path="res://Assets/environment/grass.res" id="8_75ju8"]
+[ext_resource type="PackedScene" uid="uid://dk104ll3dehau" path="res://Scenes/door.tscn" id="8_gr2xc"]
 [ext_resource type="Texture2D" uid="uid://cu5w0ne7m2cet" path="res://Assets/environment/grass.png" id="9_gr2xc"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_gr2xc"]
@@ -82,3 +83,11 @@ size = 6.0
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("navigation_region") instance=ExtResource("7_8rgxd")]
 navigation_region = NodePath("../Node3D/NavigationRegion3D")
+
+[node name="Door" parent="." instance=ExtResource("8_gr2xc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.488, -0.9039879, -0.614)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.024083268, 0, 0.99970996, 0, 1, 0, -0.99970996, 0, 0.024083268, 0, 16.802032, 0)
+
+[editable path="Door"]
