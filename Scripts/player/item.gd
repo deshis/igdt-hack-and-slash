@@ -7,6 +7,8 @@ class_name Item
 @onready var texture_rect = $MarginContainer/TextureRect
 @onready var panel_container1 = $PanelContainer
 
+var max_chars_per_line := 25
+
 var type_color = "#b5b5b5"
 var grade_color = "#"
 var type_name = "?"
@@ -126,8 +128,9 @@ func _create_description() -> void:
 
 	#Item name
 	var formatted_name = ""
-	formatted_name += "[center][color=" + hex(grade_color) + "][b]" + item.item_name + "[/b][/color][/center]"
+	formatted_name += "[center][color=" + hex(grade_color) + "][b]" + wrap_text(item.item_name) + "[/b][/color][/center]"
 	formatted_desc += formatted_name
+	print(item.item_name)
 
 	#Item grade
 	formatted_desc += "\n[center][font_size=14][color=" + hex(grade_color) + "]---- " + grade_name + " ----[/color][/font_size][/center]"
@@ -140,15 +143,15 @@ func _create_description() -> void:
 	formatted_desc += "\n[center][color=" + hex(type_color) + "]" + type_name + "[/color][/center]\n\n"
 	change_panel_color()
 	
-	#Item stat info
+	#Item stat info if one exists (for active items)
 	if item.item_stat_info != "":
-		formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_stat_info + "[/color][/center]\n\n"
+		formatted_desc += "[center][color=" + "#bdbbbb" + "]" + wrap_text(item.item_stat_info) + "[/color][/center]\n"
 	
 	formatted_desc += item.get_formatted_stats()
 	
-	#Item description if one exists (for active items)
+	#Item description
 	if item.item_description != "":
-		formatted_desc += "\n[center][color=" + "#777777" + "]" + item.item_description + "[/color][/center]"
+		formatted_desc += "\n[center][color=" + "#777777" + "]" + wrap_text(item.item_description) + "[/color][/center]"
 	
 	description.set_text(formatted_desc)
 
@@ -166,6 +169,21 @@ func change_panel_color() -> void:
 	
 	stylebox.bg_color = c
 	panel_container1.add_theme_stylebox_override("panel", stylebox)
+
+func wrap_text(text: String) -> String:
+	var result = ""
+	var current_line = ""
+	var words = text.split(" ")
+	
+	for word in words:
+		if current_line.length() + word.length() + 1 > max_chars_per_line:
+			result += current_line + "\n"
+			current_line = word + " "
+		else:
+			current_line += word + " "
+	
+	result += current_line
+	return result
 
 func _on_mouse_entered() -> void:
 	if item == null:

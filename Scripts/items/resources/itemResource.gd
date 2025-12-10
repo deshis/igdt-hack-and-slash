@@ -123,21 +123,21 @@ func get_formatted_stats() -> String:
 		stat_string += get_sign(value) 
 		stat_string += get_snapped_string(value)
 		stat_string += get_percent(behavior.get(PERCENT, false)) + " "
-		stat_string += behavior.get(DESC) + "\n"
+		stat_string += behavior.get(DESC)
 		
 		var color = get_color(value, behavior.get(INV_SCALE, false))
 		
 		# add to correct stats (used so positive stats are above negative)
 		if behavior.get(INV_SCALE, false):
 			if value < 0:
-				positive_stats += colored_text(stat_string, color)
+				positive_stats += colored_text(stat_string, color) + "\n"
 			else:
-				negative_stats += colored_text(stat_string, color)
+				negative_stats += colored_text(stat_string, color) + "\n"
 		else:
 			if value >= 0:
-				positive_stats += colored_text(stat_string, color)
+				positive_stats += colored_text(stat_string, color) + "\n"
 			else:
-				negative_stats += colored_text(stat_string, color)
+				negative_stats += colored_text(stat_string, color) + "\n"
 	
 	return positive_stats + negative_stats
 
