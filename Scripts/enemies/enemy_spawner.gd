@@ -81,7 +81,7 @@ func spawn_enemy(prefab: EnemyPrefab, pos: Vector3 = Vector3.ZERO) -> void:
 	if pos == Vector3.ZERO:
 		enemy.global_position = get_spawn_pos(enemy)
 	else:
-		enemy.global_position = pos
+		enemy.global_position = Vector3(pos.x, 0.0, pos.z)
 	
 	enemy.enemy = prefab.stats.duplicate(true)
 	enemy.enemy.setup(diff.difficulty_level)
