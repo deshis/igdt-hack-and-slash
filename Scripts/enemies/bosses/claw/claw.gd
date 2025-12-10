@@ -3,6 +3,10 @@ class_name Claw
 
 @export var face_player_duration := 0.8
 
+@export var grapple_windup_duration := 0.2
+@export var grapple_duration := 0.133
+@export var grapple_speed := 10
+
 @export var spin_attack: PackedScene = null
 @export var spin_attack_chance := 0.35
 @export var spin_attack_windup_duration := 0.4
@@ -14,6 +18,8 @@ var spin_target := Vector3.ZERO
 var spin_velocity
 
 const FACE_PLAYER = "face_player"
+const GRAPPLE_WINDUP = "grapple_windup"
+const GRAPPLE = "grapple"
 const SPIN_WINDUP = "spin_windup"
 const SPIN_ATTACK = "spin_attack"
 const SPIN = "spin"
@@ -26,6 +32,12 @@ func _physics_process(delta: float) -> void:
 	match state:
 		FACE_PLAYER:
 			process_face_player(delta)
+		
+		GRAPPLE_WINDUP:
+			process_grapple_windup()
+		
+		GRAPPLE:
+			process_grapple(delta)
 		
 		SPIN_WINDUP:
 			process_spin_windup()
@@ -42,8 +54,6 @@ func change_state(new_state: String, duration := 0.0):
 	trail.visible = false
 	
 	match state:
-		COOLDOWN:
-			animator.play("Idle")
 		ATTACK:
 			animator.play("Attack")
 		
@@ -53,6 +63,20 @@ func change_state(new_state: String, duration := 0.0):
 		
 		FACE_PLAYER:
 			target_provider = TargetSelf.new()
+		
+		GRAPPLE:
+			var claw_dir = Vector3(
+				sin(rotation.y),
+				0,
+				cos(rotation.y)
+				).normalized()
+			var claw_pos = global_position + claw_dir * 3.6 # rough distance estimate
+			var dist_to_enemy = player.global_position.distance_to(global_position)
+			var dist_to_claw = player.global_position.distance_to(claw_pos)
+			
+			# don't grapple if player is closer to enemy
+			if dist_to_enemy < dist_to_claw:
+				change_state(COOLDOWN, cooldown_duration) 
 		
 		SPIN_WINDUP:
 			target_provider = TargetSelf.new()
@@ -77,6 +101,29 @@ func process_face_player(delta: float) -> void:
 	
 	if state_timer < 0:
 		change_state(ATTACK, attack_windup_duration)
+
+func process_attack() -> void:
+	if state_timer > 0:
+		return
+	
+	perform_attack(attack)
+	change_state(GRAPPLE_WINDUP, grapple_windup_duration)
+
+func process_grapple_windup() -> void:
+	if state_timer > 0:
+		return
+	
+	change_state(GRAPPLE, grapple_duration)
+
+func process_grapple(delta: float) -> void:
+	current_speed = grapple_speed
+	var grapple_dir = Vector3(sin(rotation.y), 0, cos(rotation.y)).normalized()
+	apply_movement(delta, grapple_dir)
+	
+	if state_timer > 0:
+		return
+	
+	change_state(COOLDOWN, cooldown_duration)
 
 func process_spin_windup() -> void:
 	if state_timer < 0:
