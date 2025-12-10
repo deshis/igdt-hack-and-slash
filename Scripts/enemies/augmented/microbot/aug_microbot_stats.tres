@@ -8,7 +8,6 @@ name = "Augmented Micro_Bot_4000"
 type = 1
 speed = 5.0
 max_health = 6.5
-damage = 3.5
 cost = 5.0
 health_per_level = 0.1
 damage_per_level = 0.2
