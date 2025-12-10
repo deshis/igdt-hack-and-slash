@@ -50,7 +50,7 @@ func _ready() -> void:
 		"heavy_attack": [0.9, 1.2],
 		"dash": [0.8, 1.5],
 		"hit": [0.5, 1.2],
-		"hit_crit": [0.5, 1.2],
+		"hit_crit": [1.0, 1.5],
 		"damage_taken": [0.8, 1.2],
 		"enemy_die": [0.5, 1.5],
 		"dot_sfx": [0.5, 1.5],

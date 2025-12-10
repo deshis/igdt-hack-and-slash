@@ -353,12 +353,24 @@ func perform_light_attack() -> void:
 	
 	update_light_attack_hitbox(ItemGlobals.primary_weapon_type)
 	
-	SoundManager.play_sfx("light_attack", global_position)
+	match ItemGlobals.primary_weapon_type:
+		"Dagger":
+			SoundManager.play_sfx("light_attack", global_position)
+		"Sword":
+			SoundManager.play_sfx("light_attack", global_position)
+		_:
+			SoundManager.play_sfx("light_attack", global_position)
 
 func perform_heavy_attack() -> void:
 	update_heavy_attack_hitbox(ItemGlobals.secondary_weapon_type)
 	
-	SoundManager.play_sfx("heavy_attack", global_position)
+	match ItemGlobals.secondary_weapon_type:
+		"Maul":
+			SoundManager.play_sfx("heavy_attack", global_position)
+		"Axe":
+			SoundManager.play_sfx("heavy_attack", global_position)
+		_:
+			SoundManager.play_sfx("heavy_attack", global_position)
 
 func use_active_item(active_effect: ActiveEffectResource):
 	var active_item_cooldown = active_effect.active_effect_cooldown
