@@ -42,6 +42,8 @@ func change_state(new_state: String, duration := 0.0):
 	trail.visible = false
 	
 	match state:
+		COOLDOWN:
+			animator.play("Idle")
 		ATTACK:
 			animator.play("Attack")
 		

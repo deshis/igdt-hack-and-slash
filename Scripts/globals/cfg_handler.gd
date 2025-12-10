@@ -43,6 +43,7 @@ func create_new_preferences_file() -> void:
 	cfg.set_value("keybinds", "light_attack", "Left Mouse Button")
 	cfg.set_value("keybinds", "heavy_attack", "Right Mouse Button")
 	cfg.set_value("keybinds", "interact", "F")
+	cfg.set_value("keybinds", "active_item", "Q")
 	
 	cfg.set_value("video", "antialiasing", AntiAliasing.TAA)
 	cfg.set_value("video", "resolution", "1920x1080")

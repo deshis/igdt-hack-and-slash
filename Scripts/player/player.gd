@@ -559,6 +559,8 @@ func take_damage(damage:float, enemy: EnemyController, ignore_invulnerability: b
 	health -= damage
 	update_health_bar.emit(health)
 	
+	SoundManager.play_sfx("damage_taken")
+	
 	GameStats.total_damage_taken += damage
 	
 	if health <= 0.0:
