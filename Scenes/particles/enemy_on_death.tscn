@@ -34,6 +34,7 @@ sub_emitter_amount_at_start = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iy3tx"]
 transparency = 1
+no_depth_test = true
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_hltrj")
@@ -71,6 +72,7 @@ sub_emitter_amount_at_start = 32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jd1mb"]
 transparency = 1
+no_depth_test = true
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_jvck1")
@@ -117,6 +119,7 @@ point_count = 4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aa3vp"]
 transparency = 1
+no_depth_test = true
 shading_mode = 0
 vertex_color_use_as_albedo = true
 use_particle_trails = true

@@ -30,6 +30,7 @@ sub_emitter_amount_at_start = 32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0hno5"]
 transparency = 1
+no_depth_test = true
 shading_mode = 0
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
@@ -82,6 +83,7 @@ point_count = 4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06j3b"]
 transparency = 1
+no_depth_test = true
 shading_mode = 0
 vertex_color_use_as_albedo = true
 use_particle_trails = true

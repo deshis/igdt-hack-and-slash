@@ -83,16 +83,15 @@ func _generate_grass():
 		if self.get_cell_item(cell) == 2:
 			var tile_center := self.map_to_local(cell)
 
-			for i in range(200):
+			for i in range(300):
 				var rand_offset = Vector3(randf() - 0.5,0,randf() - 0.5) * 2.0   # keeps blades within the tile
 
 				var pos = tile_center + rand_offset
 
 				var xf = Transform3D()
 				xf = xf.rotated(Vector3.UP, randf() * TAU)
-				xf = xf.rotated(Vector3.RIGHT, deg_to_rad(-50))
+				xf = xf.rotated(Vector3.RIGHT, deg_to_rad(-55))
 				xf.origin = pos
-				xf.scaled(Vector3(1.0, 0.75, 1.0))
 
 				grass_positions.append(xf)
 
