@@ -44,6 +44,7 @@ var type_colors := {
 	ItemType.Type.MOVEMENT: Color(0.871, 0.62, 0.255, 1.0),
 	ItemType.Type.UTILITY: Color(0.451, 0.745, 0.827, 1.0),
 	ItemType.Type.DAMAGE: Color(0.776, 0.318, 0.592, 1.0),
+	ItemType.Type.ACTIVE_ITEM: Color(0.506, 0.592, 0.588, 1.0),
 	ItemType.Type.PRIMARY_ATTACK: Color(0.812, 0.341, 0.235, 1.0),
 	ItemType.Type.SECONDARY_ATTACK: Color(0.647, 0.188, 0.188, 1.0),
 }

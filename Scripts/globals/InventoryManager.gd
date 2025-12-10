@@ -119,6 +119,7 @@ func place_or_swap(item: Control, origin_slot: Control, new_slot: Control) -> vo
 		origin_slot.set_item(item_to_swap)
 	
 	new_slot.set_item(item)
+	
 	update_inventory_data()
 
 func delete_item(item: Control):
@@ -176,13 +177,18 @@ func apply_item_effects(item: ItemResource) -> void:
 			ItemGlobals.primary = true
 			item.set_primary_weapon_type_name()
 			item.set_primary_attack_type_name()
+			GameManager.HUD.set_cooldown_icon(item.icon, "PrimaryAttack")
 			
 		if item.attack_type == ItemType.AttackType.SECONDARY:
 			ItemGlobals.secondary_weapon_mesh = item.weapon_mesh
 			ItemGlobals.secondary = true
 			item.set_secondary_weapon_type_name()
 			item.set_secondary_attack_type_name()
-			
+			GameManager.HUD.set_cooldown_icon(item.icon, "SecondaryAttack")
+	
+	if item.type == ItemType.Type.ACTIVE_ITEM:
+		GameManager.HUD.set_cooldown_icon(item.icon, "ActiveItem")
+	
 	#print("Applying effects for: ", item.item_name)
 	for effect in item.effects:
 		effect.apply_effect(GameManager.player)
@@ -199,12 +205,17 @@ func remove_item_effects(item: ItemResource) -> void:
 			ItemGlobals.primary_weapon_mesh = null
 			ItemGlobals.primary = true
 			ItemGlobals.primary_weapon_type = "Default"
+			GameManager.HUD.set_cooldown_icon(null, "PrimaryAttack")
 			
 		if item.attack_type == ItemType.AttackType.SECONDARY:
 			ItemGlobals.secondary_weapon_mesh = null
 			ItemGlobals.secondary = true
 			ItemGlobals.secondary_weapon_type = "Default"
-			
+			GameManager.HUD.set_cooldown_icon(null, "SecondaryAttack")
+	
+	if item.type == ItemType.Type.ACTIVE_ITEM:
+		GameManager.HUD.set_cooldown_icon(null, "ActiveItem")
+	
 	#print("Removing effects for: ", item.item_name)
 	for effect in item.effects:
 		effect.remove_effect(GameManager.player)
@@ -220,12 +231,6 @@ func reset_inventory() -> void:
 func equip_starter_items() -> void:
 	if starter_items.size() == 0:
 		return
-	
-	"for i in range(starter_items.size()):
-		var item_res = starter_items[i]
-		var item_control = create_item(item_res)
-		backpack_node.add_child(item_control)
-		move_item()"
 	
 	for item in starter_items:
 		var item_control = create_item_control(item)

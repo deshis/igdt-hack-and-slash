@@ -166,14 +166,14 @@ func remove_effect(player) -> void:
 			player.light_attack_shape.size.x /= value * 0.01
 			player.light_attack.scale.x /= value * 0.01
 		Stat.LIGHT_SIZE_Y:
-			player.light_attack_shape.size.y /= value * 0.01
-			player.light_attack.scale.y /= value * 0.01
+			player.light_attack_shape.size.z /= value * 0.01
+			player.light_attack.scale.z /= value * 0.01
 		Stat.HEAVY_SIZE_X:
 			player.heavy_attack_shape.size.x /= value * 0.01
 			player.heavy_attack.scale.x /= value * 0.01
 		Stat.HEAVY_SIZE_Y:
-			player.heavy_attack_shape.size.y /= value * 0.01
-			player.heavy_attack.scale.y /= value * 0.01
+			player.heavy_attack_shape.size.z /= value * 0.01
+			player.heavy_attack.scale.z /= value * 0.01
 			
 		Stat.LIFESTEAL:
 			player.life_steal -= value

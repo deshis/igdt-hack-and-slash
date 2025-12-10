@@ -11,5 +11,6 @@ class_name ActiveEffectResource
 
 enum ActiveType { 
 	HEAL,
-	MOVEMENT_SPEED
+	MOVEMENT_SPEED,
+	STUN_AOE
 	}

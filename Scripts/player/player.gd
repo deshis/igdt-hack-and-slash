@@ -17,7 +17,7 @@ var overlapping_pickups := []
 # PLAYER STATS
 @export var max_health := 10.0
 @export var health := 10.0
-var health_regen:= 0
+var health_regen:= 0.0
 
 var percent_damage_reduction := 0
 var flat_damage_reduction := 0
@@ -51,6 +51,9 @@ var can_dash := true
 @onready var light_attack_hitbox = $LightAttack/Box
 @onready var heavy_attack_hitbox = $HeavyAttack/Box
 
+var light_attack_duration := 1.0
+var heavy_attack_duration := 1.0
+
 var light_attack_speed_scale := 1.0
 var heavy_attack_speed_scale := 1.0
 
@@ -63,6 +66,7 @@ var heavy_attack_visual_shape: Sprite2D
 var heavy_attack_dash_speed := movement_speed * 0.1
 var heavy_attack_dash_decay := 0.6
 
+var light_attack_windup_duration := 0.333
 var heavy_attack_windup_duration := 0.333
 
 var primary_attack_active_dot: DotResource = null
@@ -102,6 +106,7 @@ var state_timer := 0.0
 const IDLE = "idle"
 const MOVE = "move"
 const DASH = "dash"
+const LIGHT_ATTACK_WINDUP = "light_attack_windup"
 const LIGHT_ATTACK = "light_attack"
 const HEAVY_ATTACK_WINDUP = "heavy_attack_windup"
 const HEAVY_ATTACK = "heavy_attack"
@@ -119,7 +124,6 @@ func _ready() -> void:
 	heavy_attack_shape = heavy_attack_hitbox.shape
 	
 	change_state(IDLE)
-# Function for regenerating health, defaults at zero, gets incremented from items
 
 func _physics_process(delta: float) -> void:
 	if hit_stop_active:
@@ -153,7 +157,7 @@ func update_state() -> void:
 				change_state(DASH)
 			
 			if Input.is_action_pressed("light_attack"):
-				change_state(LIGHT_ATTACK)
+				change_state(LIGHT_ATTACK_WINDUP)
 			
 			if Input.is_action_just_pressed("heavy_attack"):
 				change_state(HEAVY_ATTACK_WINDUP)
@@ -166,7 +170,7 @@ func update_state() -> void:
 				change_state(DASH)
 			
 			if Input.is_action_pressed("light_attack"):
-				change_state(LIGHT_ATTACK)
+				change_state(LIGHT_ATTACK_WINDUP)
 			
 			if Input.is_action_just_pressed("heavy_attack"):
 				change_state(HEAVY_ATTACK_WINDUP)
@@ -176,12 +180,12 @@ func update_state() -> void:
 		
 		DASH:
 			if Input.is_action_pressed("light_attack"):
-				change_state(LIGHT_ATTACK)
+				change_state(LIGHT_ATTACK_WINDUP)
 			
 			if Input.is_action_just_pressed("heavy_attack"):
 				change_state(HEAVY_ATTACK_WINDUP)
 		
-		LIGHT_ATTACK, HEAVY_ATTACK_WINDUP, HEAVY_ATTACK:
+		LIGHT_ATTACK_WINDUP, LIGHT_ATTACK, HEAVY_ATTACK_WINDUP, HEAVY_ATTACK:
 			if Input.is_action_just_pressed("movement_ability") and input.length() > 0 and can_dash:
 				change_state(DASH)
 
@@ -206,47 +210,70 @@ func enter_state(new_state) -> void:
 			state_timer = dash_duration
 			perform_dash()
 		
-		LIGHT_ATTACK:
-			perform_light_attack()
+		LIGHT_ATTACK_WINDUP:
+			velocity = Vector3.ZERO
 			
 			animator.speed_scale = light_attack_speed_scale
 			weapon_mesh.mesh = ItemGlobals.primary_weapon_mesh
 			
+			set_facing_dir()
+			
 			if ItemGlobals.primary_weapon_type == "Dagger":
 				animator.play("Light_attack_dagger")
+				light_attack_windup_duration = 0.17 / light_attack_speed_scale
+				light_attack_duration = 0.333 / light_attack_speed_scale
+			
 			if ItemGlobals.primary_weapon_type == "Sword":
 				animator.play("Light_attack_sword")
+				light_attack_windup_duration = 0.333 / light_attack_speed_scale
+				light_attack_duration = 0.5833 / light_attack_speed_scale
+			
 			else:
 				animator.play("Light_attack_default")
+				light_attack_windup_duration = 0.25 / light_attack_speed_scale
+				light_attack_duration = 0.5833 / light_attack_speed_scale
+			
+			primary_attack_used.emit(light_attack_duration)
+			state_timer = light_attack_windup_duration
+		
+		LIGHT_ATTACK:
+			perform_light_attack()
 		
 		HEAVY_ATTACK_WINDUP:
 			weapon_mesh.mesh = ItemGlobals.secondary_weapon_mesh
 			
-			if ItemGlobals.secondary_weapon_type == "Maul":
-				heavy_attack_windup_duration = 0.5 / heavy_attack_speed_scale
-				animator.play("Heavy_attack_maul")
-			elif ItemGlobals.secondary_weapon_type == "Axe":
-				heavy_attack_windup_duration = 0.5 / heavy_attack_speed_scale
-				animator.play("Heavy_attack_axe")
-			else:
-				heavy_attack_windup_duration = 0.333 / heavy_attack_speed_scale
-				animator.play("Heavy_attack_default")
-			
 			current_speed = heavy_attack_dash_speed
 			animator.speed_scale = heavy_attack_speed_scale
-			state_timer = heavy_attack_windup_duration
 			set_facing_dir()
+			
+			if ItemGlobals.secondary_weapon_type == "Maul":
+				animator.play("Heavy_attack_maul")
+				heavy_attack_windup_duration = 0.5 / heavy_attack_speed_scale
+				heavy_attack_duration = 1.1667 / heavy_attack_speed_scale
+			
+			elif ItemGlobals.secondary_weapon_type == "Axe":
+				animator.play("Heavy_attack_axe")
+				heavy_attack_windup_duration = 0.5 / heavy_attack_speed_scale
+				heavy_attack_duration = 1.25 / heavy_attack_speed_scale
+			
+			else:
+				animator.play("Heavy_attack_default")
+				heavy_attack_windup_duration = 0.333 / heavy_attack_speed_scale
+				heavy_attack_duration = 0.75 / heavy_attack_speed_scale
+			
+			secondary_attack_used.emit(heavy_attack_duration)
+			state_timer = heavy_attack_windup_duration
 		
 		HEAVY_ATTACK:
 			perform_heavy_attack()
 
 func exit_state(st: String) -> void:
 	match st:
-		LIGHT_ATTACK:
+		LIGHT_ATTACK_WINDUP, LIGHT_ATTACK:
 			disable_trails()
 			stop_light_attack()
 		
-		HEAVY_ATTACK:
+		HEAVY_ATTACK_WINDUP, HEAVY_ATTACK:
 			disable_trails()
 			stop_heavy_attack()
 		
@@ -260,6 +287,9 @@ func process_state(delta: float) -> void:
 		
 		DASH:
 			process_dash(delta)
+		
+		LIGHT_ATTACK_WINDUP:
+			process_light_attack_windup()
 		
 		HEAVY_ATTACK_WINDUP:
 			process_heavy_attack_windup(delta)
@@ -277,21 +307,12 @@ func perform_dash():
 	SoundManager.play_sfx("dash", global_position)
 
 func perform_light_attack() -> void:
-	velocity = Vector3.ZERO
-	set_facing_dir()
-	
 	light_attack_hitbox.disabled = false
-	
-	# this is for the hud icon but idk if we should have those for light/heavy attacks
-	# light_attack_used.emit(light_attack_cooldown)
 	
 	SoundManager.play_sfx("light_attack", global_position)
 
 func perform_heavy_attack() -> void:
 	heavy_attack_hitbox.disabled = false
-	
-	# this is for the hud icon but idk if we should have those for light/heavy attacks
-	#heavy_attack_used.emit(heavy_attack_cooldown)
 	
 	SoundManager.play_sfx("heavy_attack", global_position)
 
@@ -316,6 +337,21 @@ func apply_active_item_effect(active_effect: ActiveEffectResource) -> void:
 
 		ActiveEffectResource.ActiveType.MOVEMENT_SPEED:
 			pass
+		
+		ActiveEffectResource.ActiveType.STUN_AOE:
+			var radius = 6.0
+			var stun_length = value
+			
+			var stun_dot = preload("res://Scripts/items/resources/StunDebuff.tres")
+			stun_dot.debuff_duration = stun_length
+			
+			for enemy in GameManager.spawner.get_children():
+				if enemy is not EnemyController or not enemy.visible:
+					continue
+				
+				if global_position.distance_to(enemy.global_position) < radius:
+					enemy.change_state(enemy.STUN, stun_length)
+					deal_stat_damage(null, stun_dot, enemy)
 
 
 func process_move(delta: float) -> void:	
@@ -326,6 +362,10 @@ func process_dash(delta: float) -> void:
 	
 	if state_timer < 0:
 		change_state(IDLE)
+
+func process_light_attack_windup() -> void:
+	if state_timer < 0:
+		change_state(LIGHT_ATTACK)
 
 func process_heavy_attack_windup(delta: float) -> void:
 	current_speed *= heavy_attack_dash_decay
@@ -346,11 +386,13 @@ func stop_light_attack() -> void:
 	weapon_mesh.mesh = null
 	light_attack_hitbox.disabled = true
 	light_attack.visible = false
+	animator.speed_scale = 1.0
 
 func stop_heavy_attack() -> void:
 	weapon_mesh.mesh = null
 	heavy_attack_hitbox.disabled = true
 	heavy_attack.visible = false
+	animator.speed_scale = 1.0
 
 
 func update_input() -> void:
@@ -439,10 +481,14 @@ func deal_dot_damage(area: Area3D, dot: DotResource) -> void:
 	if dot.dot_tick_damage > 0:
 		enemy.take_dot_damage(dot)
 
-func deal_stat_damage(area: Area3D, debuff: DebuffResource) -> void:
+func deal_stat_damage(area: Area3D, debuff: DebuffResource, e: EnemyController = null) -> void:
 	#print("Deal stat damage")
 	
-	var enemy = area.get_parent() as EnemyController
+	var enemy = null
+	if e:
+		enemy = e
+	else:
+		enemy = area.get_parent() as EnemyController
 	
 	#print(enemy.current_speed)
 	
@@ -505,14 +551,6 @@ func hitstop(duration: float) -> void:
 func _on_animation_finished(anim_name):
 	if state == DASH:
 		return
-	if anim_name.begins_with("Light_attack_"):
-		#model.reset_trails()
-		#weapon_mesh.mesh = null
-		exit_state(LIGHT_ATTACK)
-	elif anim_name.begins_with("Heavy_attack_"):
-		#model.reset_trails()
-		#weapon_mesh.mesh = null
-		exit_state(HEAVY_ATTACK)
 	
 	change_state(IDLE)
 	animator.speed_scale = 1

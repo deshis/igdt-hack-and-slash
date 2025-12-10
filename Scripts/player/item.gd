@@ -112,9 +112,9 @@ func _set_type_name() -> void:
 		ItemType.Type.ACTIVE_ITEM:
 			type_name = "Active Item"
 		ItemType.Type.PRIMARY_ATTACK:
-			type_name = "Primary Attack"
+			type_name = "Light Attack"
 		ItemType.Type.SECONDARY_ATTACK:
-			type_name = "Secondary Attack"
+			type_name = "Heavy Attack"
 
 
 func _create_description() -> void:
