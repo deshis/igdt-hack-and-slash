@@ -1,19 +1,12 @@
-[gd_scene load_steps=67 format=4 uid="uid://cj0664r6m3qql"]
+[gd_scene load_steps=60 format=4 uid="uid://cj0664r6m3qql"]
 
 [ext_resource type="Script" uid="uid://c7qe3c1q04hnv" path="res://Scripts/player/player.gd" id="1_eo61r"]
 [ext_resource type="Material" uid="uid://dhhknt7kteyse" path="res://Assets/player/materials/player_mat.tres" id="2_mnu3u"]
-[ext_resource type="ArrayMesh" uid="uid://bfwdgkbih5u3y" path="res://Assets/player/weapons/dagger.res" id="3_rwmec"]
-[ext_resource type="ArrayMesh" uid="uid://brngfcfsbf1cp" path="res://Assets/player/weapons/katana.res" id="4_utcu2"]
-[ext_resource type="ArrayMesh" uid="uid://c43hvmywfkp1j" path="res://Assets/player/weapons/maul.res" id="5_emekf"]
 [ext_resource type="Shader" uid="uid://4hwgr3jdxls" path="res://Assets/effects/slash/slash.gdshader" id="6_mj82b"]
 [ext_resource type="Texture2D" uid="uid://dg11j431speyx" path="res://Assets/effects/slash/slash_tex.png" id="7_0rs8m"]
 [ext_resource type="Texture2D" uid="uid://cwhxuiydsf4bw" path="res://Assets/effects/slash/erosion_tex.png" id="8_ge7b5"]
 [ext_resource type="Texture2D" uid="uid://q04o05q62k23" path="res://Assets/effects/slash/energy_slash.png" id="9_v44ur"]
-[ext_resource type="ArrayMesh" uid="uid://dvcni37voduia" path="res://Assets/player/weapons/training_sword.res" id="10_eges4"]
 [ext_resource type="Material" uid="uid://dl6k6vdol5kxt" path="res://Assets/effects/impact/impact.tres" id="11_l71q1"]
-[ext_resource type="ArrayMesh" uid="uid://b6sqrafjuknb8" path="res://Assets/player/weapons/stick.res" id="12_wib7k"]
-[ext_resource type="ArrayMesh" uid="uid://c1qky7i8nboe7" path="res://Assets/player/weapons/electric_dagger.res" id="13_o4w3n"]
-[ext_resource type="ArrayMesh" uid="uid://dtnaovd8bxw3a" path="res://Assets/player/weapons/labrys.res" id="14_yei8a"]
 [ext_resource type="Animation" uid="uid://di4si2o4d8plm" path="res://Assets/player/animations/Dash.res" id="15_1larn"]
 [ext_resource type="Animation" uid="uid://mbww5et2k6fw" path="res://Assets/player/animations/Death.res" id="16_tiw0p"]
 [ext_resource type="Animation" uid="uid://cx0wr6dud71uw" path="res://Assets/player/animations/Heavy_attack_axe.res" id="17_ktyyn"]
@@ -1033,13 +1026,14 @@ size = Vector3(1, 2, 1)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mxepk"]
 radius = 0.3
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("trails")]
 collision_layer = 257
 collision_mask = 69633
 motion_mode = 1
 script = ExtResource("1_eo61r")
 movement_speed = 5.0
 dash_speed = 25.0
+trails = [NodePath("model/DaggerTrail"), NodePath("model/SwordTrail"), NodePath("model/MaulTrail"), NodePath("model/KickTrail"), NodePath("model/AxeTrail")]
 
 [node name="Timers" type="Node" parent="."]
 
@@ -2604,27 +2598,9 @@ transform = Transform3D(1, 0, 0, 0, -4.371138e-08, -0.9999999, 0, 0.9999998, -4.
 
 [node name="Mesh" type="MeshInstance3D" parent="model/rig/Skeleton3D/BoneAttachment3D/Weapon"]
 
-[node name="Dagger" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04442312, -0.0027579903, -0.107929006)
-visible = false
-mesh = ExtResource("3_rwmec")
-skeleton = NodePath("")
-
 [node name="DaggerTrail" type="MeshInstance3D" parent="model"]
 visible = false
 mesh = SubResource("ArrayMesh_mpjj3")
-skeleton = NodePath("")
-
-[node name="Katana" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04442312, -0.0027579903, -0.107929006)
-visible = false
-mesh = ExtResource("4_utcu2")
-skeleton = NodePath("")
-
-[node name="Maul" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04442312, -0.0027579903, -0.107929006)
-visible = false
-mesh = ExtResource("5_emekf")
 skeleton = NodePath("")
 
 [node name="SwordTrail" type="MeshInstance3D" parent="model"]
@@ -2639,34 +2615,10 @@ material_override = SubResource("ShaderMaterial_y36al")
 mesh = SubResource("ArrayMesh_sevrn")
 skeleton = NodePath("")
 
-[node name="TrainingSword" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04442312, -0.0027579903, -0.107929006)
-visible = false
-mesh = ExtResource("10_eges4")
-skeleton = NodePath("")
-
 [node name="MaulTrail" type="MeshInstance3D" parent="model"]
 visible = false
 material_override = ExtResource("11_l71q1")
 mesh = SubResource("ArrayMesh_5sxw2")
-skeleton = NodePath("")
-
-[node name="Stick" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04442312, -0.0027579903, -0.107929006)
-visible = false
-mesh = ExtResource("12_wib7k")
-skeleton = NodePath("")
-
-[node name="ElectricDagger" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04442312, -0.0027579903, -0.107929006)
-visible = false
-mesh = ExtResource("13_o4w3n")
-skeleton = NodePath("")
-
-[node name="Labrys" type="MeshInstance3D" parent="model"]
-transform = Transform3D(-0.9953579, -0.026638955, 0.0924838, 0.093024105, -0.019809604, 0.9954668, -0.024686132, 0.9994489, 0.022195578, -0.4539389, 0.8165437, -0.20775917)
-visible = false
-mesh = ExtResource("14_yei8a")
 skeleton = NodePath("")
 
 [node name="AxeTrail" type="MeshInstance3D" parent="model"]
