@@ -16,6 +16,7 @@ item_name = "Quality Neuroblockers"
 item_stat_info = "On use: become invulnerable for 3 seconds"
 item_description = "Cooldown: 20 sec"
 type = 5
+grade = 1
 icon = ExtResource("3_3k0c6")
 effects = Array[ExtResource("1_eeiy3")]([SubResource("Resource_eeiy3")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"
