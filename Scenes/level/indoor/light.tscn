@@ -3,13 +3,15 @@
 [sub_resource type="PrismMesh" id="PrismMesh_w81se"]
 
 [node name="Light" type="Node3D"]
+transform = Transform3D(0.9680864, -0.25061655, 0, 0.25061655, 0.9680864, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("PrismMesh_w81se")
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="."]
-transform = Transform3D(0.9123846, 0.054427307, -0.40569937, 0.4030892, 0.05299907, 0.91362476, 0.07122782, -0.99711025, 0.026416477, 0.17325956, -0.086179554, 0)
-light_energy = 9.654
-spot_range = 8.418095
-spot_angle = 68.90624
+transform = Transform3D(0.93345696, 0.05730006, -0.35408318, 0.3515464, 0.049879223, 0.9348408, 0.07122782, -0.99711025, 0.02641648, 0.17325957, -0.08617956, 0)
+light_color = Color(0.90588236, 0.8352941, 0.7019608, 1)
+light_energy = 16.0
+spot_range = 8.029689
+spot_angle = 54.639282
