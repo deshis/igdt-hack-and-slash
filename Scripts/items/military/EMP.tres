@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_d2i0j"]
 [ext_resource type="Resource" uid="uid://cxphkypr63gi4" path="res://Scripts/items/resources/ActiveEffectResources/StunAoe.tres" id="2_5u46j"]
-[ext_resource type="Texture2D" uid="uid://cpcyjgf5il80b" path="res://Assets/effects/magic/magic_circle.png" id="3_2ftql"]
+[ext_resource type="Texture2D" uid="uid://cuyitf1bi4g4b" path="res://Assets/item_icons/Military/EMP.png" id="3_d2i0j"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="4_1w165"]
 
 [sub_resource type="Resource" id="Resource_l23d5"]
@@ -18,6 +18,6 @@ item_stat_info = "On use: Stun enemies for 2.5 seconds in a 6 meter radius"
 item_description = "Cooldown: 25 sec"
 type = 5
 grade = 1
-icon = ExtResource("3_2ftql")
+icon = ExtResource("3_d2i0j")
 effects = Array[ExtResource("1_d2i0j")]([SubResource("Resource_l23d5")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

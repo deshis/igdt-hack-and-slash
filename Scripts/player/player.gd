@@ -340,6 +340,12 @@ func perform_dash():
 	dash_used.emit(dash_cooldown)
 	
 	SoundManager.play_sfx("dash", global_position)
+	
+func perform_second_dash():
+	can_dash = false
+	current_speed = dash_speed
+	
+	SoundManager.play_sfx("dash", global_position)
 
 func perform_light_attack() -> void:
 	velocity = Vector3.ZERO
@@ -390,6 +396,11 @@ func apply_active_item_effect(active_effect: ActiveEffectResource) -> void:
 				if global_position.distance_to(enemy.global_position) < radius:
 					enemy.change_state(enemy.STUN, stun_length)
 					deal_stat_damage(null, stun_dot, enemy)
+
+		ActiveEffectResource.ActiveType.SECOND_DASH:
+			animator.play("Dash")
+			state_timer = dash_duration
+			perform_second_dash()
 
 
 func process_move(delta: float) -> void:	
