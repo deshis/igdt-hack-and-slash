@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_8sdqs"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="1_ka6yg"]
-[ext_resource type="Texture2D" uid="uid://dmmgib75rothh" path="res://Assets/item_icons/Military/SecondHeart.png" id="2_gboi7"]
+[ext_resource type="Texture2D" uid="uid://lboyl1l5ey11" path="res://Assets/item_icons/Military/SecondHeart.png" id="2_gboi7"]
 
 [sub_resource type="Resource" id="Resource_rhsoe"]
 script = ExtResource("1_8sdqs")

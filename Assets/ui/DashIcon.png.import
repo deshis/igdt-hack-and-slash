@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lboyl1l5ey11"
-path="res://.godot/imported/SecondHeart.png-93d4664a8d987882691a832843a74798.ctex"
+uid="uid://dnop5pqrq8fbx"
+path="res://.godot/imported/DashIcon.png-998fee61de35e969897f9f807ed19ed2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/item_icons/Military/SecondHeart.png"
-dest_files=["res://.godot/imported/SecondHeart.png-93d4664a8d987882691a832843a74798.ctex"]
+source_file="res://Assets/ui/DashIcon.png"
+dest_files=["res://.godot/imported/DashIcon.png-998fee61de35e969897f9f807ed19ed2.ctex"]
 
 [params]
 

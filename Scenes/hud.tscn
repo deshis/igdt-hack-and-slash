@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://cuuem545ega72"]
+[gd_scene load_steps=25 format=3 uid="uid://cuuem545ega72"]
 
 [ext_resource type="Script" uid="uid://cptm56sk2qede" path="res://Scripts/hud/hud_manager.gd" id="1_36s6t"]
 [ext_resource type="Script" uid="uid://b3p4e86xoqqh3" path="res://Scripts/player/ui/cooldowns.gd" id="2_36s6t"]
 [ext_resource type="PackedScene" uid="uid://dw5jqew75whcf" path="res://Scenes/HPBar.tscn" id="2_ajim5"]
+[ext_resource type="Texture2D" uid="uid://dnop5pqrq8fbx" path="res://Assets/ui/DashIcon.png" id="4_0iicw"]
 [ext_resource type="Texture2D" uid="uid://chmb0vt4rda71" path="res://Assets/ui/player_UI_view.png" id="6_yidpd"]
 [ext_resource type="Script" uid="uid://cnrj2cq3cvdn7" path="res://Scripts/player/ui/trash_slot.gd" id="9_36s6t"]
 [ext_resource type="Script" uid="uid://dglo22okhueyv" path="res://Scripts/hud/item_pickup.gd" id="9_484xk"]
@@ -118,7 +119,7 @@ one_shot = true
 
 [node name="DashCooldown" type="TextureRect" parent="SkillCooldowns/MarginContainer/HBoxContainer"]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_8gbba")
+texture = ExtResource("4_0iicw")
 expand_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="SkillCooldowns/MarginContainer/HBoxContainer/DashCooldown"]
