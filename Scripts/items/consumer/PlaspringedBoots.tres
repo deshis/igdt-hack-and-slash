@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://dkkeqbrrrhpwu"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_malw2"]
-[ext_resource type="Texture2D" uid="uid://bfacfjktj1g80" path="res://Assets/item_icons/plasteeltoedboots.png" id="2_malw2"]
+[ext_resource type="Texture2D" uid="uid://bgk5avsle3lbk" path="res://Assets/item_icons/Consumer/PlaSpringedBoots.png" id="2_2j6u2"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_lxcnl"]
 
 [sub_resource type="Resource" id="Resource_sw4ar"]
@@ -20,6 +20,6 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 script = ExtResource("3_lxcnl")
 item_name = "Plaspringed Boots"
 type = 2
-icon = ExtResource("2_malw2")
+icon = ExtResource("2_2j6u2")
 effects = Array[ExtResource("1_malw2")]([SubResource("Resource_sw4ar"), SubResource("Resource_4gag3")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

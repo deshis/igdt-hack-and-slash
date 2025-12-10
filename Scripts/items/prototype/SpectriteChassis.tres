@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=8 format=3 uid="uid://bn57n8avaw5nn"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_mdnjn"]
-[ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_etl6p"]
+[ext_resource type="Texture2D" uid="uid://cyh2vgdks1r0n" path="res://Assets/SpectriteChassis.png" id="2_mdnjn"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_p1wrq"]
 
 [sub_resource type="Resource" id="Resource_7khyf"]
@@ -32,6 +32,6 @@ script = ExtResource("3_p1wrq")
 item_name = "Spectrite Chassis"
 type = 1
 grade = 2
-icon = ExtResource("2_etl6p")
+icon = ExtResource("2_mdnjn")
 effects = Array[ExtResource("1_mdnjn")]([SubResource("Resource_7khyf"), SubResource("Resource_4r28c"), SubResource("Resource_mtacj"), SubResource("Resource_pka6w")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

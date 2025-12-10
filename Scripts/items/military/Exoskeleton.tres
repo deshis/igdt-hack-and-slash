@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://c6cx7wgb8ygdp"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_6esfu"]
-[ext_resource type="Texture2D" uid="uid://6xl0dtx6xo13" path="res://Assets/item_icons/movementspeedicon2.png" id="2_h6l26"]
+[ext_resource type="Texture2D" uid="uid://dwu053hvwv7bv" path="res://Assets/item_icons/Military/Exoskeleton.png" id="2_6esfu"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_qvcp0"]
 
 [sub_resource type="Resource" id="Resource_4gag3"]
@@ -22,6 +22,6 @@ item_name = "Exoskeleton"
 item_description = "Zoom"
 type = 2
 grade = 1
-icon = ExtResource("2_h6l26")
+icon = ExtResource("2_6esfu")
 effects = Array[ExtResource("1_6esfu")]([SubResource("Resource_4gag3"), SubResource("Resource_vpdvl")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

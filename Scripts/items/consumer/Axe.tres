@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://djdt3alsj7r5g"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_074gj"]
-[ext_resource type="Texture2D" uid="uid://y3wbejf5p0os" path="res://Assets/item_icons/axeicon.png" id="2_8opt6"]
+[ext_resource type="Texture2D" uid="uid://cd7upflp0moat" path="res://Assets/item_icons/Consumer/Axe.png" id="2_8opt6"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="2_qp0c6"]
 
 [sub_resource type="Resource" id="Resource_074gj"]

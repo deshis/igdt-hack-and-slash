@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_8sdqs"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="1_ka6yg"]
-[ext_resource type="Texture2D" uid="uid://cht1thjau3113" path="res://Assets/item_icons/healthicon.png" id="2_rhsoe"]
+[ext_resource type="Texture2D" uid="uid://dmmgib75rothh" path="res://Assets/item_icons/Military/SecondHeart.png" id="2_gboi7"]
 
 [sub_resource type="Resource" id="Resource_rhsoe"]
 script = ExtResource("1_8sdqs")
@@ -21,6 +21,6 @@ item_name = "Second Heart"
 item_description = "Heartless"
 type = 1
 grade = 1
-icon = ExtResource("2_rhsoe")
+icon = ExtResource("2_gboi7")
 effects = Array[ExtResource("1_8sdqs")]([SubResource("Resource_rhsoe"), SubResource("Resource_8sdqs")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"
