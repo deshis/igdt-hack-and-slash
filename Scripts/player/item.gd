@@ -110,6 +110,8 @@ func _set_type_name() -> void:
 		ItemType.Type.DAMAGE:
 			type_name = "Damage"
 		ItemType.Type.ACTIVE_ITEM:
+			type_name = "Brainchip"
+		ItemType.Type.ACTIVE_ITEM:
 			type_name = "Active Item"
 		ItemType.Type.PRIMARY_ATTACK:
 			type_name = "Light Attack"
@@ -139,11 +141,12 @@ func _create_description() -> void:
 	change_panel_color()
 	
 	#Item stat info
-	#formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_stat_info + "[/color][/center]\n\n"
+	if item.item_stat_info != "":
+		formatted_desc += "[center][color=" + "#bdbbbb" + "]" + item.item_stat_info + "[/color][/center]\n\n"
 	
 	formatted_desc += item.get_formatted_stats()
 	
-	#Item description
+	#Item description if one exists (for active items)
 	if item.item_description != "":
 		formatted_desc += "\n[center][color=" + "#777777" + "]" + item.item_description + "[/color][/center]"
 	

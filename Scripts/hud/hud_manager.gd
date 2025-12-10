@@ -43,5 +43,4 @@ func get_bar_from_pool() -> Control:
 	return instantiate_hp_bar()
 
 func set_cooldown_icon(icon: Texture2D, item_type: String) -> void:
-	print(cooldowns)
 	cooldowns.set_icon(icon, item_type)

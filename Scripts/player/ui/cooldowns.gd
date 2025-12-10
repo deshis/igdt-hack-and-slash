@@ -28,6 +28,10 @@ func _ready() -> void:
 	player.secondary_attack_used.connect(update_secondary_cooldown)
 	player.active_item_used.connect(update_active_item_cooldown)
 	
+	set_icon(null, "PrimaryAttack")
+	set_icon(null, "SecondaryAttack")
+	set_icon(null, "ActiveItem")
+
 func _process(_delta: float) -> void:
 	dash_cooldown_progress_bar.value = dash_cooldown_timer.time_left
 	primary_attack_progress_bar.value = primary_attack_timer.time_left

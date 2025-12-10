@@ -141,7 +141,7 @@ func _physics_process(delta: float) -> void:
 		if item is Area3D:
 			item_picked_up.emit(item)
 	
-	if Input.is_action_just_pressed("active_item") and can_active_item:
+	if Input.is_action_just_pressed("active_item") and active_item_effect and can_active_item:
 		use_active_item(active_item_effect)
 	
 	if hit_flash_timer.time_left > 0:
