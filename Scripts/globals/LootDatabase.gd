@@ -27,7 +27,7 @@ var military_items := [
 
 var prototype_items := [
 	preload("res://Scripts/items/prototype/ArcFlash.tres"),
-	preload("res://Scripts/items/prototype/CloverHologram.tres"),
+	preload("res://Scripts/items/prototype/CloverLOA.tres"),
 	preload("res://Scripts/items/prototype/EnergyConverterMk2.tres"),
 	preload("res://Scripts/items/prototype/Labrys.tres"),
 	preload("res://Scripts/items/prototype/OverclockedExoskeleton.tres"),

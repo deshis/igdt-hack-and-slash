@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyh2vgdks1r0n"
-path="res://.godot/imported/SpectriteChassis.png-5d7f8241749a7d072a86ef25e6f4576e.ctex"
+uid="uid://cmqdwn83wmapb"
+path="res://.godot/imported/CloverLOA.png-545efb243fe2b46caeaaa18b9b26340c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/item_icons/Prototype/SpectriteChassis.png"
-dest_files=["res://.godot/imported/SpectriteChassis.png-5d7f8241749a7d072a86ef25e6f4576e.ctex"]
+source_file="res://Assets/item_icons/Prototype/CloverLOA.png"
+dest_files=["res://.godot/imported/CloverLOA.png-545efb243fe2b46caeaaa18b9b26340c.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://28j6b6as024u"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_yuiqv"]
-[ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_m7lrs"]
+[ext_resource type="Texture2D" uid="uid://ckc2tcsqoq7l7" path="res://Assets/item_icons/Military/ChromaticChassis.png" id="2_yuiqv"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_n4ceq"]
 
 [sub_resource type="Resource" id="Resource_7khyf"]
@@ -20,6 +20,6 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 script = ExtResource("3_n4ceq")
 item_name = "Plasteel Chassis"
 type = 1
-icon = ExtResource("2_m7lrs")
+icon = ExtResource("2_yuiqv")
 effects = Array[ExtResource("1_yuiqv")]([SubResource("Resource_7khyf"), SubResource("Resource_pka6w")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

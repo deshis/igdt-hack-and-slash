@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyh2vgdks1r0n"
-path="res://.godot/imported/SpectriteChassis.png-85d24712e586297c587bd6fa44b3d644.ctex"
+uid="uid://bksfkibu2g5hj"
+path="res://.godot/imported/Labrys.png.png-a1df841a861e732e2cd9ec7b9e81e5f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/SpectriteChassis.png"
-dest_files=["res://.godot/imported/SpectriteChassis.png-85d24712e586297c587bd6fa44b3d644.ctex"]
+source_file="res://Assets/item_icons/Prototype/Labrys.png.png"
+dest_files=["res://.godot/imported/Labrys.png.png-a1df841a861e732e2cd9ec7b9e81e5f2.ctex"]
 
 [params]
 
