@@ -58,6 +58,7 @@ const COOLDOWN = "cooldown"
 func _ready() -> void:
 	nav_agent.target_desired_distance = attack_range
 	set_collision_layer_value(13, true)
+	$Collision.disabled = true
 	
 	dot_timer = Timer.new()
 	debuff_timer = Timer.new()
@@ -93,6 +94,7 @@ func _activate() -> void:
 	
 	health_bar = GameManager.HUD.get_hp_bar(self)
 	set_collision_layer_value(13, true)
+	$Collision.disabled = false
 
 func _physics_process(delta: float) -> void:
 	if not player:
@@ -335,6 +337,7 @@ func take_damage(damage:float) -> void:
 
 func die() -> void:
 	set_collision_layer_value(13, false)
+	$Collision.disabled = true
 	
 	SoundManager.play_sfx("enemy_die", global_position)
 	
