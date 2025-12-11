@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_dg8ad"]
 [ext_resource type="Texture2D" uid="uid://bjq16u511hgxw" path="res://Assets/item_icons/Consumer/Katana.png" id="2_dg8ad"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_hj6iv"]
-[ext_resource type="ArrayMesh" uid="uid://diakqbwpn4uyl" path="res://Assets/enemies/slasher/sword.res" id="4_ywv1x"]
+[ext_resource type="ArrayMesh" uid="uid://brngfcfsbf1cp" path="res://Assets/player/weapons/katana.res" id="4_dg8ad"]
 
 [sub_resource type="Resource" id="Resource_lnmks"]
 script = ExtResource("1_dg8ad")
@@ -37,7 +37,7 @@ type = 6
 grade = 1
 attack_type = 1
 weapon_type = 2
-weapon_mesh = ExtResource("4_ywv1x")
+weapon_mesh = ExtResource("4_dg8ad")
 icon = ExtResource("2_dg8ad")
 effects = Array[ExtResource("1_dg8ad")]([SubResource("Resource_lnmks"), SubResource("Resource_ebwx6"), SubResource("Resource_f0hdo"), SubResource("Resource_qep0m")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

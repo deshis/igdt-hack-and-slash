@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dtmntfwnrv3ig"]
 
 [ext_resource type="PackedScene" uid="uid://dpw0yx7k2op5e" path="res://Assets/enemies/slasher/slasher.glb" id="1_2xu6g"]
-[ext_resource type="ArrayMesh" uid="uid://diakqbwpn4uyl" path="res://Assets/enemies/slasher/sword.res" id="2_7scrd"]
+[ext_resource type="ArrayMesh" uid="uid://diakqbwpn4uyl" path="res://Assets/player/weapons/sword.res" id="2_7scrd"]
 [ext_resource type="Shader" uid="uid://4hwgr3jdxls" path="res://Assets/effects/slash/slash.gdshader" id="2_ptm0w"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_latqk"]

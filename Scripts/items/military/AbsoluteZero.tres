@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://ch2ywqcwatc8t" path="res://Scripts/items/resources/FreezeDebuff.tres" id="2_mkab5"]
 [ext_resource type="Texture2D" uid="uid://dmaqf3a41hxep" path="res://Assets/item_icons/Military/AbsoluteZero.png" id="3_mkab5"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_uba5p"]
-[ext_resource type="ArrayMesh" uid="uid://c43hvmywfkp1j" path="res://Assets/player/weapons/maul.res" id="4_j7ttn"]
+[ext_resource type="ArrayMesh" uid="uid://bhvax4f5pu47m" path="res://Assets/player/weapons/absolutezero.res" id="5_mkab5"]
 
 [sub_resource type="Resource" id="Resource_8whnk"]
 script = ExtResource("1_7x0q4")
@@ -44,7 +44,7 @@ type = 7
 grade = 1
 attack_type = 2
 weapon_type = 3
-weapon_mesh = ExtResource("4_j7ttn")
+weapon_mesh = ExtResource("5_mkab5")
 icon = ExtResource("3_mkab5")
 effects = Array[ExtResource("1_7x0q4")]([SubResource("Resource_8whnk"), SubResource("Resource_6jpnv"), SubResource("Resource_vrl5g"), SubResource("Resource_as8ef"), SubResource("Resource_s6lyc")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"
