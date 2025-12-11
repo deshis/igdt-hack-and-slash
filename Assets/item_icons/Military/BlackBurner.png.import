@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjq16u511hgxw"
-path.s3tc="res://.godot/imported/Katana.png-3d17585b02b5176745f8a5b55fe33610.s3tc.ctex"
+uid="uid://dhro37hjq5f65"
+path.s3tc="res://.godot/imported/BlackBurner.png-7dac8e4a3718ecaf439b18630d94d52f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/item_icons/Consumer/Katana.png"
-dest_files=["res://.godot/imported/Katana.png-3d17585b02b5176745f8a5b55fe33610.s3tc.ctex"]
+source_file="res://Assets/item_icons/Military/BlackBurner.png"
+dest_files=["res://.godot/imported/BlackBurner.png-7dac8e4a3718ecaf439b18630d94d52f.s3tc.ctex"]
 
 [params]
 
