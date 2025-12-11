@@ -14237,7 +14237,7 @@ libraries = {
 autoplay = "Walk"
 
 [node name="microbot_model" type="Node3D" parent="background_visuals"]
-transform = Transform3D(-0.21071365, 0, -0.7197915, 0, 0.75, 0, 0.7197915, 0, -0.21071365, 0, 0, 1.694068)
+transform = Transform3D(-0.21071365, 0, -0.7197915, 0, 0.75, 0, 0.7197915, 0, -0.21071365, 0.14334095, 0, 1.4683738)
 
 [node name="rig" type="Node3D" parent="background_visuals/microbot_model"]
 
@@ -14397,7 +14397,7 @@ libraries = {
 autoplay = "Walk"
 
 [node name="microbot_model2" type="Node3D" parent="background_visuals"]
-transform = Transform3D(-0.7056829, 0, -0.25399184, 0, 0.74999994, 0, 0.25399184, 0, -0.7056829, -2.1600041, 0, 0.93095636)
+transform = Transform3D(-0.7056829, 0, -0.25399184, 0, 0.74999994, 0, 0.25399184, 0, -0.7056829, -2.016663, 0, 0.7052622)
 
 [node name="rig" type="Node3D" parent="background_visuals/microbot_model2"]
 
@@ -19252,7 +19252,7 @@ libraries = {
 autoplay = "Walk"
 
 [node name="claw_model" type="Node3D" parent="background_visuals"]
-transform = Transform3D(-0.7258668, 0, 0.6878352, 0, 1, 0, -0.6878352, 0, -0.7258668, -11.467821, 0, 13.04525)
+transform = Transform3D(-0.938306, 0, 0.3458058, 0, 1, 0, -0.3458058, 0, -0.938306, -8.281, 0, 13.04525)
 
 [node name="rig" type="Node3D" parent="background_visuals/claw_model"]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)

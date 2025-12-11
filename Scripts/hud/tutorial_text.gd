@@ -11,7 +11,7 @@ func _ready() -> void:
 	
 	Defeating enemies has a chance to drop loot, which can be [color=gray]CONSUMER[/color],	[color=purple]MILITARY[/color] or [color=yellow]PROTOTYPE[/color]. Items can be equipped in the inventory [[color=orange]%s[/color]].
 	
-	[color=cyan]ACTIVE[/color] items give you an extra ability [[color=orange]%s[/color]]
+	[color=cyan]Brainchip[/color] items have to be activated manually [[color=orange]%s[/color]]
 	
 	Defeating the [color=red]BOSS[/color] will unlock a door to the next [color=lightgreen]STAGE[/color]...
 	" %[
