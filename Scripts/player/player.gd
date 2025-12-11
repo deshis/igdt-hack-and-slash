@@ -393,8 +393,23 @@ func use_active_item(active_effect: ActiveEffectResource):
 	can_active_item = false
 	active_item_cooldown_timer.start(active_item_cooldown)
 	active_item_used.emit(active_item_cooldown)
-	
-	SoundManager.play_sfx("stun_sfx", global_position)
+
+	# Play SFX based on active item type
+	match active_effect.active_type:
+		ActiveEffectResource.ActiveType.HEAL:
+			SoundManager.play_sfx("heal", global_position)
+		ActiveEffectResource.ActiveType.MOVEMENT_SPEED:
+			SoundManager.play_sfx("speed_buff", global_position)
+		ActiveEffectResource.ActiveType.STUN_AOE:
+			SoundManager.play_sfx("stun_sfx", global_position)
+		ActiveEffectResource.ActiveType.INVULNERABILITY:
+			SoundManager.play_sfx("invulnerability", global_position)
+		ActiveEffectResource.ActiveType.SECOND_DASH:
+			SoundManager.play_sfx("dash", global_position)
+		ActiveEffectResource.ActiveType.DAMAGE_AOE:
+			SoundManager.play_sfx("explosion", global_position)
+		_:
+			SoundManager.play_sfx("default_active", global_position)
 	
 	apply_active_item_effect(active_item_effect)
 	
