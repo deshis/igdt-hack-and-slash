@@ -206,7 +206,6 @@ func take_dot_damage(dot: DotResource) -> void:
 func _on_dot_tick() -> void:
 	
 	if remaining_dot_duration > 0.0:
-
 		enemy.health -= current_tick_damage
 		update_health_bar.emit(enemy.health)
 		SoundManager.play_sfx("dot_sfx", global_position)  #Might want DoT SFX here, maybe even separate depending on DoT (From resource)
@@ -225,7 +224,7 @@ func _on_dot_tick() -> void:
 			active_dots = null
 			
 		if enemy.health <= 0.0:
-			die()
+			die(false)
 			return
 		
 		dot_timer.start()
@@ -234,7 +233,7 @@ func take_stat_damage(debuff: DebuffResource) -> void:
 	active_stat_debuffs = debuff
 	#get_parent().take_stat_damage(debuff)
 	
-	print("Taking stat damage")
+	#print("Taking stat damage")
 
 	#active_stat_debuffs = debuff
 	
@@ -258,7 +257,7 @@ func take_stat_damage(debuff: DebuffResource) -> void:
 	debuff_timer.start()
 	
 func apply_debuff_effect(debuff: DebuffResource) -> void:
-	print("Applying debuff")
+	#print("Applying debuff")
 	match debuff.debuff_type:
 		DebuffResource.DebuffType.STUN:
 			GameManager.particles.emit_particles("stun", global_position + Vector3.UP*2.0, self)
@@ -282,7 +281,7 @@ func remove_debuff_effect(debuff: DebuffResource) -> void:
 func _on_debuff_tick() -> void:
 
 	if remaining_debuff_duration > 0.0:
-		print("Debuff applied: ", remaining_debuff_duration, " seconds left")
+		#print("Debuff applied: ", remaining_debuff_duration, " seconds left")
 		
 		if active_stat_debuffs.particle_scene:
 			instantiate_particles(active_stat_debuffs.particle_scene)

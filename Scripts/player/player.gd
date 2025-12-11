@@ -562,7 +562,6 @@ func deal_damage(area: Area3D, amount: float, e: EnemyController = null) -> void
 	else:
 		SoundManager.play_sfx("hit", enemy.global_position)
 	
-	#print("Damage: ", amount) 
 	#Lifesteal
 	#NOTE: Might just want to make this flat
 	life_stolen = amount * (life_steal/100)

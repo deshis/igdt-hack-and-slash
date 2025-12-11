@@ -12,7 +12,7 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [resource]
 script = ExtResource("3_afap3")
-item_name = "Singularity Glove"
+item_name = "Singularity Gloves"
 type = 3
 grade = 1
 icon = ExtResource("2_gust7")

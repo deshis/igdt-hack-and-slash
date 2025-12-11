@@ -12,7 +12,7 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [resource]
 script = ExtResource("3_hbncg")
-item_name = "Quantum Glove"
+item_name = "Quantum Gloves"
 type = 3
 icon = ExtResource("2_n8nek")
 effects = Array[ExtResource("1_n8nek")]([SubResource("Resource_qp0c6")])

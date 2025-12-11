@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_6dvoj"]
 [ext_resource type="Texture2D" uid="uid://c4hrxnksocafr" path="res://Assets/item_icons/Military/LaserFlail.png" id="2_6dvoj"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_cyloe"]
-[ext_resource type="ArrayMesh" uid="uid://ck02ch885weas" path="res://Assets/player/weapons/flail.res" id="4_6dvoj"]
+[ext_resource type="ArrayMesh" uid="uid://gruov1ar1w6i" path="res://Assets/player/weapons/flail.res" id="4_6dvoj"]
 
 [sub_resource type="Resource" id="Resource_lnmks"]
 script = ExtResource("1_6dvoj")
