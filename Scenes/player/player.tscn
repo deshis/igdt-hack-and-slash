@@ -2665,10 +2665,12 @@ collision_mask = 8192
 
 [node name="Default" type="CollisionShape3D" parent="HeavyAttack"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
 shape = SubResource("ConcavePolygonShape3D_utcu2")
 debug_color = Color(0.6901961, 0.16470589, 0.5019608, 0.9882353)
 
 [node name="Axe" type="CollisionShape3D" parent="HeavyAttack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 visible = false
 shape = SubResource("ConcavePolygonShape3D_emekf")
 debug_color = Color(0.6901961, 0.16470589, 0.5019608, 0.9882353)

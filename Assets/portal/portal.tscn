@@ -48,20 +48,18 @@ shape = SubResource("BoxShape3D_f1ldt")
 debug_color = Color(1.1055521, 0.7517919, 7.7706267e-07, 1)
 
 [node name="Label3D" type="Label3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 0.25881907, 0.9659258, 0, -0.9659258, 0.25881907, 0, 4.267144, 0.066200435)
+transform = Transform3D(1, 0, 0, 0, 0.25881907, 0.9659258, 0, -0.9659258, 0.25881907, 0, 1.7132046, 0.3150897)
 text = "F interact"
 
-[node name="Area3D2" type="Area3D" parent="." index="3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.095, 2, 0)
 shape = SubResource("BoxShape3D_mq3r6")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D2" index="1"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 1.0973365, 2, 0)
 shape = SubResource("BoxShape3D_mq3r6")
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
-[connection signal="body_entered" from="Area3D2" to="." method="_on_area_3d_2_body_entered"]
-[connection signal="body_exited" from="Area3D2" to="." method="_on_area_3d_2_body_exited"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

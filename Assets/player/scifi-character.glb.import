@@ -20688,6 +20688,51 @@ _subresources={
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://Assets/player/weapons/labrys.res",
 "save_to_file/path": "uid://dtnaovd8bxw3a"
+},
+"scifi-character_Circle_009": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://Assets/player/weapons/axe",
+"save_to_file/path": "uid://c12sey2qp16od"
+},
+"scifi-character_Circle_010": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://Assets/player/weapons/spear.res",
+"save_to_file/path": "uid://ccvgbak7x3nmg"
+},
+"scifi-character_Circle_011": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://Assets/player/weapons/dusk.res",
+"save_to_file/path": "uid://c6thpqps7xbt7"
+},
+"scifi-character_Circle_012": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://Assets/player/weapons/dawn.res",
+"save_to_file/path": "uid://c0sp07x3df3qs"
+},
+"scifi-character_Circle_013": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://Assets/player/weapons/flail.res",
+"save_to_file/path": "uid://ck02ch885weas"
 }
 }
 }

@@ -66,11 +66,14 @@ func load_next_stage() -> void:
 	starting_difficulty = spawner.diff.difficulty
 	load_stage(current_stage_ind + 1)
 
-func boss_killed() -> void:
-	var exit=portaldoor.instantiate()
+func boss_killed(boss: EnemyController) -> void:
+	var exit = portaldoor.instantiate()
 	current_stage.add_child(exit)
-	var location=player.global_position+Vector3(0,0,-3)
-	exit.global_position=location
+	var location = boss.global_position + Vector3(0,0,-5)
+	exit.global_position = location
+	
+	spawner.credits_cooldown_timer.stop()
+	spawner.wave_cooldown_timer.stop()
 
 
 func restart() -> void:

@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://caaqyxqi3wkkw"
-path.s3tc="res://.godot/imported/scifi-character_apollo-1x.png-1dbb558800000898cef08f52f3950394.s3tc.ctex"
+path="res://.godot/imported/scifi-character_apollo-1x.png-1dbb558800000898cef08f52f3950394.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "b0337ea95eb9ff3df5ea32d2bc8fff42"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/player/scifi-character_apollo-1x.png"
-dest_files=["res://.godot/imported/scifi-character_apollo-1x.png-1dbb558800000898cef08f52f3950394.s3tc.ctex"]
+dest_files=["res://.godot/imported/scifi-character_apollo-1x.png-1dbb558800000898cef08f52f3950394.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

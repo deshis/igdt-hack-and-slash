@@ -147,7 +147,7 @@ func set_spin_target() -> void:
 	spin_velocity = dir * spin_attack_speed
 
 func die(drop_loot: bool = true) -> void:
-	GameManager.boss_killed()
+	GameManager.boss_killed(self)
 	super.die(drop_loot)
 
 func apply_debuff_effect(debuff: DebuffResource) -> void:

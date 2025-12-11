@@ -58,15 +58,22 @@ func _generate():
 	
 
 			var loc=Vector3(i-xi,0,j-yj)
-			if abs(loc.x)==xi:
-				points=0
-			if abs(loc.z)==yj:
-				points=height-1
+			
+
+			
+			
 			ground_map.set_cell_item(loc,0)
+			
+			if abs(loc.x)==xi or abs(loc.z)==yj:
+				points=0
+				loc.y=5
+				self.set_cell_item(loc,5)
+			#if abs(loc.z)==yj:
+			#	points=height-1
 			
 			
 			var rot = get_orthogonal_index_from_basis(Basis(Vector3.UP, PI*randi()*2.0))
-			loc.y+=2
+			loc.y=2
 			if abs(loc.x)>=2 or (abs(loc.z)>=2):
 				if points == 0:
 					self.set_cell_item(loc,3, rot)
@@ -99,7 +106,7 @@ func _generate_grass():
 		if self.get_cell_item(cell) == 1:
 			var tile_center := self.map_to_local(cell)
 			
-			for i in range(300):
+			for i in range(500):
 				var rand_offset = Vector3(randf() - 0.5,0,randf() - 0.5) * 2.0   # keeps blades within the tile
 
 				var pos = tile_center + rand_offset
