@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_t7u5h")
 debuff_type = 1
+debuff_item_desc_color = "#7ab2ff"
 debuff_tick_rate = 6.0
 debuff_duration = 6.0
 particle_scene = ExtResource("1_ek13t")
