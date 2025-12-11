@@ -722,9 +722,7 @@ func _on_heavy_attack_area_entered(area: Area3D) -> void:
 		print("Roll: ",rng_dot_roll)
 		
 		if heavy_dot_chance >= rng_dot_roll:
-			deal_dot_damage(area, primary_attack_active_dot)
-		
-		deal_dot_damage(area, secondary_attack_active_dot)
+			deal_dot_damage(area, secondary_attack_active_dot)
 
 	if secondary_attack_active_debuff != null:
 		
@@ -732,9 +730,8 @@ func _on_heavy_attack_area_entered(area: Area3D) -> void:
 		print("Roll: ",rng_dot_roll)
 		
 		if heavy_debuff_chance >= rng_dot_roll:
-			deal_dot_damage(area, primary_attack_active_dot)
-		
-		deal_stat_damage(area, secondary_attack_active_debuff)
+			deal_stat_damage(area, secondary_attack_active_debuff)
+
 
 func _on_health_radius_area_entered(area: Area3D) -> void:
 	# TODO: proper heal amount
