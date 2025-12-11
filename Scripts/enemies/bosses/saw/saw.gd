@@ -74,8 +74,6 @@ func _physics_process(delta: float) -> void:
 func change_state(new_state: String, duration := 0.0):
 	super.change_state(new_state, duration)
 	
-	#print_debug("State: " + str(new_state) + ", Duration: " + str(duration))
-	
 	match state:
 		COOLDOWN, IDLE:
 			animator.play("Idle")
@@ -87,6 +85,7 @@ func change_state(new_state: String, duration := 0.0):
 			animator.play("AttackBoomerang")
 		
 		NAVIGATE:
+			target_provider = TargetPlayer.new()
 			animator.play("Track")
 			navigation_time = 0
 		
@@ -131,10 +130,13 @@ func process_flee(delta):
 		perform_melee_attack()
 		return
 	
-	if dist_to_player < flee_min_dist_from_player:
-		target_provider = TargetAwayFromPlayer.new()
-	elif dist_to_player >= flee_max_dist_from_player:
-		target_provider = TargetPlayer.new()
+	if target_provider is not TargetAwayFromPlayer:
+		if dist_to_player < flee_min_dist_from_player:
+			target_provider = TargetAwayFromPlayer.new()
+	
+	elif target_provider is not TargetPlayer:
+		if dist_to_player >= flee_max_dist_from_player:
+			target_provider = TargetPlayer.new()
 	
 	super.process_navigation(delta)
 
@@ -216,4 +218,4 @@ func die() -> void:
 	super.die()
 
 func _on_navigation_agent_3d_target_reached() -> void:
-	pass
+	perform_melee_attack()

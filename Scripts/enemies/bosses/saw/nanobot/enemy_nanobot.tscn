@@ -18,12 +18,12 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 0.1
 script = ExtResource("1_sp4ew")
-target_dist_min = 0.6
+target_dist_min = 0.8
 target_dist_max = 1.5
 nav_agent = NodePath("NavigationAgent3D")
 attack = ExtResource("2_n4oim")
-attack_windup_duration = 0.8
-attack_range = 100.0
+attack_windup_duration = 1.167
+attack_range = 1.0
 cooldown_duration = 0.6
 
 [node name="model" parent="." instance=ExtResource("3_ucg41")]

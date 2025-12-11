@@ -9,4 +9,4 @@ func get_target(enemy: Node3D) -> Vector3:
 	player_pos.y = 0
 	
 	var dir = (enemy_pos - player_pos).normalized()
-	return enemy.global_position + dir * 8
+	return enemy.global_position + dir * 16

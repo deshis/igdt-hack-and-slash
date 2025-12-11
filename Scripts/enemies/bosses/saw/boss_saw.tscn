@@ -10,7 +10,7 @@
 size = Vector3(1, 2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_48d4a"]
-size = Vector3(1, 2, 1)
+size = Vector3(1.3, 2, 1.5)
 
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent")]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
@@ -31,7 +31,6 @@ attack_windup_duration = 0.75
 attack_range = 3.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-target_desired_distance = 3.0
 radius = 1.0
 debug_enabled = true
 
