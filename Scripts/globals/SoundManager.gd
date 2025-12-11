@@ -27,8 +27,12 @@ func _ready() -> void:
 	
 	# SFX part
 	sfx_players = {
-		"light_attack": load("res://Assets/audio/effect_light_attack.wav"),
-		"heavy_attack": load("res://Assets/audio/effect_heavy_attack.wav"), 
+		"light_attack_default": load("res://Assets/audio/effect_lightattack_default.wav"),
+		"light_attack_sword": load("res://Assets/audio/effect_lightattack_sword.wav"),
+		"light_attack_dagger": load("res://Assets/audio/effect_lightattack_dagger.wav"),
+		"heavy_attack_default": load("res://Assets/audio/effect_heavyattack_default.wav"), 
+		"heavy_attack_axe": load("res://Assets/audio/effect_heavyattack_axe.wav"),
+		"heavy_attack_maul": load("res://Assets/audio/effect_heavyattack_maul.wav"),
 		"dash": load("res://Assets/audio/effect_dash.wav"),
 		"hit": load("res://Assets/audio/effect_hit.wav"),
 		"hit_crit": load("res://Assets/audio/effect_hit_critical.wav"),
@@ -46,8 +50,12 @@ func _ready() -> void:
 	}
 	
 	pitch_ranges = {
-		"light_attack": [0.5, 1.5],
-		"heavy_attack": [0.9, 1.2],
+		"light_attack_default": [0.8, 1.5],
+		"light_attack_sword": [0.5, 1.5],
+		"light_attack_dagger": [0.8, 1.2],
+		"heavy_attack_default": [0.8, 1.2],
+		"heavy_attack_axe": [0.9, 1.2],
+		"heavy_attack_maul": [0.8, 1.0],
 		"dash": [0.8, 1.5],
 		"hit": [0.5, 1.2],
 		"hit_crit": [1.0, 1.5],
