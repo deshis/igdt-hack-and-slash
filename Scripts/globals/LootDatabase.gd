@@ -94,7 +94,8 @@ var prototype_items := [
 	
 	# SECONDARY_ATTACK
 	preload("res://Scripts/items/prototype/Labrys.tres"),
-	preload("res://Scripts/items/prototype/Dawn.tres")
+	preload("res://Scripts/items/prototype/Dawn.tres"),
+	preload("res://Scripts/items/prototype/Dusk.tres")
 ]
 
 var type_colors := {
