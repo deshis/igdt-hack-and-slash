@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=8 format=3 uid="uid://b0kt67m4j85ry"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=8 format=3 uid="uid://4x88mg8ha11g"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_jibnw"]
 [ext_resource type="Texture2D" uid="uid://bljyvjhec5slt" path="res://Assets/item_icons/Consumer/Slapstick.png" id="2_oe048"]
