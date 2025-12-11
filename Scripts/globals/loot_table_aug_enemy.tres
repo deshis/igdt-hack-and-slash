@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_2bn36")
-loot_drop_chance = 0.25
+loot_drop_chance = 0.34
 loot_rarity_weights = {
-"consumer": 0.74,
-"military": 0.24,
+"consumer": 0.66,
+"military": 0.32,
 "prototype": 0.02
 }
 health_drop_chance = 0.35

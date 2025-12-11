@@ -96,7 +96,6 @@ fov = 45.0
 size = 6.0
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("navigation_region") instance=ExtResource("7_8rgxd")]
-boss_cooldown_time = 10.0
 navigation_region = NodePath("../Node3D/NavigationRegion3D")
 
 [node name="Door" parent="." instance=ExtResource("8_gr2xc")]
