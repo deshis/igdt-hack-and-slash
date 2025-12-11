@@ -106,7 +106,7 @@ func _generate_grass():
 		if self.get_cell_item(cell) == 1:
 			var tile_center := self.map_to_local(cell)
 			
-			for i in range(500):
+			for i in range(200):
 				var rand_offset = Vector3(randf() - 0.5,0,randf() - 0.5) * 2.0   # keeps blades within the tile
 
 				var pos = tile_center + rand_offset
