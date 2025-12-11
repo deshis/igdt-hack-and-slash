@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://6n8vopurwam1" path="res://Scripts/enemies/normal/slasher/slasher.gd" id="1_j7slm"]
 [ext_resource type="PackedScene" uid="uid://bkluuxs7dqdp2" path="res://Scripts/enemies/normal/slasher/attack_slasher.tscn" id="2_puxwi"]
 [ext_resource type="Texture2D" uid="uid://d16v0k85pmlw7" path="res://Assets/enemies/slasher/slasher_apollo-1x.png" id="3_fkeh6"]
-[ext_resource type="ArrayMesh" uid="uid://diakqbwpn4uyl" path="res://Assets/enemies/slasher/sword.res" id="4_vkg3o"]
+[ext_resource type="ArrayMesh" uid="uid://diakqbwpn4uyl" path="res://Assets/player/weapons/sword.res" id="4_vkg3o"]
 [ext_resource type="Shader" uid="uid://4hwgr3jdxls" path="res://Assets/effects/slash/slash.gdshader" id="5_241rx"]
 [ext_resource type="Animation" uid="uid://ec1qucemvnhv" path="res://Assets/enemies/slasher/Attack.res" id="6_t1lt6"]
 [ext_resource type="Animation" uid="uid://cucm1wv4yupl1" path="res://Assets/enemies/slasher/Walk.res" id="7_girvo"]

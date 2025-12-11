@@ -17,8 +17,9 @@ const RELATIVE = "relative"
 const ATTACK_SIZE = "attack_size"
 const PERCENT = "percent"
 const INV_SCALE = "inverted_scale"
+const DEBUFF = "debuff"
+const DOT = "dot"
 
-# leave disctionary empty to omit from description
 const STAT_BEHAVIOR := {
 	Stats.Stat.HEALTH: { DESC: "health" },
 	Stats.Stat.HEALTH_REGEN: { DESC: "health / sec" },
@@ -37,12 +38,11 @@ const STAT_BEHAVIOR := {
 	Stats.Stat.HEAVY_SIZE_Y: { DESC: "attack length", PERCENT: true, ATTACK_SIZE: true },
 	
 	Stats.Stat.LIFESTEAL: { DESC: "lifesteal", PERCENT: true },
-	Stats.Stat.DOT_EFFECT: { DESC: "dot info" },
-	Stats.Stat.PRIMARY_CHECK: { },
+	Stats.Stat.DOT_EFFECT: { DOT: true },
+	Stats.Stat.DEBUFF_EFFECT: { DEBUFF: true},
 	
 	Stats.Stat.DASH_COOLDOWN: { DESC: "dash cooldown", INV_SCALE: true, PERCENT: true, RELATIVE: true },
 	Stats.Stat.DASH_LENGTH: { DESC: "dash duration", PERCENT: true, RELATIVE: true },
-	Stats.Stat.DASH_SPEED: { },
 	
 	Stats.Stat.CRIT_CHANCE: { DESC: "critical chance", PERCENT: true },
 	Stats.Stat.THORNS_PERCENT: { DESC: "thorns damage ", PERCENT: true},
@@ -103,6 +103,7 @@ func set_secondary_attack_type_name() -> void:
 
 #NOTE: https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_format_string.html
 func get_formatted_stats() -> String:
+	var special_stats := ""
 	var positive_stats := ""
 	var negative_stats := ""
 	
@@ -119,6 +120,47 @@ func get_formatted_stats() -> String:
 		
 		if behavior.get(ATTACK_SIZE, false):
 			value = get_attack_size_value(value)
+		
+		if behavior.get(DOT, false):
+			var dot = effect.dot_resource
+			var dot_chance = 0.0
+			
+			for e in effects:
+				if e.stat_type == Stats.Stat.LIGHT_DOT_CHANCE:
+					dot_chance = e.value
+			
+			stat_string += get_sign(dot_chance)
+			stat_string += get_snapped_string(dot_chance)
+			stat_string += get_percent(true)
+			stat_string += " chance to "
+			stat_string += dot.dot_name
+			stat_string += " for\n"
+			var damage = dot.dot_tick_damage * (dot.dot_duration / dot.dot_tick_rate)
+			stat_string += get_snapped_string(damage)
+			stat_string += " damage over "
+			stat_string += get_snapped_string(dot.dot_duration)
+			stat_string += " seconds"
+			special_stats += colored_text(stat_string, dot.dot_item_desc_color) + "\n"
+			continue
+			
+		if behavior.get(DEBUFF, false):
+			var debuff = effect.debuff_resource
+			var dot_chance = 0.0
+			
+			for e in effects:
+				if e.stat_type == Stats.Stat.LIGHT_DOT_CHANCE:
+					dot_chance = e.value
+			
+			stat_string += get_sign(dot_chance)
+			stat_string += get_snapped_string(dot_chance)
+			stat_string += get_percent(true)
+			stat_string += " chance to "
+			stat_string += debuff.debuff_name
+			stat_string += " for "
+			stat_string += get_snapped_string(debuff.debuff_duration)
+			stat_string += " seconds"
+			special_stats += colored_text(stat_string, debuff.debuff_item_desc_color) + "\n"
+			continue
 		
 		stat_string += get_sign(value) 
 		stat_string += get_snapped_string(value)
@@ -139,7 +181,7 @@ func get_formatted_stats() -> String:
 			else:
 				negative_stats += colored_text(stat_string, color) + "\n"
 	
-	return positive_stats + negative_stats
+	return special_stats + positive_stats + negative_stats
 
 func get_sign(value: float) -> String:
 	if value > 0:

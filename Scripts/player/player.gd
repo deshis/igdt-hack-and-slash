@@ -51,7 +51,7 @@ var input: Vector2
 var can_dash := true
 var second_dash := false
 var move_during_dash := false
-var attack_during_dash := true
+var attack_during_dash := false
 var dash_attack_mult := 0.0
 
 # ATTACKS
@@ -722,9 +722,7 @@ func _on_heavy_attack_area_entered(area: Area3D) -> void:
 		print("Roll: ",rng_dot_roll)
 		
 		if heavy_dot_chance >= rng_dot_roll:
-			deal_dot_damage(area, primary_attack_active_dot)
-		
-		deal_dot_damage(area, secondary_attack_active_dot)
+			deal_dot_damage(area, secondary_attack_active_dot)
 
 	if secondary_attack_active_debuff != null:
 		
@@ -732,13 +730,14 @@ func _on_heavy_attack_area_entered(area: Area3D) -> void:
 		print("Roll: ",rng_dot_roll)
 		
 		if heavy_debuff_chance >= rng_dot_roll:
-			deal_dot_damage(area, primary_attack_active_dot)
-		
-		deal_stat_damage(area, secondary_attack_active_debuff)
+			deal_stat_damage(area, secondary_attack_active_debuff)
+
 
 func _on_health_radius_area_entered(area: Area3D) -> void:
-	# TODO: proper heal amount
-	heal(2.0)
+	var diff = GameManager.spawner.diff
+	var heal_amount = 1.5 + diff.get_difficulty() * diff.heal_amount_per_level
+	heal(heal_amount)
+	
 	SoundManager.play_sfx("heal", global_position)
 	area.queue_free()
 
@@ -751,9 +750,13 @@ func _on_loot_radius_area_exited(area: Area3D) -> void:
 
 func _on_hit_flash_timeout() -> void:
 	hit_flash.set_shader_parameter('strength',0.0)
-
+	$Hurtbox/Box.disabled = true
+	$Hurtbox/Box.disabled = false
 
 func _on_dash_attack_hitbox_area_entered(area: Area3D) -> void:
+	if attack_during_dash == false:
+		return
+	
 	var damage = inverse_lerp(0, 30, velocity.length())
 	damage *= dash_attack_mult
 	deal_damage(area, damage)

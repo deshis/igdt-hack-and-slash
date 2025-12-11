@@ -24,6 +24,7 @@ var consumer_items := [
 	# PRIMARY_ATTACK
 	preload("res://Scripts/items/consumer/ChromeTippedSpear.tres"),
 	preload("res://Scripts/items/consumer/Dagger.tres"),
+	preload("res://Scripts/items/consumer/Slapstick.tres"),
 	
 	# SECONDARY_ATTACK
 	preload("res://Scripts/items/consumer/Axe.tres"),
@@ -62,6 +63,7 @@ var military_items := [
 	preload("res://Scripts/items/military/NanoSpear.tres"),
 	
 	# SECONDARY_ATTACK
+	preload("res://Scripts/items/military/AbsoluteZero.tres"),
 	preload("res://Scripts/items/military/LaserFlail.tres"),
 ]
 

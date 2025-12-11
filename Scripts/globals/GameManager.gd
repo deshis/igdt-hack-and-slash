@@ -57,6 +57,8 @@ func load_stage(num: int) -> void:
 	stage_root.add_child(current_stage)
 	player.global_position = Vector3.ZERO
 	
+	HUD.remove_all_bars()
+	
 	spawner = current_stage.get_child(2)
 	spawner.start_spawner.call_deferred()
 
