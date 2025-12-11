@@ -134,13 +134,13 @@ const HEAVY_ATTACK = "heavy_attack"
 
 
 func _ready() -> void:
-	print("Q to use active item")
-	
 	hit_flash.set_shader_parameter('strength',0.0)
 	animator.animation_finished.connect(_on_animation_finished)
 	
 	update_light_attack_hitbox()
 	update_heavy_attack_hitbox()
+	
+	ItemGlobals.reset()
 	
 	change_state(IDLE)
 
@@ -241,7 +241,6 @@ func enter_state(new_state) -> void:
 			set_facing_dir()
 			
 			if ItemGlobals.primary_weapon_type == "Dagger":
-				print("Hi")
 				picked_animation = true
 				animator.play("Light_attack_dagger")
 				light_attack_windup_duration = 0.17 / light_attack_speed_scale
@@ -711,7 +710,7 @@ func _on_light_attack_area_entered(area: Area3D) -> void:
 		#If number generated smaller or equal than the odds of inflicting debuff/dot ; proceed
 		
 		rng_dot_roll = rng.randf_range(0,100)
-		print("Roll: ",rng_dot_roll)
+		#print("Roll: ",rng_dot_roll)
 		
 		if light_dot_chance >= rng_dot_roll:
 			deal_dot_damage(area, primary_attack_active_dot)
@@ -719,7 +718,7 @@ func _on_light_attack_area_entered(area: Area3D) -> void:
 	if primary_attack_active_debuff != null:
 		
 		rng_debuff_roll = rng.randf_range(0,100)
-		print("Roll: ",rng_dot_roll)
+		#print("Roll: ",rng_dot_roll)
 		
 		if light_debuff_chance >= rng_debuff_roll:
 			deal_stat_damage(area, primary_attack_active_debuff)
@@ -733,7 +732,7 @@ func _on_heavy_attack_area_entered(area: Area3D) -> void:
 	if secondary_attack_active_dot != null:
 		
 		rng_dot_roll = rng.randf_range(0,100)
-		print("Roll: ",rng_dot_roll)
+		#print("Roll: ",rng_dot_roll)
 		
 		if heavy_dot_chance >= rng_dot_roll:
 			deal_dot_damage(area, secondary_attack_active_dot)
@@ -741,7 +740,7 @@ func _on_heavy_attack_area_entered(area: Area3D) -> void:
 	if secondary_attack_active_debuff != null:
 		
 		rng_debuff_roll = rng.randf_range(0,100)
-		print("Roll: ",rng_dot_roll)
+		#print("Roll: ",rng_dot_roll)
 		
 		if heavy_debuff_chance >= rng_dot_roll:
 			deal_stat_damage(area, secondary_attack_active_debuff)
