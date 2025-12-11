@@ -41,7 +41,10 @@ func _ready() -> void:
 		"dot_sfx": load("res://Assets/audio/effect_dot.wav"),
 		"heal":load("res://Assets/audio/effect_heal.wav"),
 		"freeze_sfx":load("res://Assets/audio/effect_freeze.wav"),
-		"stun_sfx":load("res://Assets/audio/effect_stun.wav")
+		"stun_sfx":load("res://Assets/audio/effect_stun.wav"),
+		"invulnerability":load("res://Assets/audio/effect_invulnerability.wav"),
+		"speed_buff":load("res://Assets/audio/effect_speedbuff.wav"),
+		"explosion":load("res://Assets/audio/effect_explosion.wav"),
 	}
 	
 	ui_players = {
@@ -65,6 +68,7 @@ func _ready() -> void:
 		"heal": [0.5, 1.0],
 		"freeze_sfx": [0.9, 1.1],
 		"stun_sfx": [0.7,0.9],
+		"explotion":[0.7,0.9]
 	}
 	# Auto-connect to all buttons in the scene tree
 	get_tree().node_added.connect(_on_node_added)
