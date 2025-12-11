@@ -100,10 +100,24 @@ func move_item(origin_slot: InventorySlot, new_slot: InventorySlot = null) -> vo
 	var pickup_slot := origin_slot as PickupSlot
 	if pickup_slot:
 		if new_slot.get_item():
+			var aug_slot = new_slot as AugmentSlot
+			
+			# dragged to aug slot
+			if aug_slot:
+				var aug_item = aug_slot.get_item()
+				var bp_slot = get_backpack_slot()
+				
+				if bp_slot:
+					aug_slot.remove_child(aug_item)
+					place_or_swap(aug_item, aug_slot, bp_slot)
+				else:
+					new_slot = pickup_slot
+			
 			# check if space in backpack
-			new_slot = get_backpack_slot()
-			if not new_slot:
-				new_slot = pickup_slot
+			else:
+				new_slot = get_backpack_slot()
+				if not new_slot:
+					new_slot = pickup_slot
 		
 		# if item was moved
 		if pickup_slot != new_slot:

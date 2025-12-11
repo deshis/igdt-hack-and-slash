@@ -5,7 +5,7 @@ var keybinds = CfgHandler.load_keybinds()
 func _ready() -> void:
 	text = "[center]Move around with [[color=orange]%s[/color]], [[color=orange]%s[/color]], [[color=orange]%s[/color]], [[color=orange]%s[/color]] and dodge attacks with your DASH [[color=orange]%s[/color]]!
 	
-	Use your PRIMARY ATTACK [[color=orange]%s[/color]] and SECONDARY ATTACK [[color=orange]%s[/color]] to defeat enemies!
+	Use your LIGHT ATTACK [[color=orange]%s[/color]] and HEAVY ATTACK [[color=orange]%s[/color]] to defeat enemies!
 	
 	Enemies have a chance to be [color=red]AUGMENTED[/color], increasing their lethality!
 	

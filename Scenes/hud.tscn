@@ -362,7 +362,7 @@ offset_bottom = 434.0
 grow_horizontal = 1
 grow_vertical = 1
 script = ExtResource("9_pbtju")
-slot_name = "Primary Attack"
+slot_name = "Light Attack"
 type = 6
 
 [node name="SecondaryAttack" parent="Inventory/AugmentSlots" instance=ExtResource("10_36s6t")]
@@ -377,7 +377,7 @@ offset_bottom = 434.0
 grow_horizontal = 1
 grow_vertical = 1
 script = ExtResource("9_pbtju")
-slot_name = "Secondary Attack"
+slot_name = "Heavy Attack"
 type = 7
 
 [node name="ActiveItem" parent="Inventory/AugmentSlots" instance=ExtResource("10_36s6t")]
