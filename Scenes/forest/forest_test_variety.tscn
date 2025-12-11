@@ -100,6 +100,9 @@ navigation_region = NodePath("../Node3D/NavigationRegion3D")
 [node name="Door" parent="." instance=ExtResource("8_gr2xc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.488, 0, -0.614)
 
+[node name="Label3D" parent="Door" index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.25881907, 0.9659258, 0, -0.9659258, 0.25881907, 0, 4.1780624, -0.59474856)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.024083268, 0, 0.99970996, 0, 1, 0, -0.99970996, 0, 0.024083268, 0, 16.802032, 0)
 
