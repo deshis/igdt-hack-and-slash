@@ -126,7 +126,7 @@ func get_formatted_stats() -> String:
 			var dot_chance = 0.0
 			
 			for e in effects:
-				if e.stat_type == Stats.Stat.LIGHT_DOT_CHANCE:
+				if e.stat_type == Stats.Stat.LIGHT_DOT_CHANCE or e.stat_type == Stats.Stat.HEAVY_DOT_CHANCE:
 					dot_chance = e.value
 			
 			stat_string += get_sign(dot_chance)
@@ -148,7 +148,7 @@ func get_formatted_stats() -> String:
 			var dot_chance = 0.0
 			
 			for e in effects:
-				if e.stat_type == Stats.Stat.LIGHT_DOT_CHANCE:
+				if e.stat_type == Stats.Stat.LIGHT_DEBUFF_CHANCE or e.stat_type == Stats.Stat.HEAVY_DEBUFF_CHANCE:
 					dot_chance = e.value
 			
 			stat_string += get_sign(dot_chance)
