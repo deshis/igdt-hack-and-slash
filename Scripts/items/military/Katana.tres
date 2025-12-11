@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=9 format=3 uid="uid://dfg2rydc2s2mc"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_dg8ad"]
-[ext_resource type="Texture2D" uid="uid://da68cudpvhfg0" path="res://Assets/item_icons/Consumer/Katana.png" id="2_dg8ad"]
+[ext_resource type="Texture2D" uid="uid://bjq16u511hgxw" path="res://Assets/item_icons/Consumer/Katana.png" id="2_dg8ad"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_hj6iv"]
 [ext_resource type="ArrayMesh" uid="uid://diakqbwpn4uyl" path="res://Assets/enemies/slasher/sword.res" id="4_ywv1x"]
 
