@@ -85,11 +85,11 @@ func change_state(new_state: String, duration := 0.0):
 			animator.play("AttackBoomerang")
 		
 		NAVIGATE:
-			target_provider = TargetPlayer.new()
 			animator.play("Track")
 			navigation_time = 0
 		
 		FLEE:
+			target_provider = TargetPlayer.new()
 			animator.play("Track")
 			flee_duration = randf_range(flee_duration_min, flee_duration_max)
 			
@@ -213,9 +213,9 @@ func get_pos(start_pos: Vector3, radius_min: float, radius_max: float) -> Vector
 	start_pos += dir * dist
 	return start_pos
 
-func die() -> void:
+func die(drop_loot: bool = true) -> void:
 	GameManager.boss_killed()
-	super.die()
+	super.die(drop_loot)
 
 func _on_navigation_agent_3d_target_reached() -> void:
 	perform_melee_attack()

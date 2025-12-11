@@ -32,8 +32,8 @@ var init_pool_size := 8
 func start_spawner() -> void:
 	init_pools()
 	
-	#_on_credits_cooldown_timer_timeout()
-	#_on_wave_cooldown_timer_timeout()
+	_on_credits_cooldown_timer_timeout()
+	_on_wave_cooldown_timer_timeout()
 	boss_cooldown_timer.start(boss_cooldown_time)
 
 func init_pools() -> void:

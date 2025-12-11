@@ -122,9 +122,6 @@ func _physics_process(delta: float) -> void:
 
 
 func change_state(new_state: String, duration := 0.0):
-	if enemy:
-		print(enemy.name, ": ", state, " -> ", new_state, " | dur: ", duration)
-	
 	state = new_state
 	state_timer = duration
 	
@@ -338,7 +335,7 @@ func take_damage(damage:float) -> void:
 	if enemy.health <= 0.0:
 		die()
 
-func die() -> void:
+func die(drop_loot: bool = true) -> void:
 	set_collision_layer_value(13, false)
 	$Collision.disabled = true
 	
@@ -352,7 +349,10 @@ func die() -> void:
 			child.queue_free()
 	
 	GameStats.enemies_killed +=1
-	LootDatabase.drop_loot(self)
+	
+	if drop_loot:
+		LootDatabase.drop_loot(self)
+	
 	return_to_pool()
 
 func return_to_pool() -> void:
