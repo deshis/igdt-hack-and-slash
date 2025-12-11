@@ -737,8 +737,10 @@ func _on_heavy_attack_area_entered(area: Area3D) -> void:
 		deal_stat_damage(area, secondary_attack_active_debuff)
 
 func _on_health_radius_area_entered(area: Area3D) -> void:
-	# TODO: proper heal amount
-	heal(2.0)
+	var diff = GameManager.spawner.diff
+	var heal_amount = 1.5 + diff.get_difficulty() * diff.heal_amount_per_level
+	heal(heal_amount)
+	
 	SoundManager.play_sfx("heal", global_position)
 	area.queue_free()
 
@@ -751,7 +753,8 @@ func _on_loot_radius_area_exited(area: Area3D) -> void:
 
 func _on_hit_flash_timeout() -> void:
 	hit_flash.set_shader_parameter('strength',0.0)
-
+	$Hurtbox/Box.disabled = true
+	$Hurtbox/Box.disabled = false
 
 func _on_dash_attack_hitbox_area_entered(area: Area3D) -> void:
 	if attack_during_dash == false:
