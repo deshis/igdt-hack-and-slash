@@ -83,43 +83,52 @@ func _generate():
 		if points+flow>=8:
 			self.set_cell_item(Vector3i(cell.x,1,cell.y),1)
 
-	for cell in light_loc:
-		
-		var light_instance:Node3D = $"../../../Light".duplicate(8)
-		$"../Lights".add_child(light_instance)
-		light_instance.global_position=	self.map_to_local((Vector3(cell.x,3,cell.y)))
-		var orient = [	self.get_cell_item((Vector3(cell.x-1,2,cell.y))), 
-						self.get_cell_item((Vector3(cell.x+1,2,cell.y))),
-		 				self.get_cell_item((Vector3(cell.x,2,cell.y-1))), 
-						self.get_cell_item((Vector3(cell.x,2,cell.y+1)))]
-		if orient[0]==2:
-			light_instance.rotate_y(0)
-		if orient[1]==2:
-			light_instance.rotate_y(deg_to_rad(180))
-		if orient[2]==2:
-			light_instance.rotate_y(deg_to_rad(270))
-		if orient[3]==2:
-			light_instance.rotate_y(deg_to_rad(90))
 
 
 	
 	print_debug(texture.height)
 	print("gridmap done!")
 	#bake_gridmap_navmesh()
-	
+	dupe_light()
 	#_generate_grass()
 	#print("grass done!")
 	#enemy_spawner.start_spawner()
+
+func dupe_light():
+	
+	for cell in grid_2d.get_used_cells():
+		if grid_2d.get_cell_atlas_coords(cell)==Vector2i(23,0):
+			
+			var light_instance:Node3D = $"../../../Light".duplicate(8)
+			$"../Lights".add_child(light_instance)
+			light_instance.global_position=	self.map_to_local((Vector3(cell.x,3,cell.y)))
+			var orient = [	self.get_cell_item((Vector3(cell.x-1,2,cell.y))), 
+						self.get_cell_item((Vector3(cell.x+1,2,cell.y))),
+		 				self.get_cell_item((Vector3(cell.x,2,cell.y-1))), 
+						self.get_cell_item((Vector3(cell.x,2,cell.y+1)))]
+			if orient[0]==2:
+				light_instance.rotate_y(0)
+			if orient[1]==2:
+				light_instance.rotate_y(deg_to_rad(180))
+			if orient[2]==2:
+				light_instance.rotate_y(deg_to_rad(270))
+			if orient[3]==2:
+				light_instance.rotate_y(deg_to_rad(90))
+
+
+
 
 func bake_gridmap_navmesh():
 	get_parent().bake_navigation_mesh(true)
 	print("navmesh done!")
 
 
+
+
 func _enter_tree():
 	pass
-
-#func _ready():
+func _ready():
+	dupe_light()
 	#grid_2d.visible=false
 	#_generate() #This is called the engine even touches the file becaus of the "tool" tag
 	#_generate_grass() #Place the grass when loaded
