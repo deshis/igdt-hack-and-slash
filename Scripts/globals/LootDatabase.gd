@@ -1,59 +1,97 @@
 extends Node
 
 var consumer_items := [
-	preload("res://Scripts/items/consumer/Axe.tres"),
-	preload("res://Scripts/items/consumer/BrokenNeedle.tres"),
+	# SURVIVABILITY
 	preload("res://Scripts/items/consumer/ChromaticChassis.tres"),
-	preload("res://Scripts/items/consumer/ChromeTippedSpear.tres"),
-	preload("res://Scripts/items/consumer/CrystalShell.tres"),
-	preload("res://Scripts/items/consumer/Dagger.tres"),
-	preload("res://Scripts/items/consumer/DashInverter.tres"),
-	preload("res://Scripts/items/consumer/Maul.tres"),
-	preload("res://Scripts/items/consumer/OneLeafClover.tres"),
-	preload("res://Scripts/items/consumer/QuantumGlove.tres"),
+	
+	# MOVEMENT
 	preload("res://Scripts/items/consumer/SpringedBoots.tres"),
 	preload("res://Scripts/items/consumer/UnderclockedExoskeleton.tres"),
+	
+	# UTILITY
+	preload("res://Scripts/items/consumer/CrystalShell.tres"),
+	preload("res://Scripts/items/consumer/DashInverter.tres"),
+	preload("res://Scripts/items/consumer/OneLeafClover.tres"),
+	preload("res://Scripts/items/consumer/QuantumGlove.tres"),
+	
+	# DAMAGE
+	preload("res://Scripts/items/consumer/BrokenNeedle.tres"),
+	preload("res://Scripts/items/consumer/TestActiveItem.tres"),
+	
+	# ACTIVE_ITEM
 	preload("res://Scripts/items/consumer/UsedNeuroblockers.tres"),
-	preload("res://Scripts/items/consumer/TestActiveItem.tres")
+	
+	# PRIMARY_ATTACK
+	preload("res://Scripts/items/consumer/ChromeTippedSpear.tres"),
+	preload("res://Scripts/items/consumer/Dagger.tres"),
+	
+	# SECONDARY_ATTACK
+	preload("res://Scripts/items/consumer/Axe.tres"),
+	preload("res://Scripts/items/consumer/Maul.tres"),
 ]
 
 var military_items := [
-	preload("res://Scripts/items/military/BlackBurner.tres"),
-	preload("res://Scripts/items/military/DashLimiter.tres"),
-	preload("res://Scripts/items/military/DashReplicator.tres"),
-	preload("res://Scripts/items/military/EMP.tres"),
-	preload("res://Scripts/items/military/EnergyConverter.tres"),
-	preload("res://Scripts/items/military/Exoskeleton.tres"),
-	preload("res://Scripts/items/military/HomeMadeClover.tres"),
-	preload("res://Scripts/items/military/Katana.tres"),
-	preload("res://Scripts/items/military/LaserFlail.tres"),
-	preload("res://Scripts/items/military/LaserSensor.tres"),
-	preload("res://Scripts/items/military/NanomendedNeedle.tres"),
-	preload("res://Scripts/items/military/NanoShell.tres"),
-	preload("res://Scripts/items/military/NanoSpear.tres"),
+	# SURVIVABILITY
 	preload("res://Scripts/items/military/PlasteelChassis.tres"),
-	preload("res://Scripts/items/military/PlasteelToolbelt.tres"),
-	preload("res://Scripts/items/military/QualityNeuroblockers.tres"),
 	preload("res://Scripts/items/military/SecondHeart.tres"),
-	preload("res://Scripts/items/military/SingularityGlove.tres"),
+	
+	# MOVEMENT
+	preload("res://Scripts/items/military/Exoskeleton.tres"),
 	preload("res://Scripts/items/military/SpringedPlasteelBoots.tres"),
 	
+	# UTILITY
+	preload("res://Scripts/items/military/DashLimiter.tres"),
+	preload("res://Scripts/items/military/MilitaryClover.tres"),
+	preload("res://Scripts/items/military/NanoShell.tres"),
+	preload("res://Scripts/items/military/PlasteelToolbelt.tres"),
+	preload("res://Scripts/items/military/SingularityGlove.tres"),
+	
+	# DAMAGE
+	preload("res://Scripts/items/military/BlackBurner.tres"),
+	preload("res://Scripts/items/military/EnergyConverter.tres"),
+	preload("res://Scripts/items/military/LaserSensor.tres"),
+	preload("res://Scripts/items/military/NanomendedNeedle.tres"),
+	
+	# ACTIVE_ITEM
+	preload("res://Scripts/items/military/DashReplicator.tres"),
+	preload("res://Scripts/items/military/EMP.tres"),
+	preload("res://Scripts/items/military/QualityNeuroblockers.tres"),
+	
+	# PRIMARY_ATTACK
+	preload("res://Scripts/items/military/Katana.tres"),
+	preload("res://Scripts/items/military/NanoSpear.tres"),
+	
+	# SECONDARY_ATTACK
+	preload("res://Scripts/items/military/LaserFlail.tres"),
 ]
 
 var prototype_items := [
-	preload("res://Scripts/items/prototype/ArcFlash.tres"),
+	# SURVIVABILITY
+	preload("res://Scripts/items/prototype/SpectriteChassis.tres"),
+	
+	# MOVEMENT
 	preload("res://Scripts/items/prototype/Arievistan.tres"),
-	preload("res://Scripts/items/prototype/CloverLOA.tres"),
-	preload("res://Scripts/items/prototype/EnergyConverterMk2.tres"),
-	preload("res://Scripts/items/prototype/Labrys.tres"),
 	preload("res://Scripts/items/prototype/OverclockedExoskeleton.tres"),
 	preload("res://Scripts/items/prototype/PlasmiumSensor.tres"),
+	
+	# UTILITY
+	preload("res://Scripts/items/prototype/CloverLOA.tres"),
 	preload("res://Scripts/items/prototype/PlasmiumToolbelt.tres"),
-	preload("res://Scripts/items/prototype/RealityFracture.tres"),
-	preload("res://Scripts/items/prototype/SpectriteChassis.tres"),
-	preload("res://Scripts/items/prototype/SpectriteNeedle.tres"),
 	preload("res://Scripts/items/prototype/SpectriteShell.tres"),
+	
+	# DAMAGE
+	preload("res://Scripts/items/prototype/EnergyConverterMk2.tres"),
+	preload("res://Scripts/items/prototype/SpectriteNeedle.tres"),
+	
+	# ACTIVE_ITEM
+	preload("res://Scripts/items/prototype/RealityFracture.tres"),
+	
+	# PRIMARY_ATTACK
+	preload("res://Scripts/items/prototype/ArcFlash.tres"),
 	preload("res://Scripts/items/prototype/Statstick.tres"),
+	
+	# SECONDARY_ATTACK
+	preload("res://Scripts/items/prototype/Labrys.tres"),
 ]
 
 var type_colors := {

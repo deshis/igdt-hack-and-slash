@@ -20,7 +20,6 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 script = ExtResource("3_n4ceq")
 item_name = "Chromatic Chassis"
 type = 1
-grade = 1
 icon = ExtResource("2_yuiqv")
 effects = Array[ExtResource("1_yuiqv")]([SubResource("Resource_7khyf"), SubResource("Resource_pka6w")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"
