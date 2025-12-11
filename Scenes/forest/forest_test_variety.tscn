@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://b8ltultvngxjd"]
 
-[ext_resource type="MeshLibrary" uid="uid://dj0d0nallr0i8" path="res://Scenes/forest/forest_tiles.tres" id="4_75ju8"]
+[ext_resource type="MeshLibrary" uid="uid://dmlquukja72gu" path="res://Scenes/forest/forest_tiles.tres" id="4_75ju8"]
 [ext_resource type="Script" uid="uid://d2y77kkedf6o6" path="res://Scenes/forest/grid_map.gd" id="6_6ihb0"]
 [ext_resource type="Script" uid="uid://bshiktda2qqip" path="res://Scripts/camera_follow.gd" id="6_75ju8"]
 [ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="7_8rgxd"]

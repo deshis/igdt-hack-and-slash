@@ -13,12 +13,15 @@ var consumer_items := [
 	preload("res://Scripts/items/consumer/QuantumGlove.tres"),
 	preload("res://Scripts/items/consumer/SpringedBoots.tres"),
 	preload("res://Scripts/items/consumer/UnderclockedExoskeleton.tres"),
+	preload("res://Scripts/items/consumer/UsedNeuroblockers.tres"),
 	preload("res://Scripts/items/consumer/TestActiveItem.tres")
 ]
 
 var military_items := [
+	preload("res://Scripts/items/military/BlackBurner.tres"),
 	preload("res://Scripts/items/military/DashLimiter.tres"),
 	preload("res://Scripts/items/military/DashReplicator.tres"),
+	preload("res://Scripts/items/military/EMP.tres"),
 	preload("res://Scripts/items/military/EnergyConverter.tres"),
 	preload("res://Scripts/items/military/Exoskeleton.tres"),
 	preload("res://Scripts/items/military/HomeMadeClover.tres"),
@@ -30,18 +33,25 @@ var military_items := [
 	preload("res://Scripts/items/military/NanoSpear.tres"),
 	preload("res://Scripts/items/military/PlasteelChassis.tres"),
 	preload("res://Scripts/items/military/PlasteelToolbelt.tres"),
+	preload("res://Scripts/items/military/QualityNeuroblockers.tres"),
 	preload("res://Scripts/items/military/SecondHeart.tres"),
+	preload("res://Scripts/items/military/SingularityGlove.tres"),
+	preload("res://Scripts/items/military/SpringedPlasteelBoots.tres"),
+	
 ]
 
 var prototype_items := [
 	preload("res://Scripts/items/prototype/ArcFlash.tres"),
+	preload("res://Scripts/items/prototype/Arievistan.tres"),
 	preload("res://Scripts/items/prototype/CloverLOA.tres"),
 	preload("res://Scripts/items/prototype/EnergyConverterMk2.tres"),
 	preload("res://Scripts/items/prototype/Labrys.tres"),
 	preload("res://Scripts/items/prototype/OverclockedExoskeleton.tres"),
 	preload("res://Scripts/items/prototype/PlasmiumSensor.tres"),
 	preload("res://Scripts/items/prototype/PlasmiumToolbelt.tres"),
+	preload("res://Scripts/items/prototype/RealityFracture.tres"),
 	preload("res://Scripts/items/prototype/SpectriteChassis.tres"),
+	preload("res://Scripts/items/prototype/SpectriteNeedle.tres"),
 	preload("res://Scripts/items/prototype/SpectriteShell.tres"),
 	preload("res://Scripts/items/prototype/Statstick.tres"),
 ]

@@ -41,7 +41,7 @@ const STAT_BEHAVIOR := {
 	Stats.Stat.PRIMARY_CHECK: { },
 	
 	Stats.Stat.DASH_COOLDOWN: { DESC: "dash cooldown", INV_SCALE: true, PERCENT: true, RELATIVE: true },
-	Stats.Stat.DASH_LENGTH: { DESC: "dash length", PERCENT: true, RELATIVE: true },
+	Stats.Stat.DASH_LENGTH: { DESC: "dash duration", PERCENT: true, RELATIVE: true },
 	Stats.Stat.DASH_SPEED: { },
 	
 	Stats.Stat.CRIT_CHANCE: { DESC: "critical chance", PERCENT: true },

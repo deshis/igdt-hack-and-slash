@@ -46,11 +46,16 @@ enum Stat {
 	LOOT_DROP_CHANCE,
 	LOOT_RARITY_INC_PERCENT,
 	PICKUP_LOOT_AMOUNT,
+	
 	ACTIVE_EFFECT,
+	
 	LIGHT_DOT_CHANCE,
 	HEAVY_DOT_CHANCE,
 	LIGHT_DEBUFF_CHANCE,
-	HEAVY_DEBUFF_CHANCE
+	HEAVY_DEBUFF_CHANCE,
+	
+	DASH_TURNING,
+	DASH_ATTACK,
 	}
 
 func apply_effect(player) -> void:
@@ -140,7 +145,13 @@ func apply_effect(player) -> void:
 			player.light_debuff_chance += value
 		Stat.HEAVY_DEBUFF_CHANCE:
 			player.heavy_debuff_chance += value
-			
+		
+		Stat.DASH_TURNING:
+			player.move_during_dash = true
+		Stat.DASH_ATTACK:
+			player.dash_attack_mult += value
+			player.attack_during_dash = true
+
 func remove_effect(player) -> void:
 	match stat_type:
 		
@@ -229,3 +240,8 @@ func remove_effect(player) -> void:
 			player.light_debuff_chance -= value
 		Stat.HEAVY_DEBUFF_CHANCE:
 			player.heavy_debuff_chance -= value
+		Stat.DASH_TURNING:
+			player.move_during_dash = false
+		Stat.DASH_ATTACK:
+			player.dash_attack_mult -= value
+			player.attack_during_dash = false
