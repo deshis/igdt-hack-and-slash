@@ -618,8 +618,7 @@ func take_damage(damage:float, enemy: EnemyController, ignore_invulnerability: b
 	if not ignore_invulnerability:
 		hit_flash_timer.start(hit_flash_duration)
 		hit_flash.set_shader_parameter('strength', 1.0)
-	
-	hitstop(hitstop_duration)
+		hitstop(hitstop_duration)
 	
 	# thorns
 	if thorns_percent > 0:

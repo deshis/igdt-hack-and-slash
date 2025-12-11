@@ -46,5 +46,5 @@ attack_type = 2
 weapon_type = 3
 weapon_mesh = ExtResource("5_mkab5")
 icon = ExtResource("3_mkab5")
-effects = Array[ExtResource("1_7x0q4")]([SubResource("Resource_8whnk"), SubResource("Resource_6jpnv"), SubResource("Resource_vrl5g"), SubResource("Resource_as8ef"), SubResource("Resource_s6lyc")])
+effects = Array[ExtResource("1_7x0q4")]([SubResource("Resource_8whnk"), SubResource("Resource_6jpnv"), SubResource("Resource_vrl5g"), SubResource("Resource_as8ef"), SubResource("Resource_s6lyc"), null])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

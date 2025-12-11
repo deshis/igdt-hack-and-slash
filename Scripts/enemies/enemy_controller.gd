@@ -122,6 +122,9 @@ func _physics_process(delta: float) -> void:
 
 
 func change_state(new_state: String, duration := 0.0):
+	if enemy:
+		print(enemy.name, ": ", state, " -> ", new_state, " | dur: ", duration)
+	
 	state = new_state
 	state_timer = duration
 	
