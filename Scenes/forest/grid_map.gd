@@ -13,7 +13,7 @@ extends GridMap # Straight from another project :D
 @export_tool_button("clear map") var clr = _clear
 
 @export var ground_map: GridMap
-@export var noise_scale: int
+@export var noise_scale: int =6
 @export var noise_sharp: FastNoiseLite
 @export var noise_gradual: FastNoiseLite
 
@@ -44,6 +44,9 @@ func _generate():
 	var tex_width = texture.width / noise_scale
 	var tex_height = texture.height / noise_scale
 	
+	
+
+	
 	var xi=tex_height/2
 	var yj=tex_width/2
 	for i in tex_height:
@@ -51,18 +54,29 @@ func _generate():
 			var flow:int = noiseImage.get_pixel(i,j).r * height
 			var points:int = noisePeaks.get_pixel(i,j).r * height
 			
+
+	
+
 			var loc=Vector3(i-xi,0,j-yj)
+			if abs(loc.x)==xi:
+				points=0
+			if abs(loc.z)==yj:
+				points=height-1
 			ground_map.set_cell_item(loc,0)
 			
-			var rot = get_orthogonal_index_from_basis(Basis(Vector3.UP, PI*randi()*2.0))
-			if points >= 8:
-				self.set_cell_item(loc,3, rot)
-			elif points <= 1:
-				self.set_cell_item(loc,4, rot)
 			
-			if flow >= 6:
+			var rot = get_orthogonal_index_from_basis(Basis(Vector3.UP, PI*randi()*2.0))
+			loc.y+=1
+			if abs(loc.x)>=2 or (abs(loc.z)>=2):
+				if points == 0:
+					self.set_cell_item(loc,3, rot)
+				elif points == height-1:
+					self.set_cell_item(loc,4, rot)
+			
+			loc.y=0
+			if flow >= height-3:
 				self.set_cell_item(loc,2)
-			elif flow <= 3:
+			elif flow <= 2:
 				self.set_cell_item(loc,1)
 	
 	print_debug(texture.height)
