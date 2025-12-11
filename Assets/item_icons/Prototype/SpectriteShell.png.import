@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmnium7lqfhos"
-path.s3tc="res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"
+uid="uid://dw1rcq5auavmi"
+path.s3tc="res://.godot/imported/SpectriteShell.png-33c219dcd65c4476306041aa05707931.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/item_icons/Military/NanoShell.png"
-dest_files=["res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"]
+source_file="res://Assets/item_icons/Prototype/SpectriteShell.png"
+dest_files=["res://.godot/imported/SpectriteShell.png-33c219dcd65c4476306041aa05707931.s3tc.ctex"]
 
 [params]
 

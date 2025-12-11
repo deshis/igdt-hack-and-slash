@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=8 format=3 uid="uid://i6qucaqclet7"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_r6i3b"]
-[ext_resource type="Texture2D" uid="uid://dxdkt76vmq0em" path="res://Assets/icon.svg" id="2_korwy"]
+[ext_resource type="Texture2D" uid="uid://4xsnv8i23qo6" path="res://Assets/item_icons/Consumer/ChrometippedSpear.png" id="2_r6i3b"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_lng8r"]
 [ext_resource type="ArrayMesh" uid="uid://brngfcfsbf1cp" path="res://Assets/player/weapons/katana.res" id="4_pcrgf"]
 
@@ -30,6 +30,6 @@ type = 6
 attack_type = 1
 weapon_type = 1
 weapon_mesh = ExtResource("4_pcrgf")
-icon = ExtResource("2_korwy")
+icon = ExtResource("2_r6i3b")
 effects = Array[ExtResource("1_r6i3b")]([SubResource("Resource_4h643"), SubResource("Resource_ejw8b"), SubResource("Resource_56f5n")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

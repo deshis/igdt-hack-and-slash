@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmnium7lqfhos"
-path.s3tc="res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"
+uid="uid://odaclt3ed4fh"
+path.s3tc="res://.godot/imported/NanomendedNeedle.png-4067b085450bbd715a4d2c8a71b0679c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/item_icons/Military/NanoShell.png"
-dest_files=["res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"]
+source_file="res://Assets/item_icons/Military/NanomendedNeedle.png"
+dest_files=["res://.godot/imported/NanomendedNeedle.png-4067b085450bbd715a4d2c8a71b0679c.s3tc.ctex"]
 
 [params]
 

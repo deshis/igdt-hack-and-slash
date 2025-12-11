@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmnium7lqfhos"
-path.s3tc="res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"
+uid="uid://ct12kmtuvbpq6"
+path.s3tc="res://.godot/imported/SingularityGloves.png-95fb0d2b83bb83e9cb2e2d82d8701960.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/item_icons/Military/NanoShell.png"
-dest_files=["res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"]
+source_file="res://Assets/item_icons/Military/SingularityGloves.png"
+dest_files=["res://.godot/imported/SingularityGloves.png-95fb0d2b83bb83e9cb2e2d82d8701960.s3tc.ctex"]
 
 [params]
 

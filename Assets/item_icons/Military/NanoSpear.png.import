@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmnium7lqfhos"
-path.s3tc="res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"
+uid="uid://codu1e4vdgmjv"
+path.s3tc="res://.godot/imported/NanoSpear.png-d65d63b8d213425ddfd583bd6cdb3f45.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/item_icons/Military/NanoShell.png"
-dest_files=["res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"]
+source_file="res://Assets/item_icons/Military/NanoSpear.png"
+dest_files=["res://.godot/imported/NanoSpear.png-d65d63b8d213425ddfd583bd6cdb3f45.s3tc.ctex"]
 
 [params]
 

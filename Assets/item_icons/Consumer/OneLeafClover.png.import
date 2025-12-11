@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmnium7lqfhos"
-path.s3tc="res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"
+uid="uid://p4lfqkp2eylq"
+path.s3tc="res://.godot/imported/OneLeafClover.png-7b2e4c2154a22a2c5a75a4ea591c4044.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/item_icons/Military/NanoShell.png"
-dest_files=["res://.godot/imported/NanoShell.png-ebf12f295b04bb2b40332b954fe5703d.s3tc.ctex"]
+source_file="res://Assets/item_icons/Consumer/OneLeafClover.png"
+dest_files=["res://.godot/imported/OneLeafClover.png-7b2e4c2154a22a2c5a75a4ea591c4044.s3tc.ctex"]
 
 [params]
 
