@@ -28,8 +28,8 @@ func player_dead()->void:
 	time_alive.append_text(yellow_text(seconds_to_minute_and_seconds(GameStats.time_alive_seconds)))
 	stages_cleared.append_text(yellow_text(str(GameStats.stages_cleared)))
 	enemies_killed.append_text(yellow_text(str(GameStats.enemies_killed)))
-	damage_dealt.append_text(yellow_text(str(GameStats.total_damage_dealt)))
-	damage_taken.append_text(yellow_text(str(GameStats.total_damage_taken)))
+	damage_dealt.append_text(yellow_text(str(snapped(GameStats.total_damage_dealt, 0.01))))
+	damage_taken.append_text(yellow_text(str(snapped(GameStats.total_damage_taken, 0.01))))
 	items_picked_up.append_text(yellow_text(str(GameStats.items_picked_up)))
 	
 	cause_of_death.append_text(red_text(GameStats.player_last_hit_by))

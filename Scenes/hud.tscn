@@ -356,9 +356,9 @@ anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 166.0
-offset_top = 310.0
+offset_top = 350.0
 offset_right = 250.0
-offset_bottom = 394.0
+offset_bottom = 434.0
 grow_horizontal = 1
 grow_vertical = 1
 script = ExtResource("9_pbtju")
@@ -371,9 +371,9 @@ anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 623.0
-offset_top = 310.0
+offset_top = 350.0
 offset_right = 707.0
-offset_bottom = 394.0
+offset_bottom = 434.0
 grow_horizontal = 1
 grow_vertical = 1
 script = ExtResource("9_pbtju")
@@ -385,10 +385,10 @@ layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 600.0
-offset_top = 455.0
-offset_right = 684.0
-offset_bottom = 539.0
+offset_left = 397.0
+offset_top = 143.0
+offset_right = 481.0
+offset_bottom = 227.0
 grow_horizontal = 1
 grow_vertical = 1
 script = ExtResource("9_pbtju")
@@ -447,31 +447,37 @@ default_color = Color(0.4506483, 0.4506483, 0.45064825, 1)
 
 [node name="Line2D2" type="Line2D" parent="Inventory/Panel2/lines"]
 position = Vector2(-270, 5)
-points = PackedVector2Array(1179, 224, 1299, 224, 1299, 180)
+points = PackedVector2Array(1177, 321, 1299, 321, 1299, 180)
 width = 2.0
 default_color = Color(0.4506483, 0.4506483, 0.45064825, 1)
 
 [node name="Line2D3" type="Line2D" parent="Inventory/Panel2/lines"]
 position = Vector2(-244, 3)
-points = PackedVector2Array(1096, 375, 1029, 375, 1029, 304, 964, 304)
+points = PackedVector2Array(1096, 375, 1029, 375, 1029, 343, 964, 343)
 width = 2.0
 default_color = Color(0.4506483, 0.4506483, 0.45064825, 1)
 
 [node name="Line2D4" type="Line2D" parent="Inventory/Panel2/lines"]
-position = Vector2(-250, 3)
-points = PackedVector2Array(1344, 306, 1284, 306, 1284, 374, 1211, 374)
+position = Vector2(-250, 4)
+points = PackedVector2Array(1344, 343, 1296, 343, 1296, 374, 1211, 374)
 width = 2.0
 default_color = Color(0.4506483, 0.4506483, 0.45064825, 1)
 
 [node name="Line2D5" type="Line2D" parent="Inventory/Panel2/lines"]
 position = Vector2(-253, 11)
-points = PackedVector2Array(1196, 495, 1281, 495, 1281, 541)
+points = PackedVector2Array(1196, 495, 1218, 495, 1218, 578, 1240, 578)
 width = 2.0
 default_color = Color(0.4506483, 0.4506483, 0.45064825, 1)
 
 [node name="Line2D6" type="Line2D" parent="Inventory/Panel2/lines"]
 position = Vector2(-251, 2)
-points = PackedVector2Array(1124, 406, 1034, 406, 1034, 550)
+points = PackedVector2Array(1124, 406, 1100, 406, 1100, 587, 1075, 587)
+width = 2.0
+default_color = Color(0.4506483, 0.4506483, 0.45064825, 1)
+
+[node name="Line2D7" type="Line2D" parent="Inventory/Panel2/lines"]
+position = Vector2(-250, 0)
+points = PackedVector2Array(1157, 225, 1157, 183)
 width = 2.0
 default_color = Color(0.4506483, 0.4506483, 0.45064825, 1)
 
