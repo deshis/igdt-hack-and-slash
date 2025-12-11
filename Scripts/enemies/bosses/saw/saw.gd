@@ -214,7 +214,7 @@ func get_pos(start_pos: Vector3, radius_min: float, radius_max: float) -> Vector
 	return start_pos
 
 func die(drop_loot: bool = true) -> void:
-	GameManager.boss_killed()
+	GameManager.boss_killed(self)
 	super.die(drop_loot)
 
 func _on_navigation_agent_3d_target_reached() -> void:

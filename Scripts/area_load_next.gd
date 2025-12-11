@@ -18,7 +18,7 @@ func _physics_process(_delta: float) -> void:
 		return
 	
 	var dist = global_position.distance_to(player.global_position)
-	if dist < 3.0:
+	if dist < 2.0:
 		label.visible = true
 	else:
 		label.visible = false
@@ -26,21 +26,8 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact") and player_on_portal:
 		GameManager.load_next_stage()
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	if body.name == "Player":
-		player_on_portal = true
+func _on_area_3d_area_entered(_area: Area3D) -> void:
+	player_on_portal = true
 
-
-func _on_area_3d_body_exited(body: Node3D) -> void:
-	if body.name == "Player":
-		player_on_portal = false
-
-
-func _on_area_3d_2_body_entered(body: Node3D) -> void:
-	_on_area_3d_body_entered(body)
-	pass # Replace with function body.
-
-
-func _on_area_3d_2_body_exited(body: Node3D) -> void:
-	_on_area_3d_body_exited(body)
-	pass # Replace with function body.
+func _on_area_3d_area_exited(_area: Area3D) -> void:
+	player_on_portal = false

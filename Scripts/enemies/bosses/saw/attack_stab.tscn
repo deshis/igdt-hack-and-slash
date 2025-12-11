@@ -7,6 +7,8 @@ size = Vector3(2, 1, 2)
 
 [node name="Attack4" type="Node3D"]
 script = ExtResource("1_5s7rs")
+damage = 3.5
+damage_per_level = 0.25
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16384
