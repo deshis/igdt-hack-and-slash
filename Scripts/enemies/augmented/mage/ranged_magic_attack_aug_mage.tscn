@@ -70,7 +70,7 @@ duration = 1.0
 follow = false
 
 [node name="Circle" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.2, 0)
 material_override = SubResource("ShaderMaterial_fkiw7")
 mesh = ExtResource("5_hvumg")
 
@@ -78,6 +78,7 @@ mesh = ExtResource("5_hvumg")
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 visible = false
 material_override = SubResource("ShaderMaterial_iru8m")
+custom_aabb = AABB(0, 0.2, 0, 0, 0, 0)
 mesh = ExtResource("7_srh7b")
 
 [node name="Area3D" type="Area3D" parent="."]

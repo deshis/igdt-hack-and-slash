@@ -5,6 +5,8 @@ extends Attack
 @export var arc_angle_min := 270.0
 @export var arc_angle_max := 360.0
 
+@export var rot_speed := 20
+
 var previous_pos = null
 var speed := 0.0
 
@@ -36,6 +38,8 @@ func _ready() -> void:
 	super._ready()
 
 func _physics_process(delta: float) -> void:
+	rotate(Vector3.UP, rot_speed*delta)
+	
 	match state:
 		ARC:
 			process_arc()

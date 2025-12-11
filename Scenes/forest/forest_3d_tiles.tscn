@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://duet844vmtf2j"]
 
 [ext_resource type="Shader" uid="uid://dp6r0lqa6n5ym" path="res://Scenes/forest/shaders/rocks.gdshader" id="1_yf8mt"]
-[ext_resource type="ArrayMesh" uid="uid://bnyrf6k2hc5eg" path="res://Assets/environment/oak.res" id="3_3qjtn"]
-[ext_resource type="ArrayMesh" uid="uid://etplq04rxays" path="res://Assets/environment/birch.res" id="4_4he0s"]
+[ext_resource type="ArrayMesh" uid="uid://bq0i8mwy103dg" path="res://Assets/environment/oak.res" id="3_3qjtn"]
+[ext_resource type="ArrayMesh" uid="uid://cgg3w75et62gh" path="res://Assets/environment/birch.res" id="4_4he0s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf8mt"]
 shading_mode = 0
@@ -29,7 +29,7 @@ subdivide_depth = 10
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ipqgg"]
 height = 3.0
-radius = 0.905
+radius = 0.25
 
 [node name="Forest3dTiles" type="Node3D"]
 
@@ -43,7 +43,6 @@ mesh = SubResource("PlaceholderMesh_vxg0n")
 mesh = SubResource("PlaneMesh_c5hpj")
 
 [node name="oak" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
 mesh = ExtResource("3_3qjtn")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="oak"]
@@ -53,7 +52,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CylinderShape3D_ipqgg")
 
 [node name="birch" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1.25, 0, 0, 0, 1, 0, 0, 0)
 mesh = ExtResource("4_4he0s")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="birch"]

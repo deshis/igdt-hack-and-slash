@@ -27,12 +27,19 @@ var flee_duration := 0.0
 
 @export var boomerang_attack_scene: PackedScene
 @export var boomerang_attack_windup_duration := 0.1
+@export var boomerang_attack_duration := 0.1
+
+@export var attack_duration := 0.5
+
+@onready var right_saw = $model/rig/Skeleton3D/RightHand/Saw
 
 var enemy_spawner = null
 
+const ATTACK_WINDUP = "attack_windup"
 const FLEE = "flee"
 const SUMMON_ADS = "summon_ads"
 const FACE_PLAYER = "face_player"
+const BOOMERANG_WINDUP = "boomerang_windup"
 const BOOMERANG_ATTACK = "boomerang_attack"
 
 var attack_after_facing = ATTACK
@@ -40,15 +47,6 @@ var attack_after_facing = ATTACK
 func _ready() -> void:
 	super._ready()
 	enemy_spawner = GameManager.current_stage.get_node("EnemySpawner")
-	
-	var mesh_instance = $"model/rig/Skeleton3D/Microbot"
-	var base_mat = mesh_instance.mesh.surface_get_material(0)
-	var unique_mat = base_mat.duplicate()
-	var next_pass_base = hit_flash_material
-	var next_pass_unique = next_pass_base.duplicate()
-	unique_mat.next_pass = next_pass_unique
-	mesh_instance.set_surface_override_material(0, unique_mat)
-	hit_flash = next_pass_unique
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -56,6 +54,8 @@ func _physics_process(delta: float) -> void:
 	flee_duration -= delta
 	
 	match state:
+		ATTACK_WINDUP:
+			process_attack_windup()
 		FLEE:
 			process_flee(delta)
 		
@@ -67,19 +67,41 @@ func _physics_process(delta: float) -> void:
 		
 		BOOMERANG_ATTACK:
 			process_boomerang_attack()
+		
+		BOOMERANG_WINDUP:
+			process_boomerang_windup()
 
 func change_state(new_state: String, duration := 0.0):
 	super.change_state(new_state, duration)
 	
+	#print_debug("State: " + str(new_state) + ", Duration: " + str(duration))
+	
 	match state:
+		COOLDOWN, IDLE:
+			animator.play("Idle")
+		
+		ATTACK_WINDUP:
+			animator.play("Attack")
+		
+		BOOMERANG_WINDUP:
+			animator.play("AttackBoomerang")
+		
 		NAVIGATE:
+			animator.play("Track")
 			navigation_time = 0
 		
 		FLEE:
+			animator.play("Track")
 			flee_duration = randf_range(flee_duration_min, flee_duration_max)
-		
+			
 		SUMMON_ADS, BOOMERANG_ATTACK:
 			target_provider = TargetSelf.new()
+
+func process_attack_windup():
+	if state_timer > 0:
+		return
+	perform_attack(attack)
+	change_state(ATTACK, attack_duration)
 
 func process_idle() -> void:
 	var rng = randi() % 2
@@ -130,21 +152,30 @@ func process_face_player(delta: float) -> void:
 	if state_timer < 0:
 		match attack_after_facing:
 			ATTACK:
-				change_state(BOOMERANG_ATTACK, boomerang_attack_windup_duration)
+				change_state(BOOMERANG_WINDUP, boomerang_attack_windup_duration)
 				return
 				
 			BOOMERANG_ATTACK:
-				change_state(ATTACK, attack_windup_duration)
+				change_state(ATTACK_WINDUP, attack_windup_duration)
 				return
 		
 		change_state(IDLE)
+
+func process_boomerang_windup() -> void:
+	if state_timer > 0:
+		return
+	
+	right_saw.visible = false
+	perform_attack(boomerang_attack_scene, Vector3(right_saw.get_parent().global_position.x, 0, right_saw.get_parent().global_position.z))
+	change_state(BOOMERANG_ATTACK, boomerang_attack_duration)
 
 func process_boomerang_attack() -> void:
 	if state_timer > 0:
 		return
 	
-	perform_attack(boomerang_attack_scene)
+	right_saw.visible = true
 	change_state(COOLDOWN, cooldown_duration)
+
 
 func perform_melee_attack() -> void:
 	if randi() % 2 == 0:
@@ -183,3 +214,6 @@ func get_pos(start_pos: Vector3, radius_min: float, radius_max: float) -> Vector
 func die() -> void:
 	GameManager.boss_killed()
 	super.die()
+
+func _on_navigation_agent_3d_target_reached() -> void:
+	pass

@@ -2613,12 +2613,14 @@ mesh = SubResource("ArrayMesh_qc78s")
 skeleton = NodePath("")
 
 [node name="KickTrail" type="MeshInstance3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 visible = false
 material_override = SubResource("ShaderMaterial_y36al")
 mesh = SubResource("ArrayMesh_sevrn")
 skeleton = NodePath("")
 
 [node name="MaulTrail" type="MeshInstance3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 visible = false
 material_override = ExtResource("11_l71q1")
 mesh = SubResource("ArrayMesh_5sxw2")
