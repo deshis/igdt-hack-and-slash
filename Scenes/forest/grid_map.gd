@@ -66,17 +66,19 @@ func _generate():
 			
 			
 			var rot = get_orthogonal_index_from_basis(Basis(Vector3.UP, PI*randi()*2.0))
-			loc.y+=1
+			loc.y+=2
 			if abs(loc.x)>=2 or (abs(loc.z)>=2):
 				if points == 0:
 					self.set_cell_item(loc,3, rot)
 				elif points == height-1:
 					self.set_cell_item(loc,4, rot)
 			
-			loc.y=0
-			if flow >= height-3:
+
+			if flow+points >= height:
+				loc.y=1
 				self.set_cell_item(loc,2)
 			elif flow <= 2:
+				loc.y=0				
 				self.set_cell_item(loc,1)
 	
 	print_debug(texture.height)
@@ -94,9 +96,9 @@ func _generate_grass():
 	var grass_positions: Array[Transform3D] = []
 
 	for cell in self.get_used_cells():
-		if self.get_cell_item(cell) == 2:
+		if self.get_cell_item(cell) == 1:
 			var tile_center := self.map_to_local(cell)
-
+			
 			for i in range(300):
 				var rand_offset = Vector3(randf() - 0.5,0,randf() - 0.5) * 2.0   # keeps blades within the tile
 
