@@ -51,7 +51,7 @@ var input: Vector2
 var can_dash := true
 var second_dash := false
 var move_during_dash := false
-var attack_during_dash := true
+var attack_during_dash := false
 var dash_attack_mult := 0.0
 
 # ATTACKS
@@ -754,6 +754,9 @@ func _on_hit_flash_timeout() -> void:
 
 
 func _on_dash_attack_hitbox_area_entered(area: Area3D) -> void:
+	if attack_during_dash == false:
+		return
+	
 	var damage = inverse_lerp(0, 30, velocity.length())
 	damage *= dash_attack_mult
 	deal_damage(area, damage)

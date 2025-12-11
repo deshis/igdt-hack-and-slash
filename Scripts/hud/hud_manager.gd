@@ -44,3 +44,8 @@ func get_bar_from_pool() -> Control:
 
 func set_cooldown_icon(icon: Texture2D, item_type: String) -> void:
 	cooldowns.set_icon(icon, item_type)
+
+
+func remove_all_bars() -> void:
+	for bar in health_bar_pool:
+		bar.visible = false
