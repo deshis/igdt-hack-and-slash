@@ -34,3 +34,13 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.name == "Player":
 		player_on_portal = false
+
+
+func _on_area_3d_2_body_entered(body: Node3D) -> void:
+	_on_area_3d_body_entered(body)
+	pass # Replace with function body.
+
+
+func _on_area_3d_2_body_exited(body: Node3D) -> void:
+	_on_area_3d_body_exited(body)
+	pass # Replace with function body.
