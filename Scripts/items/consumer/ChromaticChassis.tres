@@ -22,7 +22,6 @@ metadata/__load_path__ = "res://Assets/item_icons/Military/ChromaticChassis.png"
 script = ExtResource("3_n4ceq")
 item_name = "Chromatic Chassis"
 type = 1
-grade = 1
 icon = SubResource("Resource_fwvlh")
 effects = Array[ExtResource("1_yuiqv")]([SubResource("Resource_7khyf"), SubResource("Resource_pka6w")])
 metadata/_custom_type_script = "uid://dulvf1v1d8so8"

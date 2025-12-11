@@ -30,6 +30,7 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [resource]
 script = ExtResource("3_0m5rt")
 item_name = "Arievistan"
+item_description = "Allows turning during dash"
 type = 2
 grade = 2
 icon = ExtResource("2_n06mm")
