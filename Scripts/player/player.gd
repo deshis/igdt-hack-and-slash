@@ -49,6 +49,10 @@ var input: Vector2
 @export var dash_duration:= 0.15
 @export var dash_cooldown:= 3.0
 var can_dash := true
+var second_dash := false
+var move_during_dash := false
+var attack_during_dash := true
+var dash_attack_mult := 0.0
 
 # ATTACKS
 @export var attack_light_damage := 1.0
@@ -146,7 +150,8 @@ func _physics_process(delta: float) -> void:
 	
 	state_timer -= delta
 	
-	if state != DASH: update_input()
+	if state != DASH or move_during_dash:
+		update_input()
 	update_state()
 	process_state(delta)
 	
@@ -348,14 +353,12 @@ func update_heavy_attack_hitbox(enabled_type: String = ""):
 func perform_dash():
 	can_dash = false
 	current_speed = dash_speed
-	dash_cooldown_timer.start(dash_cooldown)
-	dash_used.emit(dash_cooldown)
+	if not second_dash:
+		dash_cooldown_timer.start(dash_cooldown)
+		dash_used.emit(dash_cooldown)
 	
-	SoundManager.play_sfx("dash", global_position)
-	
-func perform_second_dash():
-	can_dash = false
-	current_speed = dash_speed
+	if attack_during_dash:
+		$DashAttackHitbox.monitoring = true
 	
 	SoundManager.play_sfx("dash", global_position)
 
@@ -424,9 +427,8 @@ func apply_active_item_effect(active_effect: ActiveEffectResource) -> void:
 			hit_flash_timer.start(value)
 
 		ActiveEffectResource.ActiveType.SECOND_DASH:
-			animator.play("Dash")
-			state_timer = dash_duration
-			perform_second_dash()
+			second_dash = true
+			change_state(DASH)
 			
 		ActiveEffectResource.ActiveType.DAMAGE_AOE:
 			var dot_length = value
@@ -475,6 +477,8 @@ func process_heavy_attack(delta: float) -> void:
 
 func stop_dash() -> void:
 	current_speed = movement_speed
+	second_dash = false
+	$DashAttackHitbox.monitoring = false
 
 func stop_light_attack() -> void:
 	weapon_mesh.mesh = null
@@ -747,3 +751,12 @@ func _on_loot_radius_area_exited(area: Area3D) -> void:
 
 func _on_hit_flash_timeout() -> void:
 	hit_flash.set_shader_parameter('strength',0.0)
+
+
+func _on_dash_attack_hitbox_area_entered(area: Area3D) -> void:
+	var damage = inverse_lerp(0, 30, velocity.length())
+	damage *= dash_attack_mult
+	deal_damage(area, damage)
+	
+	#EMIT HIT PARTICLES
+	GameManager.particles.emit_particles("on_hit", area.global_position)

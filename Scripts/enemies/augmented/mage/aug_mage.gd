@@ -37,6 +37,6 @@ func _on_attack_area_area_entered(_area: Area3D, damage: float = enemy.damage) -
 	
 	# small ranged attack ignores i-frames
 	if _area.get_parent().scene_file_path == ranged_attack_small.resource_path:
-		if player: player.take_damage(damage, self, true)
+		player.take_damage(damage, self, true)
 	else:
-		if player: player.take_damage(damage, self)
+		player.take_damage(damage, self)
