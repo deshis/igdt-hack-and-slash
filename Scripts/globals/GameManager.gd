@@ -13,7 +13,7 @@ var HUD: HudManager = null
 var particles: ParticleManager = null
 var spawner: EnemySpawner = null
 
-var portaldoor= preload("res://Scenes/level_changer.tscn")
+var portaldoor= preload("res://Assets/portal/portal.tscn")
 
 var stages := [
 	preload("res://Scenes/forest/forest_test_variety.tscn"),

@@ -113,7 +113,7 @@ func process_idle() -> void:
 
 func process_navigation(delta: float) -> void:
 	navigation_time += delta
-
+	
 	if navigation_time > max_navigation_time:
 		perform_ranged_attack()
 		return

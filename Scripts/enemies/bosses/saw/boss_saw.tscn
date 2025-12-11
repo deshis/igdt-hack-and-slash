@@ -33,6 +33,7 @@ attack_range = 3.0
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 target_desired_distance = 3.0
 radius = 1.0
+debug_enabled = true
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 1.25, 0)

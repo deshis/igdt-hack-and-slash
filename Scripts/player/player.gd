@@ -644,11 +644,11 @@ func die() -> void:
 	Engine.time_scale = 1.0
 	game_over.emit()
 	animator.play("Death")
+	$Hurtbox.set_collision_layer_value(10, false)
 	$Hurtbox.monitoring = false
 	$Hurtbox.monitorable = false
 	hit_flash.set_shader_parameter('strength', 0.0)
 	self.set_script(null)
-	self.set_collision_layer_value(9, false) # player hitbox = false
 
 func blink() -> void:
 	var phase := int(Time.get_ticks_msec() / (hit_flash_blink_speed * 1000)) % 2
