@@ -37,7 +37,7 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [sub_resource type="Resource" id="Resource_itrkx"]
 script = ExtResource("1_ohs3p")
 stat_type = 7
-value = 120.0
+value = 35.0
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [sub_resource type="Resource" id="Resource_cebxw"]

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=8 format=3 uid="uid://b0kt67m4j85ry"]
+
+[ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_jibnw"]
+[ext_resource type="Texture2D" uid="uid://bljyvjhec5slt" path="res://Assets/item_icons/Consumer/Slapstick.png" id="2_oe048"]
+[ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_58gbj"]
+[ext_resource type="ArrayMesh" uid="uid://b6sqrafjuknb8" path="res://Assets/player/weapons/stick.res" id="4_wu34p"]
+
+[sub_resource type="Resource" id="Resource_pptsh"]
+script = ExtResource("1_jibnw")
+stat_type = 9
+value = 70.0
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[sub_resource type="Resource" id="Resource_pwjje"]
+script = ExtResource("1_jibnw")
+stat_type = 10
+value = 60.0
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[sub_resource type="Resource" id="Resource_itrkx"]
+script = ExtResource("1_jibnw")
+stat_type = 7
+value = 20.0
+metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
+
+[resource]
+script = ExtResource("3_58gbj")
+item_name = "Slapstick"
+item_description = "Charred branch picked off the ground"
+type = 6
+attack_type = 1
+weapon_type = 2
+weapon_mesh = ExtResource("4_wu34p")
+icon = ExtResource("2_oe048")
+effects = Array[ExtResource("1_jibnw")]([SubResource("Resource_pptsh"), SubResource("Resource_pwjje"), SubResource("Resource_itrkx")])
+metadata/_custom_type_script = "uid://dulvf1v1d8so8"
