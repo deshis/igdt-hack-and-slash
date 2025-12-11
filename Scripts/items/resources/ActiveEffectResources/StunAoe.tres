@@ -6,5 +6,6 @@
 script = ExtResource("1_yal25")
 active_type = 2
 active_effect_value = 2.5
+aoe_radius = 6.0
 active_effect_cooldown = 25.0
 metadata/_custom_type_script = "uid://rwrpa5fevhio"
