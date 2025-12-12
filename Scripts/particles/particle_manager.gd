@@ -17,5 +17,9 @@ func emit_particles(n: String, pos: Vector3, parent: Node = null, duration : flo
 			else:
 				add_child(particle)
 				
-			particle.global_position = pos
+			particle.global_position = Vector3(
+				pos.x,
+				pos.y + 0.3,
+				pos.z
+			)
 			particle.restart()
