@@ -199,6 +199,7 @@ func take_dot_damage(dot: DotResource) -> void:
 			
 	if enemy.health <= 0.0:
 		die(false)
+		
 		return
 		
 	dot_timer.start()
@@ -224,7 +225,8 @@ func _on_dot_tick() -> void:
 			active_dots = null
 			
 		if enemy.health <= 0.0:
-			die(false)
+			die()
+			
 			return
 		
 		dot_timer.start()
@@ -251,7 +253,8 @@ func take_stat_damage(debuff: DebuffResource) -> void:
 	debuff_timer.start()
 			
 	if enemy.health <= 0.0:
-		die(false)
+		die()
+		
 		return
 		
 	debuff_timer.start()
@@ -307,7 +310,7 @@ func _on_debuff_tick() -> void:
 			GameManager.particles.emit_particles("stun", global_position + global_position + Vector3.UP*2.0, self)
 			
 		if enemy.health <= 0.0:
-			die(false)
+			die()
 			return
 		
 		debuff_timer.start()

@@ -62,6 +62,7 @@ shader_parameter/erosion = 1.0
 radius = 1.1
 
 [node name="RangedMagicAttackMage" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("1_r5b78")
 pulse_speed = 5.0
 anticipation_duration = 2.0
