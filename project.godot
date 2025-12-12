@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="igdt hack and slash"
+config/name="Slash in Cytopia"
 run/main_scene="uid://bjkuwvtvadv2j"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://Assets/icon.svg"
