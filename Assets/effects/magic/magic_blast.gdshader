@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded, depth_test_disabled;
+render_mode unshaded;
 
 uniform sampler2D tex : source_color, filter_linear_mipmap;
 uniform vec4 color : source_color;

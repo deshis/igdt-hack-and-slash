@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8ltultvngxjd"]
+[gd_scene load_steps=17 format=3 uid="uid://b8ltultvngxjd"]
 
 [ext_resource type="MeshLibrary" uid="uid://dj0d0nallr0i8" path="res://Scenes/forest/forest_tiles.tres" id="4_75ju8"]
 [ext_resource type="Script" uid="uid://d2y77kkedf6o6" path="res://Scenes/forest/grid_map.gd" id="6_6ihb0"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="7_8rgxd"]
 [ext_resource type="Shader" uid="uid://1rauri1px6gq" path="res://Assets/environment/grass_alternative.gdshader" id="8_8rgxd"]
 [ext_resource type="ArrayMesh" uid="uid://bgleexwkuqems" path="res://Assets/environment/grass.res" id="8_75ju8"]
+[ext_resource type="Script" uid="uid://cqw5n3pgcmai6" path="res://Scripts/enemies/EnemyPrefab.gd" id="8_gr2xc"]
+[ext_resource type="Resource" uid="uid://bm0jberehwd8k" path="res://Scripts/enemies/bosses/saw/SawPrefab.tres" id="9_7g6mh"]
 [ext_resource type="Texture2D" uid="uid://cu5w0ne7m2cet" path="res://Assets/environment/grass.png" id="9_gr2xc"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_gr2xc"]
@@ -52,6 +54,7 @@ frequency = 0.0332
 
 [node name="Grass" type="MultiMeshInstance3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+sorting_offset = -1.0
 material_override = SubResource("ShaderMaterial_gr2xc")
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_8rgxd")
@@ -94,6 +97,7 @@ fov = 45.0
 size = 6.0
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("navigation_region") instance=ExtResource("7_8rgxd")]
+boss_list = Array[ExtResource("8_gr2xc")]([ExtResource("9_7g6mh")])
 navigation_region = NodePath("../Node3D/NavigationRegion3D")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

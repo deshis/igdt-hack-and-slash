@@ -1,9 +1,9 @@
-[gd_scene load_steps=27 format=4 uid="uid://ds20mx1sv2tf7"]
+[gd_scene load_steps=28 format=4 uid="uid://ds20mx1sv2tf7"]
 
 [ext_resource type="Script" uid="uid://dh7hmamc4xop8" path="res://Scripts/enemies/augmented/slasher/aug_slasher.gd" id="1_q8pww"]
 [ext_resource type="PackedScene" uid="uid://bkluuxs7dqdp2" path="res://Scripts/enemies/normal/slasher/attack_slasher.tscn" id="2_robxf"]
 [ext_resource type="Texture2D" uid="uid://d16v0k85pmlw7" path="res://Assets/enemies/slasher/slasher_apollo-1x.png" id="3_yed8l"]
-[ext_resource type="ArrayMesh" uid="uid://diakqbwpn4uyl" path="res://Assets/player/weapons/sword.res" id="4_wf5k7"]
+[ext_resource type="ArrayMesh" path="res://Assets/player/weapons/sword.res" id="4_wf5k7"]
 [ext_resource type="Shader" uid="uid://4hwgr3jdxls" path="res://Assets/effects/slash/slash.gdshader" id="5_ugar0"]
 [ext_resource type="Animation" uid="uid://ec1qucemvnhv" path="res://Assets/enemies/slasher/Attack.res" id="6_j5ass"]
 [ext_resource type="Animation" uid="uid://cucm1wv4yupl1" path="res://Assets/enemies/slasher/Walk.res" id="7_8k6uk"]
@@ -732,34 +732,38 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_latqk"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yed8l"]
+load_path = "res://.godot/imported/energy_slash.png-5ea0a9dfe76c5f813e9669e1b257f8bd.s3tc.ctex"
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k7c8y"]
-noise = SubResource("FastNoiseLite_latqk")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wf5k7"]
 
-[sub_resource type="Gradient" id="Gradient_fitao"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ugar0"]
+noise = SubResource("FastNoiseLite_wf5k7")
+
+[sub_resource type="Gradient" id="Gradient_j5ass"]
 offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5yx7i"]
-gradient = SubResource("Gradient_fitao")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8k6uk"]
+gradient = SubResource("Gradient_j5ass")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g4wcr"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k8q8g"]
 load_path = "res://.godot/imported/energy_slash.png-5ea0a9dfe76c5f813e9669e1b257f8bd.s3tc.ctex"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t8yin"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ormpy"]
 render_priority = 0
 shader = ExtResource("5_ugar0")
-shader_parameter/base_color = Color(0.75568366, 0.3214493, 0.6345751, 0.56078434)
-shader_parameter/highlight_color = Color(0.9405806, 0.75306064, 0.8742846, 1)
-shader_parameter/texture_albedo = SubResource("CompressedTexture2D_g4wcr")
-shader_parameter/erosion_texture = SubResource("NoiseTexture2D_k7c8y")
-shader_parameter/gradient_texture = SubResource("GradientTexture1D_5yx7i")
-shader_parameter/highlight_scale = 1.5650000268375
-shader_parameter/erosion = 0.70000003325
-shader_parameter/fade = 0.05099999892989999
+shader_parameter/base_color = Color(0.5686275, 0.039215688, 0.49411765, 0.79607844)
+shader_parameter/highlight_color = Color(0.8623709, 0.46719813, 0.7425921, 1)
+shader_parameter/base_tex = SubResource("CompressedTexture2D_yed8l")
+shader_parameter/highlight_tex = SubResource("CompressedTexture2D_k8q8g")
+shader_parameter/erosion_texture = SubResource("NoiseTexture2D_ugar0")
+shader_parameter/gradient_texture = SubResource("GradientTexture1D_8k6uk")
+shader_parameter/highlight_scale = 1.126000005985
+shader_parameter/erosion = 0.50000002375
+shader_parameter/fade = 0.050999998929899995
 shader_parameter/uv_scale = Vector2(1, 1)
-shader_parameter/uv_offset = Vector2(0.85, 0)
+shader_parameter/uv_offset = Vector2(0.75, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ffher"]
 
@@ -4720,8 +4724,9 @@ mesh = ExtResource("4_wf5k7")
 skeleton = NodePath("")
 
 [node name="SlashMesh" type="MeshInstance3D" parent="model"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
 visible = false
-material_override = SubResource("ShaderMaterial_t8yin")
+material_override = SubResource("ShaderMaterial_ormpy")
 mesh = SubResource("ArrayMesh_q3286")
 skeleton = NodePath("")
 

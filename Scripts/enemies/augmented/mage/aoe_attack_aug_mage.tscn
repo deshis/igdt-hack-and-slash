@@ -25,7 +25,7 @@ damage_per_level = 0.08
 duration = 0.5
 
 [node name="Circle" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0.79654944, 0)
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 1, 0)
 material_override = SubResource("ShaderMaterial_n2h7i")
 mesh = ExtResource("5_e7mdn")
 

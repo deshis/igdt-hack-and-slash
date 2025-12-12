@@ -1,8 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://dtmntfwnrv3ig"]
 
 [ext_resource type="PackedScene" uid="uid://dpw0yx7k2op5e" path="res://Assets/enemies/slasher/slasher.glb" id="1_2xu6g"]
-[ext_resource type="ArrayMesh" uid="uid://diakqbwpn4uyl" path="res://Assets/player/weapons/sword.res" id="2_7scrd"]
+[ext_resource type="ArrayMesh" path="res://Assets/player/weapons/sword.res" id="2_7scrd"]
 [ext_resource type="Shader" uid="uid://4hwgr3jdxls" path="res://Assets/effects/slash/slash.gdshader" id="2_ptm0w"]
+[ext_resource type="Texture2D" uid="uid://q04o05q62k23" path="res://Assets/effects/slash/energy_slash.png" id="4_k7c8y"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_latqk"]
 
@@ -16,22 +17,20 @@ colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_5yx7i"]
 gradient = SubResource("Gradient_fitao")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g4wcr"]
-load_path = "res://.godot/imported/energy_slash.png-5ea0a9dfe76c5f813e9669e1b257f8bd.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t8yin"]
 render_priority = 0
 shader = ExtResource("2_ptm0w")
-shader_parameter/base_color = Color(0.75568366, 0.3214493, 0.6345751, 0.56078434)
+shader_parameter/base_color = Color(0.75686276, 0.32156864, 0.63529414, 0.7764706)
 shader_parameter/highlight_color = Color(0.9405806, 0.75306064, 0.8742846, 1)
-shader_parameter/texture_albedo = SubResource("CompressedTexture2D_g4wcr")
+shader_parameter/base_tex = ExtResource("4_k7c8y")
+shader_parameter/highlight_tex = ExtResource("4_k7c8y")
 shader_parameter/erosion_texture = SubResource("NoiseTexture2D_k7c8y")
 shader_parameter/gradient_texture = SubResource("GradientTexture1D_5yx7i")
 shader_parameter/highlight_scale = 1.5650000268375
-shader_parameter/erosion = 0.70000003325
-shader_parameter/fade = 0.05099999892989999
+shader_parameter/erosion = 0.50000002375
+shader_parameter/fade = 0.050999998929899995
 shader_parameter/uv_scale = Vector2(1, 1)
-shader_parameter/uv_offset = Vector2(0.85, 0)
+shader_parameter/uv_offset = Vector2(0.75, 0)
 
 [node name="slasher" instance=ExtResource("1_2xu6g")]
 
