@@ -85,6 +85,7 @@ func restart() -> void:
 	
 	starting_difficulty = 0.0
 	InventoryManager.reset_inventory()
+	LootDatabase.reset_loot_database()
 	start_game()
 
 func open_menu() -> void:

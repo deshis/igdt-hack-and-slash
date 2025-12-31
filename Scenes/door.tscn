@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://csup3noua17jp"]
 
 [ext_resource type="Script" uid="uid://d2vt7j61xmm5j" path="res://Scripts/area_load_next.gd" id="1_p0e35"]
-[ext_resource type="PackedScene" uid="uid://hprkdq3l56nq" path="res://Assets/door.glb" id="1_w6aom"]
+[ext_resource type="PackedScene" uid="uid://hprkdq3l56nq" path="res://Assets/portal/door.glb" id="1_w6aom"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w6aom"]
 

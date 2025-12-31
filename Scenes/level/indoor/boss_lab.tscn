@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cmae0knsts5rg" path="res://Scenes/level/indoor/indoor_3d_gen.gd" id="5_difuy"]
 [ext_resource type="Texture2D" uid="uid://dp2qderulb6q" path="res://Assets/apollo-8x.png" id="6_oswjh"]
 [ext_resource type="PackedScene" uid="uid://dk104ll3dehau" path="res://Scenes/level_changer.tscn" id="7_cehh3"]
-[ext_resource type="Script" uid="uid://bshiktda2qqip" path="res://Scripts/camera_follow.gd" id="8_cadgk"]
+[ext_resource type="Script" uid="uid://bshiktda2qqip" path="res://Scripts/player/camera_follow.gd" id="8_cadgk"]
 [ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="9_0bdye"]
 [ext_resource type="PackedScene" uid="uid://dfr3rgsf2qctj" path="res://Scenes/level/indoor/light.tscn" id="10_t17al"]
 

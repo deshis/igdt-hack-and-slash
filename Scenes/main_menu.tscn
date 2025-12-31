@@ -1,14 +1,12 @@
-[gd_scene load_steps=150 format=4 uid="uid://b3psee5bqieh3"]
+[gd_scene load_steps=148 format=4 uid="uid://b3psee5bqieh3"]
 
-[ext_resource type="Script" uid="uid://bjlev0n8eco11" path="res://Scripts/hud/main_menu.gd" id="1_6m47u"]
+[ext_resource type="Script" uid="uid://bjlev0n8eco11" path="res://Scripts/ui/main_menu.gd" id="1_6m47u"]
 [ext_resource type="Texture2D" uid="uid://caaqyxqi3wkkw" path="res://Assets/player/scifi-character_apollo-1x.png" id="1_28flt"]
 [ext_resource type="ArrayMesh" uid="uid://bfwdgkbih5u3y" path="res://Assets/player/weapons/dagger.res" id="3_4nkqq"]
 [ext_resource type="ArrayMesh" uid="uid://brngfcfsbf1cp" path="res://Assets/player/weapons/katana.res" id="4_ehtkc"]
 [ext_resource type="ArrayMesh" uid="uid://c43hvmywfkp1j" path="res://Assets/player/weapons/maul.res" id="5_6dk6o"]
 [ext_resource type="Shader" uid="uid://4hwgr3jdxls" path="res://Assets/effects/slash/slash.gdshader" id="6_jr6u5"]
-[ext_resource type="Texture2D" uid="uid://dg11j431speyx" path="res://Assets/effects/slash/slash_tex.png" id="7_6m47u"]
 [ext_resource type="Texture2D" uid="uid://cwhxuiydsf4bw" path="res://Assets/effects/slash/erosion_tex.png" id="8_84iac"]
-[ext_resource type="Texture2D" uid="uid://q04o05q62k23" path="res://Assets/effects/slash/energy_slash.png" id="9_5n0dv"]
 [ext_resource type="ArrayMesh" uid="uid://dvcni37voduia" path="res://Assets/player/weapons/training_sword.res" id="10_ne6ao"]
 [ext_resource type="Material" uid="uid://dl6k6vdol5kxt" path="res://Assets/effects/impact/impact.tres" id="11_tt8ml"]
 [ext_resource type="Animation" uid="uid://b4it3xebsn8jr" path="res://Assets/player/animations/Heavy_attack_maul.res" id="12_fmarx"]
@@ -19,38 +17,38 @@
 [ext_resource type="Animation" uid="uid://bh8kkq3v0seri" path="res://Assets/player/animations/Light_attack_default.res" id="17_1xund"]
 [ext_resource type="Animation" uid="uid://knb304bgijjg" path="res://Assets/player/animations/Light_attack_sword.res" id="18_msuys"]
 [ext_resource type="Animation" uid="uid://bx28axxgs0hbt" path="res://Assets/player/animations/Run.res" id="19_aylim"]
-[ext_resource type="Texture2D" uid="uid://d16v0k85pmlw7" path="res://Assets/enemies/slasher/slasher_apollo-1x.png" id="20_jr6u5"]
+[ext_resource type="Texture2D" uid="uid://d16v0k85pmlw7" path="res://Assets/enemy/slasher/slasher_apollo-1x.png" id="20_jr6u5"]
 [ext_resource type="Shader" uid="uid://1rauri1px6gq" path="res://Assets/environment/grass_alternative.gdshader" id="20_pavwk"]
 [ext_resource type="Texture2D" uid="uid://cu5w0ne7m2cet" path="res://Assets/environment/grass.png" id="21_4v5qc"]
 [ext_resource type="ArrayMesh" path="res://Assets/player/weapons/sword.res" id="21_6m47u"]
-[ext_resource type="Animation" uid="uid://ec1qucemvnhv" path="res://Assets/enemies/slasher/Attack.res" id="22_84iac"]
+[ext_resource type="Animation" uid="uid://ec1qucemvnhv" path="res://Assets/enemy/slasher/Attack.res" id="22_84iac"]
 [ext_resource type="ArrayMesh" uid="uid://bgleexwkuqems" path="res://Assets/environment/grass.res" id="22_w71i6"]
-[ext_resource type="Animation" uid="uid://cucm1wv4yupl1" path="res://Assets/enemies/slasher/Walk.res" id="23_5n0dv"]
+[ext_resource type="Animation" uid="uid://cucm1wv4yupl1" path="res://Assets/enemy/slasher/Walk.res" id="23_5n0dv"]
 [ext_resource type="MeshLibrary" uid="uid://dj0d0nallr0i8" path="res://Scenes/forest/forest_tiles.tres" id="23_tni0p"]
 [ext_resource type="Script" uid="uid://d2y77kkedf6o6" path="res://Scenes/forest/grid_map.gd" id="24_m8avj"]
-[ext_resource type="Texture2D" uid="uid://bel88ft5t7hnw" path="res://Assets/enemies/microbot/microbot_apollo-1x.png" id="25_6vfk8"]
+[ext_resource type="Texture2D" uid="uid://bel88ft5t7hnw" path="res://Assets/enemy/microbot/microbot_apollo-1x.png" id="25_6vfk8"]
 [ext_resource type="Shader" uid="uid://cv55fdtqonax8" path="res://Assets/effects/impact/impact.gdshader" id="27_msuys"]
 [ext_resource type="Texture2D" uid="uid://c5okhx5774ilm" path="res://Assets/effects/impact/impact_tex.png" id="28_aylim"]
-[ext_resource type="Animation" uid="uid://bjgq8f7475tvv" path="res://Assets/enemies/microbot/animations/Attack.res" id="29_y82t1"]
-[ext_resource type="Animation" uid="uid://srbpgrfrn51r" path="res://Assets/enemies/microbot/animations/Augmented_attack.res" id="30_bmhhk"]
-[ext_resource type="Animation" uid="uid://o4o1inkx7y18" path="res://Assets/enemies/microbot/animations/Idle.res" id="31_pddej"]
-[ext_resource type="Animation" uid="uid://br0rk3ytqpkho" path="res://Assets/enemies/microbot/animations/Stun.res" id="32_ko05x"]
-[ext_resource type="Animation" uid="uid://bf47w0rk2h23r" path="res://Assets/enemies/microbot/animations/Walk.res" id="33_43km2"]
-[ext_resource type="Texture2D" uid="uid://dhvqq1gpt36pr" path="res://Assets/enemies/mage/mage_apollo-1x.png" id="33_bmhhk"]
-[ext_resource type="ArrayMesh" uid="uid://d20gb3onvusch" path="res://Assets/enemies/mage/mage_staff.res" id="34_pddej"]
-[ext_resource type="ArrayMesh" uid="uid://dj3oe35rc5d3o" path="res://Assets/enemies/mage/magic_flare.res" id="35_ko05x"]
-[ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="35_msuys"]
-[ext_resource type="ArrayMesh" uid="uid://c0why2ufjy3n8" path="res://Assets/enemies/mage/mage_augmented_staff.res" id="36_43km2"]
-[ext_resource type="ArrayMesh" uid="uid://4j44jtq5ds0n" path="res://Assets/enemies/mage/magic_circle.res" id="37_3533h"]
-[ext_resource type="Texture2D" uid="uid://bp8oj01cdqnko" path="res://Assets/enemies/claw/claw_apollo-1x.png" id="38_ujm45"]
+[ext_resource type="Animation" uid="uid://bjgq8f7475tvv" path="res://Assets/enemy/microbot/animations/Attack.res" id="29_y82t1"]
+[ext_resource type="Animation" uid="uid://srbpgrfrn51r" path="res://Assets/enemy/microbot/animations/Augmented_attack.res" id="30_bmhhk"]
+[ext_resource type="Animation" uid="uid://o4o1inkx7y18" path="res://Assets/enemy/microbot/animations/Idle.res" id="31_pddej"]
+[ext_resource type="Animation" uid="uid://br0rk3ytqpkho" path="res://Assets/enemy/microbot/animations/Stun.res" id="32_ko05x"]
+[ext_resource type="Animation" uid="uid://bf47w0rk2h23r" path="res://Assets/enemy/microbot/animations/Walk.res" id="33_43km2"]
+[ext_resource type="Texture2D" uid="uid://dhvqq1gpt36pr" path="res://Assets/enemy/mage/mage_apollo-1x.png" id="33_bmhhk"]
+[ext_resource type="ArrayMesh" uid="uid://d20gb3onvusch" path="res://Assets/enemy/mage/mage_staff.res" id="34_pddej"]
+[ext_resource type="ArrayMesh" uid="uid://dj3oe35rc5d3o" path="res://Assets/enemy/mage/magic_flare.res" id="35_ko05x"]
+[ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/ui/button.gd" id="35_msuys"]
+[ext_resource type="ArrayMesh" uid="uid://c0why2ufjy3n8" path="res://Assets/enemy/mage/mage_augmented_staff.res" id="36_43km2"]
+[ext_resource type="ArrayMesh" uid="uid://4j44jtq5ds0n" path="res://Assets/enemy/mage/magic_circle.res" id="37_3533h"]
+[ext_resource type="Texture2D" uid="uid://bp8oj01cdqnko" path="res://Assets/enemy/claw/claw_apollo-1x.png" id="38_ujm45"]
 [ext_resource type="Shader" uid="uid://d0pmvlnhuwgqp" path="res://Assets/effects/spin_trail/spin_trail.gdshader" id="39_aj2v6"]
 [ext_resource type="Texture2D" uid="uid://cy85se48blcs8" path="res://Assets/effects/spin_trail/spin.png" id="40_vj5y7"]
 [ext_resource type="Texture2D" uid="uid://bvo26vh6y7hb6" path="res://Assets/effects/spin_trail/spin_highligh.png" id="41_3l6me"]
-[ext_resource type="Animation" uid="uid://cwqkot5rdivlm" path="res://Assets/enemies/claw/animations/Attack.res" id="42_y17f6"]
-[ext_resource type="Animation" uid="uid://brc3yosvna3yp" path="res://Assets/enemies/claw/animations/Idle.res" id="43_hovqx"]
-[ext_resource type="Animation" uid="uid://dhyy6biddxi7w" path="res://Assets/enemies/claw/animations/SpinAttack.res" id="44_pavwk"]
+[ext_resource type="Animation" uid="uid://cwqkot5rdivlm" path="res://Assets/enemy/claw/animations/Attack.res" id="42_y17f6"]
+[ext_resource type="Animation" uid="uid://brc3yosvna3yp" path="res://Assets/enemy/claw/animations/Idle.res" id="43_hovqx"]
+[ext_resource type="Animation" uid="uid://dhyy6biddxi7w" path="res://Assets/enemy/claw/animations/SpinAttack.res" id="44_pavwk"]
 [ext_resource type="PackedScene" uid="uid://btj605votyjy8" path="res://Scenes/settings_menu.tscn" id="46_aj2v6"]
-[ext_resource type="Script" uid="uid://bcm50amd2bo6l" path="res://Scripts/hud/tutorial_text.gd" id="47_vj5y7"]
+[ext_resource type="Script" uid="uid://bcm50amd2bo6l" path="res://Scripts/ui/tutorial_text.gd" id="47_vj5y7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jr6u5"]
 
@@ -853,7 +851,6 @@ render_priority = 0
 shader = ExtResource("6_jr6u5")
 shader_parameter/base_color = Color(0.42352942, 0.42352942, 0.42352942, 0.89411765)
 shader_parameter/highlight_color = Color(1, 1, 1, 0.7058824)
-shader_parameter/texture_albedo = ExtResource("7_6m47u")
 shader_parameter/erosion_texture = SubResource("NoiseTexture2D_o6yh4")
 shader_parameter/gradient_texture = SubResource("GradientTexture1D_wdh2s")
 shader_parameter/highlight_scale = 1.30000001425
@@ -908,7 +905,6 @@ render_priority = 0
 shader = ExtResource("6_jr6u5")
 shader_parameter/base_color = Color(0.42352942, 0.42352942, 0.42352942, 0.89411765)
 shader_parameter/highlight_color = Color(1, 1, 1, 0.7058824)
-shader_parameter/texture_albedo = ExtResource("9_5n0dv")
 shader_parameter/erosion_texture = ExtResource("8_84iac")
 shader_parameter/gradient_texture = SubResource("GradientTexture1D_740jx")
 shader_parameter/highlight_scale = 1.410000019475
@@ -1774,7 +1770,6 @@ render_priority = 0
 shader = ExtResource("6_jr6u5")
 shader_parameter/base_color = Color(0.75568366, 0.3214493, 0.6345751, 0.56078434)
 shader_parameter/highlight_color = Color(0.9405806, 0.75306064, 0.8742846, 1)
-shader_parameter/texture_albedo = ExtResource("9_5n0dv")
 shader_parameter/erosion_texture = SubResource("NoiseTexture2D_32htn")
 shader_parameter/gradient_texture = SubResource("GradientTexture1D_80a0e")
 shader_parameter/highlight_scale = 1.5650000268375

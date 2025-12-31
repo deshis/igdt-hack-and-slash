@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://btj605votyjy8"]
 
-[ext_resource type="Script" uid="uid://cqkdhw5hj1i28" path="res://Scripts/hud/settings_menu.gd" id="1_fsgis"]
-[ext_resource type="Script" uid="uid://gvan738cxsdf" path="res://Scripts/hud/settings_menu_tab_container.gd" id="1_jjs6x"]
-[ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/hud/volume_slider.gd" id="2_fsgis"]
-[ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/hud/button.gd" id="3_vv31b"]
-[ext_resource type="Script" uid="uid://dq6p024uli4gt" path="res://Scripts/hud/resolution_selection.gd" id="4_hmele"]
-[ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/hud/full_screen_toggle.gd" id="5_n0ctm"]
-[ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/hud/anti_aliasing_selection.gd" id="6_rkth2"]
-[ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/hud/vsync_toggle.gd" id="7_cdah7"]
-[ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/hud/control_remap_button.gd" id="8_ssx55"]
+[ext_resource type="Script" uid="uid://cqkdhw5hj1i28" path="res://Scripts/ui/settings/settings_menu.gd" id="1_fsgis"]
+[ext_resource type="Script" uid="uid://gvan738cxsdf" path="res://Scripts/ui/settings/settings_menu_tab_container.gd" id="1_jjs6x"]
+[ext_resource type="Script" uid="uid://ld2d7mva0ifb" path="res://Scripts/ui/settings/volume_slider.gd" id="2_fsgis"]
+[ext_resource type="Script" uid="uid://dmr6e5sqx26og" path="res://Scripts/ui/button.gd" id="3_vv31b"]
+[ext_resource type="Script" uid="uid://dq6p024uli4gt" path="res://Scripts/ui/settings/resolution_selection.gd" id="4_hmele"]
+[ext_resource type="Script" uid="uid://t88puge8eq6" path="res://Scripts/ui/settings/full_screen_toggle.gd" id="5_n0ctm"]
+[ext_resource type="Script" uid="uid://dxh73gj138c6" path="res://Scripts/ui/settings/anti_aliasing_selection.gd" id="6_rkth2"]
+[ext_resource type="Script" uid="uid://cx5ta3jfi5jxf" path="res://Scripts/ui/settings/vsync_toggle.gd" id="7_cdah7"]
+[ext_resource type="Script" uid="uid://bvr7eycdvq5oh" path="res://Scripts/ui/settings/control_remap_button.gd" id="8_ssx55"]
 
 [node name="SettingsMenu" type="Control"]
 process_mode = 3

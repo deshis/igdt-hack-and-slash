@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=8 format=3 uid="uid://i6qucaqclet7"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_r6i3b"]
-[ext_resource type="Texture2D" uid="uid://4xsnv8i23qo6" path="res://Assets/item_icons/Consumer/ChrometippedSpear.png" id="2_r6i3b"]
+[ext_resource type="Texture2D" uid="uid://4xsnv8i23qo6" path="res://Assets/items/icons/Consumer/ChrometippedSpear.png" id="2_r6i3b"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_lng8r"]
 [ext_resource type="ArrayMesh" uid="uid://ccvgbak7x3nmg" path="res://Assets/player/weapons/spear.res" id="4_r6i3b"]
 

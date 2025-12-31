@@ -742,7 +742,7 @@ func _on_heavy_attack_area_entered(area: Area3D) -> void:
 		rng_debuff_roll = rng.randf_range(0,100)
 		#print("Roll: ",rng_dot_roll)
 		
-		if heavy_debuff_chance >= rng_dot_roll:
+		if heavy_debuff_chance >= rng_debuff_roll:
 			deal_stat_damage(area, secondary_attack_active_debuff)
 
 

@@ -5,7 +5,7 @@
 [ext_resource type="ArrayMesh" uid="uid://bgleexwkuqems" path="res://Assets/environment/grass.res" id="3_7vbef"]
 [ext_resource type="MeshLibrary" uid="uid://be33ucnlf86fx" path="res://Scenes/level/indoor/3d_tiles.tres" id="4_7vbef"]
 [ext_resource type="Script" uid="uid://cmae0knsts5rg" path="res://Scenes/level/indoor/indoor_3d_gen.gd" id="5_7vbef"]
-[ext_resource type="Script" uid="uid://bshiktda2qqip" path="res://Scripts/camera_follow.gd" id="5_ucq2k"]
+[ext_resource type="Script" uid="uid://bshiktda2qqip" path="res://Scripts/player/camera_follow.gd" id="5_ucq2k"]
 [ext_resource type="PackedScene" uid="uid://c1h6pqnhbr5no" path="res://Scenes/enemy/enemy_spawner.tscn" id="6_fewih"]
 [ext_resource type="Texture2D" uid="uid://dp2qderulb6q" path="res://Assets/apollo-8x.png" id="6_rwa4n"]
 [ext_resource type="PackedScene" uid="uid://dk104ll3dehau" path="res://Scenes/level_changer.tscn" id="7_rwa4n"]

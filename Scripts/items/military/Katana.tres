@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=9 format=3 uid="uid://dfg2rydc2s2mc"]
 
 [ext_resource type="Script" uid="uid://dpdusrc1o1nfp" path="res://Scripts/items/resources/Stats.gd" id="1_dg8ad"]
-[ext_resource type="Texture2D" uid="uid://bjq16u511hgxw" path="res://Assets/item_icons/Consumer/Katana.png" id="2_dg8ad"]
+[ext_resource type="Texture2D" uid="uid://bjq16u511hgxw" path="res://Assets/items/icons/Consumer/Katana.png" id="2_dg8ad"]
 [ext_resource type="Script" uid="uid://dulvf1v1d8so8" path="res://Scripts/items/resources/itemResource.gd" id="3_hj6iv"]
 [ext_resource type="ArrayMesh" uid="uid://brngfcfsbf1cp" path="res://Assets/player/weapons/katana.res" id="4_dg8ad"]
 
@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 [sub_resource type="Resource" id="Resource_qep0m"]
 script = ExtResource("1_dg8ad")
 stat_type = 20
-value = 2.0
+value = 10.0
 metadata/_custom_type_script = "uid://dpdusrc1o1nfp"
 
 [resource]

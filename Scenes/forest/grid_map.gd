@@ -27,10 +27,15 @@ func _clear():
 	clear()
 	ground_map.clear()
 	grass.multimesh.instance_count = 0
-	print("clear!")
+	#print("clear!")
 	
 func _generate():
-	clear()
+	_clear()
+	
+	# random offset
+	noise_sharp.offset.x = randf_range(-1000, 1000)
+	noise_sharp.offset.y = randf_range(-1000, 1000)
+	
 	var texture = NoiseTexture2D.new()
 	texture.noise = noise_gradual
 	await texture.changed
@@ -89,11 +94,11 @@ func _generate():
 				self.set_cell_item(loc,1)
 	
 	print_debug(texture.height)
-	print("gridmap done!")
+	#print("gridmap done!")
 	bake_gridmap_navmesh()
-	print("navmesh done!")
+	#print("navmesh done!")
 	_generate_grass()
-	print("grass done!")
+	#print("grass done!")
 	#enemy_spawner.start_spawner()
 
 func bake_gridmap_navmesh():
@@ -125,7 +130,7 @@ func _generate_grass():
 		mm.set_instance_transform(i, grass_positions[i])
 	
 func _enter_tree():
-	pass
+	_generate()
 
 func _ready():
 	#_generate() #This is called the engine even touches the file becaus of the "tool" tag

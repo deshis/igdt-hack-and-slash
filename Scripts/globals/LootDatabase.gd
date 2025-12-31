@@ -16,9 +16,9 @@ var consumer_items := [
 	
 	# DAMAGE
 	preload("res://Scripts/items/consumer/BrokenNeedle.tres"),
-	preload("res://Scripts/items/consumer/TestActiveItem.tres"),
 	
 	# ACTIVE_ITEM
+	preload("res://Scripts/items/consumer/TestActiveItem.tres"),
 	preload("res://Scripts/items/consumer/UsedNeuroblockers.tres"),
 	
 	# PRIMARY_ATTACK
@@ -93,9 +93,9 @@ var prototype_items := [
 	preload("res://Scripts/items/prototype/Statstick.tres"),
 	
 	# SECONDARY_ATTACK
-	preload("res://Scripts/items/prototype/Labrys.tres"),
 	preload("res://Scripts/items/prototype/Dawn.tres"),
-	preload("res://Scripts/items/prototype/Dusk.tres")
+	preload("res://Scripts/items/prototype/Dusk.tres"),
+	preload("res://Scripts/items/prototype/Labrys.tres"),
 ]
 
 var type_colors := {
@@ -199,3 +199,10 @@ func get_items_by_rarity(rarity: ItemType.Grade) -> Array:
 func update_loot_drop_chance(amount: float) -> void:
 	enemy_loot_table.loot_drop_chance += base_enemy_loot_table.loot_drop_chance * amount * 0.01
 	aug_enemy_loot_table.loot_drop_chance += base_aug_enemy_loot_table.loot_drop_chance * amount * 0.01
+
+func reset_loot_database() -> void:
+	upgrade_loot_rarity_chance = 0.0
+	pickup_slot_amount = 3
+	
+	enemy_loot_table.loot_drop_chance = base_enemy_loot_table.loot_drop_chance
+	aug_enemy_loot_table.loot_drop_chance = base_aug_enemy_loot_table.loot_drop_chance

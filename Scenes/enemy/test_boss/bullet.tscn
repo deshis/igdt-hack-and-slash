@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dxgimhqwo41lu"]
 
-[ext_resource type="Script" uid="uid://vaq35qo3tdk3" path="res://Scripts/enemies/test_boss/projectile.gd" id="1_1qejr"]
+[ext_resource type="Script" uid="uid://vaq35qo3tdk3" path="res://Scripts/enemy/test_boss/projectile.gd" id="1_1qejr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ok3pk"]
 

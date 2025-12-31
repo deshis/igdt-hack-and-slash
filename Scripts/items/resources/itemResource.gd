@@ -29,13 +29,13 @@ const STAT_BEHAVIOR := {
 	
 	Stats.Stat.LIGHT_DAMAGE: { DESC: "light damage", PERCENT: true, RELATIVE: true },
 	Stats.Stat.HEAVY_DAMAGE: { DESC: "heavy damage", PERCENT: true, RELATIVE: true },
-	Stats.Stat.LIGHT_SPEED: { DESC: "attack speed", PERCENT: true },
-	Stats.Stat.HEAVY_SPEED: { DESC: "attack speed", PERCENT: true },
+	Stats.Stat.LIGHT_SPEED: { DESC: "light attack speed", PERCENT: true },
+	Stats.Stat.HEAVY_SPEED: { DESC: "heavy attack speed", PERCENT: true },
 	
-	Stats.Stat.LIGHT_SIZE_X: { DESC: "attack width", PERCENT: true, ATTACK_SIZE: true },
-	Stats.Stat.LIGHT_SIZE_Y: { DESC: "attack length", PERCENT: true, ATTACK_SIZE: true },
-	Stats.Stat.HEAVY_SIZE_X: { DESC: "attack width", PERCENT: true, ATTACK_SIZE: true },
-	Stats.Stat.HEAVY_SIZE_Y: { DESC: "attack length", PERCENT: true, ATTACK_SIZE: true },
+	Stats.Stat.LIGHT_SIZE_X: { DESC: "light attack width", PERCENT: true, ATTACK_SIZE: true },
+	Stats.Stat.LIGHT_SIZE_Y: { DESC: "light attack length", PERCENT: true, ATTACK_SIZE: true },
+	Stats.Stat.HEAVY_SIZE_X: { DESC: "heavy attack width", PERCENT: true, ATTACK_SIZE: true },
+	Stats.Stat.HEAVY_SIZE_Y: { DESC: "heavy attack length", PERCENT: true, ATTACK_SIZE: true },
 	
 	Stats.Stat.LIFESTEAL: { DESC: "lifesteal", PERCENT: true },
 	Stats.Stat.DOT_EFFECT: { DOT: true },
